@@ -5,6 +5,11 @@
 > the conformance oracle in CI, certified by the engine's static
 > analysis (exec · tools · cost · permits) BEFORE anything runs.
 > Entries are immutable; withdrawal is an advisory, never a delete.
+>
+> "clean" means no policy violation within the workflow's DECLARED
+> permits — NOT "safe". An unbounded grant (`exec: true` · any-tool `*`)
+> is marked ⚠: the cert cannot see what a permitted exec/tool does, so
+> read the workflow before you run it.
 
 To install an artifact: fetch its pinned bytes from the author's repo
 at the pinned rev, verify sha256 equals the entry digest, run

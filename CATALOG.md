@@ -7,6 +7,11 @@
 
 Certified by `nika 0.95.0` static analysis · re-proven on every PR and nightly.
 
+⚠ = an **unbounded grant** (`exec: true` runs any program · `*` allows any
+tool). The cert proves the effect stays inside the *declared* permits — it
+cannot vet what a permitted exec or tool actually does. ⚠ means *read the
+workflow before you run it*; it is not a verdict of unsafe.
+
 | Artifact | Version | What it does | Exec? | Tools | LLM calls | Cost/run | Cert |
 |---|---|---|---|---|---|---|---|
 | **ceo-monday-brief** | 0.1.0 | news + repo pulse + KPIs → thinking synthesis → dated brief + cost ping | yes ⚠ | nika:convert, nika:date, nika:emit, nika:fetch, nika:inspect, nika:jq, nika:notify, nika:read, nika:write | 1 | unbounded — set `max_tokens` | [cert](certs/supernovae-st/ceo-monday-brief/0.1.0.json) |
@@ -30,6 +35,8 @@ Certified by `nika 0.95.0` static analysis · re-proven on every PR and nightly.
 | **social-repurpose** | 0.1.0 | One post → thread + LinkedIn + newsletter, in parallel | no | nika:read, nika:write | 3 | unbounded — set `max_tokens` | [cert](certs/supernovae-st/social-repurpose/0.1.0.json) |
 | **standup-digest** | 0.1.0 | Read yesterday's commits, write today's standup note | yes ⚠ | nika:date, nika:write | 1 | unbounded — set `max_tokens` | [cert](certs/supernovae-st/standup-digest/0.1.0.json) |
 | **support-triage** | 0.1.0 | Ticket queue → typed triage → urgent escalation → triage board | no | nika:jq, nika:notify, nika:read, nika:uuid, nika:write | 1 | unbounded — set `max_tokens` | [cert](certs/supernovae-st/support-triage/0.1.0.json) |
+
+21 artifacts re-proven · 6 carry an unbounded grant (⚠).
 
 Install: read the entry under `registry/`, fetch the pinned bytes, verify
 the sha256, run `nika check` yourself — the cert is re-derivable, never

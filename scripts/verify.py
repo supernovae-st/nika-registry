@@ -70,6 +70,18 @@ SECRET_PATTERNS = [
 FAILS = []
 
 
+def is_broad_permits(permits_boundary: str) -> bool:
+    """True when a workflow declares an UNBOUNDED grant — `exec: true` (any
+    program) or a `"*"` wildcard tool (any tool). For a broad grant the cert's
+    "here is what it can do" collapses to "anything within this category": the
+    static analysis proves the effect stays inside the DECLARED permits, never
+    that a permitted exec/tool is safe. Every surface that shows a cert marks
+    this ⚠ so "clean" is never read as "safe to run". The single source of the
+    predicate so CATALOG, the badges and the get hand-off cannot disagree."""
+    pb = permits_boundary or ""
+    return "exec: true" in pb or '"*"' in pb
+
+
 def fail(entry, rule, detail):
     FAILS.append((entry, rule, detail))
     print(f"✗ {rule}  {entry}  {detail}")

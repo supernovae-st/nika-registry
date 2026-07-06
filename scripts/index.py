@@ -28,6 +28,9 @@ import pathlib
 import sys
 import tomllib
 
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+from verify import is_broad_permits  # noqa: E402 — one source for the ⚠ predicate
+
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 INDEX_SCHEMA = 1
 
@@ -51,6 +54,10 @@ def build() -> dict:
                 "clean": full["clean"],
                 "llm_calls": full["llm_calls"],
                 "exec": "exec: true" in full["permits_boundary"],
+                # An unbounded grant (exec / any-tool): clean means "fits its
+                # permits", but a broad permit makes that near-vacuous — agents
+                # read this before treating "clean" as "safe".
+                "broad": is_broad_permits(full["permits_boundary"]),
                 "cost_usd_bounded": None if full["cost_usd"]["has_unbounded"] else full["cost_usd"]["bounded_total"],
                 "secret_leaks": len(full["secret_leaks"]),
             }
@@ -95,9 +102,10 @@ def badge(a: dict) -> dict:
     if not c["clean"]:
         return {"schemaVersion": 1, "label": "nika cert", "message": "findings", "color": "orange"}
     cost = "cost unbounded" if c["cost_usd_bounded"] is None else f"≤ ${c['cost_usd_bounded']:.2f}/run"
-    msg = f"clean · {cost}" + (" · exec ⚠" if c["exec"] else "")
+    broad = c.get("broad") or c["exec"]
+    msg = f"clean · {cost}" + (" · exec ⚠" if c["exec"] else "") + (" · any-tool ⚠" if c.get("broad") and not c["exec"] else "")
     return {"schemaVersion": 1, "label": "nika cert", "message": msg,
-            "color": "yellow" if c["exec"] else "brightgreen"}
+            "color": "yellow" if broad else "brightgreen"}
 
 
 def render_llms(doc: dict) -> str:
@@ -109,6 +117,11 @@ def render_llms(doc: dict) -> str:
         "> the conformance oracle in CI, certified by the engine's static",
         "> analysis (exec · tools · cost · permits) BEFORE anything runs.",
         "> Entries are immutable; withdrawal is an advisory, never a delete.",
+        ">",
+        "> \"clean\" means no policy violation within the workflow's DECLARED",
+        "> permits — NOT \"safe\". An unbounded grant (`exec: true` · any-tool `*`)",
+        "> is marked ⚠: the cert cannot see what a permitted exec/tool does, so",
+        "> read the workflow before you run it.",
         "",
         "To install an artifact: fetch its pinned bytes from the author's repo",
         "at the pinned rev, verify sha256 equals the entry digest, run",
@@ -129,10 +142,15 @@ def render_llms(doc: dict) -> str:
     for a in doc["artifacts"]:
         c = a["cert_summary"] or {}
         cost = "unbounded" if not c or c.get("cost_usd_bounded") is None else f"≤${c['cost_usd_bounded']:.2f}"
-        execs = " · exec⚠" if c.get("exec") else ""
+        if c.get("exec"):
+            grant = " · exec⚠"
+        elif c.get("broad"):
+            grant = " · any-tool⚠"
+        else:
+            grant = ""
         lines.append(
             f"- [{a['publisher']}/{a['name']}@{a['version']}]({RAW}/{a['entry']}): "
-            f"{a['description']} (llm={c.get('llm_calls', '?')} · {cost}{execs})"
+            f"{a['description']} (llm={c.get('llm_calls', '?')} · {cost}{grant})"
         )
     lines += [
         "",
@@ -155,10 +173,17 @@ def main() -> int:
         targets[ROOT / "badges" / f"{a['publisher']}--{a['name']}.json"] =             json.dumps(badge(a), indent=2, sort_keys=True) + "\n"
     n = len(doc["artifacts"])
     clean = sum(1 for a in doc["artifacts"] if (a["cert_summary"] or {}).get("clean") and not a["advisories"])
+    broad = sum(1 for a in doc["artifacts"] if (a["cert_summary"] or {}).get("broad"))
+    # "re-proven", not "certified clean": the honest aggregate is that every
+    # entry's hash + oracle + cert was re-derived in CI — NOT that they are
+    # safe. The ⚠ count foregrounds the unbounded-grant entries so the top-line
+    # badge never reads as a blanket safety endorsement (7 exec:true showcases
+    # were being counted "certified clean").
+    msg = f"{n} re-proven" + (f" · {broad} ⚠ broad" if broad else "")
     targets[ROOT / "badges" / "catalog.json"] = json.dumps({
         "schemaVersion": 1, "label": "artifacts",
-        "message": f"{n} · {clean} certified clean",
-        "color": "brightgreen" if clean == n else "yellow",
+        "message": msg,
+        "color": "brightgreen" if clean == n and not broad else "yellow",
     }, indent=2, sort_keys=True) + "\n"
 
     drift = False

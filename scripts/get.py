@@ -34,7 +34,7 @@ import sys
 import tomllib
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
-from verify import MAX_ARTIFACT_BYTES, fetch_source  # noqa: E402 — the same bounded fetch
+from verify import MAX_ARTIFACT_BYTES, fetch_source, is_broad_permits  # noqa: E402 — the same bounded fetch + ⚠ predicate
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 
@@ -113,6 +113,13 @@ def main() -> int:
         cost = "unbounded (set max_tokens)" if c["cost_usd"]["has_unbounded"] else f"≤ ${c['cost_usd']['bounded_total']:.2f}/run"
         execs = "YES ⚠" if "exec: true" in c["permits_boundary"] else "no"
         print(f"  cert    clean={c['clean']} · exec={execs} · llm_calls={c['llm_calls']} · cost {cost}")
+        if is_broad_permits(c["permits_boundary"]):
+            # "clean" is NOT "safe": a broad grant (exec / any-tool) means the
+            # cert proved the effect fits its DECLARED permits, not that the
+            # permitted program or tool is safe. Say it out loud, here, before
+            # the run hand-off — the one place the human decides.
+            print("  ⚠ broad    this workflow declares an unbounded grant (exec / any-tool);")
+            print("             clean means it fits its permits, NOT that it is safe — read it.")
 
     nika = os.environ.get("NIKA_BIN") or shutil.which("nika")
     if nika:

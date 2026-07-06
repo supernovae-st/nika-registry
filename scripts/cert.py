@@ -37,6 +37,9 @@ import sys
 import tomllib
 import urllib.request
 
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+from verify import is_broad_permits  # noqa: E402 — one source for the ⚠ predicate
+
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 # The cert is only comparable if every generator runs the SAME engine.
 ENGINE_VERSION = "0.95.0"
@@ -79,6 +82,10 @@ def engine_cert(nika: str, wf: pathlib.Path) -> dict:
         "secret_egresses": report.get("secret_egresses", []),
         "capability_escapes": report.get("capability_escapes", []),
         "permits_boundary": permits,
+        # A machine-readable flag for agents: does this artifact hold an
+        # unbounded grant (exec / any-tool)? "clean" + "broad" together say
+        # "no policy violation, but the cert cannot vet what the grant does".
+        "broad": is_broad_permits(permits),
     }
 
 
@@ -100,19 +107,27 @@ def render_catalog(rows: list) -> str:
         "",
         f"Certified by `nika {ENGINE_VERSION}` static analysis · re-proven on every PR and nightly.",
         "",
+        "⚠ = an **unbounded grant** (`exec: true` runs any program · `*` allows any",
+        "tool). The cert proves the effect stays inside the *declared* permits — it",
+        "cannot vet what a permitted exec or tool actually does. ⚠ means *read the",
+        "workflow before you run it*; it is not a verdict of unsafe.",
+        "",
         "| Artifact | Version | What it does | Exec? | Tools | LLM calls | Cost/run | Cert |",
         "|---|---|---|---|---|---|---|---|",
     ]
     for r in rows:
         cost = "unbounded — set `max_tokens`" if r["cert"]["cost_usd"]["has_unbounded"] else f"≤ ${r['cert']['cost_usd']['bounded_total']:.2f}"
         exec_flag = "yes ⚠" if "exec: true" in r["cert"]["permits_boundary"] else "no"
-        tools = ", ".join(r["tools"]) if r["tools"] else "—"
+        tools = ", ".join("⚠ any" if t == "*" else t for t in r["tools"]) if r["tools"] else "—"
         lines.append(
             f"| **{r['name']}** | {r['version']} | {r['description']} "
             f"| {exec_flag} | {tools} | {r['cert']['llm_calls']} | {cost} "
             f"| [cert](certs/{r['publisher']}/{r['name']}/{r['version']}.json) |"
         )
+    broad = sum(1 for r in rows if is_broad_permits(r["cert"]["permits_boundary"]))
     lines += [
+        "",
+        f"{len(rows)} artifacts re-proven · {broad} carry an unbounded grant (⚠).",
         "",
         "Install: read the entry under `registry/`, fetch the pinned bytes, verify",
         "the sha256, run `nika check` yourself — the cert is re-derivable, never",

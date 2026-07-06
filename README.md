@@ -86,6 +86,13 @@ Each row links a machine cert under [`certs/`](certs/). No other workflow
 registry can produce this column — and you never have to trust it: the
 cert re-derives locally with `nika check`.
 
+**"clean" is not "safe".** A cert proves the effect stays inside the
+workflow's *declared* permits — it cannot vet what a permitted program or
+tool actually does. An **unbounded grant** (`exec: true` runs any program ·
+a `*` tool allows any tool) is marked **⚠** on every surface; there, "what
+it can do" is effectively "anything in that category", so read the workflow
+before you run it. ⚠ flags a grant to inspect, not a verdict of unsafe.
+
 ## Yanking · advisories
 
 A compromised or broken version is **never deleted** (reproducibility) — it
