@@ -48,6 +48,19 @@ with tempfile.TemporaryDirectory() as d:
             blocked = False  # any other error means we reached git = escaped
         check(f"offline resolver blocks {repo!r}", blocked)
 
+# ── Advisories target one entry, not every same-named artifact ──────────────
+# `endswith("/name")` yanked innocent entries that shared a name across
+# publishers/types; the match must be the exact `<type>s/<publisher>/<name>`.
+import get  # noqa: E402 — importing does not run its CLI
+
+_target = {"type": "workflow", "publisher": "alice", "name": "meeting-actions"}
+_innocent_pub = {"type": "workflow", "publisher": "bob", "name": "meeting-actions"}
+_innocent_type = {"type": "skill", "publisher": "bob", "name": "meeting-actions"}
+_aff = "workflows/alice/meeting-actions"
+check("advisory hits its exact target", get.advisory_affects(_aff, _target))
+check("advisory spares same-name other publisher", not get.advisory_affects(_aff, _innocent_pub))
+check("advisory spares same-name other type", not get.advisory_affects(_aff, _innocent_type))
+
 if FAILED:
     print(f"\nselftest FAILED: {len(FAILED)} check(s)", file=sys.stderr)
     sys.exit(1)
