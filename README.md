@@ -1,5 +1,9 @@
 # nika-registry
 
+[![verify](https://github.com/supernovae-st/nika-registry/actions/workflows/verify.yml/badge.svg)](https://github.com/supernovae-st/nika-registry/actions/workflows/verify.yml)
+[![contract](https://img.shields.io/badge/contract-registry--v0.1-blue)](https://github.com/supernovae-st/nika-spec/blob/main/registry/registry-v0.1.md)
+[![catalog](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fsupernovae-st%2Fnika-registry%2Fmain%2Fbadges%2Fcatalog.json)](CATALOG.md)
+
 **Share Nika artifacts — workflows · packs · skills · agents — where every
 entry is machine-re-proven, not gatekeeper-trusted.**
 

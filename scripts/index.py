@@ -153,6 +153,13 @@ def main() -> int:
                ROOT / "llms.txt": render_llms(doc)}
     for a in doc["artifacts"]:
         targets[ROOT / "badges" / f"{a['publisher']}--{a['name']}.json"] =             json.dumps(badge(a), indent=2, sort_keys=True) + "\n"
+    n = len(doc["artifacts"])
+    clean = sum(1 for a in doc["artifacts"] if (a["cert_summary"] or {}).get("clean") and not a["advisories"])
+    targets[ROOT / "badges" / "catalog.json"] = json.dumps({
+        "schemaVersion": 1, "label": "artifacts",
+        "message": f"{n} · {clean} certified clean",
+        "color": "brightgreen" if clean == n else "yellow",
+    }, indent=2, sort_keys=True) + "\n"
 
     drift = False
     for out, rendered in targets.items():
