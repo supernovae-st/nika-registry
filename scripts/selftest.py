@@ -61,6 +61,11 @@ check("advisory hits its exact target", get.advisory_affects(_aff, _target))
 check("advisory spares same-name other publisher", not get.advisory_affects(_aff, _innocent_pub))
 check("advisory spares same-name other type", not get.advisory_affects(_aff, _innocent_type))
 
+# ── resolve() picks by semver precedence · stable outranks its pre-release ──
+check("semver: 0.2.0 > 0.2.0-rc1", get.version_key("0.2.0") > get.version_key("0.2.0-rc1"))
+check("semver: 0.10.0 > 0.2.0 (numeric, not lexical)", get.version_key("0.10.0") > get.version_key("0.2.0"))
+check("semver: 0.2.0-rc2 > 0.2.0-rc1", get.version_key("0.2.0-rc2") > get.version_key("0.2.0-rc1"))
+
 if FAILED:
     print(f"\nselftest FAILED: {len(FAILED)} check(s)", file=sys.stderr)
     sys.exit(1)

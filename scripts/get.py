@@ -62,8 +62,30 @@ def advisories_for(e) -> list:
     return hits
 
 
+class ResolveError(Exception):
+    """A ref that does not resolve to exactly one artifact."""
+
+
+def version_key(v: str):
+    """A semver-precedence sort key (SemVer §11): the numeric core compared
+    numerically, and a STABLE release ranked above any pre-release of the same
+    core (`0.2.0` > `0.2.0-rc1`). The old key stripped the `-rc1` suffix, so a
+    pre-release tied its stable and the tie-break picked the pre-release."""
+    core, _, pre = v.partition("-")
+    nums = tuple(int(x) for x in core.split("."))
+    if not pre:
+        return (nums, (1,))  # no pre-release outranks every pre-release
+    ids = tuple((0, int(p)) if p.isdigit() else (1, p) for p in pre.split("."))
+    return (nums, (0, ids))
+
+
 def resolve(ref: str):
-    """`name` · `publisher/name` · either `@version` — newest version wins."""
+    """`name` · `publisher/name` · either `@version`. Newest version wins by
+    semver precedence. An unqualified `name` that spans MORE THAN ONE publisher
+    is REFUSED, not silently resolved to the highest-versioned one — otherwise a
+    malicious `evil/foo@9.9.9` would shadow a trusted `alice/foo` (dependency
+    confusion). Qualify as `<publisher>/name` to disambiguate."""
+    orig = ref
     ref, _, want_ver = ref.partition("@")
     want_pub, _, want_name = ref.rpartition("/")
     matches = [
@@ -73,8 +95,13 @@ def resolve(ref: str):
         and (not want_ver or e["version"] == want_ver)
     ]
     if not matches:
-        return None
-    return max(matches, key=lambda m: tuple(int(x) for x in m[1]["version"].split("-")[0].split(".")))
+        raise ResolveError(f"no entry matches {orig!r} — try --list")
+    if not want_pub:
+        pubs = sorted({e["publisher"] for _, e in matches})
+        if len(pubs) > 1:
+            raise ResolveError(f"'{want_name}' is published by {pubs} — qualify as "
+                               f"<publisher>/{want_name} (an ambiguous name is refused)")
+    return max(matches, key=lambda m: version_key(m[1]["version"]))
 
 
 def main() -> int:
@@ -84,11 +111,11 @@ def main() -> int:
             print(f"{e['publisher']}/{e['name']}@{e['version']}  ·  {e['description']}")
         return 0
 
-    got = resolve(args[0])
-    if not got:
-        print(f"get.py: no entry matches {args[0]!r} — try --list", file=sys.stderr)
+    try:
+        entry_path, e = resolve(args[0])
+    except ResolveError as ex:
+        print(f"get.py: {ex}", file=sys.stderr)
         return 1
-    entry_path, e = got
     src = e["source"]
     print(f"→ {e['publisher']}/{e['name']}@{e['version']}")
     print(f"  source  {src['repo']} @ {src['rev'][:12]} · {src['path']}")
