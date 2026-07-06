@@ -1,0 +1,19 @@
+{
+  "certificate": {
+    "capability_escapes": [],
+    "clean": true,
+    "cost_usd": {
+      "bounded_total": 0.0,
+      "has_unbounded": true
+    },
+    "effect_calls": 9,
+    "llm_calls": 1,
+    "permits_boundary": "permits:\n  exec: false\n  tools: [\"nika:emit\", \"nika:fetch\", \"nika:hash\", \"nika:json_diff\", \"nika:json_merge_patch\", \"nika:notify\", \"nika:read\"]\n\n# review \u2014 effects too dynamic to pin statically:\n#   \u00b7 task `live` reaches a dynamic URL \u2014 `net.http` cannot express 'any host'; add the resolved host(s) before running\n#   \u00b7 task `baseline` uses a dynamic path \u2014 `fs` cannot express 'any path'; add the resolved path(s) before running\n#   \u00b7 task `alert` reaches a dynamic URL \u2014 `net.http` cannot express 'any host'; add the resolved host(s) before running",
+    "secret_egresses": [],
+    "secret_leaks": []
+  },
+  "engine": "0.95.0",
+  "entry": "registry/workflows/supernovae-st/config-drift-sentinel/0.1.0.toml",
+  "schema": 1,
+  "sha256": "4ff794ef22218127af67ce4db7016d9e515c61f6c57e4e60a4e5f777b790c70b"
+}

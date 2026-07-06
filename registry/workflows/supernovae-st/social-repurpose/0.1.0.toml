@@ -4,20 +4,20 @@
 # Re-generate: python3 scripts/project_pack.py --write
 schema = 1
 type = "workflow"
-name = "competitor-radar"
+name = "social-repurpose"
 publisher = "supernovae-st"
 version = "0.1.0"
-description = "Sitemap → parallel page reads → one competitive brief + ping"
+description = "One post → thread + LinkedIn + newsletter, in parallel"
 license = "Apache-2.0"
 spec = "nika/v1"
 
 [source]
 repo = "supernovae-st/nika-spec"
 rev = "7cf09dad13321178c63d8f284e69401ff7994c09"
-path = "examples/showcase/t3-competitor-radar.nika.yaml"
+path = "examples/showcase/t1-social-repurpose.nika.yaml"
 
 [integrity]
-sha256 = "ad667482ab2ccd29a515a058fc5e5fd07d240e199d2f8998452a97e4b1740687"
+sha256 = "650010a029734538b6bf4b50abf507870b091464c8e000346d3f016e2ae37bb7"
 
 [cert]
 oracle = "nika-spec conformance/runner.py @ 7cf09dad1"

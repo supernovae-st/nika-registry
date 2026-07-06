@@ -1,0 +1,19 @@
+{
+  "certificate": {
+    "capability_escapes": [],
+    "clean": true,
+    "cost_usd": {
+      "bounded_total": 0.0,
+      "has_unbounded": false
+    },
+    "effect_calls": 19,
+    "llm_calls": 0,
+    "permits_boundary": "permits:\n  net: { http: [\"api.example.com\"] }\n  exec: true\n  tools: [\"nika:assert\", \"nika:date\", \"nika:emit\", \"nika:fetch\", \"nika:notify\", \"nika:prompt\", \"nika:wait\"]\n\n# review \u2014 effects too dynamic to pin statically:\n#   \u00b7 task `tests` uses the shell-string exec form \u2014 a program allowlist applies only to the array form; `exec` widened to `true` (rewrite to the array form for a tighter permit)\n#   \u00b7 task `lint` uses the shell-string exec form \u2014 a program allowlist applies only to the array form; `exec` widened to `true` (rewrite to the array form for a tighter permit)\n#   \u00b7 task `audit` uses the shell-string exec form \u2014 a program allowlist applies only to the array form; `exec` widened to `true` (rewrite to the array form for a tighter permit)\n#   \u00b7 task `ship` uses the shell-string exec form \u2014 a program allowlist applies only to the array form; `exec` widened to `true` (rewrite to the array form for a tighter permit)\n#   \u00b7 task `record (on_finally)` reaches a dynamic URL \u2014 `net.http` cannot express 'any host'; add the resolved host(s) before running",
+    "secret_egresses": [],
+    "secret_leaks": []
+  },
+  "engine": "0.95.0",
+  "entry": "registry/workflows/supernovae-st/release-train/0.1.0.toml",
+  "schema": 1,
+  "sha256": "a5459f93a81638bdd85e06ccb2aca78deb43851eb271023c23593f81d2632234"
+}

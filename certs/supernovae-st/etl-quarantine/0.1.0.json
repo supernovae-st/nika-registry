@@ -1,0 +1,19 @@
+{
+  "certificate": {
+    "capability_escapes": [],
+    "clean": true,
+    "cost_usd": {
+      "bounded_total": 0.0,
+      "has_unbounded": false
+    },
+    "effect_calls": 7,
+    "llm_calls": 0,
+    "permits_boundary": "permits:\n  fs:\n    write: [\"./data/quarantine/orders-rejected.json\", \"./data/reports/daily-totals.json\"]\n  exec: false\n  tools: [\"nika:convert\", \"nika:jq\", \"nika:read\", \"nika:validate\", \"nika:write\"]\n\n# review \u2014 effects too dynamic to pin statically:\n#   \u00b7 task `raw` uses a dynamic path \u2014 `fs` cannot express 'any path'; add the resolved path(s) before running",
+    "secret_egresses": [],
+    "secret_leaks": []
+  },
+  "engine": "0.95.0",
+  "entry": "registry/workflows/supernovae-st/etl-quarantine/0.1.0.toml",
+  "schema": 1,
+  "sha256": "2055bde01b78b2b7d452f8e0471f2b8cacf8ab3437496f07a80b46056c83a314"
+}

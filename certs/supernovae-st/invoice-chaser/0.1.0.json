@@ -1,0 +1,19 @@
+{
+  "certificate": {
+    "capability_escapes": [],
+    "clean": true,
+    "cost_usd": {
+      "bounded_total": 0.0,
+      "has_unbounded": true
+    },
+    "effect_calls": 5,
+    "llm_calls": 1,
+    "permits_boundary": "permits:\n  fs:\n    write: [\"./finance/reminders-to-send.md\"]\n  exec: false\n  tools: [\"nika:convert\", \"nika:jq\", \"nika:prompt\", \"nika:read\", \"nika:write\"]\n\n# review \u2014 effects too dynamic to pin statically:\n#   \u00b7 task `ledger` uses a dynamic path \u2014 `fs` cannot express 'any path'; add the resolved path(s) before running",
+    "secret_egresses": [],
+    "secret_leaks": []
+  },
+  "engine": "0.95.0",
+  "entry": "registry/workflows/supernovae-st/invoice-chaser/0.1.0.toml",
+  "schema": 1,
+  "sha256": "a654983f6ce9f09db002073ad722d524f7c3466f016307ec2cb8f1674bd7d62f"
+}

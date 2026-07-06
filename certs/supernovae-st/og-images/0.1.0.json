@@ -1,0 +1,19 @@
+{
+  "certificate": {
+    "capability_escapes": [],
+    "clean": true,
+    "cost_usd": {
+      "bounded_total": 0.0,
+      "has_unbounded": false
+    },
+    "effect_calls": 1,
+    "llm_calls": 0,
+    "permits_boundary": "permits:\n  fs:\n    write: [\"./assets/og/**\"]\n  exec: false\n  tools: [\"nika:image_generate\"]",
+    "secret_egresses": [],
+    "secret_leaks": []
+  },
+  "engine": "0.95.0",
+  "entry": "registry/workflows/supernovae-st/og-images/0.1.0.toml",
+  "schema": 1,
+  "sha256": "e2d91cb92fceb9b628b2d4879e392400c80b90e53ff976e233d00ad61e9d3a25"
+}

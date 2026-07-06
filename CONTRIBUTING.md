@@ -11,6 +11,11 @@ attack class, and no oracle catches intent).
 - commit an artifact copy here (the registry stores pointers + proofs)
 - share a workflow with real endpoints/keys — parameterize via `vars:`
 
+**First-party entries** (`supernovae-st/*`) are generated from the spec
+pack by `scripts/project_pack.py` — do not hand-edit them; add the
+showcase to nika-spec instead. This only applies to our own namespace;
+your entries under `<your-owner>/` are yours to author.
+
 **Withdrawal**: PR an advisory (see `advisories/README.md`).
 
 ## Signatures (reserved · v0.2)

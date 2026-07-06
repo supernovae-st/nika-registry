@@ -10,7 +10,7 @@
         "llm_calls": 1,
         "secret_leaks": 0
       },
-      "description": "Compose a Monday operating brief from the week's signals.",
+      "description": "news + repo pulse + KPIs \u2192 thinking synthesis \u2192 dated brief + cost ping",
       "entry": "registry/workflows/supernovae-st/ceo-monday-brief/0.1.0.toml",
       "license": "Apache-2.0",
       "name": "ceo-monday-brief",
@@ -18,31 +18,6 @@
       "sha256": "a8626e6d6050f7297d209e4d12f2e20d61b8e48ac765e3e1f10b5e19916e4316",
       "source": {
         "path": "examples/showcase/t4-ceo-monday-brief.nika.yaml",
-        "repo": "supernovae-st/nika-spec",
-        "rev": "7cf09dad13321178c63d8f284e69401ff7994c09"
-      },
-      "spec": "nika/v1",
-      "type": "workflow",
-      "version": "0.1.0"
-    },
-    {
-      "advisories": [],
-      "cert": "certs/supernovae-st/code-review/0.1.0.json",
-      "cert_summary": {
-        "clean": true,
-        "cost_usd_bounded": 0.6,
-        "exec": false,
-        "llm_calls": 20,
-        "secret_leaks": 0
-      },
-      "description": "Read a diff, judge its risk with a structured verdict.",
-      "entry": "registry/workflows/supernovae-st/code-review/0.1.0.toml",
-      "license": "Apache-2.0",
-      "name": "code-review",
-      "publisher": "supernovae-st",
-      "sha256": "e3f5b6daa4e11f8c0db4c8edb099839eb27eaddbb4161db996bcb5959924751f",
-      "source": {
-        "path": "examples/23-code-review.nika.yaml",
         "repo": "supernovae-st/nika-spec",
         "rev": "7cf09dad13321178c63d8f284e69401ff7994c09"
       },
@@ -60,7 +35,7 @@
         "llm_calls": 1,
         "secret_leaks": 0
       },
-      "description": "Weekly competitor sweep with cited findings.",
+      "description": "Sitemap \u2192 parallel page reads \u2192 one competitive brief + ping",
       "entry": "registry/workflows/supernovae-st/competitor-radar/0.1.0.toml",
       "license": "Apache-2.0",
       "name": "competitor-radar",
@@ -68,6 +43,181 @@
       "sha256": "ad667482ab2ccd29a515a058fc5e5fd07d240e199d2f8998452a97e4b1740687",
       "source": {
         "path": "examples/showcase/t3-competitor-radar.nika.yaml",
+        "repo": "supernovae-st/nika-spec",
+        "rev": "7cf09dad13321178c63d8f284e69401ff7994c09"
+      },
+      "spec": "nika/v1",
+      "type": "workflow",
+      "version": "0.1.0"
+    },
+    {
+      "advisories": [],
+      "cert": "certs/supernovae-st/config-drift-sentinel/0.1.0.json",
+      "cert_summary": {
+        "clean": true,
+        "cost_usd_bounded": null,
+        "exec": false,
+        "llm_calls": 1,
+        "secret_leaks": 0
+      },
+      "description": "live config vs sanctioned baseline \u2192 typed drift \u2192 explained alert",
+      "entry": "registry/workflows/supernovae-st/config-drift-sentinel/0.1.0.toml",
+      "license": "Apache-2.0",
+      "name": "config-drift-sentinel",
+      "publisher": "supernovae-st",
+      "sha256": "4ff794ef22218127af67ce4db7016d9e515c61f6c57e4e60a4e5f777b790c70b",
+      "source": {
+        "path": "examples/showcase/t3-config-drift-sentinel.nika.yaml",
+        "repo": "supernovae-st/nika-spec",
+        "rev": "7cf09dad13321178c63d8f284e69401ff7994c09"
+      },
+      "spec": "nika/v1",
+      "type": "workflow",
+      "version": "0.1.0"
+    },
+    {
+      "advisories": [],
+      "cert": "certs/supernovae-st/contract-guard/0.1.0.json",
+      "cert_summary": {
+        "clean": true,
+        "cost_usd_bounded": null,
+        "exec": false,
+        "llm_calls": 2,
+        "secret_leaks": 0
+      },
+      "description": "Local-model clause extraction \u2192 schema gate \u2192 risk memo",
+      "entry": "registry/workflows/supernovae-st/contract-guard/0.1.0.toml",
+      "license": "Apache-2.0",
+      "name": "contract-guard",
+      "publisher": "supernovae-st",
+      "sha256": "0f85171b28a9beef41a9b633bc93da6f904810a4631ca5d8a1389a898ac1b4b4",
+      "source": {
+        "path": "examples/showcase/t2-contract-guard.nika.yaml",
+        "repo": "supernovae-st/nika-spec",
+        "rev": "7cf09dad13321178c63d8f284e69401ff7994c09"
+      },
+      "spec": "nika/v1",
+      "type": "workflow",
+      "version": "0.1.0"
+    },
+    {
+      "advisories": [],
+      "cert": "certs/supernovae-st/deep-research-brief/0.1.0.json",
+      "cert_summary": {
+        "clean": true,
+        "cost_usd_bounded": null,
+        "exec": false,
+        "llm_calls": 27,
+        "secret_leaks": 0
+      },
+      "description": "plan \u2192 budgeted research agent \u2192 thinking synthesis \u2192 brief on disk",
+      "entry": "registry/workflows/supernovae-st/deep-research-brief/0.1.0.toml",
+      "license": "Apache-2.0",
+      "name": "deep-research-brief",
+      "publisher": "supernovae-st",
+      "sha256": "950c2965d74beea48ef8bace61f03e0628b177f686657a5b5a6788ce7ba27ae5",
+      "source": {
+        "path": "examples/showcase/t4-deep-research-brief.nika.yaml",
+        "repo": "supernovae-st/nika-spec",
+        "rev": "7cf09dad13321178c63d8f284e69401ff7994c09"
+      },
+      "spec": "nika/v1",
+      "type": "workflow",
+      "version": "0.1.0"
+    },
+    {
+      "advisories": [],
+      "cert": "certs/supernovae-st/etl-quarantine/0.1.0.json",
+      "cert_summary": {
+        "clean": true,
+        "cost_usd_bounded": 0.0,
+        "exec": false,
+        "llm_calls": 0,
+        "secret_leaks": 0
+      },
+      "description": "CSV batch \u2192 schema gate \u2192 quarantine the bad \u00b7 aggregate the good",
+      "entry": "registry/workflows/supernovae-st/etl-quarantine/0.1.0.toml",
+      "license": "Apache-2.0",
+      "name": "etl-quarantine",
+      "publisher": "supernovae-st",
+      "sha256": "2055bde01b78b2b7d452f8e0471f2b8cacf8ab3437496f07a80b46056c83a314",
+      "source": {
+        "path": "examples/showcase/t2-etl-quarantine.nika.yaml",
+        "repo": "supernovae-st/nika-spec",
+        "rev": "7cf09dad13321178c63d8f284e69401ff7994c09"
+      },
+      "spec": "nika/v1",
+      "type": "workflow",
+      "version": "0.1.0"
+    },
+    {
+      "advisories": [],
+      "cert": "certs/supernovae-st/incident-war-room/0.1.0.json",
+      "cert_summary": {
+        "clean": true,
+        "cost_usd_bounded": null,
+        "exec": true,
+        "llm_calls": 2,
+        "secret_leaks": 0
+      },
+      "description": "parallel evidence \u2192 typed timeline \u2192 settle + recheck \u2192 postmortem draft",
+      "entry": "registry/workflows/supernovae-st/incident-war-room/0.1.0.toml",
+      "license": "Apache-2.0",
+      "name": "incident-war-room",
+      "publisher": "supernovae-st",
+      "sha256": "0a5a56005e9cd8f427b392813dab4cdc2cd52c28ce4597c587daeafb986b39dd",
+      "source": {
+        "path": "examples/showcase/t4-incident-war-room.nika.yaml",
+        "repo": "supernovae-st/nika-spec",
+        "rev": "7cf09dad13321178c63d8f284e69401ff7994c09"
+      },
+      "spec": "nika/v1",
+      "type": "workflow",
+      "version": "0.1.0"
+    },
+    {
+      "advisories": [],
+      "cert": "certs/supernovae-st/invoice-chaser/0.1.0.json",
+      "cert_summary": {
+        "clean": true,
+        "cost_usd_bounded": null,
+        "exec": false,
+        "llm_calls": 1,
+        "secret_leaks": 0
+      },
+      "description": "Ledger CSV \u2192 overdue filter \u2192 drafted reminders \u2192 human gate \u2192 drafts file",
+      "entry": "registry/workflows/supernovae-st/invoice-chaser/0.1.0.toml",
+      "license": "Apache-2.0",
+      "name": "invoice-chaser",
+      "publisher": "supernovae-st",
+      "sha256": "a654983f6ce9f09db002073ad722d524f7c3466f016307ec2cb8f1674bd7d62f",
+      "source": {
+        "path": "examples/showcase/t2-invoice-chaser.nika.yaml",
+        "repo": "supernovae-st/nika-spec",
+        "rev": "7cf09dad13321178c63d8f284e69401ff7994c09"
+      },
+      "spec": "nika/v1",
+      "type": "workflow",
+      "version": "0.1.0"
+    },
+    {
+      "advisories": [],
+      "cert": "certs/supernovae-st/localization-factory/0.1.0.json",
+      "cert_summary": {
+        "clean": true,
+        "cost_usd_bounded": null,
+        "exec": false,
+        "llm_calls": 0,
+        "secret_leaks": 0
+      },
+      "description": "glob docs \u2192 parallel read \u2192 parallel translate \u2192 mirror tree",
+      "entry": "registry/workflows/supernovae-st/localization-factory/0.1.0.toml",
+      "license": "Apache-2.0",
+      "name": "localization-factory",
+      "publisher": "supernovae-st",
+      "sha256": "2a08743904e45eef8b031b00f5b71fefedffb9c3d7a2356e1b2502fdb988ba60",
+      "source": {
+        "path": "examples/showcase/t3-localization-factory.nika.yaml",
         "repo": "supernovae-st/nika-spec",
         "rev": "7cf09dad13321178c63d8f284e69401ff7994c09"
       },
@@ -85,7 +235,7 @@
         "llm_calls": 1,
         "secret_leaks": 0
       },
-      "description": "Transcript to typed action items {owner, task, due}.",
+      "description": "Transcript \u2192 typed action items {owner, task, due}",
       "entry": "registry/workflows/supernovae-st/meeting-actions/0.1.0.toml",
       "license": "Apache-2.0",
       "name": "meeting-actions",
@@ -93,6 +243,56 @@
       "sha256": "3585a23c58166c1f8e6dc759c4b941804f74b8cdb6b4431632cc66d6b600ed7b",
       "source": {
         "path": "examples/showcase/t1-meeting-actions.nika.yaml",
+        "repo": "supernovae-st/nika-spec",
+        "rev": "7cf09dad13321178c63d8f284e69401ff7994c09"
+      },
+      "spec": "nika/v1",
+      "type": "workflow",
+      "version": "0.1.0"
+    },
+    {
+      "advisories": [],
+      "cert": "certs/supernovae-st/og-images/0.1.0.json",
+      "cert_summary": {
+        "clean": true,
+        "cost_usd_bounded": 0.0,
+        "exec": false,
+        "llm_calls": 0,
+        "secret_leaks": 0
+      },
+      "description": "Generate the launch OG hero image set into ./assets/og",
+      "entry": "registry/workflows/supernovae-st/og-images/0.1.0.toml",
+      "license": "Apache-2.0",
+      "name": "og-images",
+      "publisher": "supernovae-st",
+      "sha256": "e2d91cb92fceb9b628b2d4879e392400c80b90e53ff976e233d00ad61e9d3a25",
+      "source": {
+        "path": "examples/showcase/t1-og-images.nika.yaml",
+        "repo": "supernovae-st/nika-spec",
+        "rev": "7cf09dad13321178c63d8f284e69401ff7994c09"
+      },
+      "spec": "nika/v1",
+      "type": "workflow",
+      "version": "0.1.0"
+    },
+    {
+      "advisories": [],
+      "cert": "certs/supernovae-st/pr-review-fanout/0.1.0.json",
+      "cert_summary": {
+        "clean": true,
+        "cost_usd_bounded": null,
+        "exec": true,
+        "llm_calls": 1,
+        "secret_leaks": 0
+      },
+      "description": "changed files \u2192 one read-only review agent each \u2192 merged REVIEW.md",
+      "entry": "registry/workflows/supernovae-st/pr-review-fanout/0.1.0.toml",
+      "license": "Apache-2.0",
+      "name": "pr-review-fanout",
+      "publisher": "supernovae-st",
+      "sha256": "3db1f127361a2eeb680a45410a9da6e8f5254c92c5869a1ebdc59cdbdcb3e19d",
+      "source": {
+        "path": "examples/showcase/t3-pr-review-fanout.nika.yaml",
         "repo": "supernovae-st/nika-spec",
         "rev": "7cf09dad13321178c63d8f284e69401ff7994c09"
       },
@@ -110,7 +310,7 @@
         "llm_calls": 0,
         "secret_leaks": 0
       },
-      "description": "Watch a product page and alert on price movement.",
+      "description": "Watch a product price, ping me when it drops below my target",
       "entry": "registry/workflows/supernovae-st/price-watch/0.1.0.toml",
       "license": "Apache-2.0",
       "name": "price-watch",
@@ -135,7 +335,7 @@
         "llm_calls": 1,
         "secret_leaks": 0
       },
-      "description": "Draft release notes from the commit log.",
+      "description": "git log \u2192 typed release notes \u2192 CHANGELOG insert \u2192 team ping",
       "entry": "registry/workflows/supernovae-st/release-notes/0.1.0.toml",
       "license": "Apache-2.0",
       "name": "release-notes",
@@ -143,6 +343,156 @@
       "sha256": "bb714b8321663c190481b113a4353732d4ea1a3be34e8cb6889a61a7382db7d2",
       "source": {
         "path": "examples/showcase/t2-release-notes.nika.yaml",
+        "repo": "supernovae-st/nika-spec",
+        "rev": "7cf09dad13321178c63d8f284e69401ff7994c09"
+      },
+      "spec": "nika/v1",
+      "type": "workflow",
+      "version": "0.1.0"
+    },
+    {
+      "advisories": [],
+      "cert": "certs/supernovae-st/release-radar/0.1.0.json",
+      "cert_summary": {
+        "clean": true,
+        "cost_usd_bounded": null,
+        "exec": false,
+        "llm_calls": 1,
+        "secret_leaks": 0
+      },
+      "description": "dependency release feed \u2192 diff vs last run \u2192 only the NEW ships",
+      "entry": "registry/workflows/supernovae-st/release-radar/0.1.0.toml",
+      "license": "Apache-2.0",
+      "name": "release-radar",
+      "publisher": "supernovae-st",
+      "sha256": "387e60fef60f1356d355bb924fdf19eea401b83bdb093589b02ee79ac9e07124",
+      "source": {
+        "path": "examples/showcase/t2-release-radar.nika.yaml",
+        "repo": "supernovae-st/nika-spec",
+        "rev": "7cf09dad13321178c63d8f284e69401ff7994c09"
+      },
+      "spec": "nika/v1",
+      "type": "workflow",
+      "version": "0.1.0"
+    },
+    {
+      "advisories": [],
+      "cert": "certs/supernovae-st/release-train/0.1.0.json",
+      "cert_summary": {
+        "clean": true,
+        "cost_usd_bounded": 0.0,
+        "exec": true,
+        "llm_calls": 0,
+        "secret_leaks": 0
+      },
+      "description": "parallel gates \u2192 human GO \u2192 hold until the window \u2192 ship \u00b7 verify \u00b7 record",
+      "entry": "registry/workflows/supernovae-st/release-train/0.1.0.toml",
+      "license": "Apache-2.0",
+      "name": "release-train",
+      "publisher": "supernovae-st",
+      "sha256": "a5459f93a81638bdd85e06ccb2aca78deb43851eb271023c23593f81d2632234",
+      "source": {
+        "path": "examples/showcase/t4-release-train.nika.yaml",
+        "repo": "supernovae-st/nika-spec",
+        "rev": "7cf09dad13321178c63d8f284e69401ff7994c09"
+      },
+      "spec": "nika/v1",
+      "type": "workflow",
+      "version": "0.1.0"
+    },
+    {
+      "advisories": [],
+      "cert": "certs/supernovae-st/resume-screener/0.1.0.json",
+      "cert_summary": {
+        "clean": true,
+        "cost_usd_bounded": null,
+        "exec": false,
+        "llm_calls": 1,
+        "secret_leaks": 0
+      },
+      "description": "glob CVs \u2192 local-model rubric per candidate \u2192 deterministic shortlist",
+      "entry": "registry/workflows/supernovae-st/resume-screener/0.1.0.toml",
+      "license": "Apache-2.0",
+      "name": "resume-screener",
+      "publisher": "supernovae-st",
+      "sha256": "747d5ee1d6f36f1f331e35f6333ebbfd66ef63199502d00f5e49fdce05b7da82",
+      "source": {
+        "path": "examples/showcase/t3-resume-screener.nika.yaml",
+        "repo": "supernovae-st/nika-spec",
+        "rev": "7cf09dad13321178c63d8f284e69401ff7994c09"
+      },
+      "spec": "nika/v1",
+      "type": "workflow",
+      "version": "0.1.0"
+    },
+    {
+      "advisories": [],
+      "cert": "certs/supernovae-st/seo-content-brief/0.1.0.json",
+      "cert_summary": {
+        "clean": true,
+        "cost_usd_bounded": null,
+        "exec": false,
+        "llm_calls": 1,
+        "secret_leaks": 0
+      },
+      "description": "Competitor sitemap \u2192 top page \u2192 gap analysis \u2192 typed brief",
+      "entry": "registry/workflows/supernovae-st/seo-content-brief/0.1.0.toml",
+      "license": "Apache-2.0",
+      "name": "seo-content-brief",
+      "publisher": "supernovae-st",
+      "sha256": "c12e59917896474670899df5f2ddcf82c3de8115c8ebc87d95efa298288dd16a",
+      "source": {
+        "path": "examples/showcase/t2-seo-content-brief.nika.yaml",
+        "repo": "supernovae-st/nika-spec",
+        "rev": "7cf09dad13321178c63d8f284e69401ff7994c09"
+      },
+      "spec": "nika/v1",
+      "type": "workflow",
+      "version": "0.1.0"
+    },
+    {
+      "advisories": [],
+      "cert": "certs/supernovae-st/social-repurpose/0.1.0.json",
+      "cert_summary": {
+        "clean": true,
+        "cost_usd_bounded": null,
+        "exec": false,
+        "llm_calls": 3,
+        "secret_leaks": 0
+      },
+      "description": "One post \u2192 thread + LinkedIn + newsletter, in parallel",
+      "entry": "registry/workflows/supernovae-st/social-repurpose/0.1.0.toml",
+      "license": "Apache-2.0",
+      "name": "social-repurpose",
+      "publisher": "supernovae-st",
+      "sha256": "650010a029734538b6bf4b50abf507870b091464c8e000346d3f016e2ae37bb7",
+      "source": {
+        "path": "examples/showcase/t1-social-repurpose.nika.yaml",
+        "repo": "supernovae-st/nika-spec",
+        "rev": "7cf09dad13321178c63d8f284e69401ff7994c09"
+      },
+      "spec": "nika/v1",
+      "type": "workflow",
+      "version": "0.1.0"
+    },
+    {
+      "advisories": [],
+      "cert": "certs/supernovae-st/standup-digest/0.1.0.json",
+      "cert_summary": {
+        "clean": true,
+        "cost_usd_bounded": null,
+        "exec": true,
+        "llm_calls": 1,
+        "secret_leaks": 0
+      },
+      "description": "Read yesterday's commits, write today's standup note",
+      "entry": "registry/workflows/supernovae-st/standup-digest/0.1.0.toml",
+      "license": "Apache-2.0",
+      "name": "standup-digest",
+      "publisher": "supernovae-st",
+      "sha256": "b9e300f413ced6261ac86d92a843580c7b435d7f836d65eb34f4066ad7e6bffb",
+      "source": {
+        "path": "examples/showcase/t1-standup-digest.nika.yaml",
         "repo": "supernovae-st/nika-spec",
         "rev": "7cf09dad13321178c63d8f284e69401ff7994c09"
       },
@@ -160,7 +510,7 @@
         "llm_calls": 1,
         "secret_leaks": 0
       },
-      "description": "Triage a support inbox into typed, routed tickets.",
+      "description": "Ticket queue \u2192 typed triage \u2192 urgent escalation \u2192 triage board",
       "entry": "registry/workflows/supernovae-st/support-triage/0.1.0.toml",
       "license": "Apache-2.0",
       "name": "support-triage",

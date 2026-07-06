@@ -41,6 +41,15 @@ and CI refuses an entry whose publisher does not own the source repo.
 2. Add the entry file (copy ENTRY_TEMPLATE.toml (or any seed entry)).
 3. Open a PR — CI re-proves it (hash · oracle · secrets · license · namespace).
 
+## Where the first-party artifacts come from
+
+The `supernovae-st/*` entries are **not** a hand-kept list — they are a
+**projection of the spec's canonical pack** (`scripts/project_pack.py` ·
+gated `--check` in CI). Add a showcase to
+[nika-spec](https://github.com/supernovae-st/nika-spec), re-run the
+projector, it publishes here — the registry cannot diverge from the pack.
+Community artifacts stay authored by PR.
+
 ## The rules (each maps to a documented registry death)
 
 | Rule | Kills |

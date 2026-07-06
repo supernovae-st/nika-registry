@@ -160,9 +160,10 @@ def verify(entry_path: pathlib.Path) -> None:
         return fail(rel, "R7-license", f"`{e['license']}` not in the allowlist")
 
     # R4 · the oracle re-proves the artifact (workflows only, v0).
+    # The envelope is checked BY the oracle (a heuristic line-scan gave a
+    # false positive on a workflow with a long licence banner) — let the
+    # proof do the proving.
     if e["type"] == "workflow":
-        if "nika: v1" not in text.splitlines()[0:20].__str__():
-            return fail(rel, "R4-oracle", "missing the `nika: v1` envelope")
         spec_dir = os.environ.get("NIKA_SPEC_DIR")
         if not spec_dir:
             return fail(rel, "R4-oracle", "NIKA_SPEC_DIR unset (the oracle checkout)")
