@@ -50,6 +50,9 @@ jobs:
             echo "mode: OFFLINE (PR/push · the .oracle checkout)"
           fi
 
+      - name: Gate guards hold (security regressions)
+        run: python3 scripts/selftest.py
+
       - name: Re-prove every entry
         env:
           NIKA_SPEC_DIR: ${{ github.workspace }}/.oracle

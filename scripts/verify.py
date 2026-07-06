@@ -70,6 +70,16 @@ SECRET_PATTERNS = [
 FAILS = []
 
 
+def repo_traversal_free(repo: str) -> bool:
+    """True when no `owner/name` component is empty, `.` or `..`. REPO_RE
+    permits dots in the name segment (so `owner/..` matches), and the offline
+    mirror fetch splits on `/` to build `<OFFLINE_ROOT>/<name>/` — a `..` name
+    would then read out of the mirror. The gate rejects such repos before any
+    fetch; the offline resolver double-checks. Exposed so the selftest can
+    assert the guard on the REAL predicate, not a copy."""
+    return all(seg not in ("", ".", "..") for seg in repo.split("/"))
+
+
 def is_broad_permits(permits_boundary: str) -> bool:
     """True when a workflow declares an UNBOUNDED grant — `exec: true` (any
     program) or a `"*"` wildcard tool (any tool). For a broad grant the cert's
@@ -90,7 +100,14 @@ def fail(entry, rule, detail):
 def fetch_source(repo, rev, path):
     offline = os.environ.get("OFFLINE_ROOT")
     if offline:
-        local = pathlib.Path(offline) / repo.split("/")[1]
+        # A mirror dir sits DIRECTLY under the root (`<root>/<name>/`). Resolve
+        # and confirm that invariant so a repo name of `..` (which passes
+        # REPO_RE — dots are legal name chars) cannot walk `<root>/..` out of
+        # the mirror. Defense in depth; the gate (R6) also rejects such names.
+        root = pathlib.Path(offline).resolve()
+        local = (root / repo.split("/")[1]).resolve()
+        if local.parent != root:
+            raise ValueError(f"offline repo `{repo}` escapes the mirror root {offline}")
         out = subprocess.run(["git", "-C", str(local), "show", f"{rev}:{path}"],
                              capture_output=True)
         if out.returncode != 0:
@@ -131,6 +148,12 @@ def verify(entry_path: pathlib.Path) -> None:
         return fail(rel, "schema", f"unknown source field(s) {sorted(unknown)}")
     if not REPO_RE.fullmatch(src.get("repo", "")):
         return fail(rel, "R6-namespace", "source.repo must be owner/name")
+    # REPO_RE permits `.` and `-` in the name segment, so `owner/..` matches —
+    # and the offline mirror fetch would then read `<OFFLINE_ROOT>/..`, out of
+    # the mirror. Reject any `.`/`..`/empty component (the source path is
+    # already traversal-guarded below; the repo name was not).
+    if not repo_traversal_free(src["repo"]):
+        return fail(rel, "R6-namespace", "source.repo must not contain '.' or '..' components")
     path_ = src.get("path", "")
     if path_.startswith("/") or ".." in path_.split("/") or "\\" in path_:
         return fail(rel, "R2-pin", "source.path must be repo-relative with no traversal")
