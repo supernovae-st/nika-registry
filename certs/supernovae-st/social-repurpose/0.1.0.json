@@ -1,5 +1,6 @@
 {
   "certificate": {
+    "broad": false,
     "capability_escapes": [],
     "clean": true,
     "cost_usd": {
