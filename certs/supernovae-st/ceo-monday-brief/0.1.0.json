@@ -1,0 +1,19 @@
+{
+  "certificate": {
+    "capability_escapes": [],
+    "clean": true,
+    "cost_usd": {
+      "bounded_total": 0.0,
+      "has_unbounded": true
+    },
+    "effect_calls": 10,
+    "llm_calls": 1,
+    "permits_boundary": "permits:\n  exec: true\n  tools: [\"nika:convert\", \"nika:date\", \"nika:emit\", \"nika:fetch\", \"nika:inspect\", \"nika:jq\", \"nika:notify\", \"nika:read\", \"nika:write\"]\n\n# review \u2014 effects too dynamic to pin statically:\n#   \u00b7 task `news` reaches a dynamic URL \u2014 `net.http` cannot express 'any host'; add the resolved host(s) before running\n#   \u00b7 task `pulse` uses the shell-string exec form \u2014 a program allowlist applies only to the array form; `exec` widened to `true` (rewrite to the array form for a tighter permit)\n#   \u00b7 task `kpi_raw` uses a dynamic path \u2014 `fs` cannot express 'any path'; add the resolved path(s) before running\n#   \u00b7 task `save` uses a dynamic path \u2014 `fs` cannot express 'any path'; add the resolved path(s) before running\n#   \u00b7 task `ping` reaches a dynamic URL \u2014 `net.http` cannot express 'any host'; add the resolved host(s) before running",
+    "secret_egresses": [],
+    "secret_leaks": []
+  },
+  "engine": "0.95.0",
+  "entry": "registry/workflows/supernovae-st/ceo-monday-brief/0.1.0.toml",
+  "schema": 1,
+  "sha256": "a8626e6d6050f7297d209e4d12f2e20d61b8e48ac765e3e1f10b5e19916e4316"
+}

@@ -32,6 +32,17 @@ jobs:
         env:
           NIKA_SPEC_DIR: ${{ github.workspace }}/.oracle
         run: python3 scripts/verify.py --all
+
+      - name: Fetch the pinned engine (digest-verified — we practice what we gate)
+        run: |
+          curl -sSLo nika.tar.gz https://github.com/supernovae-st/nika/releases/download/v0.95.0/nika-linux-x64-0.95.0.tar.gz
+          echo "73c59d9d562fd199c96938a2a91600790dfd32172af7ca14655e66f63d2f879d  nika.tar.gz" | sha256sum -c -
+          tar xzf nika.tar.gz
+
+      - name: Certs + catalog in sync (the engine's own analysis, re-proven)
+        env:
+          NIKA_BIN: ${{ github.workspace }}/nika
+        run: python3 scripts/cert.py --check
       - name: Advisories parse + reference real entries
         run: |
           python3 - << 'EOF'

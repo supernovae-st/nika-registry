@@ -1,0 +1,19 @@
+{
+  "certificate": {
+    "capability_escapes": [],
+    "clean": true,
+    "cost_usd": {
+      "bounded_total": 0.0,
+      "has_unbounded": true
+    },
+    "effect_calls": 3,
+    "llm_calls": 1,
+    "permits_boundary": "permits:\n  fs:\n    write: [\"./action-items.json\"]\n  exec: false\n  tools: [\"nika:log\", \"nika:read\", \"nika:write\"]\n\n# review \u2014 effects too dynamic to pin statically:\n#   \u00b7 task `transcript` uses a dynamic path \u2014 `fs` cannot express 'any path'; add the resolved path(s) before running",
+    "secret_egresses": [],
+    "secret_leaks": []
+  },
+  "engine": "0.95.0",
+  "entry": "registry/workflows/supernovae-st/meeting-actions/0.1.0.toml",
+  "schema": 1,
+  "sha256": "3585a23c58166c1f8e6dc759c4b941804f74b8cdb6b4431632cc66d6b600ed7b"
+}
