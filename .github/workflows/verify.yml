@@ -43,6 +43,9 @@ jobs:
         env:
           NIKA_BIN: ${{ github.workspace }}/nika
         run: python3 scripts/cert.py --check
+
+      - name: Index + llms.txt + badges in sync
+        run: python3 scripts/index.py --check
       - name: Advisories parse + reference real entries
         run: |
           python3 - << 'EOF'

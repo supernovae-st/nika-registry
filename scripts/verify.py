@@ -44,6 +44,17 @@ import urllib.request
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 LICENSES = {"Apache-2.0", "MIT", "BSD-2-Clause", "BSD-3-Clause", "ISC", "MPL-2.0", "AGPL-3.0-or-later", "CC0-1.0"}
+TYPES = {"workflow", "pack", "skill", "agent", "template", "policy", "bench"}
+# Closed field sets — an unknown key is refused (the local manifest-confusion
+# guard: nothing rides an entry that the gate does not understand).
+FIELDS = {"schema", "type", "name", "publisher", "version", "description", "license", "spec", "source", "integrity", "cert", "signature"}
+SOURCE_FIELDS = {"repo", "rev", "path"}
+NAME_RE = re.compile(r"[a-z0-9][a-z0-9-]{0,63}")
+OWNER_RE = re.compile(r"[A-Za-z0-9][A-Za-z0-9-]{0,38}")
+REPO_RE = re.compile(r"[A-Za-z0-9][A-Za-z0-9-]{0,38}/[A-Za-z0-9._-]{1,100}")
+VERSION_RE = re.compile(r"\d+\.\d+\.\d+(?:-[A-Za-z0-9.-]+)?")
+# Workflows are KB of text — a multi-MB "workflow" is an attack or a mistake.
+MAX_ARTIFACT_BYTES = 1_000_000
 SECRET_PATTERNS = [
     re.compile(p) for p in (
         r"sk-[A-Za-z0-9]{20,}",            # OpenAI-style
@@ -76,17 +87,43 @@ def fetch_source(repo, rev, path):
     url = f"https://raw.githubusercontent.com/{repo}/{rev}/{path}"
     req = urllib.request.Request(url, headers={"User-Agent": "nika-registry-verify"})
     with urllib.request.urlopen(req, timeout=30) as r:
-        return r.read()
+        body = r.read(MAX_ARTIFACT_BYTES + 1)
+    if len(body) > MAX_ARTIFACT_BYTES:
+        raise ValueError(f"artifact exceeds {MAX_ARTIFACT_BYTES} bytes (workflows are KB of text)")
+    return body
 
 
 def verify(entry_path: pathlib.Path) -> None:
     rel = entry_path.relative_to(ROOT)
+    if len(rel.parts) != 5 or rel.parts[0] != "registry":
+        return fail(rel, "schema", "entry must live at registry/<type>s/<publisher>/<name>/<version>.toml")
     e = tomllib.loads(entry_path.read_text())
 
     for field in ("schema", "type", "name", "publisher", "version", "description", "license", "spec", "source", "integrity"):
         if field not in e:
             return fail(rel, "schema", f"missing field `{field}`")
+    if unknown := set(e) - FIELDS:
+        return fail(rel, "schema", f"unknown field(s) {sorted(unknown)} — the gate refuses what it does not understand")
+    if e["schema"] != 1:
+        return fail(rel, "schema", f"unsupported schema {e['schema']!r}")
+    if e["type"] not in TYPES:
+        return fail(rel, "schema", f"unknown type `{e['type']}` (one of {sorted(TYPES)})")
+    if not NAME_RE.fullmatch(e["name"]):
+        return fail(rel, "schema", "name must be lowercase kebab (≤64 chars)")
+    if not OWNER_RE.fullmatch(e["publisher"]):
+        return fail(rel, "schema", "publisher must be a GitHub owner name")
+    if not VERSION_RE.fullmatch(e["version"]):
+        return fail(rel, "schema", "version must be semver (MAJOR.MINOR.PATCH)")
     src, integ = e["source"], e["integrity"]
+    if unknown := set(src) - SOURCE_FIELDS:
+        return fail(rel, "schema", f"unknown source field(s) {sorted(unknown)}")
+    if not REPO_RE.fullmatch(src.get("repo", "")):
+        return fail(rel, "R6-namespace", "source.repo must be owner/name")
+    path_ = src.get("path", "")
+    if path_.startswith("/") or ".." in path_.split("/") or "\\" in path_:
+        return fail(rel, "R2-pin", "source.path must be repo-relative with no traversal")
+    if e["type"] == "workflow" and not path_.endswith(".nika.yaml"):
+        return fail(rel, "schema", "a workflow source must be a .nika.yaml file")
 
     # R2 · digest pinning — full commit + full sha256, nothing mutable.
     if not re.fullmatch(r"[0-9a-f]{40}", src.get("rev", "")):
@@ -95,8 +132,9 @@ def verify(entry_path: pathlib.Path) -> None:
         return fail(rel, "R2-pin", "integrity.sha256 must be full 64-hex")
 
     # R6 · namespace = source ownership (dependency-confusion firewall).
-    parts = rel.parts  # registry/<type>s/<publisher>/<name>/<version>.toml
-    publisher_dir, name_dir, version_file = parts[2], parts[3], parts[4]
+    publisher_dir, name_dir, version_file = rel.parts[2], rel.parts[3], rel.parts[4]
+    if rel.parts[1] != f"{e['type']}s":
+        return fail(rel, "schema", f"type `{e['type']}` must live under registry/{e['type']}s/")
     if e["publisher"] != publisher_dir or not src["repo"].startswith(f"{publisher_dir}/"):
         return fail(rel, "R6-namespace", f"publisher `{e['publisher']}` must own dir `{publisher_dir}` AND source repo `{src['repo']}`")
     if e["name"] != name_dir or version_file != f"{e['version']}.toml":

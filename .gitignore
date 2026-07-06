@@ -1,2 +1,3 @@
 .verify-tmp/
 .cert-tmp/
+__pycache__/

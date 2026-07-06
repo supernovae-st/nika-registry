@@ -1,0 +1,186 @@
+{
+  "artifacts": [
+    {
+      "advisories": [],
+      "cert": "certs/supernovae-st/ceo-monday-brief/0.1.0.json",
+      "cert_summary": {
+        "clean": true,
+        "cost_usd_bounded": null,
+        "exec": true,
+        "llm_calls": 1,
+        "secret_leaks": 0
+      },
+      "description": "Compose a Monday operating brief from the week's signals.",
+      "entry": "registry/workflows/supernovae-st/ceo-monday-brief/0.1.0.toml",
+      "license": "Apache-2.0",
+      "name": "ceo-monday-brief",
+      "publisher": "supernovae-st",
+      "sha256": "a8626e6d6050f7297d209e4d12f2e20d61b8e48ac765e3e1f10b5e19916e4316",
+      "source": {
+        "path": "examples/showcase/t4-ceo-monday-brief.nika.yaml",
+        "repo": "supernovae-st/nika-spec",
+        "rev": "7cf09dad13321178c63d8f284e69401ff7994c09"
+      },
+      "spec": "nika/v1",
+      "type": "workflow",
+      "version": "0.1.0"
+    },
+    {
+      "advisories": [],
+      "cert": "certs/supernovae-st/code-review/0.1.0.json",
+      "cert_summary": {
+        "clean": true,
+        "cost_usd_bounded": 0.6,
+        "exec": false,
+        "llm_calls": 20,
+        "secret_leaks": 0
+      },
+      "description": "Read a diff, judge its risk with a structured verdict.",
+      "entry": "registry/workflows/supernovae-st/code-review/0.1.0.toml",
+      "license": "Apache-2.0",
+      "name": "code-review",
+      "publisher": "supernovae-st",
+      "sha256": "e3f5b6daa4e11f8c0db4c8edb099839eb27eaddbb4161db996bcb5959924751f",
+      "source": {
+        "path": "examples/23-code-review.nika.yaml",
+        "repo": "supernovae-st/nika-spec",
+        "rev": "7cf09dad13321178c63d8f284e69401ff7994c09"
+      },
+      "spec": "nika/v1",
+      "type": "workflow",
+      "version": "0.1.0"
+    },
+    {
+      "advisories": [],
+      "cert": "certs/supernovae-st/competitor-radar/0.1.0.json",
+      "cert_summary": {
+        "clean": true,
+        "cost_usd_bounded": null,
+        "exec": false,
+        "llm_calls": 1,
+        "secret_leaks": 0
+      },
+      "description": "Weekly competitor sweep with cited findings.",
+      "entry": "registry/workflows/supernovae-st/competitor-radar/0.1.0.toml",
+      "license": "Apache-2.0",
+      "name": "competitor-radar",
+      "publisher": "supernovae-st",
+      "sha256": "ad667482ab2ccd29a515a058fc5e5fd07d240e199d2f8998452a97e4b1740687",
+      "source": {
+        "path": "examples/showcase/t3-competitor-radar.nika.yaml",
+        "repo": "supernovae-st/nika-spec",
+        "rev": "7cf09dad13321178c63d8f284e69401ff7994c09"
+      },
+      "spec": "nika/v1",
+      "type": "workflow",
+      "version": "0.1.0"
+    },
+    {
+      "advisories": [],
+      "cert": "certs/supernovae-st/meeting-actions/0.1.0.json",
+      "cert_summary": {
+        "clean": true,
+        "cost_usd_bounded": null,
+        "exec": false,
+        "llm_calls": 1,
+        "secret_leaks": 0
+      },
+      "description": "Transcript to typed action items {owner, task, due}.",
+      "entry": "registry/workflows/supernovae-st/meeting-actions/0.1.0.toml",
+      "license": "Apache-2.0",
+      "name": "meeting-actions",
+      "publisher": "supernovae-st",
+      "sha256": "3585a23c58166c1f8e6dc759c4b941804f74b8cdb6b4431632cc66d6b600ed7b",
+      "source": {
+        "path": "examples/showcase/t1-meeting-actions.nika.yaml",
+        "repo": "supernovae-st/nika-spec",
+        "rev": "7cf09dad13321178c63d8f284e69401ff7994c09"
+      },
+      "spec": "nika/v1",
+      "type": "workflow",
+      "version": "0.1.0"
+    },
+    {
+      "advisories": [],
+      "cert": "certs/supernovae-st/price-watch/0.1.0.json",
+      "cert_summary": {
+        "clean": true,
+        "cost_usd_bounded": 0.0,
+        "exec": false,
+        "llm_calls": 0,
+        "secret_leaks": 0
+      },
+      "description": "Watch a product page and alert on price movement.",
+      "entry": "registry/workflows/supernovae-st/price-watch/0.1.0.toml",
+      "license": "Apache-2.0",
+      "name": "price-watch",
+      "publisher": "supernovae-st",
+      "sha256": "714e2aea8d697d97dc9df683416e4116c47cda6196e3f3e4ea1ac36e770574ca",
+      "source": {
+        "path": "examples/showcase/t1-price-watch.nika.yaml",
+        "repo": "supernovae-st/nika-spec",
+        "rev": "7cf09dad13321178c63d8f284e69401ff7994c09"
+      },
+      "spec": "nika/v1",
+      "type": "workflow",
+      "version": "0.1.0"
+    },
+    {
+      "advisories": [],
+      "cert": "certs/supernovae-st/release-notes/0.1.0.json",
+      "cert_summary": {
+        "clean": true,
+        "cost_usd_bounded": null,
+        "exec": true,
+        "llm_calls": 1,
+        "secret_leaks": 0
+      },
+      "description": "Draft release notes from the commit log.",
+      "entry": "registry/workflows/supernovae-st/release-notes/0.1.0.toml",
+      "license": "Apache-2.0",
+      "name": "release-notes",
+      "publisher": "supernovae-st",
+      "sha256": "bb714b8321663c190481b113a4353732d4ea1a3be34e8cb6889a61a7382db7d2",
+      "source": {
+        "path": "examples/showcase/t2-release-notes.nika.yaml",
+        "repo": "supernovae-st/nika-spec",
+        "rev": "7cf09dad13321178c63d8f284e69401ff7994c09"
+      },
+      "spec": "nika/v1",
+      "type": "workflow",
+      "version": "0.1.0"
+    },
+    {
+      "advisories": [],
+      "cert": "certs/supernovae-st/support-triage/0.1.0.json",
+      "cert_summary": {
+        "clean": true,
+        "cost_usd_bounded": null,
+        "exec": false,
+        "llm_calls": 1,
+        "secret_leaks": 0
+      },
+      "description": "Triage a support inbox into typed, routed tickets.",
+      "entry": "registry/workflows/supernovae-st/support-triage/0.1.0.toml",
+      "license": "Apache-2.0",
+      "name": "support-triage",
+      "publisher": "supernovae-st",
+      "sha256": "a599d8b46ff593633a59a622a6cb23ffa74829f9e1cf528cf7153c53d3be7af4",
+      "source": {
+        "path": "examples/showcase/t2-support-triage.nika.yaml",
+        "repo": "supernovae-st/nika-spec",
+        "rev": "7cf09dad13321178c63d8f284e69401ff7994c09"
+      },
+      "spec": "nika/v1",
+      "type": "workflow",
+      "version": "0.1.0"
+    }
+  ],
+  "index_schema": 1,
+  "registry": "supernovae-st/nika-registry",
+  "verify": {
+    "how": "fetch source.repo@source.rev:source.path \u00b7 sha256 MUST equal .sha256 \u00b7 then `nika check <file>` locally",
+    "never": "install anything an advisory names \u00b7 trust this index over your own hash check",
+    "raw_template": "https://raw.githubusercontent.com/{source.repo}/{source.rev}/{source.path}"
+  }
+}

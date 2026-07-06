@@ -11,18 +11,24 @@ on every PR and every night. The `[cert]` block in an entry is informative —
 **the proof is `scripts/verify.py`, and you can run it offline against a
 mirror.** Trust lives in the artifact, not in this repo.
 
-## Install (today · manual — `nika add` is on the engine roadmap)
+## Install — one auditable command
 
 ```sh
-# 1 · read the entry: source repo + pinned commit + sha256
-cat registry/workflows/supernovae-st/meeting-actions/0.1.0.toml
-# 2 · fetch the pinned bytes
-curl -LO https://raw.githubusercontent.com/supernovae-st/nika-spec/<rev>/<path>
-# 3 · verify — never skip
-shasum -a 256 t1-meeting-actions.nika.yaml     # must equal integrity.sha256
-nika check t1-meeting-actions.nika.yaml        # the oracle, locally
-nika run t1-meeting-actions.nika.yaml
+git clone https://github.com/supernovae-st/nika-registry && cd nika-registry
+python3 scripts/get.py --list                 # what exists
+python3 scripts/get.py meeting-actions        # fetch → verify sha256 → local audit → done
 ```
+
+`get.py` refuses on any mismatch (hash · advisory · overwrite) and never
+executes anything — a workflow lands on disk and **you** decide to run it.
+Not `curl | sh`: you cloned the repo, you can read the 140 lines first.
+
+**Agents**: one fetch of [`index.json`](index.json) carries every artifact
+with its pin, digest, cert summary and advisory state; [`llms.txt`](llms.txt)
+teaches the consume/verify path in agent-readable form.
+
+**Badges**: every artifact has a live cert badge —
+`https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/supernovae-st/nika-registry/main/badges/<publisher>--<name>.json`
 
 ## Publish (a PR)
 
@@ -32,7 +38,7 @@ model): `registry/workflows/<your-github-owner>/<name>/<version>.toml`,
 and CI refuses an entry whose publisher does not own the source repo.
 
 1. Make your workflow pass `nika check` (or `conformance/runner.py validate`).
-2. Add the entry file (see any seed entry for the shape).
+2. Add the entry file (copy ENTRY_TEMPLATE.toml (or any seed entry)).
 3. Open a PR — CI re-proves it (hash · oracle · secrets · license · namespace).
 
 ## The rules (each maps to a documented registry death)

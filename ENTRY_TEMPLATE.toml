@@ -1,0 +1,18 @@
+# Copy to the example ENTRY_TEMPLATE.toml → registry/<type>s/<YOUR-github-owner>/<name>/<version>.toml
+# Every field below is re-proven by CI — a lying field turns the PR red.
+schema = 1
+type = "workflow"            # workflow · pack · skill · agent · template · policy · bench
+name = "my-workflow"         # lowercase-kebab · must equal the parent dir
+publisher = "your-gh-owner"  # must equal the grandparent dir AND own source.repo
+version = "0.1.0"            # semver · must equal the filename
+description = "One line: what it does."
+license = "Apache-2.0"       # OSI allowlist — see scripts/verify.py
+spec = "nika/v1"
+
+[source]
+repo = "your-gh-owner/your-repo"   # the artifact STAYS in your repo
+rev = ""                           # full 40-hex commit — never a tag/branch
+path = "workflows/my-workflow.nika.yaml"
+
+[integrity]
+sha256 = ""                        # shasum -a 256 of the exact pinned bytes
