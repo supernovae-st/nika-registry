@@ -124,8 +124,25 @@ def main() -> int:
     else:
         print("  audit   nika not on PATH — run `nika check` before `nika run` (always)")
 
+    # The hand-off is CERT-DRIVEN, not generic. The cold e2e walkthrough
+    # caught the lie: a fetch-only workflow (llm_calls=0) was told
+    # `--model mock/echo # offline preview` — mock mocks INFER, not fetch,
+    # and showcase templates ship placeholder vars (example.com) you must
+    # point at your real endpoints. Say what THIS artifact needs.
     print(f"\nnext ·  nika check {dest.name}   # your audit, not ours")
-    print(f"        nika run {dest.name} --model mock/echo   # offline preview")
+    c = json.loads(cert_path.read_text())["certificate"] if cert_path.is_file() else None
+    uses_fetch = bool(c) and "nika:fetch" in c.get("permits_boundary", "")
+    llm = (c or {}).get("llm_calls") or 0
+    if llm and not uses_fetch:
+        print(f"        nika run {dest.name} --model mock/echo   # offline preview (mocks the {llm} infer call{'s' if llm > 1 else ''})")
+    elif llm and uses_fetch:
+        print(f"        nika run {dest.name} --model mock/echo   # mocks infer · fetch still hits the network")
+        print(f"        nika inspect {dest.name}   # check vars: — templates ship placeholder endpoints")
+    elif uses_fetch:
+        print(f"        nika inspect {dest.name}   # zero model calls · set vars: to YOUR endpoints first")
+        print(f"        nika run {dest.name} --var <key>=<value>   # then run against real targets")
+    else:
+        print(f"        nika run {dest.name}   # offline (no model calls · no network)")
     return 0
 
 
