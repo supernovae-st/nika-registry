@@ -131,8 +131,15 @@ def main() -> int:
     # point at your real endpoints. Say what THIS artifact needs.
     print(f"\nnext ·  nika check {dest.name}   # your audit, not ours")
     c = json.loads(cert_path.read_text())["certificate"] if cert_path.is_file() else None
-    uses_fetch = bool(c) and "nika:fetch" in c.get("permits_boundary", "")
-    llm = (c or {}).get("llm_calls") or 0
+    if c is None:
+        # No cert on file (community entries carry none yet) — never guess
+        # what the artifact does; the e2e walkthrough caught the fallthrough
+        # branch claiming "no model calls" for a workflow with an infer.
+        print(f"        nika inspect {dest.name}   # no cert on file — see the anatomy first")
+        print(f"        nika run {dest.name} --model mock/echo   # mocks any infer · fetch/exec still real")
+        return 0
+    uses_fetch = "nika:fetch" in c.get("permits_boundary", "")
+    llm = c.get("llm_calls") or 0
     if llm and not uses_fetch:
         print(f"        nika run {dest.name} --model mock/echo   # offline preview (mocks the {llm} infer call{'s' if llm > 1 else ''})")
     elif llm and uses_fetch:
