@@ -48,7 +48,12 @@ ENGINE_VERSION = "0.95.0"
 def fetch_source(repo: str, rev: str, path: str) -> bytes:
     offline = os.environ.get("OFFLINE_ROOT")
     if offline:
-        local = pathlib.Path(offline) / repo.split("/")[1]
+        # A mirror dir sits directly under the root; confirm it so a repo name
+        # of `..` cannot escape (matches verify.py's guard · R6 also rejects it).
+        root = pathlib.Path(offline).resolve()
+        local = (root / repo.split("/")[1]).resolve()
+        if local.parent != root:
+            raise ValueError(f"offline repo `{repo}` escapes the mirror root {offline}")
         out = subprocess.run(["git", "-C", str(local), "show", f"{rev}:{path}"],
                              capture_output=True)
         if out.returncode != 0:
