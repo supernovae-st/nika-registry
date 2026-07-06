@@ -50,6 +50,13 @@ gated `--check` in CI). Add a showcase to
 projector, it publishes here — the registry cannot diverge from the pack.
 Community artifacts stay authored by PR.
 
+## The contract
+
+This registry implements **[registry-v0.1](https://github.com/supernovae-st/nika-spec/blob/main/registry/registry-v0.1.md)**,
+the normative sharing contract in the Apache-2.0 spec — anyone can run a
+conformant registry (org-internal, mirror, fork) and clients speak to all
+of them identically.
+
 ## The rules (each maps to a documented registry death)
 
 | Rule | Kills |
