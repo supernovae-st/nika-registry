@@ -33,9 +33,27 @@ jobs:
         env:
           NIKA_SPEC_DIR: ${{ github.workspace }}/.oracle
         run: python3 scripts/project_pack.py --check
+      # PR/push runs resolve sources OFFLINE from the .oracle checkout —
+      # deterministic and CDN-flake-free for contributors, and stricter on
+      # one class: a force-pushed-away commit vanishes from a fresh clone
+      # while the CDN may still serve it. The nightly run keeps the real
+      # consumer path (raw.githubusercontent) as the availability probe.
+      - name: Source resolution mode
+        id: mode
+        run: |
+          ln -s .oracle nika-spec
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            echo "offline_root=" >> "$GITHUB_OUTPUT"
+            echo "mode: NETWORK (nightly · the consumer path)"
+          else
+            echo "offline_root=${{ github.workspace }}" >> "$GITHUB_OUTPUT"
+            echo "mode: OFFLINE (PR/push · the .oracle checkout)"
+          fi
+
       - name: Re-prove every entry
         env:
           NIKA_SPEC_DIR: ${{ github.workspace }}/.oracle
+          OFFLINE_ROOT: ${{ steps.mode.outputs.offline_root }}
         run: python3 scripts/verify.py --all
 
       - name: Fetch the pinned engine (digest-verified — we practice what we gate)
@@ -47,6 +65,7 @@ jobs:
       - name: Certs + catalog in sync (the engine's own analysis, re-proven)
         env:
           NIKA_BIN: ${{ github.workspace }}/nika
+          OFFLINE_ROOT: ${{ steps.mode.outputs.offline_root }}
         run: python3 scripts/cert.py --check
 
       - name: Index + llms.txt + badges in sync

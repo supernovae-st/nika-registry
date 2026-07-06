@@ -1,3 +1,4 @@
 .verify-tmp/
 .cert-tmp/
 __pycache__/
+nika-spec
