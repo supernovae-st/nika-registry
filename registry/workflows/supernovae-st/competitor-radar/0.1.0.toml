@@ -1,0 +1,26 @@
+# nika-registry entry — immutable once merged (new version = new file ·
+# withdrawal = an advisory, never a delete). CI re-proves every field:
+# the pinned bytes must hash to [integrity].sha256 AND pass the oracle.
+schema = 1
+type = "workflow"
+name = "competitor-radar"
+publisher = "supernovae-st"
+version = "0.1.0"
+description = "Weekly competitor sweep with cited findings."
+license = "Apache-2.0"
+spec = "nika/v1"
+
+[source]
+repo = "supernovae-st/nika-spec"
+rev = "7cf09dad13321178c63d8f284e69401ff7994c09"
+path = "examples/showcase/t3-competitor-radar.nika.yaml"
+
+[integrity]
+sha256 = "ad667482ab2ccd29a515a058fc5e5fd07d240e199d2f8998452a97e4b1740687"
+
+[cert]
+# Informative summary — DO NOT trust it: re-verify locally (the whole point).
+#   python3 conformance/runner.py validate <file>   (nika-spec)
+#   nika check <file>                               (reference engine)
+oracle = "nika-spec conformance/runner.py @ 7cf09dad1"
+conformance = "pass"

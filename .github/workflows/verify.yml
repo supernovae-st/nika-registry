@@ -1,0 +1,46 @@
+name: verify
+
+# The registry's trust model, in CI: every PR re-proves the touched entries;
+# every night re-proves ALL entries (catches upstream drift — a vanished
+# source rev or a force-push turns the board red). Read-only · no secrets.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: '43 4 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  reprove:
+    name: re-prove entries
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: supernovae-st/nika-spec
+          path: .oracle
+      - name: Oracle deps
+        run: pip install pyyaml jsonschema
+      - name: Re-prove every entry
+        env:
+          NIKA_SPEC_DIR: ${{ github.workspace }}/.oracle
+        run: python3 scripts/verify.py --all
+      - name: Advisories parse + reference real entries
+        run: |
+          python3 - << 'EOF'
+          import pathlib, sys, tomllib
+          root = pathlib.Path(".")
+          for p in root.glob("advisories/*.toml"):
+              a = tomllib.loads(p.read_text())
+              for f in ("id", "published", "severity", "affected", "versions", "summary", "action"):
+                  assert f in a, f"{p}: missing {f}"
+              assert (root / "registry" / a["affected"]).is_dir(), f"{p}: unknown artifact {a['affected']}"
+          print("advisories OK")
+          EOF
