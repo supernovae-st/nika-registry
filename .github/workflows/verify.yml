@@ -26,6 +26,7 @@ jobs:
         with:
           repository: supernovae-st/nika-spec
           path: .oracle
+          fetch-depth: 0   # SPEC_PIN's commit must be reachable (git show <rev>)
       - name: Oracle deps
         run: pip install pyyaml jsonschema
       - name: First-party entries match the spec pack (projection parity)

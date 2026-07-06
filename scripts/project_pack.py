@@ -82,16 +82,26 @@ def main() -> int:
         print("project_pack: NIKA_SPEC_DIR unset (the pack source)", file=sys.stderr)
         return 2
     spec = pathlib.Path(spec_dir)
-    rev = subprocess.run(["git", "-C", str(spec), "rev-parse", "HEAD"],
-                         capture_output=True, text=True).stdout.strip()
-    manifest = yaml.safe_load((spec / "examples" / "manifest.yaml").read_text())
+    pin = (ROOT / "SPEC_PIN").read_text()
+    rev = next(l.strip() for l in pin.splitlines() if l.strip() and not l.startswith("#"))
+
+    def at_rev(path: str) -> bytes:
+        out = subprocess.run(["git", "-C", str(spec), "show", f"{rev}:{path}"],
+                             capture_output=True)
+        if out.returncode != 0:
+            print(f"project_pack: {path}@{rev[:9]} unreadable — is NIKA_SPEC_DIR a "
+                  f"nika-spec clone containing SPEC_PIN's commit?", file=sys.stderr)
+            sys.exit(2)
+        return out.stdout
+
+    manifest = yaml.safe_load(at_rev("examples/manifest.yaml").decode())
     version = semver(manifest["pack_version"])
 
     generated = {}  # rel_path -> rendered
     for sc in manifest["showcase"]:
         name = sc["workflow"]
         path = sc["file"]
-        body = (spec / path).read_bytes()
+        body = at_rev(path)
         # The registry pins the REAL bytes a consumer downloads (banner
         # included) — NOT the manifest's sha256_16, which hashes the LEAN
         # display text (comment banner stripped for the site/docs render).

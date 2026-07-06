@@ -1,0 +1,5 @@
+# The nika-spec commit the first-party showcases are projected from.
+# Bump deliberately: edit this, run scripts/project_pack.py --write, review
+# the new (immutable) entries. The projector reads THIS, never a floating
+# HEAD — so CI and a local run project byte-identical entries.
+7cf09dad13321178c63d8f284e69401ff7994c09
