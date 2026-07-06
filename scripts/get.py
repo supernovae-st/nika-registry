@@ -44,11 +44,20 @@ def entries():
         yield p, tomllib.loads(p.read_text())
 
 
+def advisory_affects(affected: str, e) -> bool:
+    """An advisory targets an entry iff its `affected` path is EXACTLY this
+    entry's `<type>s/<publisher>/<name>` (the registry dir it names) — never
+    merely a matching name. `endswith("/name")` cross-matched same-named
+    artifacts across publishers AND types, a false yank of innocent entries;
+    this mirrors index.py's exact-path match so the two surfaces agree."""
+    return affected == f"{e['type']}s/{e['publisher']}/{e['name']}"
+
+
 def advisories_for(e) -> list:
     hits = []
     for p in sorted(ROOT.glob("advisories/*.toml")):
         a = tomllib.loads(p.read_text())
-        if a["affected"].endswith(f"/{e['name']}") and e["version"] in a["versions"]:
+        if advisory_affects(a["affected"], e) and e["version"] in a["versions"]:
             hits.append(a)
     return hits
 
