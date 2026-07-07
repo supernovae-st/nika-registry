@@ -11,7 +11,8 @@
     "llm_calls": 0,
     "permits_boundary": "permits:\n  exec: false\n  tools: [\"nika:fetch\", \"nika:notify\"]\n\n# review \u2014 effects too dynamic to pin statically:\n#   \u00b7 task `check` reaches a dynamic URL \u2014 `net.http` cannot express 'any host'; add the resolved host(s) before running\n#   \u00b7 task `alert` reaches a dynamic URL \u2014 `net.http` cannot express 'any host'; add the resolved host(s) before running",
     "secret_egresses": [],
-    "secret_leaks": []
+    "secret_leaks": [],
+    "vars_required": []
   },
   "engine": "0.96.0",
   "entry": "registry/workflows/supernovae-st/price-watch/0.1.0.toml",

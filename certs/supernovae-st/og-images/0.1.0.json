@@ -11,7 +11,8 @@
     "llm_calls": 0,
     "permits_boundary": "permits:\n  fs:\n    write: [\"./assets/og/**\"]\n  exec: false\n  tools: [\"nika:image_generate\"]",
     "secret_egresses": [],
-    "secret_leaks": []
+    "secret_leaks": [],
+    "vars_required": []
   },
   "engine": "0.96.0",
   "entry": "registry/workflows/supernovae-st/og-images/0.1.0.toml",

@@ -66,6 +66,16 @@ check("semver: 0.2.0 > 0.2.0-rc1", get.version_key("0.2.0") > get.version_key("0
 check("semver: 0.10.0 > 0.2.0 (numeric, not lexical)", get.version_key("0.10.0") > get.version_key("0.2.0"))
 check("semver: 0.2.0-rc2 > 0.2.0-rc1", get.version_key("0.2.0-rc2") > get.version_key("0.2.0-rc1"))
 
+# ── the consume hand-off must never suggest a command that cannot run ─────────
+# A required var makes even a mock preview fail NIKA-VAR-001; the suggestion
+# must carry the --var flag. A fetch-only workflow must not be sold as offline.
+_h_llm_var = " ".join(get.handoff_lines("w.nika.yaml", {"llm_calls": 1, "permits_boundary": "", "vars_required": ["transcript_path"]}))
+check("hand-off surfaces a required var in the run command", "--var transcript_path=<value>" in _h_llm_var)
+_h_plain = " ".join(get.handoff_lines("w.nika.yaml", {"llm_calls": 1, "permits_boundary": "", "vars_required": []}))
+check("hand-off omits --var when none required", "--var" not in _h_plain)
+_h_fetch = " ".join(get.handoff_lines("w.nika.yaml", {"llm_calls": 0, "permits_boundary": "tools: [\"nika:fetch\"]", "vars_required": []}))
+check("hand-off never calls a fetch workflow offline", "no network" not in _h_fetch)
+
 if FAILED:
     print(f"\nselftest FAILED: {len(FAILED)} check(s)", file=sys.stderr)
     sys.exit(1)
