@@ -13,7 +13,7 @@
     "secret_egresses": [],
     "secret_leaks": []
   },
-  "engine": "0.95.0",
+  "engine": "0.96.0",
   "entry": "registry/workflows/supernovae-st/meeting-actions/0.1.0.toml",
   "schema": 1,
   "sha256": "3585a23c58166c1f8e6dc759c4b941804f74b8cdb6b4431632cc66d6b600ed7b"

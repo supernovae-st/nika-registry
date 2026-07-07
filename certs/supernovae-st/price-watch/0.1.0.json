@@ -13,7 +13,7 @@
     "secret_egresses": [],
     "secret_leaks": []
   },
-  "engine": "0.95.0",
+  "engine": "0.96.0",
   "entry": "registry/workflows/supernovae-st/price-watch/0.1.0.toml",
   "schema": 1,
   "sha256": "714e2aea8d697d97dc9df683416e4116c47cda6196e3f3e4ea1ac36e770574ca"

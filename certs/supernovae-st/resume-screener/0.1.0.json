@@ -13,7 +13,7 @@
     "secret_egresses": [],
     "secret_leaks": []
   },
-  "engine": "0.95.0",
+  "engine": "0.96.0",
   "entry": "registry/workflows/supernovae-st/resume-screener/0.1.0.toml",
   "schema": 1,
   "sha256": "747d5ee1d6f36f1f331e35f6333ebbfd66ef63199502d00f5e49fdce05b7da82"
