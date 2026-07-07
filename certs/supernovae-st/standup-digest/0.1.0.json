@@ -13,7 +13,7 @@
     "secret_egresses": [],
     "secret_leaks": []
   },
-  "engine": "0.95.0",
+  "engine": "0.96.0",
   "entry": "registry/workflows/supernovae-st/standup-digest/0.1.0.toml",
   "schema": 1,
   "sha256": "b9e300f413ced6261ac86d92a843580c7b435d7f836d65eb34f4066ad7e6bffb"

@@ -13,7 +13,7 @@
     "secret_egresses": [],
     "secret_leaks": []
   },
-  "engine": "0.95.0",
+  "engine": "0.96.0",
   "entry": "registry/workflows/supernovae-st/localization-factory/0.1.0.toml",
   "schema": 1,
   "sha256": "2a08743904e45eef8b031b00f5b71fefedffb9c3d7a2356e1b2502fdb988ba60"

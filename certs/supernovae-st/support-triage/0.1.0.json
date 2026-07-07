@@ -13,7 +13,7 @@
     "secret_egresses": [],
     "secret_leaks": []
   },
-  "engine": "0.95.0",
+  "engine": "0.96.0",
   "entry": "registry/workflows/supernovae-st/support-triage/0.1.0.toml",
   "schema": 1,
   "sha256": "a599d8b46ff593633a59a622a6cb23ffa74829f9e1cf528cf7153c53d3be7af4"

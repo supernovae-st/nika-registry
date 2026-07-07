@@ -13,7 +13,7 @@
     "secret_egresses": [],
     "secret_leaks": []
   },
-  "engine": "0.95.0",
+  "engine": "0.96.0",
   "entry": "registry/workflows/supernovae-st/contract-guard/0.1.0.toml",
   "schema": 1,
   "sha256": "0f85171b28a9beef41a9b633bc93da6f904810a4631ca5d8a1389a898ac1b4b4"

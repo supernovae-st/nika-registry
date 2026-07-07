@@ -13,7 +13,7 @@
     "secret_egresses": [],
     "secret_leaks": []
   },
-  "engine": "0.95.0",
+  "engine": "0.96.0",
   "entry": "registry/workflows/supernovae-st/etl-quarantine/0.1.0.toml",
   "schema": 1,
   "sha256": "2055bde01b78b2b7d452f8e0471f2b8cacf8ab3437496f07a80b46056c83a314"

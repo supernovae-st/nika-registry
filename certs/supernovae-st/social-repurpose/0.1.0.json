@@ -13,7 +13,7 @@
     "secret_egresses": [],
     "secret_leaks": []
   },
-  "engine": "0.95.0",
+  "engine": "0.96.0",
   "entry": "registry/workflows/supernovae-st/social-repurpose/0.1.0.toml",
   "schema": 1,
   "sha256": "650010a029734538b6bf4b50abf507870b091464c8e000346d3f016e2ae37bb7"
