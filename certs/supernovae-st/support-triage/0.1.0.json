@@ -11,7 +11,8 @@
     "llm_calls": 1,
     "permits_boundary": "permits:\n  exec: false\n  tools: [\"nika:jq\", \"nika:notify\", \"nika:read\", \"nika:uuid\", \"nika:write\"]\n\n# review \u2014 effects too dynamic to pin statically:\n#   \u00b7 task `queue` uses a dynamic path \u2014 `fs` cannot express 'any path'; add the resolved path(s) before running\n#   \u00b7 task `escalate` reaches a dynamic URL \u2014 `net.http` cannot express 'any host'; add the resolved host(s) before running\n#   \u00b7 task `board` uses a dynamic path \u2014 `fs` cannot express 'any path'; add the resolved path(s) before running",
     "secret_egresses": [],
-    "secret_leaks": []
+    "secret_leaks": [],
+    "vars_required": []
   },
   "engine": "0.96.0",
   "entry": "registry/workflows/supernovae-st/support-triage/0.1.0.toml",

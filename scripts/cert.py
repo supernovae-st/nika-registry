@@ -75,10 +75,16 @@ def engine_cert(nika: str, wf: pathlib.Path) -> dict:
 
     cost = report.get("cost", {})
     cert = report.get("certificate", {})
+    reqs = report.get("requirements", {})
     return {
         "clean": report.get("clean", False),
         "llm_calls": cert.get("llm_calls", {}).get("constant"),
         "effect_calls": cert.get("effect_calls", {}).get("constant"),
+        # The inputs a run MUST be given — a required `vars:` with no default.
+        # Part of "see what it needs before it runs": even a mock/offline
+        # preview fails NIKA-VAR-001 without these, so the consume hand-off
+        # warns instead of suggesting a command that cannot run.
+        "vars_required": sorted(reqs.get("vars_required", []) or []),
         "cost_usd": {
             "bounded_total": cost.get("bounded_total_usd"),
             "has_unbounded": cost.get("has_unbounded"),

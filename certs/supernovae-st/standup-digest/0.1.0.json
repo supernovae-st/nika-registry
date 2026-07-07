@@ -11,7 +11,8 @@
     "llm_calls": 1,
     "permits_boundary": "permits:\n  fs:\n    write: [\"./standup-note.md\"]\n  exec: true\n  tools: [\"nika:date\", \"nika:write\"]\n\n# review \u2014 effects too dynamic to pin statically:\n#   \u00b7 task `history` uses the shell-string exec form \u2014 a program allowlist applies only to the array form; `exec` widened to `true` (rewrite to the array form for a tighter permit)",
     "secret_egresses": [],
-    "secret_leaks": []
+    "secret_leaks": [],
+    "vars_required": []
   },
   "engine": "0.96.0",
   "entry": "registry/workflows/supernovae-st/standup-digest/0.1.0.toml",

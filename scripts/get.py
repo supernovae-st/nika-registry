@@ -174,26 +174,41 @@ def main() -> int:
     # point at your real endpoints. Say what THIS artifact needs.
     print(f"\nnext ·  nika check {dest.name}   # your audit, not ours")
     c = json.loads(cert_path.read_text())["certificate"] if cert_path.is_file() else None
-    if c is None:
-        # No cert on file (community entries carry none yet) — never guess
-        # what the artifact does; the e2e walkthrough caught the fallthrough
-        # branch claiming "no model calls" for a workflow with an infer.
-        print(f"        nika inspect {dest.name}   # no cert on file — see the anatomy first")
-        print(f"        nika run {dest.name} --model mock/echo   # mocks any infer · fetch/exec still real")
-        return 0
-    uses_fetch = "nika:fetch" in c.get("permits_boundary", "")
-    llm = c.get("llm_calls") or 0
-    if llm and not uses_fetch:
-        print(f"        nika run {dest.name} --model mock/echo   # offline preview (mocks the {llm} infer call{'s' if llm > 1 else ''})")
-    elif llm and uses_fetch:
-        print(f"        nika run {dest.name} --model mock/echo   # mocks infer · fetch still hits the network")
-        print(f"        nika inspect {dest.name}   # check vars: — templates ship placeholder endpoints")
-    elif uses_fetch:
-        print(f"        nika inspect {dest.name}   # zero model calls · set vars: to YOUR endpoints first")
-        print(f"        nika run {dest.name} --var <key>=<value>   # then run against real targets")
-    else:
-        print(f"        nika run {dest.name}   # offline (no model calls · no network)")
+    for line in handoff_lines(dest.name, c):
+        print(f"        {line}")
     return 0
+
+
+def handoff_lines(name: str, cert) -> list:
+    """The cert-driven "how do I run this" suggestion(s) — pure, so the e2e
+    contract is a TEST, not a walkthrough. Two lies were caught here before:
+    a fetch-only workflow told `mock/echo # offline preview` (mock mocks INFER,
+    not fetch), and an llm-only workflow with a REQUIRED var promised a clean
+    preview that fails NIKA-VAR-001 without it. Every run command we suggest
+    now carries the `--var` flags a run actually needs — read from the cert, so
+    it works offline."""
+    if cert is None:
+        # No cert on file (community entries carry none yet) — never guess what
+        # the artifact does; point at the anatomy first.
+        return [f"nika inspect {name}   # no cert on file — see the anatomy first",
+                f"nika run {name} --model mock/echo   # mocks any infer · fetch/exec still real"]
+    uses_fetch = "nika:fetch" in cert.get("permits_boundary", "")
+    llm = cert.get("llm_calls") or 0
+    reqvars = cert.get("vars_required") or []
+    var_flags = "".join(f" --var {v}=<value>" for v in reqvars)
+    var_note = (f" · supply required var{'s' if len(reqvars) > 1 else ''} "
+                f"{', '.join(reqvars)}") if reqvars else ""
+    if llm and not uses_fetch:
+        return [f"nika run {name} --model mock/echo{var_flags}   "
+                f"# offline preview (mocks the {llm} infer call{'s' if llm > 1 else ''}{var_note})"]
+    if llm and uses_fetch:
+        return [f"nika run {name} --model mock/echo{var_flags}   "
+                f"# mocks infer · fetch still hits the network{var_note}",
+                f"nika inspect {name}   # check vars: — templates ship placeholder endpoints"]
+    if uses_fetch:
+        return [f"nika inspect {name}   # zero model calls · set vars: to YOUR endpoints first",
+                f"nika run {name}{var_flags or ' --var <key>=<value>'}   # then run against real targets"]
+    return [f"nika run {name}{var_flags}   # offline (no model calls · no network{var_note})"]
 
 
 if __name__ == "__main__":

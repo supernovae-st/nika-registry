@@ -11,7 +11,8 @@
     "llm_calls": 1,
     "permits_boundary": "permits:\n  exec: false\n  tools: [\"nika:fetch\", \"nika:jq\", \"nika:json_diff\", \"nika:read\", \"nika:write\"]\n\n# review \u2014 effects too dynamic to pin statically:\n#   \u00b7 task `previous` uses a dynamic path \u2014 `fs` cannot express 'any path'; add the resolved path(s) before running\n#   \u00b7 task `feed` reaches a dynamic URL \u2014 `net.http` cannot express 'any host'; add the resolved host(s) before running\n#   \u00b7 task `save_state` uses a dynamic path \u2014 `fs` cannot express 'any path'; add the resolved path(s) before running",
     "secret_egresses": [],
-    "secret_leaks": []
+    "secret_leaks": [],
+    "vars_required": []
   },
   "engine": "0.96.0",
   "entry": "registry/workflows/supernovae-st/release-radar/0.1.0.toml",
