@@ -1,0 +1,21 @@
+{
+  "certificate": {
+    "broad": false,
+    "capability_escapes": [],
+    "clean": true,
+    "cost_usd": {
+      "bounded_total": 0.0,
+      "has_unbounded": true
+    },
+    "effect_calls": 2,
+    "llm_calls": 3,
+    "permits_boundary": "permits:\n  fs:\n    write: [\"./bench/model-bench.md\"]\n  exec: false\n  tools: [\"nika:jq\", \"nika:write\"]",
+    "secret_egresses": [],
+    "secret_leaks": [],
+    "vars_required": []
+  },
+  "engine": "0.96.0",
+  "entry": "registry/workflows/supernovae-st/model-bench/0.1.0.toml",
+  "schema": 1,
+  "sha256": "6ad5e1b5d1e339665d670034565bb5a265eef00dd8cc52f2b1c9561df1fdd09e"
+}
