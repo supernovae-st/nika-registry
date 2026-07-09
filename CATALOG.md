@@ -24,6 +24,7 @@ workflow before you run it*; it is not a verdict of unsafe.
 | **invoice-chaser** | 0.1.0 | Ledger CSV → overdue filter → drafted reminders → human gate → drafts file | no | nika:convert, nika:jq, nika:prompt, nika:read, nika:write | 1 | unbounded — set `max_tokens` | [cert](certs/supernovae-st/invoice-chaser/0.1.0.json) |
 | **localization-factory** | 0.1.0 | glob docs → parallel read → parallel translate → mirror tree | no | nika:glob, nika:jq, nika:read, nika:write | 0 | unbounded — set `max_tokens` | [cert](certs/supernovae-st/localization-factory/0.1.0.json) |
 | **meeting-actions** | 0.1.0 | Transcript → typed action items {owner, task, due} | no | nika:log, nika:read, nika:write | 1 | unbounded — set `max_tokens` | [cert](certs/supernovae-st/meeting-actions/0.1.0.json) |
+| **model-bench** | 0.1.0 | One question → three local models → a measured comparison table | no | nika:jq, nika:write | 3 | unbounded — set `max_tokens` | [cert](certs/supernovae-st/model-bench/0.1.0.json) |
 | **og-images** | 0.1.0 | Generate the launch OG hero image set into ./assets/og | no | nika:image_generate | 0 | ≤ $0.00 | [cert](certs/supernovae-st/og-images/0.1.0.json) |
 | **pr-review-fanout** | 0.1.0 | changed files → one read-only review agent each → merged REVIEW.md | yes ⚠ | nika:done, nika:grep, nika:jq, nika:read, nika:write | 1 | unbounded — set `max_tokens` | [cert](certs/supernovae-st/pr-review-fanout/0.1.0.json) |
 | **price-watch** | 0.1.0 | Watch a product price, ping me when it drops below my target | no | nika:fetch, nika:notify | 0 | ≤ $0.00 | [cert](certs/supernovae-st/price-watch/0.1.0.json) |
@@ -36,7 +37,7 @@ workflow before you run it*; it is not a verdict of unsafe.
 | **standup-digest** | 0.1.0 | Read yesterday's commits, write today's standup note | yes ⚠ | nika:date, nika:write | 1 | unbounded — set `max_tokens` | [cert](certs/supernovae-st/standup-digest/0.1.0.json) |
 | **support-triage** | 0.1.0 | Ticket queue → typed triage → urgent escalation → triage board | no | nika:jq, nika:notify, nika:read, nika:uuid, nika:write | 1 | unbounded — set `max_tokens` | [cert](certs/supernovae-st/support-triage/0.1.0.json) |
 
-21 artifacts re-proven · 6 carry an unbounded grant (⚠).
+22 artifacts re-proven · 6 carry an unbounded grant (⚠).
 
 Install: read the entry under `registry/`, fetch the pinned bytes, verify
 the sha256, run `nika check` yourself — the cert is re-derivable, never

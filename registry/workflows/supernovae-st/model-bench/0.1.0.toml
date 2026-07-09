@@ -4,20 +4,20 @@
 # Re-generate: python3 scripts/project_pack.py --write
 schema = 1
 type = "workflow"
-name = "ceo-monday-brief"
+name = "model-bench"
 publisher = "supernovae-st"
 version = "0.1.0"
-description = "news + repo pulse + KPIs → thinking synthesis → dated brief + cost ping"
+description = "One question → three local models → a measured comparison table"
 license = "Apache-2.0"
 spec = "nika/v1"
 
 [source]
 repo = "supernovae-st/nika-spec"
 rev = "d5f7b8cd86bd6e20aa4e8ba645c8139d2b1157eb"
-path = "examples/showcase/t4-ceo-monday-brief.nika.yaml"
+path = "examples/showcase/t2-model-bench.nika.yaml"
 
 [integrity]
-sha256 = "a8626e6d6050f7297d209e4d12f2e20d61b8e48ac765e3e1f10b5e19916e4316"
+sha256 = "6ad5e1b5d1e339665d670034565bb5a265eef00dd8cc52f2b1c9561df1fdd09e"
 
 [cert]
 oracle = "nika-spec conformance/runner.py @ d5f7b8cd8"
