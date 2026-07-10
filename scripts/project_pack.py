@@ -130,6 +130,14 @@ def main() -> int:
                 (ROOT / rel).unlink()
                 (ROOT / rel).parent.rmdir() if not any((ROOT / rel).parent.iterdir()) else None
         print(f"✓ projected {len(generated)} first-party showcases @ {version} · pack {rev[:9]}")
+        # Stage 2 rides automatically: index.json/llms.txt/badges DERIVE
+        # from the entries this just rewrote — a pin bump that stopped
+        # here shipped a drift-red PR (2026-07-10, caught by CI). One
+        # --write means EVERY stage.
+        r = subprocess.run([sys.executable, str(ROOT / "scripts" / "index.py"), "--write"])
+        if r.returncode != 0:
+            print("✗ stage 2 (index.py --write) failed — the projection is HALF-done", file=sys.stderr)
+            return 1
         return 0
 
     for rel, rendered in generated.items():
