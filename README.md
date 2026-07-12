@@ -24,7 +24,18 @@ on every PR and every night. The `[cert]` block in an entry is informative -
 **the proof is `scripts/verify.py`, and you can run it offline against a
 mirror.** Trust lives in the artifact, not in this repo.
 
-## Install: one auditable command
+## Install: the engine pulls it natively °
+
+```sh
+nika check registry:supernovae-st/meeting-actions   # fetch → verify digest → cache → the full audit ladder
+nika run   registry:supernovae-st/meeting-actions   # same seam: nothing executes before audit-before-run
+```
+
+The verified file lands under `~/.nika/registry/<owner>/<name>/` and a cache
+hit works offline; a digest mismatch refuses hard. ° ships in the next
+release — until then, the auditable script below does the same job today.
+
+## Or: one auditable script
 
 ```sh
 git clone https://github.com/supernovae-st/nika-registry && cd nika-registry
