@@ -14,7 +14,7 @@
     "secret_leaks": [],
     "vars_required": []
   },
-  "engine": "0.101.0",
+  "engine": "0.102.0",
   "entry": "registry/workflows/supernovae-st/release-notes/0.1.0.toml",
   "schema": 1,
   "sha256": "399da6171c9190490d4f025883a50b86d680439e70afc9e75ac5daf456b46b89"

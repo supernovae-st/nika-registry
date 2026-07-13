@@ -16,7 +16,7 @@
       "transcript_path"
     ]
   },
-  "engine": "0.101.0",
+  "engine": "0.102.0",
   "entry": "registry/workflows/supernovae-st/meeting-actions/0.1.0.toml",
   "schema": 1,
   "sha256": "12b72a7c1c2fe92394926cc29b6b42aa7316e65733f18e60770ea8be59a02062"
