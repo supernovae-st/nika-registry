@@ -26,15 +26,15 @@ install a name an LLM suggested without resolving it here first
 
 ## Artifacts
 
-- [supernovae-st/bookmark-triage@0.1.0](https://raw.githubusercontent.com/supernovae-st/nika-registry/main/registry/workflows/supernovae-st/bookmark-triage/0.1.0.toml): URL list → per-page metadata fan-out (dead links survive) → one markdown triage table (llm=? · unbounded)
+- [supernovae-st/bookmark-triage@0.1.0](https://raw.githubusercontent.com/supernovae-st/nika-registry/main/registry/workflows/supernovae-st/bookmark-triage/0.1.0.toml): URL list → per-page metadata fan-out (dead links survive) → one markdown triage table (llm=0 · ≤$0.00)
 - [supernovae-st/ceo-monday-brief@0.1.0](https://raw.githubusercontent.com/supernovae-st/nika-registry/main/registry/workflows/supernovae-st/ceo-monday-brief/0.1.0.toml): news + repo pulse + KPIs → thinking synthesis → dated brief + cost ping (llm=1 · unbounded · exec⚠)
 - [supernovae-st/competitor-radar@0.1.0](https://raw.githubusercontent.com/supernovae-st/nika-registry/main/registry/workflows/supernovae-st/competitor-radar/0.1.0.toml): Sitemap → parallel page reads → one competitive brief + ping (llm=1 · unbounded)
 - [supernovae-st/config-drift-sentinel@0.1.0](https://raw.githubusercontent.com/supernovae-st/nika-registry/main/registry/workflows/supernovae-st/config-drift-sentinel/0.1.0.toml): live config vs sanctioned baseline → typed drift → explained alert (llm=1 · unbounded)
 - [supernovae-st/contract-guard@0.1.0](https://raw.githubusercontent.com/supernovae-st/nika-registry/main/registry/workflows/supernovae-st/contract-guard/0.1.0.toml): Local-model clause extraction → schema gate → risk memo (llm=2 · unbounded)
-- [supernovae-st/csv-chart-report@0.1.0](https://raw.githubusercontent.com/supernovae-st/nika-registry/main/registry/workflows/supernovae-st/csv-chart-report/0.1.0.toml): CSV → aggregate → rendered bar chart + markdown report · offline · deterministic (llm=? · unbounded)
+- [supernovae-st/csv-chart-report@0.1.0](https://raw.githubusercontent.com/supernovae-st/nika-registry/main/registry/workflows/supernovae-st/csv-chart-report/0.1.0.toml): CSV → aggregate → rendered bar chart + markdown report · offline · deterministic (llm=0 · ≤$0.00)
 - [supernovae-st/deep-research-brief@0.1.0](https://raw.githubusercontent.com/supernovae-st/nika-registry/main/registry/workflows/supernovae-st/deep-research-brief/0.1.0.toml): plan → budgeted research agent → thinking synthesis → brief on disk (llm=27 · unbounded)
 - [supernovae-st/etl-quarantine@0.1.0](https://raw.githubusercontent.com/supernovae-st/nika-registry/main/registry/workflows/supernovae-st/etl-quarantine/0.1.0.toml): CSV batch → schema gate → quarantine the bad · aggregate the good (llm=0 · ≤$0.00)
-- [supernovae-st/image-fx-batch@0.1.0](https://raw.githubusercontent.com/supernovae-st/nika-registry/main/registry/workflows/supernovae-st/image-fx-batch/0.1.0.toml): Folder of PNG files → deterministic art (grayscale · dither · pixelate) · offline batch (llm=? · unbounded)
+- [supernovae-st/image-fx-batch@0.1.0](https://raw.githubusercontent.com/supernovae-st/nika-registry/main/registry/workflows/supernovae-st/image-fx-batch/0.1.0.toml): Folder of PNG files → deterministic art (grayscale · dither · pixelate) · offline batch (llm=0 · ≤$0.00)
 - [supernovae-st/incident-war-room@0.1.0](https://raw.githubusercontent.com/supernovae-st/nika-registry/main/registry/workflows/supernovae-st/incident-war-room/0.1.0.toml): parallel evidence → typed timeline → settle + recheck → postmortem draft (llm=2 · unbounded · exec⚠)
 - [supernovae-st/invoice-chaser@0.1.0](https://raw.githubusercontent.com/supernovae-st/nika-registry/main/registry/workflows/supernovae-st/invoice-chaser/0.1.0.toml): Ledger CSV → overdue filter → drafted reminders → human gate → drafts file (llm=1 · unbounded)
 - [supernovae-st/localization-factory@0.1.0](https://raw.githubusercontent.com/supernovae-st/nika-registry/main/registry/workflows/supernovae-st/localization-factory/0.1.0.toml): glob docs → parallel read → parallel translate → mirror tree (llm=0 · unbounded)
@@ -51,7 +51,7 @@ install a name an LLM suggested without resolving it here first
 - [supernovae-st/social-repurpose@0.1.0](https://raw.githubusercontent.com/supernovae-st/nika-registry/main/registry/workflows/supernovae-st/social-repurpose/0.1.0.toml): One post → thread + LinkedIn + newsletter, in parallel (llm=3 · unbounded)
 - [supernovae-st/standup-digest@0.1.0](https://raw.githubusercontent.com/supernovae-st/nika-registry/main/registry/workflows/supernovae-st/standup-digest/0.1.0.toml): Read yesterday's commits, write today's standup note (llm=1 · unbounded · exec⚠)
 - [supernovae-st/support-triage@0.1.0](https://raw.githubusercontent.com/supernovae-st/nika-registry/main/registry/workflows/supernovae-st/support-triage/0.1.0.toml): Ticket queue → typed triage → urgent escalation → triage board (llm=1 · unbounded)
-- [supernovae-st/transcript-shownotes@0.1.0](https://raw.githubusercontent.com/supernovae-st/nika-registry/main/registry/workflows/supernovae-st/transcript-shownotes/0.1.0.toml): Raw transcript → typed show-notes (chapters · quotes · summary) · one bounded infer (llm=? · unbounded)
+- [supernovae-st/transcript-shownotes@0.1.0](https://raw.githubusercontent.com/supernovae-st/nika-registry/main/registry/workflows/supernovae-st/transcript-shownotes/0.1.0.toml): Raw transcript → typed show-notes (chapters · quotes · summary) · one bounded infer (llm=1 · unbounded)
 
 ## Optional
 

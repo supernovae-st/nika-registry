@@ -2,8 +2,15 @@
   "artifacts": [
     {
       "advisories": [],
-      "cert": null,
-      "cert_summary": null,
+      "cert": "certs/supernovae-st/bookmark-triage/0.1.0.json",
+      "cert_summary": {
+        "broad": false,
+        "clean": true,
+        "cost_usd_bounded": 0.0,
+        "exec": false,
+        "llm_calls": 0,
+        "secret_leaks": 0
+      },
       "description": "URL list \u2192 per-page metadata fan-out (dead links survive) \u2192 one markdown triage table",
       "entry": "registry/workflows/supernovae-st/bookmark-triage/0.1.0.toml",
       "license": "Apache-2.0",
@@ -125,8 +132,15 @@
     },
     {
       "advisories": [],
-      "cert": null,
-      "cert_summary": null,
+      "cert": "certs/supernovae-st/csv-chart-report/0.1.0.json",
+      "cert_summary": {
+        "broad": false,
+        "clean": true,
+        "cost_usd_bounded": 0.0,
+        "exec": false,
+        "llm_calls": 0,
+        "secret_leaks": 0
+      },
       "description": "CSV \u2192 aggregate \u2192 rendered bar chart + markdown report \u00b7 offline \u00b7 deterministic",
       "entry": "registry/workflows/supernovae-st/csv-chart-report/0.1.0.toml",
       "license": "Apache-2.0",
@@ -196,8 +210,15 @@
     },
     {
       "advisories": [],
-      "cert": null,
-      "cert_summary": null,
+      "cert": "certs/supernovae-st/image-fx-batch/0.1.0.json",
+      "cert_summary": {
+        "broad": false,
+        "clean": true,
+        "cost_usd_bounded": 0.0,
+        "exec": false,
+        "llm_calls": 0,
+        "secret_leaks": 0
+      },
       "description": "Folder of PNG files \u2192 deterministic art (grayscale \u00b7 dither \u00b7 pixelate) \u00b7 offline batch",
       "entry": "registry/workflows/supernovae-st/image-fx-batch/0.1.0.toml",
       "license": "Apache-2.0",
@@ -631,8 +652,15 @@
     },
     {
       "advisories": [],
-      "cert": null,
-      "cert_summary": null,
+      "cert": "certs/supernovae-st/transcript-shownotes/0.1.0.json",
+      "cert_summary": {
+        "broad": false,
+        "clean": true,
+        "cost_usd_bounded": null,
+        "exec": false,
+        "llm_calls": 1,
+        "secret_leaks": 0
+      },
       "description": "Raw transcript \u2192 typed show-notes (chapters \u00b7 quotes \u00b7 summary) \u00b7 one bounded infer",
       "entry": "registry/workflows/supernovae-st/transcript-shownotes/0.1.0.toml",
       "license": "Apache-2.0",
