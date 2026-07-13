@@ -4,20 +4,20 @@
 # Re-generate: python3 scripts/project_pack.py --write
 schema = 1
 type = "workflow"
-name = "release-notes"
+name = "transcript-shownotes"
 publisher = "supernovae-st"
 version = "0.1.0"
-description = "git log → typed release notes → CHANGELOG insert → team ping"
+description = "Raw transcript → typed show-notes (chapters · quotes · summary) · one bounded infer"
 license = "Apache-2.0"
 spec = "nika/v1"
 
 [source]
 repo = "supernovae-st/nika-spec"
 rev = "a35b68b69422c3397eb1a693b2cc1012705913be"
-path = "examples/showcase/t2-release-notes.nika.yaml"
+path = "examples/showcase/t2-transcript-shownotes.nika.yaml"
 
 [integrity]
-sha256 = "399da6171c9190490d4f025883a50b86d680439e70afc9e75ac5daf456b46b89"
+sha256 = "25ad4012adfc6934f33acbcfd05a170d9f7132d518b8edca7d9d4ed2da5ee2e5"
 
 [cert]
 oracle = "nika-spec conformance/runner.py @ a35b68b69"

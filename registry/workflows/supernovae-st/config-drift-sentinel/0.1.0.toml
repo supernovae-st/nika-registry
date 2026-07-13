@@ -13,12 +13,12 @@ spec = "nika/v1"
 
 [source]
 repo = "supernovae-st/nika-spec"
-rev = "5f8f96d806e01024ffcc374f213b15c94988697a"
+rev = "a35b68b69422c3397eb1a693b2cc1012705913be"
 path = "examples/showcase/t3-config-drift-sentinel.nika.yaml"
 
 [integrity]
-sha256 = "4ff794ef22218127af67ce4db7016d9e515c61f6c57e4e60a4e5f777b790c70b"
+sha256 = "d7455f482256aa79631a8e0207794815f847bafe2bf24c54c7f349863684f9cc"
 
 [cert]
-oracle = "nika-spec conformance/runner.py @ 5f8f96d80"
+oracle = "nika-spec conformance/runner.py @ a35b68b69"
 conformance = "pass"

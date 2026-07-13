@@ -4,20 +4,20 @@
 # Re-generate: python3 scripts/project_pack.py --write
 schema = 1
 type = "workflow"
-name = "release-notes"
+name = "bookmark-triage"
 publisher = "supernovae-st"
 version = "0.1.0"
-description = "git log → typed release notes → CHANGELOG insert → team ping"
+description = "URL list → per-page metadata fan-out (dead links survive) → one markdown triage table"
 license = "Apache-2.0"
 spec = "nika/v1"
 
 [source]
 repo = "supernovae-st/nika-spec"
 rev = "a35b68b69422c3397eb1a693b2cc1012705913be"
-path = "examples/showcase/t2-release-notes.nika.yaml"
+path = "examples/showcase/t2-bookmark-triage.nika.yaml"
 
 [integrity]
-sha256 = "399da6171c9190490d4f025883a50b86d680439e70afc9e75ac5daf456b46b89"
+sha256 = "8ac1b47b3e1d0bdc2745a7c384e34553b4ba5ef57a0d45c946b96e2706977300"
 
 [cert]
 oracle = "nika-spec conformance/runner.py @ a35b68b69"
