@@ -16,7 +16,7 @@
       "version"
     ]
   },
-  "engine": "0.101.0",
+  "engine": "0.102.0",
   "entry": "registry/workflows/supernovae-st/release-train/0.1.0.toml",
   "schema": 1,
   "sha256": "12947e01391684e91fad7d971945e3fc102d0e2b51b2b09574f4446b50ba70a5"
