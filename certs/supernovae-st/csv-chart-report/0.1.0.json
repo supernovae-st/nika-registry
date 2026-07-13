@@ -1,0 +1,21 @@
+{
+  "certificate": {
+    "broad": false,
+    "capability_escapes": [],
+    "clean": true,
+    "cost_usd": {
+      "bounded_total": 0.0,
+      "has_unbounded": false
+    },
+    "effect_calls": 6,
+    "llm_calls": 0,
+    "permits_boundary": "permits:\n  fs:\n    write: [\"out/revenue-by-region.svg\", \"out/revenue-report.md\"]\n  exec: false\n  tools: [\"nika:chart\", \"nika:convert\", \"nika:jq\", \"nika:read\", \"nika:write\"]\n\n# review \u2014 effects too dynamic to pin statically:\n#   \u00b7 task `raw` uses a dynamic path \u2014 `fs` cannot express 'any path'; add the resolved path(s) before running",
+    "secret_egresses": [],
+    "secret_leaks": [],
+    "vars_required": []
+  },
+  "engine": "0.101.0",
+  "entry": "registry/workflows/supernovae-st/csv-chart-report/0.1.0.toml",
+  "schema": 1,
+  "sha256": "2d16b2a8f7f92a4898c150addda45aeba3199477f9508980a18241a2ae504b2a"
+}

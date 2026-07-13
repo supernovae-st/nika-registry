@@ -14,8 +14,8 @@
     "secret_leaks": [],
     "vars_required": []
   },
-  "engine": "0.96.0",
+  "engine": "0.101.0",
   "entry": "registry/workflows/supernovae-st/localization-factory/0.1.0.toml",
   "schema": 1,
-  "sha256": "2a08743904e45eef8b031b00f5b71fefedffb9c3d7a2356e1b2502fdb988ba60"
+  "sha256": "e8e018916cd8c719e3a82bc8061afd17ae7e6ff492b2797e73896a1f9dfa3068"
 }

@@ -14,8 +14,8 @@
     "secret_leaks": [],
     "vars_required": []
   },
-  "engine": "0.96.0",
+  "engine": "0.101.0",
   "entry": "registry/workflows/supernovae-st/competitor-radar/0.1.0.toml",
   "schema": 1,
-  "sha256": "ad667482ab2ccd29a515a058fc5e5fd07d240e199d2f8998452a97e4b1740687"
+  "sha256": "116ad4796dcd7e4f465a1848980a349922a547d3873ee0adb1dd014834870a77"
 }
