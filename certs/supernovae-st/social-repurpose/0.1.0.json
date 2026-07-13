@@ -14,8 +14,8 @@
     "secret_leaks": [],
     "vars_required": []
   },
-  "engine": "0.96.0",
+  "engine": "0.101.0",
   "entry": "registry/workflows/supernovae-st/social-repurpose/0.1.0.toml",
   "schema": 1,
-  "sha256": "650010a029734538b6bf4b50abf507870b091464c8e000346d3f016e2ae37bb7"
+  "sha256": "e88d0be849e2d16dc264da3cfe3e41377d614c7674d227cecd78a8615a909bc3"
 }

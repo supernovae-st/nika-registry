@@ -14,8 +14,8 @@
     "secret_leaks": [],
     "vars_required": []
   },
-  "engine": "0.96.0",
+  "engine": "0.101.0",
   "entry": "registry/workflows/supernovae-st/pr-review-fanout/0.1.0.toml",
   "schema": 1,
-  "sha256": "3db1f127361a2eeb680a45410a9da6e8f5254c92c5869a1ebdc59cdbdcb3e19d"
+  "sha256": "0446a2c374f3b1f2edd525127c4d206b8a6f531901ff73eca45b9e73d1442d11"
 }

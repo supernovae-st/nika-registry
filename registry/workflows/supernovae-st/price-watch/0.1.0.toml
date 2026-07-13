@@ -13,12 +13,12 @@ spec = "nika/v1"
 
 [source]
 repo = "supernovae-st/nika-spec"
-rev = "5f8f96d806e01024ffcc374f213b15c94988697a"
+rev = "a35b68b69422c3397eb1a693b2cc1012705913be"
 path = "examples/showcase/t1-price-watch.nika.yaml"
 
 [integrity]
-sha256 = "714e2aea8d697d97dc9df683416e4116c47cda6196e3f3e4ea1ac36e770574ca"
+sha256 = "b9789f837d90f309a5c9b1ea51120ababac0efefe816056bd8fd655afe7e4253"
 
 [cert]
-oracle = "nika-spec conformance/runner.py @ 5f8f96d80"
+oracle = "nika-spec conformance/runner.py @ a35b68b69"
 conformance = "pass"
