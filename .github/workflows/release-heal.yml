@@ -1,0 +1,59 @@
+name: release-heal
+
+# The certifier follows the release without the hand-run 3-layer dance
+# (done twice today): on a new engine release, bump ENGINE_VERSION +
+# the verify.yml digest from the published SHA256SUMS, download the
+# pinned binary, re-derive certs -> index/llms/badges, and open ONE
+# idempotent PR — the verify gate re-proves everything, never a direct
+# push. SECURITY: no github.event data in the shell; tag validated.
+
+on:
+  schedule:
+    - cron: '37 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  heal:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: The certifier follows the release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          tag="$(gh release view --repo supernovae-st/nika --json tagName --jq .tagName)"
+          [[ "$tag" =~ ^v[0-9][0-9.]*$ ]] || { echo "::error::unexpected tag: $tag"; exit 1; }
+          ver="${tag#v}"
+          cur="$(sed -n 's/^ENGINE_VERSION = "\([0-9.]*\)"/\1/p' scripts/cert.py)"
+          if [ "$cur" = "$ver" ]; then echo "certifier already $ver — nothing to heal"; exit 0; fi
+          curl -fsSLo /tmp/SUMS "https://github.com/supernovae-st/nika/releases/download/${tag}/SHA256SUMS"
+          sha="$(grep "nika-linux-x64-${ver}.tar.gz" /tmp/SUMS | awk '{print $1}')"
+          [ -n "$sha" ] || { echo "::error::no linux-x64 sum in SHA256SUMS"; exit 1; }
+          perl -pi -e "s/^ENGINE_VERSION = \"[0-9.]*\"/ENGINE_VERSION = \"${ver}\"/" scripts/cert.py
+          perl -pi -e "s#download/v[0-9.]*/nika-linux-x64-[0-9.]*\.tar\.gz#download/${tag}/nika-linux-x64-${ver}.tar.gz#" .github/workflows/verify.yml
+          perl -pi -e "s/^(\s*echo \")[0-9a-f]{64}(  nika\.tar\.gz\")/\${1}${sha}\${2}/" .github/workflows/verify.yml
+          grep -qF "$sha" .github/workflows/verify.yml || { echo "::error::digest rewrite missed"; exit 1; }
+          curl -fsSLo nika.tar.gz "https://github.com/supernovae-st/nika/releases/download/${tag}/nika-linux-x64-${ver}.tar.gz"
+          echo "${sha}  nika.tar.gz" | sha256sum -c -
+          tar xzf nika.tar.gz && rm nika.tar.gz
+          pip install pyyaml >/dev/null
+          NIKA_BIN="$PWD/nika" python3 scripts/cert.py --write
+          python3 scripts/index.py --write
+          rm -f nika
+          git add -A
+          if git diff --cached --quiet; then echo "layers current — nothing to heal"; exit 0; fi
+          git config user.name "nika-release[bot]"
+          git config user.email "nika@supernovae.studio"
+          git checkout -B bot/certifier-heal
+          git commit -m "chore(certs): the certifier follows ${tag} — all layers re-derive (release-heal)"
+          git push -f origin bot/certifier-heal
+          gh pr create --head bot/certifier-heal \
+            --title "chore(certs): the certifier follows ${tag}" \
+            --body "Automated 3-layer re-derivation (release-heal): certifier pin → certs → index/llms/badges. The verify gate re-proves; merge on green." \
+            2>/dev/null || echo "PR already open — refreshed"
