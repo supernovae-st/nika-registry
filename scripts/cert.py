@@ -127,7 +127,13 @@ def render_catalog(rows: list) -> str:
         "|---|---|---|---|---|---|---|---|",
     ]
     for r in rows:
-        cost = "unbounded — set `max_tokens`" if r["cert"]["cost_usd"]["has_unbounded"] else f"≤ ${r['cert']['cost_usd']['bounded_total']:.2f}"
+        cu = r["cert"]["cost_usd"]
+        if cu.get("has_unbounded"):
+            cost = "unbounded — set `max_tokens`"
+        elif cu.get("bounded_total") is None:
+            cost = "unpriced — re-certify"
+        else:
+            cost = f"≤ ${cu['bounded_total']:.2f}"
         exec_flag = "yes ⚠" if "exec: true" in r["cert"]["permits_boundary"] else "no"
         tools = ", ".join("⚠ any" if t == "*" else t for t in r["tools"]) if r["tools"] else "—"
         lines.append(
