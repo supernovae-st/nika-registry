@@ -33,7 +33,7 @@ nika run   registry:supernovae-st/meeting-actions   # same seam: nothing execute
 
 The verified file lands under `~/.nika/registry/<owner>/<name>/` and a cache
 hit works offline; a digest mismatch refuses hard. ° ships in the next
-release — until then, the auditable script below does the same job today.
+release · until then, the auditable script below does the same job today.
 
 ## Or: one auditable script
 
