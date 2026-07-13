@@ -1,6 +1,6 @@
 {
   "certificate": {
-    "broad": true,
+    "broad": false,
     "capability_escapes": [],
     "clean": true,
     "cost_usd": {
@@ -9,13 +9,13 @@
     },
     "effect_calls": 5,
     "llm_calls": 1,
-    "permits_boundary": "permits:\n  fs:\n    read: [\"./src/**\"]\n    write: [\"./REVIEW.md\"]\n  exec: true\n  tools: [\"nika:done\", \"nika:grep\", \"nika:jq\", \"nika:read\", \"nika:write\"]\n\n# review \u2014 effects too dynamic to pin statically:\n#   \u00b7 task `changed` uses the shell-string exec form \u2014 a program allowlist applies only to the array form; `exec` widened to `true` (rewrite to the array form for a tighter permit)",
+    "permits_boundary": "permits:\n  fs:\n    read: [\"./src/**\"]\n    write: [\"./REVIEW.md\"]\n  exec: [\"git\"]\n  tools: [\"nika:done\", \"nika:grep\", \"nika:jq\", \"nika:read\", \"nika:write\"]",
     "secret_egresses": [],
     "secret_leaks": [],
     "vars_required": []
   },
-  "engine": "0.102.0",
+  "engine": "0.103.0",
   "entry": "registry/workflows/supernovae-st/pr-review-fanout/0.1.0.toml",
   "schema": 1,
-  "sha256": "0446a2c374f3b1f2edd525127c4d206b8a6f531901ff73eca45b9e73d1442d11"
+  "sha256": "954088df27ee380a655a0dc91b55b56e7783923a710fdff4fc86111ea6aa2e3c"
 }

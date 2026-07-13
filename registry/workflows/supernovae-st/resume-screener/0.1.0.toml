@@ -13,12 +13,12 @@ spec = "nika/v1"
 
 [source]
 repo = "supernovae-st/nika-spec"
-rev = "a35b68b69422c3397eb1a693b2cc1012705913be"
+rev = "12157ad949e75859c0cc41806c73876887871fac"
 path = "examples/showcase/t3-resume-screener.nika.yaml"
 
 [integrity]
 sha256 = "0452fa71fc9a19cd8b8efca09d1da2f0aaeebdd9a6b391c05e38976fcf2f7131"
 
 [cert]
-oracle = "nika-spec conformance/runner.py @ a35b68b69"
+oracle = "nika-spec conformance/runner.py @ 12157ad94"
 conformance = "pass"

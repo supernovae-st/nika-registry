@@ -13,12 +13,12 @@ spec = "nika/v1"
 
 [source]
 repo = "supernovae-st/nika-spec"
-rev = "a35b68b69422c3397eb1a693b2cc1012705913be"
+rev = "12157ad949e75859c0cc41806c73876887871fac"
 path = "examples/showcase/t1-standup-digest.nika.yaml"
 
 [integrity]
-sha256 = "771b8a5d923a4c94ee840781df276ce90656e71c2293621905bce9f3b536d7f8"
+sha256 = "c50a0ec548b9d2eda8530516ccb9e2026d7d809665968dfd469e0e26c680666f"
 
 [cert]
-oracle = "nika-spec conformance/runner.py @ a35b68b69"
+oracle = "nika-spec conformance/runner.py @ 12157ad94"
 conformance = "pass"

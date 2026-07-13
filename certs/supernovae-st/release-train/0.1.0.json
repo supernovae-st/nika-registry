@@ -1,6 +1,6 @@
 {
   "certificate": {
-    "broad": true,
+    "broad": false,
     "capability_escapes": [],
     "clean": true,
     "cost_usd": {
@@ -9,15 +9,15 @@
     },
     "effect_calls": 19,
     "llm_calls": 0,
-    "permits_boundary": "permits:\n  net: { http: [\"api.example.com\"] }\n  exec: true\n  tools: [\"nika:assert\", \"nika:date\", \"nika:emit\", \"nika:fetch\", \"nika:notify\", \"nika:prompt\", \"nika:wait\"]\n\n# review \u2014 effects too dynamic to pin statically:\n#   \u00b7 task `tests` uses the shell-string exec form \u2014 a program allowlist applies only to the array form; `exec` widened to `true` (rewrite to the array form for a tighter permit)\n#   \u00b7 task `lint` uses the shell-string exec form \u2014 a program allowlist applies only to the array form; `exec` widened to `true` (rewrite to the array form for a tighter permit)\n#   \u00b7 task `audit` uses the shell-string exec form \u2014 a program allowlist applies only to the array form; `exec` widened to `true` (rewrite to the array form for a tighter permit)\n#   \u00b7 task `ship` uses the shell-string exec form \u2014 a program allowlist applies only to the array form; `exec` widened to `true` (rewrite to the array form for a tighter permit)\n#   \u00b7 task `record (on_finally)` reaches a dynamic URL \u2014 `net.http` cannot express 'any host'; add the resolved host(s) before running",
+    "permits_boundary": "permits:\n  net: { http: [\"api.example.com\"] }\n  exec: [\"./scripts/release.sh\", \"cargo\"]\n  tools: [\"nika:assert\", \"nika:date\", \"nika:emit\", \"nika:fetch\", \"nika:notify\", \"nika:prompt\", \"nika:wait\"]\n\n# review \u2014 effects too dynamic to pin statically:\n#   \u00b7 task `record (on_finally)` reaches a dynamic URL \u2014 `net.http` cannot express 'any host'; add the resolved host(s) before running",
     "secret_egresses": [],
     "secret_leaks": [],
     "vars_required": [
       "version"
     ]
   },
-  "engine": "0.102.0",
+  "engine": "0.103.0",
   "entry": "registry/workflows/supernovae-st/release-train/0.1.0.toml",
   "schema": 1,
-  "sha256": "12947e01391684e91fad7d971945e3fc102d0e2b51b2b09574f4446b50ba70a5"
+  "sha256": "dcc15649fbc58ead2eb44d53cc1003b3aba0927b4c499aea9ca8e9b527750642"
 }

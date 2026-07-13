@@ -2,4 +2,4 @@
 # Bump deliberately: edit this, run scripts/project_pack.py --write, review
 # the new (immutable) entries. The projector reads THIS, never a floating
 # HEAD — so CI and a local run project byte-identical entries.
-a35b68b69422c3397eb1a693b2cc1012705913be
+12157ad949e75859c0cc41806c73876887871fac

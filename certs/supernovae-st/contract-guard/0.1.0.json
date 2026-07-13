@@ -16,7 +16,7 @@
       "contract_path"
     ]
   },
-  "engine": "0.102.0",
+  "engine": "0.103.0",
   "entry": "registry/workflows/supernovae-st/contract-guard/0.1.0.toml",
   "schema": 1,
   "sha256": "04d0727f989580e14bb24eadbaab01f8b7855b863ab0a93a6cedf74e09b448df"
