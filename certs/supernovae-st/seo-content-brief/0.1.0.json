@@ -16,7 +16,7 @@
       "topic"
     ]
   },
-  "engine": "0.102.0",
+  "engine": "0.103.0",
   "entry": "registry/workflows/supernovae-st/seo-content-brief/0.1.0.toml",
   "schema": 1,
   "sha256": "ebefb86db5eb5dadfb010c44a554c1514ad9a82456fc7e7bbf20142773cb103f"

@@ -1,6 +1,6 @@
 {
   "certificate": {
-    "broad": true,
+    "broad": false,
     "capability_escapes": [],
     "clean": true,
     "cost_usd": {
@@ -9,13 +9,13 @@
     },
     "effect_calls": 10,
     "llm_calls": 1,
-    "permits_boundary": "permits:\n  exec: true\n  tools: [\"nika:convert\", \"nika:date\", \"nika:emit\", \"nika:fetch\", \"nika:inspect\", \"nika:jq\", \"nika:notify\", \"nika:read\", \"nika:write\"]\n\n# review \u2014 effects too dynamic to pin statically:\n#   \u00b7 task `news` reaches a dynamic URL \u2014 `net.http` cannot express 'any host'; add the resolved host(s) before running\n#   \u00b7 task `pulse` uses the shell-string exec form \u2014 a program allowlist applies only to the array form; `exec` widened to `true` (rewrite to the array form for a tighter permit)\n#   \u00b7 task `kpi_raw` uses a dynamic path \u2014 `fs` cannot express 'any path'; add the resolved path(s) before running\n#   \u00b7 task `save` uses a dynamic path \u2014 `fs` cannot express 'any path'; add the resolved path(s) before running\n#   \u00b7 task `ping` reaches a dynamic URL \u2014 `net.http` cannot express 'any host'; add the resolved host(s) before running",
+    "permits_boundary": "permits:\n  exec: [\"git\"]\n  tools: [\"nika:convert\", \"nika:date\", \"nika:emit\", \"nika:fetch\", \"nika:inspect\", \"nika:jq\", \"nika:notify\", \"nika:read\", \"nika:write\"]\n\n# review \u2014 effects too dynamic to pin statically:\n#   \u00b7 task `news` reaches a dynamic URL \u2014 `net.http` cannot express 'any host'; add the resolved host(s) before running\n#   \u00b7 task `kpi_raw` uses a dynamic path \u2014 `fs` cannot express 'any path'; add the resolved path(s) before running\n#   \u00b7 task `save` uses a dynamic path \u2014 `fs` cannot express 'any path'; add the resolved path(s) before running\n#   \u00b7 task `ping` reaches a dynamic URL \u2014 `net.http` cannot express 'any host'; add the resolved host(s) before running",
     "secret_egresses": [],
     "secret_leaks": [],
     "vars_required": []
   },
-  "engine": "0.102.0",
+  "engine": "0.103.0",
   "entry": "registry/workflows/supernovae-st/ceo-monday-brief/0.1.0.toml",
   "schema": 1,
-  "sha256": "1dd7b4cb2701163e384153a5f4914b0b8f09fa851e344716e5f96f9544ae946d"
+  "sha256": "a566cc5671694d0740ffd315d6d7f8164531f673841e07312a862f33d81de4cb"
 }

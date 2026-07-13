@@ -1,6 +1,6 @@
 {
   "certificate": {
-    "broad": true,
+    "broad": false,
     "capability_escapes": [],
     "clean": true,
     "cost_usd": {
@@ -9,13 +9,13 @@
     },
     "effect_calls": 3,
     "llm_calls": 1,
-    "permits_boundary": "permits:\n  fs:\n    read: [\"./CHANGELOG.md\"]\n    write: [\"./CHANGELOG.md\"]\n  exec: true\n  tools: [\"nika:edit\", \"nika:notify\"]\n\n# review \u2014 effects too dynamic to pin statically:\n#   \u00b7 task `history` uses the shell-string exec form \u2014 a program allowlist applies only to the array form; `exec` widened to `true` (rewrite to the array form for a tighter permit)\n#   \u00b7 task `announce` reaches a dynamic URL \u2014 `net.http` cannot express 'any host'; add the resolved host(s) before running",
+    "permits_boundary": "permits:\n  fs:\n    read: [\"./CHANGELOG.md\"]\n    write: [\"./CHANGELOG.md\"]\n  exec: [\"git\"]\n  tools: [\"nika:edit\", \"nika:notify\"]\n\n# review \u2014 effects too dynamic to pin statically:\n#   \u00b7 task `announce` reaches a dynamic URL \u2014 `net.http` cannot express 'any host'; add the resolved host(s) before running",
     "secret_egresses": [],
     "secret_leaks": [],
     "vars_required": []
   },
-  "engine": "0.102.0",
+  "engine": "0.103.0",
   "entry": "registry/workflows/supernovae-st/release-notes/0.1.0.toml",
   "schema": 1,
-  "sha256": "399da6171c9190490d4f025883a50b86d680439e70afc9e75ac5daf456b46b89"
+  "sha256": "e2b7d88d1a389df492d0f21701a60f870a0c9052f8d16965ba95f539ef79e23e"
 }

@@ -42,7 +42,7 @@ from verify import is_broad_permits  # noqa: E402 — one source for the ⚠ pre
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 # The cert is only comparable if every generator runs the SAME engine.
-ENGINE_VERSION = "0.102.0"
+ENGINE_VERSION = "0.103.0"
 
 
 def fetch_source(repo: str, rev: str, path: str) -> bytes:
