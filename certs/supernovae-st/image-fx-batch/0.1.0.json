@@ -2,19 +2,19 @@
   "certificate": {
     "broad": false,
     "capability_escapes": [],
-    "clean": true,
+    "clean": false,
     "cost_usd": {
-      "bounded_total": 0.0,
-      "has_unbounded": false
+      "bounded_total": null,
+      "has_unbounded": null
     },
-    "effect_calls": 1,
-    "llm_calls": 0,
-    "permits_boundary": "permits:\n  exec: false\n  tools: [\"nika:glob\", \"nika:image_fx\"]\n\n# review \u2014 effects too dynamic to pin statically:\n#   \u00b7 task `stylize` uses a dynamic path \u2014 `fs` cannot express 'any path'; add the resolved path(s) before running",
+    "effect_calls": null,
+    "llm_calls": null,
+    "permits_boundary": "PARSE \u2717  [NIKA-PARSE-021] top-level `description:` moved into the workflow object \u2014 write it as `workflow.description`",
     "secret_egresses": [],
     "secret_leaks": [],
     "vars_required": []
   },
-  "engine": "0.104.0",
+  "engine": "0.105.0",
   "entry": "registry/workflows/supernovae-st/image-fx-batch/0.1.0.toml",
   "schema": 1,
   "sha256": "bb928b43443aa69402d894fdcc9fee9dc76cc39e099618db9e5ed30336e4d5a4"
