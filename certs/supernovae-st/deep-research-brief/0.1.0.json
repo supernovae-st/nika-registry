@@ -16,7 +16,7 @@
       "topic"
     ]
   },
-  "engine": "0.103.0",
+  "engine": "0.104.0",
   "entry": "registry/workflows/supernovae-st/deep-research-brief/0.1.0.toml",
   "schema": 1,
   "sha256": "baaa3a1d77cf98836b280c40de2abb289b2a2dc64af2196ba8560cbbd4f0f76b"

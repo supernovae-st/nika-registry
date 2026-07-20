@@ -14,7 +14,7 @@
     "secret_leaks": [],
     "vars_required": []
   },
-  "engine": "0.103.0",
+  "engine": "0.104.0",
   "entry": "registry/workflows/supernovae-st/standup-digest/0.1.0.toml",
   "schema": 1,
   "sha256": "c50a0ec548b9d2eda8530516ccb9e2026d7d809665968dfd469e0e26c680666f"
