@@ -12,8 +12,8 @@ classes:
   pinned-copy: "byte-copy pinned to an upstream rev"
   foreign: "pointer to a third-party sovereign source"
 summary:
-  authored: 19
-  generated: 84
+  authored: 22
+  generated: 82
   pinned-copy: 0
   foreign: 0
   unverified-default: 0
@@ -32,11 +32,11 @@ files:
   evidence: "hand-written PR checklist"
 - path: ".github/workflows/release-heal.yml"
   class: authored
-  sha256: 3a54a29ed0dfefa5bd098e2abc828d551b9b1e3c41cc5688c85144d71777a83c
+  sha256: 368d1d6c881f937b7770bd5b2f2e9a958bd831b9e88554f0a576f876541dd209
   evidence: "hand-written bot workflow (it edits OTHER files, nothing writes it)"
 - path: ".github/workflows/verify.yml"
   class: authored
-  sha256: 3d4d38457547a86249f7c144a492209939a668c74b156617ebac0f9566afc85e
+  sha256: 77c459dc781c463434202a9b58354b2d5ddab018d576825efb391e2cf63c4a1d
   evidence: "hand-written CI trust model (comments narrate design decisions)"
   note: "release-heal.yml rewrites the engine download URL + sha256 digest lines — bot-maintained fields inside an authored file"
 - path: ".gitignore"
@@ -66,17 +66,25 @@ files:
   class: authored
   sha256: da3951c8a03f4216ddaf7b414ed392189bc2d648f25aea672dc73ea60e7e5f4b
   evidence: "the copy-me template for community PRs · its own header says 'Copy to …'"
+- path: "POLICIES.md"
+  class: authored
+  sha256: 33e6e939fce87117601cd72fe9be820e8e8089ffcc4374923aa1b19cf557d12c
+  evidence: "prose policy pack (the 8 laws) · no generation marker · gates cite it, nothing writes it"
 - path: "README.md"
   class: authored
-  sha256: 7c9b2752dcec370370617e4dd36710aa83032b258dc5f6124cfe0ae6eb607c5c
+  sha256: 97b0a34696815971b279a7f2bfde918729f6546d0659e0c9d40129ef9c0c694a
   evidence: "prose entry surface · no generation marker · README.md:102 says only CATALOG.md is generated"
 - path: "SPEC_PIN"
   class: authored
   sha256: abfebf89008209a96241b7897cf6180255033ad0c205699db0b7866f943705dd
   evidence: "its own header: 'Bump deliberately: edit this' — a hand-bumped pin, the projector's INPUT"
+- path: "advisories/NIKA-ADV-2026-0001.toml"
+  class: authored
+  sha256: 6ad3adda128ca42cf788182af2907e8afcd5c3a0e7ecb5ca8c5020977440c475
+  evidence: "an advisory is authored per incident (advisories/README.md · OSV-inspired TOML), never derived"
 - path: "advisories/README.md"
   class: authored
-  sha256: 20ed130d109402ca3e5325833b9fa037a5539ac0911ad6472d1632aba2e70ae6
+  sha256: 5e58bda4b29f49335e717e3c20e8379f33589637e4f1ae9211611dde871cc0ad
   evidence: "prose advisory format doc · advisories are authored per incident, never derived"
 - path: "badges/catalog.json"
   class: generated
@@ -111,18 +119,6 @@ files:
     - "registry/**/*.toml"
     - "certs/**/*.json"
     - "advisories/*.toml"
-- path: "badges/supernovae-st--code-review.json"
-  class: generated
-  sha256: c46769149116c8292f281b469713eef196dd2c2c9897c806ee7d5673f173ee9e
-  evidence: "shields.io endpoint shape (schemaVersion=1 · label='nika cert') = exactly what scripts/index.py badge()/main() emit"
-  derivation:
-    tool: "python3 scripts/index.py --write"
-    gate: "NONE — index.py --check only re-derives badges for in-index artifacts; this file is no longer re-proven"
-    inputs:
-    - "registry/**/*.toml"
-    - "certs/**/*.json"
-    - "advisories/*.toml"
-  note: "orphan · supernovae-st/code-review is absent from registry/ and index.json — a leftover projection, stale relative to current inputs"
 - path: "badges/supernovae-st--competitor-radar.json"
   class: generated
   sha256: 09b07197720b22a2e66c5845a7e5ecd740c89238b7569aacccc9cfc71362055f
@@ -409,18 +405,6 @@ files:
     - "registry/workflows/supernovae-st/ceo-monday-brief/0.1.0.toml"
     - "pinned artifact bytes (sha256 a566cc567169…)"
     - "nika 0.104.0 static analysis"
-- path: "certs/supernovae-st/code-review/0.1.0.json"
-  class: generated
-  sha256: d8c315292179d9c2a4223acff0ee446fb24b08b2a23061ad88f3dd67f2d0f3ea
-  evidence: "cert JSON shape (engine=0.95.0 · certificate · sha256) = exactly what scripts/cert.py emits; its `entry` field cites registry/workflows/supernovae-st/code-review/0.1.0.toml"
-  derivation:
-    tool: "python3 scripts/cert.py --write (NIKA_BIN=nika 0.95.0)"
-    gate: "NONE — cert.py --check only iterates registry/**/*.toml; with the entry gone this cert is no longer re-proven"
-    inputs:
-    - "registry/workflows/supernovae-st/code-review/0.1.0.toml (ABSENT from the tree)"
-    - "pinned artifact bytes (sha256 e3f5b6daa4e1…)"
-    - "nika 0.95.0 static analysis"
-  note: "orphan · supernovae-st/code-review has no registry entry — a leftover projection, stale relative to current inputs"
 - path: "certs/supernovae-st/competitor-radar/0.1.0.json"
   class: generated
   sha256: 195c6409252cd026631915db2e6f628194c391994c471c3717afc3a0b4691f83
@@ -1000,7 +984,7 @@ files:
   note: "release-heal.yml rewrites the ENGINE_VERSION pin line on engine releases — a bot-maintained field inside an authored file"
 - path: "scripts/estate.py"
   class: authored
-  sha256: dcbab0b6a538bf9e23618b812abb9676f81572887fbfcd62fee61df4589d98c3
+  sha256: 5b9d56fba595efbaaf5be5639fa9dd4da8268ebb58c9d83f415e296172266c3b
   evidence: "hand-written estate projector (this manifest's generator)"
 - path: "scripts/get.py"
   class: authored
@@ -1010,6 +994,10 @@ files:
   class: authored
   sha256: 4bd9ab7b9572008519f93ed9e0f2e5fe11f962e8a539232135d4cf24cc4ce702
   evidence: "hand-written projector · SPDX header + design prose"
+- path: "scripts/orphan_gate.py"
+  class: authored
+  sha256: 4e0b623afb96d3cb6bf383c0b92a146b451e3eda88bfb27e67793fdedd1f9278
+  evidence: "hand-written gate · SPDX header + design prose · POLICIES.md law 8 (check-only by design)"
 - path: "scripts/project_pack.py"
   class: authored
   sha256: 1af4f590631c6bf24010f20b33f3d1dbdaded9922479a2c54d22d40c9c4b362e

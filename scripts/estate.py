@@ -84,6 +84,7 @@ def registry_entry_exists(publisher: str, name: str) -> bool:
 
 AUTHORED_EVIDENCE = {
     "README.md": "prose entry surface · no generation marker · README.md:102 says only CATALOG.md is generated",
+    "POLICIES.md": "prose policy pack (the 8 laws) · no generation marker · gates cite it, nothing writes it",
     "CONTRIBUTING.md": "prose contribution policy · no generation marker",
     "AGENTS.md": "hand-written agent entry per the AGENTS.md convention · no generation marker",
     "ENTRY_TEMPLATE.toml": "the copy-me template for community PRs · its own header says 'Copy to …'",
@@ -101,6 +102,7 @@ AUTHORED_EVIDENCE = {
     "scripts/project_pack.py": "hand-written projector · SPDX header + design prose",
     "scripts/get.py": "hand-written consume path · SPDX header + design prose",
     "scripts/selftest.py": "hand-written guard assertions · SPDX header + design prose",
+    "scripts/orphan_gate.py": "hand-written gate · SPDX header + design prose · POLICIES.md law 8 (check-only by design)",
     SELF: "hand-written estate projector (this manifest's generator)",
 }
 
