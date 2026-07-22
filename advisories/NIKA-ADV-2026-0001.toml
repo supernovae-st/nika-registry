@@ -1,0 +1,9 @@
+id = "NIKA-ADV-2026-0001"
+published = "2026-07-22"
+severity = "low"
+affected = "workflows/supernovae-st/code-review"
+versions = ["0.1.0"]
+tombstone = true
+summary = "Entry pruned by project_pack.py without an advisory — retroactive tombstone."
+details = "2026-07-06 (586b882): the spec pack renamed the code-review showcase to pr-review-fanout and the projector deleted registry/workflows/supernovae-st/code-review/0.1.0.toml silently, stranding its cert and badge as orphans no drift gate re-proved (found by the E0 estate observation · issue #21). No security impact: the artifact was a first-party showcase and its bytes were never compromised. This row is the burned-identifier ledger entry the deletion should have shipped with — code-review@0.1.0 is never reusable (POLICIES.md law 3)."
+action = "none — entry was a first-party showcase renamed in the spec pack; use supernovae-st/pr-review-fanout"
