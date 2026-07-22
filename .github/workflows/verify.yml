@@ -84,6 +84,12 @@ jobs:
 
       - name: Index + llms.txt + badges in sync
         run: python3 scripts/index.py --check
+      # E0 OBSERVATION (non-blocking until E2 flips it to enforcement):
+      # the estate manifest re-emits and byte-compares — a red here means a
+      # PR changed tracked files without `python3 scripts/estate.py --write`.
+      - name: Estate manifest observes (non-blocking · E0)
+        continue-on-error: true
+        run: python3 scripts/estate.py --check
       - name: Advisories parse + reference real entries
         run: |
           python3 - << 'EOF'
