@@ -3,9 +3,9 @@ name: release-heal
 # The certifier follows the release without the hand-run 3-layer dance
 # (done twice today): on a new engine release, bump ENGINE_VERSION +
 # the verify.yml digest from the published SHA256SUMS, download the
-# pinned binary, re-derive certs -> index/llms/badges, and open ONE
-# idempotent PR — the verify gate re-proves everything, never a direct
-# push. SECURITY: no github.event data in the shell; tag validated.
+# pinned binary, re-derive certs -> index/llms/badges -> estate, and
+# open ONE idempotent PR — the verify gate re-proves everything, never
+# a direct push. SECURITY: no github.event data in the shell; tag validated.
 
 on:
   schedule:
@@ -45,6 +45,10 @@ jobs:
           pip install pyyaml >/dev/null
           NIKA_BIN="$PWD/nika" python3 scripts/cert.py --write
           python3 scripts/index.py --write
+          # The estate manifest rides the heal: certs/index/badges changed,
+          # so their sha256 rows must too — otherwise every release lands
+          # with a soft-red estate --check until someone hand-runs --write.
+          python3 scripts/estate.py --write
           rm -f nika
           git add -A
           if git diff --cached --quiet; then echo "layers current — nothing to heal"; exit 0; fi

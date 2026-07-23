@@ -14,7 +14,7 @@
     "secret_leaks": [],
     "vars_required": []
   },
-  "engine": "0.103.0",
+  "engine": "0.104.0",
   "entry": "registry/workflows/supernovae-st/price-watch/0.1.0.toml",
   "schema": 1,
   "sha256": "b9789f837d90f309a5c9b1ea51120ababac0efefe816056bd8fd655afe7e4253"

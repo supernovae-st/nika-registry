@@ -83,6 +83,9 @@ of them identically.
 
 ## The rules (each maps to a documented registry death)
 
+The full law text lives in [POLICIES.md](POLICIES.md): 8 numbered laws,
+each with the incident that wrote it, and the gate that holds it.
+
 | Rule | Kills |
 |---|---|
 | Entries are **immutable**: new version = new file · withdrawal = an [advisory](advisories/), never a delete | left-pad · rug-pulls |

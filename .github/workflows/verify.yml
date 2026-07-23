@@ -22,11 +22,46 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+      # POLICIES.md law 1 (immutability · the R1 verify.py always claimed):
+      # a merged entry never changes — fixes ship as a new version. New
+      # files pass; modify/delete of an EXISTING registry/**/*.toml is
+      # refused unless the operator placed advisories/OVERRIDE-<pr>.md in
+      # this PR (the deliberate carve-out for malware/legal + pin bumps
+      # that legitimately reproject — each override file is itself the
+      # audit trail of the exception). Event data enters via env only
+      # (a 40-hex sha + an integer — same discipline as release-heal).
+      - name: Immutability gate (merged entries never change)
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          PR_NUM: ${{ github.event.pull_request.number }}
+        run: |
+          git fetch --quiet --depth=1 origin "$BASE_SHA"
+          touched="$(git diff --name-only --diff-filter=MD "$BASE_SHA" HEAD -- 'registry/**/*.toml')"
+          if [ -z "$touched" ]; then echo "immutability OK · no existing entry touched"; exit 0; fi
+          if [ -f "advisories/OVERRIDE-${PR_NUM}.md" ]; then
+            echo "operator override present (advisories/OVERRIDE-${PR_NUM}.md) · allowing:"
+            echo "$touched"; exit 0
+          fi
+          echo "::error::existing entries modified or deleted (POLICIES.md law 1 — publish a new version instead):"
+          echo "$touched"
+          exit 1
       - uses: actions/checkout@v4
         with:
           repository: supernovae-st/nika-spec
           path: .oracle
           fetch-depth: 0   # SPEC_PIN's commit must be reachable (git show <rev>)
+      # The JUDGE honors the pin, not a floating HEAD — the same law the
+      # projector has always followed. Empirical (2026-07-14): a spec-side
+      # ratification (R3a · the E-split) flipped HEAD's oracle and turned
+      # every pinned entry red at a constant registry SHA. Pinned bytes are
+      # judged by the pinned oracle; advancing the judge = advancing
+      # SPEC_PIN deliberately (+ re-projecting the entries).
+      - name: Pin the oracle at SPEC_PIN
+        run: |
+          rev=$(grep -vE '^\s*#' SPEC_PIN | tr -d '[:space:]')
+          git -C .oracle checkout --quiet "$rev"
+          echo "oracle pinned at $(git -C .oracle rev-parse --short HEAD)"
       - name: Oracle deps
         run: pip install pyyaml jsonschema
       - name: First-party entries match the spec pack (projection parity)
@@ -61,8 +96,8 @@ jobs:
 
       - name: Fetch the pinned engine (digest-verified — we practice what we gate)
         run: |
-          curl -sSLo nika.tar.gz https://github.com/supernovae-st/nika/releases/download/v0.103.0/nika-linux-x64-0.103.0.tar.gz
-          echo "aa360bebd73ef0907833b715662910377b63cc22a6d6b73bbc9cff153c1c1cba  nika.tar.gz" | sha256sum -c -
+          curl -sSLo nika.tar.gz https://github.com/supernovae-st/nika/releases/download/v0.104.0/nika-linux-x64-0.104.0.tar.gz
+          echo "8870cd4eaa85c0ace8a5ae47d6f0b59da3369a685d87e193930c381f34ee81fb  nika.tar.gz" | sha256sum -c -
           tar xzf nika.tar.gz
 
       - name: Certs + catalog in sync (the engine's own analysis, re-proven)
@@ -73,6 +108,17 @@ jobs:
 
       - name: Index + llms.txt + badges in sync
         run: python3 scripts/index.py --check
+      # POLICIES.md law 8 (the #21 ghost): cert.py/index.py --check iterate
+      # LIVE entries only, so an orphan projection is never re-proven. This
+      # walks the projections instead and demands each one's entry exists.
+      - name: Orphan gate (every projection cites a live entry)
+        run: python3 scripts/orphan_gate.py
+      # E0 OBSERVATION (non-blocking until E2 flips it to enforcement):
+      # the estate manifest re-emits and byte-compares — a red here means a
+      # PR changed tracked files without `python3 scripts/estate.py --write`.
+      - name: Estate manifest observes (non-blocking · E0)
+        continue-on-error: true
+        run: python3 scripts/estate.py --check
       - name: Advisories parse + reference real entries
         run: |
           python3 - << 'EOF'
@@ -82,6 +128,10 @@ jobs:
               a = tomllib.loads(p.read_text())
               for f in ("id", "published", "severity", "affected", "versions", "summary", "action"):
                   assert f in a, f"{p}: missing {f}"
-              assert (root / "registry" / a["affected"]).is_dir(), f"{p}: unknown artifact {a['affected']}"
+              # A tombstone advisory (POLICIES.md law 3 · burned identifiers)
+              # names an entry the tree no longer holds — the permanent ledger
+              # row for a deleted identifier. Everything else cites a live entry.
+              if a.get("tombstone") is not True:
+                  assert (root / "registry" / a["affected"]).is_dir(), f"{p}: unknown artifact {a['affected']}"
           print("advisories OK")
           EOF
