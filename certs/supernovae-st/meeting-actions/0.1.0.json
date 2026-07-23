@@ -2,21 +2,19 @@
   "certificate": {
     "broad": false,
     "capability_escapes": [],
-    "clean": true,
+    "clean": false,
     "cost_usd": {
-      "bounded_total": 0.0,
-      "has_unbounded": true
+      "bounded_total": null,
+      "has_unbounded": null
     },
-    "effect_calls": 3,
-    "llm_calls": 1,
-    "permits_boundary": "permits:\n  fs:\n    write: [\"./action-items.json\"]\n  exec: false\n  tools: [\"nika:log\", \"nika:read\", \"nika:write\"]\n\n# review \u2014 effects too dynamic to pin statically:\n#   \u00b7 task `transcript` uses a dynamic path \u2014 `fs` cannot express 'any path'; add the resolved path(s) before running",
+    "effect_calls": null,
+    "llm_calls": null,
+    "permits_boundary": "PARSE \u2717  [NIKA-PARSE-021] top-level `description:` moved into the workflow object \u2014 write it as `workflow.description`",
     "secret_egresses": [],
     "secret_leaks": [],
-    "vars_required": [
-      "transcript_path"
-    ]
+    "vars_required": []
   },
-  "engine": "0.104.0",
+  "engine": "0.105.0",
   "entry": "registry/workflows/supernovae-st/meeting-actions/0.1.0.toml",
   "schema": 1,
   "sha256": "12b72a7c1c2fe92394926cc29b6b42aa7316e65733f18e60770ea8be59a02062"
