@@ -164,6 +164,34 @@ def render_llms(doc: dict) -> str:
     return "\n".join(lines)
 
 
+def has_source_entry(publisher: str, name: str) -> bool:
+    """A derived surface (badge · cert) is legitimate only while its source
+    entry lives. Entries sit at registry/<type>s/<publisher>/<name>/; a missing
+    directory means the source was withdrawn — and per the projection rule a
+    withdrawal deletes the derived surface too. What remains is an orphan."""
+    return any(d.is_dir() for d in ROOT.glob(f"registry/*s/{publisher}/{name}"))
+
+
+def orphans() -> list[pathlib.Path]:
+    """Derived surfaces whose source entry is gone. The parity check above
+    proves every ENTRY has its surface; this proves the converse — no surface
+    outlives its entry. A badge/cert with no registry/ source can never be
+    reached by --write, so parity alone stays blind to it (a deleted entry
+    leaves the stale file untouched). A derived file with no source reads as
+    tampered — consumers pin hashes, not names, and this one answers to none."""
+    found = []
+    for p in sorted(ROOT.glob("badges/*.json")):
+        if p.name == "catalog.json":
+            continue
+        publisher, _, name = p.stem.partition("--")
+        if not name or not has_source_entry(publisher, name):
+            found.append(p.relative_to(ROOT))
+    for d in sorted(ROOT.glob("certs/*/*")):
+        if d.is_dir() and not has_source_entry(d.parent.name, d.name):
+            found.append(d.relative_to(ROOT))
+    return found
+
+
 def main() -> int:
     mode = sys.argv[1] if len(sys.argv) > 1 else "--check"
     doc = build()
@@ -197,9 +225,17 @@ def main() -> int:
     if mode == "--write":
         print(f"✓ index.json + llms.txt + {len(doc['artifacts'])} badges")
         return 0
-    if not drift:
+
+    # After the sync comparison, sweep the other direction. --write can only
+    # ever reach surfaces that HAVE a source entry, so a badge/cert left behind
+    # by a withdrawn entry is invisible to parity — it must be gated here.
+    stale = orphans()
+    for o in stale:
+        print(f"✗ orphan · {o} — no source entry in registry/; a derived surface must trace to an entry", file=sys.stderr)
+
+    if not drift and not stale:
         print(f"✓ index + llms.txt + badges in sync ({len(doc['artifacts'])} artifacts)")
-    return 1 if drift else 0
+    return 1 if (drift or stale) else 0
 
 
 if __name__ == "__main__":
