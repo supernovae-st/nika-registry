@@ -2,19 +2,19 @@
   "certificate": {
     "broad": false,
     "capability_escapes": [],
-    "clean": true,
+    "clean": false,
     "cost_usd": {
-      "bounded_total": 0.0,
-      "has_unbounded": true
+      "bounded_total": null,
+      "has_unbounded": null
     },
-    "effect_calls": 10,
-    "llm_calls": 1,
-    "permits_boundary": "permits:\n  exec: [\"git\"]\n  tools: [\"nika:convert\", \"nika:date\", \"nika:emit\", \"nika:fetch\", \"nika:inspect\", \"nika:jq\", \"nika:notify\", \"nika:read\", \"nika:write\"]\n\n# review \u2014 effects too dynamic to pin statically:\n#   \u00b7 task `news` reaches a dynamic URL \u2014 `net.http` cannot express 'any host'; add the resolved host(s) before running\n#   \u00b7 task `kpi_raw` uses a dynamic path \u2014 `fs` cannot express 'any path'; add the resolved path(s) before running\n#   \u00b7 task `save` uses a dynamic path \u2014 `fs` cannot express 'any path'; add the resolved path(s) before running\n#   \u00b7 task `ping` reaches a dynamic URL \u2014 `net.http` cannot express 'any host'; add the resolved host(s) before running",
+    "effect_calls": null,
+    "llm_calls": null,
+    "permits_boundary": "PARSE \u2717  [NIKA-PARSE-021] top-level `description:` moved into the workflow object \u2014 write it as `workflow.description`",
     "secret_egresses": [],
     "secret_leaks": [],
     "vars_required": []
   },
-  "engine": "0.104.0",
+  "engine": "0.105.0",
   "entry": "registry/workflows/supernovae-st/ceo-monday-brief/0.1.0.toml",
   "schema": 1,
   "sha256": "a566cc5671694d0740ffd315d6d7f8164531f673841e07312a862f33d81de4cb"

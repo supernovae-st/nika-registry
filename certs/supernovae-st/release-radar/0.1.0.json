@@ -2,19 +2,19 @@
   "certificate": {
     "broad": false,
     "capability_escapes": [],
-    "clean": true,
+    "clean": false,
     "cost_usd": {
-      "bounded_total": 0.0,
-      "has_unbounded": true
+      "bounded_total": null,
+      "has_unbounded": null
     },
-    "effect_calls": 5,
-    "llm_calls": 1,
-    "permits_boundary": "permits:\n  exec: false\n  tools: [\"nika:fetch\", \"nika:jq\", \"nika:json_diff\", \"nika:read\", \"nika:write\"]\n\n# review \u2014 effects too dynamic to pin statically:\n#   \u00b7 task `previous` uses a dynamic path \u2014 `fs` cannot express 'any path'; add the resolved path(s) before running\n#   \u00b7 task `feed` reaches a dynamic URL \u2014 `net.http` cannot express 'any host'; add the resolved host(s) before running\n#   \u00b7 task `save_state` uses a dynamic path \u2014 `fs` cannot express 'any path'; add the resolved path(s) before running",
+    "effect_calls": null,
+    "llm_calls": null,
+    "permits_boundary": "PARSE \u2717  [NIKA-PARSE-021] top-level `description:` moved into the workflow object \u2014 write it as `workflow.description`",
     "secret_egresses": [],
     "secret_leaks": [],
     "vars_required": []
   },
-  "engine": "0.104.0",
+  "engine": "0.105.0",
   "entry": "registry/workflows/supernovae-st/release-radar/0.1.0.toml",
   "schema": 1,
   "sha256": "396e439996a47af767157166e6f1391aa7316ac2d69a74a014db43b4aa4b33ce"

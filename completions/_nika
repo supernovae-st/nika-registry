@@ -1,0 +1,1661 @@
+#compdef nika
+
+autoload -U is-at-least
+
+_nika() {
+    typeset -A opt_args
+    typeset -a _arguments_options
+    local ret=1
+
+    if is-at-least 5.2; then
+        _arguments_options=(-s -S -C)
+    else
+        _arguments_options=(-s -C)
+    fi
+
+    local context curcontext="$curcontext" state line
+    _arguments "${_arguments_options[@]}" : \
+'--color=[When to colour the output (auto = TTY + \`TERM != dumb\` · honours \`CLICOLOR_FORCE\` · \`NO_COLOR\` · \`CLICOLOR=0\` in that order)]:COLOR:((always\:"Force colour on (pagers accepting escapes · captured demos)"
+never\:"Force colour off (the \`--no-color\` flags fold here)"
+auto\:"Resolve from the environment chain + TTY (the default)"))' \
+'--hyperlink=[When to emit OSC-8 hyperlinks on printed paths (auto = TTY + \`TERM != dumb\` · never to pipes; always = force them, for pagers that pass escapes — tmux/screen may render them as plain text)]:HYPERLINK:((always\:"Force hyperlinks on (escape-passing pagers · captured demos)"
+never\:"Force hyperlinks off"
+auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
+'--ascii[Force the ASCII glyph twins everywhere (CI logs · legacy terminals) — colour stays; \`--plain\` is the full sober umbrella]' \
+'--plain[The sober umbrella — one flag for scripts, CI and transcripts\: colour off · ASCII glyphs · hyperlinks off · no animation (\`run\` renders its plain storyboard). The same result as \`--color never --hyperlink never\` plus every verb'\''s \`--ascii\`/\`--no-progress\`]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'-V[Print version]' \
+'--version[Print version]' \
+":: :_nika_commands" \
+"*::: :->nika" \
+&& ret=0
+    case $state in
+    (nika)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:nika-command-$line[1]:"
+        case $line[1] in
+            (welcome)
+_arguments "${_arguments_options[@]}" : \
+'--color=[When to colour the output (auto = TTY + \`TERM != dumb\` · honours \`CLICOLOR_FORCE\` · \`NO_COLOR\` · \`CLICOLOR=0\` in that order)]:COLOR:((always\:"Force colour on (pagers accepting escapes · captured demos)"
+never\:"Force colour off (the \`--no-color\` flags fold here)"
+auto\:"Resolve from the environment chain + TTY (the default)"))' \
+'--hyperlink=[When to emit OSC-8 hyperlinks on printed paths (auto = TTY + \`TERM != dumb\` · never to pipes; always = force them, for pagers that pass escapes — tmux/screen may render them as plain text)]:HYPERLINK:((always\:"Force hyperlinks on (escape-passing pagers · captured demos)"
+never\:"Force hyperlinks off"
+auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
+'--json[Emit the versioned machine projection (\`welcome_version\: 1\`)]' \
+'--deep[The whole workspace truth (every workflow audited · recent runs · machine facts) — the deep half of the mirror (the old \`context\` verb, one roof)]' \
+'--ascii[Force the ASCII glyph twins everywhere (CI logs · legacy terminals) — colour stays; \`--plain\` is the full sober umbrella]' \
+'--plain[The sober umbrella — one flag for scripts, CI and transcripts\: colour off · ASCII glyphs · hyperlinks off · no animation (\`run\` renders its plain storyboard). The same result as \`--color never --hyperlink never\` plus every verb'\''s \`--ascii\`/\`--no-progress\`]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+&& ret=0
+;;
+(check)
+_arguments "${_arguments_options[@]}" : \
+'--model=[Price the static envelope AS IF this \`<provider>/<model>\` replaced the envelope default — the preview of \`nika run --model\` (per-task \`model\:\` still wins, like the runtime)]:MODEL:_default' \
+'--color=[When to colour the output (auto = TTY + \`TERM != dumb\` · honours \`CLICOLOR_FORCE\` · \`NO_COLOR\` · \`CLICOLOR=0\` in that order)]:COLOR:((always\:"Force colour on (pagers accepting escapes · captured demos)"
+never\:"Force colour off (the \`--no-color\` flags fold here)"
+auto\:"Resolve from the environment chain + TTY (the default)"))' \
+'--hyperlink=[When to emit OSC-8 hyperlinks on printed paths (auto = TTY + \`TERM != dumb\` · never to pipes; always = force them, for pagers that pass escapes — tmux/screen may render them as plain text)]:HYPERLINK:((always\:"Force hyperlinks on (escape-passing pagers · captured demos)"
+never\:"Force hyperlinks off"
+auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
+'--json[Emit the versioned machine projection (\`report_version\: 1\`)]' \
+'--infer-permits[Print an inferred \`permits\:\` boundary instead of the report]' \
+'--fix[Apply the machine-applicable rename repairs (typed did-you-mean suggestions only\: fields · tools · args), rewrite the file, and re-audit — the in-binary repair loop (\`clippy --fix\` shape). One real file; ambiguous tokens are skipped with a note, never guessed]' \
+'--native-strict[Fail (exit 2) when any \`native-first\` hint remains — an \`exec\:\` a builtin or MCP tool probably covers. The agent/CI posture; hints stay advisory without it]' \
+'--ascii[Force the ASCII glyph twins everywhere (CI logs · legacy terminals) — colour stays; \`--plain\` is the full sober umbrella]' \
+'--plain[The sober umbrella — one flag for scripts, CI and transcripts\: colour off · ASCII glyphs · hyperlinks off · no animation (\`run\` renders its plain storyboard). The same result as \`--color never --hyperlink never\` plus every verb'\''s \`--ascii\`/\`--no-progress\`]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'*::files -- Workflow file(s) (`*.nika.yaml`) · `-` reads stdin · or a verified `registry\:owner/name\[@version\]` pull (cached + offline; workflow `permits\:` never govern the fetch) · several files audit in sequence (worst exit wins — the CI shape) · `--json`/`--infer-permits` one-file-per-call. Omitted with exactly one workflow here → that one is audited:_default' \
+&& ret=0
+;;
+(run)
+_arguments "${_arguments_options[@]}" : \
+'(--json)--output=[Print the typed \`outputs\:\` as ONE JSON object on stdout (progress → stderr) · the export contract · powers \`exec\: nika run sub.yaml --output json\` + \`capture\: stdout\`]:FORMAT:_default' \
+'--model=[Override the workflow'\''s envelope \`model\:\` (\`<provider>/<name>\`). Resolved through the SAME path as an envelope model — a bad id fails loud when an infer/agent task resolves it. \`--model mock/echo\` previews any workflow offline (zero key · zero network)]:PROVIDER/NAME:_default' \
+'*--var=[Set a workflow \`vars\:\` value (repeatable). Overrides a declared \`default\:\` and satisfies a \`required\: true\` var. The value is parsed as JSON when it parses (numbers · booleans · arrays), else taken as a string. Unknown keys are refused]:KEY=VALUE:_default' \
+'(--dry-run)--resume=[Resume from a prior run'\''s NDJSON trace (\`nika run … --json > trace.ndjson\`)\: every task whose identity matches a journaled success is skipped with a visible \`task_cache_hit\` — an edited task or a changed input always re-runs (ADR-099). A trace without resume keys runs everything live (a notice, never an error)]:TRACE:_files' \
+'--from=[Force this task AND its transitive downstream to re-run even on an identity match (the lever for changes the hashes cannot see — rotated secret · external state · an infer output to re-roll)]:TASK_ID:_default' \
+'*--answer=[Answer a paused \`nika\:prompt\` at resume (repeatable · ADR-099 rider)\: binds as the named task'\''s answer — \`--answer ok=true\` for confirm, a string for input, one of the choices for choice. The value parses as JSON when it parses, else rides as a string]:TASK=VALUE:_default' \
+'(--resume)--task=[Run ONE task and its transitive upstream only (the regenerate-one- block move)\: the full workflow still audits (spans · findings stay whole-file faithful), then execution scopes to the ancestor sub-DAG and the plan/cost re-derive for exactly what will run. Workflow \`outputs\:\` are skipped (they may read unscoped tasks)]:TASK_ID:_default' \
+'--max-cost-usd=[Operator run budget over METERED spend (USD). Refuses to start (exit 2) when the static cost floor already exceeds it; during the run the crossing call completes and counts, nothing new starts, unstarted tasks cancel and the run fails NIKA-1704 (exit 1) with spent-vs-budget — workflow \`outputs\:\` are not resolved on a budget stop (per-task values live in the trace). Spending EXACTLY the budget does not trip it. Costs use LIST RATES from the vendored public catalog — private/proxy/negotiated pricing is not reflected; local · mock · unpriced work is never blocked (the budget bounds what the catalog can meter)]:USD:_default' \
+'--color=[When to colour the output (auto = TTY + \`TERM != dumb\` · honours \`CLICOLOR_FORCE\` · \`NO_COLOR\` · \`CLICOLOR=0\` in that order)]:COLOR:((always\:"Force colour on (pagers accepting escapes · captured demos)"
+never\:"Force colour off (the \`--no-color\` flags fold here)"
+auto\:"Resolve from the environment chain + TTY (the default)"))' \
+'--hyperlink=[When to emit OSC-8 hyperlinks on printed paths (auto = TTY + \`TERM != dumb\` · never to pipes; always = force them, for pagers that pass escapes — tmux/screen may render them as plain text)]:HYPERLINK:((always\:"Force hyperlinks on (escape-passing pagers · captured demos)"
+never\:"Force hyperlinks off"
+auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
+'--json[Stream NDJSON events instead of the live render (CI · agents)]' \
+'(--json --output)--no-progress[Plain render\: one final storyboard frame, no animation (the CI-stable surface · also the default when stdout is piped). A human surface — meaningless with the \`--json\`/\`--output\` machine modes, so refused there (the machine surface owns its rendering)]' \
+'(--no-progress --json --output)--quiet[Quiet\: print only the final verdict card (errors always). A human surface · refused with \`--no-progress\` and the machine modes]' \
+'(--output)--dry-run[Plan only — show the static plan and execute ZERO effects (spec §10). With \`--json\`\: ONE versioned plan object (\`plan_version\: 1\` — waves · cost ceiling · permits · requirements) instead of the human preview. \`--output\` stays refused (an outputs export of a run that never executed would be a lie)]' \
+'--no-trace-file[Skip the run journal (\`.nika/traces/<ts>-<id>.ndjson\` · spec §3.3). Every run writes one by default so \`nika trace show|replay\`, \`--resume\` and the editor'\''s runs view have a file to read. \`NIKA_NO_TRACE_FILE\` (any non-empty value) opts out globally]' \
+'--no-outputs[Hide the per-task output summaries (\`→ {…} · 312B\`) on the live storyboard. Interactive TTY only — pipes · CI · the machine modes never carry them anyway]' \
+'--no-gc[Skip the opportunistic trace collection for this invocation (ADR-100\: \`.nika/traces/\` is bounded by default — retention rides every run start; a collection that removes anything says so on stderr)]' \
+'--ascii[Force the ASCII glyph twins everywhere (CI logs · legacy terminals) — colour stays; \`--plain\` is the full sober umbrella]' \
+'--plain[The sober umbrella — one flag for scripts, CI and transcripts\: colour off · ASCII glyphs · hyperlinks off · no animation (\`run\` renders its plain storyboard). The same result as \`--color never --hyperlink never\` plus every verb'\''s \`--ascii\`/\`--no-progress\`]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'::file -- Workflow file (`*.nika.yaml`) · or a `registry\:owner/name\[@version\]` verified pull (cached + offline; `permits\:` never govern the fetch). OMITTED with exactly one workflow in this workspace → that one runs (announced); zero or several → the honest routing:_default' \
+&& ret=0
+;;
+(test)
+_arguments "${_arguments_options[@]}" : \
+'--color=[When to colour the output (auto = TTY + \`TERM != dumb\` · honours \`CLICOLOR_FORCE\` · \`NO_COLOR\` · \`CLICOLOR=0\` in that order)]:COLOR:((always\:"Force colour on (pagers accepting escapes · captured demos)"
+never\:"Force colour off (the \`--no-color\` flags fold here)"
+auto\:"Resolve from the environment chain + TTY (the default)"))' \
+'--hyperlink=[When to emit OSC-8 hyperlinks on printed paths (auto = TTY + \`TERM != dumb\` · never to pipes; always = force them, for pagers that pass escapes — tmux/screen may render them as plain text)]:HYPERLINK:((always\:"Force hyperlinks on (escape-passing pagers · captured demos)"
+never\:"Force hyperlinks off"
+auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
+'--update[(Re)write the golden from this run instead of comparing]' \
+'--ascii[Force the ASCII glyph twins everywhere (CI logs · legacy terminals) — colour stays; \`--plain\` is the full sober umbrella]' \
+'--plain[The sober umbrella — one flag for scripts, CI and transcripts\: colour off · ASCII glyphs · hyperlinks off · no animation (\`run\` renders its plain storyboard). The same result as \`--color never --hyperlink never\` plus every verb'\''s \`--ascii\`/\`--no-progress\`]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'::file -- Workflow file (`*.nika.yaml`):_default' \
+&& ret=0
+;;
+(inspect)
+_arguments "${_arguments_options[@]}" : \
+'--format=[Project the graph instead of the human anatomy (json canonical · mermaid/dot derived — the docs/site surfaces)]:FORMAT:((json\:"Canonical JSON projection (\`graph_format\: 2\`)"
+mermaid\:"Mermaid flowchart"
+dot\:"Graphviz dot"
+ascii\:"Terminal drawing (waves as columns · real wires · honest fallback)"))' \
+'--color=[When to colour the output (auto = TTY + \`TERM != dumb\` · honours \`CLICOLOR_FORCE\` · \`NO_COLOR\` · \`CLICOLOR=0\` in that order)]:COLOR:((always\:"Force colour on (pagers accepting escapes · captured demos)"
+never\:"Force colour off (the \`--no-color\` flags fold here)"
+auto\:"Resolve from the environment chain + TTY (the default)"))' \
+'--hyperlink=[When to emit OSC-8 hyperlinks on printed paths (auto = TTY + \`TERM != dumb\` · never to pipes; always = force them, for pagers that pass escapes — tmux/screen may render them as plain text)]:HYPERLINK:((always\:"Force hyperlinks on (escape-passing pagers · captured demos)"
+never\:"Force hyperlinks off"
+auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
+'--ascii[Force the ASCII glyph twins everywhere (CI logs · legacy terminals) — colour stays; \`--plain\` is the full sober umbrella]' \
+'--plain[The sober umbrella — one flag for scripts, CI and transcripts\: colour off · ASCII glyphs · hyperlinks off · no animation (\`run\` renders its plain storyboard). The same result as \`--color never --hyperlink never\` plus every verb'\''s \`--ascii\`/\`--no-progress\`]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+':file -- Workflow file (`*.nika.yaml`) · `-` reads stdin:_default' \
+&& ret=0
+;;
+(explain)
+_arguments "${_arguments_options[@]}" : \
+'--color=[When to colour the output (auto = TTY + \`TERM != dumb\` · honours \`CLICOLOR_FORCE\` · \`NO_COLOR\` · \`CLICOLOR=0\` in that order)]:COLOR:((always\:"Force colour on (pagers accepting escapes · captured demos)"
+never\:"Force colour off (the \`--no-color\` flags fold here)"
+auto\:"Resolve from the environment chain + TTY (the default)"))' \
+'--hyperlink=[When to emit OSC-8 hyperlinks on printed paths (auto = TTY + \`TERM != dumb\` · never to pipes; always = force them, for pagers that pass escapes — tmux/screen may render them as plain text)]:HYPERLINK:((always\:"Force hyperlinks on (escape-passing pagers · captured demos)"
+never\:"Force hyperlinks off"
+auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
+'--json[File form only\: emit the versioned machine projection (\`explain_version\: 1\` · the check report'\''s own vocabulary)]' \
+'--forecast[File form only\: include the learned-truth forecast — duration/ cost/risk priors from YOUR local traces (stats over \`.nika/traces/\` · never a model call · never the network)]' \
+'--ascii[Force the ASCII glyph twins everywhere (CI logs · legacy terminals) — colour stays; \`--plain\` is the full sober umbrella]' \
+'--plain[The sober umbrella — one flag for scripts, CI and transcripts\: colour off · ASCII glyphs · hyperlinks off · no animation (\`run\` renders its plain storyboard). The same result as \`--color never --hyperlink never\` plus every verb'\''s \`--ascii\`/\`--no-progress\`]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+':code -- An error code (`NIKA-440` · bare `440` · `DAG-003`) or a workflow file path (`*.nika.yaml` · `-` reads stdin):_default' \
+&& ret=0
+;;
+(doctor)
+_arguments "${_arguments_options[@]}" : \
+'--color=[When to colour the output (auto = TTY + \`TERM != dumb\` · honours \`CLICOLOR_FORCE\` · \`NO_COLOR\` · \`CLICOLOR=0\` in that order)]:COLOR:((always\:"Force colour on (pagers accepting escapes · captured demos)"
+never\:"Force colour off (the \`--no-color\` flags fold here)"
+auto\:"Resolve from the environment chain + TTY (the default)"))' \
+'--hyperlink=[When to emit OSC-8 hyperlinks on printed paths (auto = TTY + \`TERM != dumb\` · never to pipes; always = force them, for pagers that pass escapes — tmux/screen may render them as plain text)]:HYPERLINK:((always\:"Force hyperlinks on (escape-passing pagers · captured demos)"
+never\:"Force hyperlinks off"
+auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
+'--ping[TCP-probe the local provider ports (loopback/configured only · 300ms cap · nothing is sent on the socket). Offline without it]' \
+'--json[Emit the machine projection (summary + findings\[\] — agents/CI branch on \`summary.fail\` instead of parsing glyphs)]' \
+'--ascii[Force the ASCII glyph twins everywhere (CI logs · legacy terminals) — colour stays; \`--plain\` is the full sober umbrella]' \
+'--plain[The sober umbrella — one flag for scripts, CI and transcripts\: colour off · ASCII glyphs · hyperlinks off · no animation (\`run\` renders its plain storyboard). The same result as \`--color never --hyperlink never\` plus every verb'\''s \`--ascii\`/\`--no-progress\`]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+&& ret=0
+;;
+(init)
+_arguments "${_arguments_options[@]}" : \
+'--recipe=[Scaffold a workflow set — the wizard'\''s recipe step, scriptable (\`agentic\` = the 4-pattern curriculum)]:RECIPE:(agentic starter ship content minimal)' \
+'(--recipe)--example=[Found the project from ONE embedded example (verbatim — any slug from \`nika examples list\`). One founding source\: conflicts with \`--recipe\`]:SLUG:_default' \
+'--theme=[Stamp the VS Code DAG canvas skin (\`nika.dag.theme\`) into the created \`.vscode/settings.json\`]:THEME:((nika\:"The brand skin — engineered black · verb hues"
+editor\:"Adaptive — follows the editor'\''s colors"
+phosphor\:"Terminal green"
+auto\:"Let the extension decide"))' \
+'*--wire=[Wire agent clients to the MCP oracle after the scaffold (comma-separated · the same targets as \`nika wire\`)]:WIRE:(cursor vscode windsurf claude claude-desktop cline codex continue zed opencode hermes gemini qwen lmstudio junie all)' \
+'--color=[When to colour the output (auto = TTY + \`TERM != dumb\` · honours \`CLICOLOR_FORCE\` · \`NO_COLOR\` · \`CLICOLOR=0\` in that order)]:COLOR:((always\:"Force colour on (pagers accepting escapes · captured demos)"
+never\:"Force colour off (the \`--no-color\` flags fold here)"
+auto\:"Resolve from the environment chain + TTY (the default)"))' \
+'--hyperlink=[When to emit OSC-8 hyperlinks on printed paths (auto = TTY + \`TERM != dumb\` · never to pipes; always = force them, for pagers that pass escapes — tmux/screen may render them as plain text)]:HYPERLINK:((always\:"Force hyperlinks on (escape-passing pagers · captured demos)"
+never\:"Force hyperlinks off"
+auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
+'--force[Overwrite existing files]' \
+'-y[Accept every default — never prompt (pipes and CI are implicitly \`--yes\`; prompts only ever appear on a terminal)]' \
+'--yes[Accept every default — never prompt (pipes and CI are implicitly \`--yes\`; prompts only ever appear on a terminal)]' \
+'--ascii[Force the ASCII glyph twins everywhere (CI logs · legacy terminals) — colour stays; \`--plain\` is the full sober umbrella]' \
+'--plain[The sober umbrella — one flag for scripts, CI and transcripts\: colour off · ASCII glyphs · hyperlinks off · no animation (\`run\` renders its plain storyboard). The same result as \`--color never --hyperlink never\` plus every verb'\''s \`--ascii\`/\`--no-progress\`]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'::dir -- Target directory (default · the current directory):_default' \
+&& ret=0
+;;
+(wire)
+_arguments "${_arguments_options[@]}" : \
+'--dir=[Workspace directory for repo-local clients such as VS Code]:DIR:_default' \
+'--color=[When to colour the output (auto = TTY + \`TERM != dumb\` · honours \`CLICOLOR_FORCE\` · \`NO_COLOR\` · \`CLICOLOR=0\` in that order)]:COLOR:((always\:"Force colour on (pagers accepting escapes · captured demos)"
+never\:"Force colour off (the \`--no-color\` flags fold here)"
+auto\:"Resolve from the environment chain + TTY (the default)"))' \
+'--hyperlink=[When to emit OSC-8 hyperlinks on printed paths (auto = TTY + \`TERM != dumb\` · never to pipes; always = force them, for pagers that pass escapes — tmux/screen may render them as plain text)]:HYPERLINK:((always\:"Force hyperlinks on (escape-passing pagers · captured demos)"
+never\:"Force hyperlinks off"
+auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
+'--ascii[Force the ASCII glyph twins everywhere (CI logs · legacy terminals) — colour stays; \`--plain\` is the full sober umbrella]' \
+'--plain[The sober umbrella — one flag for scripts, CI and transcripts\: colour off · ASCII glyphs · hyperlinks off · no animation (\`run\` renders its plain storyboard). The same result as \`--color never --hyperlink never\` plus every verb'\''s \`--ascii\`/\`--no-progress\`]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+':target -- Client to wire:(cursor vscode windsurf claude claude-desktop cline codex continue zed opencode hermes gemini qwen lmstudio junie all)' \
+&& ret=0
+;;
+(model)
+_arguments "${_arguments_options[@]}" : \
+'--color=[When to colour the output (auto = TTY + \`TERM != dumb\` · honours \`CLICOLOR_FORCE\` · \`NO_COLOR\` · \`CLICOLOR=0\` in that order)]:COLOR:((always\:"Force colour on (pagers accepting escapes · captured demos)"
+never\:"Force colour off (the \`--no-color\` flags fold here)"
+auto\:"Resolve from the environment chain + TTY (the default)"))' \
+'--hyperlink=[When to emit OSC-8 hyperlinks on printed paths (auto = TTY + \`TERM != dumb\` · never to pipes; always = force them, for pagers that pass escapes — tmux/screen may render them as plain text)]:HYPERLINK:((always\:"Force hyperlinks on (escape-passing pagers · captured demos)"
+never\:"Force hyperlinks off"
+auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
+'--ascii[Force the ASCII glyph twins everywhere (CI logs · legacy terminals) — colour stays; \`--plain\` is the full sober umbrella]' \
+'--plain[The sober umbrella — one flag for scripts, CI and transcripts\: colour off · ASCII glyphs · hyperlinks off · no animation (\`run\` renders its plain storyboard). The same result as \`--color never --hyperlink never\` plus every verb'\''s \`--ascii\`/\`--no-progress\`]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+":: :_nika__subcmd__model_commands" \
+"*::: :->model" \
+&& ret=0
+
+    case $state in
+    (model)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:nika-model-command-$line[1]:"
+        case $line[1] in
+            (serve)
+_arguments "${_arguments_options[@]}" : \
+'--model=[The model\: a \`.gguf\` path, or a pulled id — \`owner/repo\[\:QUANT\]\` or a file stem, resolved against the models dir (\`nika model list\`)]:PATH|ID:_default' \
+'--tokenizer=[The tokenizer file (default\: \`tokenizer.json\` beside the model)]:PATH:_files' \
+'--port=[Loopback port to listen on]:PORT:_default' \
+'--model-id=[The model id responses report (default\: the model file'\''s name)]:ID:_default' \
+'--color=[When to colour the output (auto = TTY + \`TERM != dumb\` · honours \`CLICOLOR_FORCE\` · \`NO_COLOR\` · \`CLICOLOR=0\` in that order)]:COLOR:((always\:"Force colour on (pagers accepting escapes · captured demos)"
+never\:"Force colour off (the \`--no-color\` flags fold here)"
+auto\:"Resolve from the environment chain + TTY (the default)"))' \
+'--hyperlink=[When to emit OSC-8 hyperlinks on printed paths (auto = TTY + \`TERM != dumb\` · never to pipes; always = force them, for pagers that pass escapes — tmux/screen may render them as plain text)]:HYPERLINK:((always\:"Force hyperlinks on (escape-passing pagers · captured demos)"
+never\:"Force hyperlinks off"
+auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
+'--ascii[Force the ASCII glyph twins everywhere (CI logs · legacy terminals) — colour stays; \`--plain\` is the full sober umbrella]' \
+'--plain[The sober umbrella — one flag for scripts, CI and transcripts\: colour off · ASCII glyphs · hyperlinks off · no animation (\`run\` renders its plain storyboard). The same result as \`--color never --hyperlink never\` plus every verb'\''s \`--ascii\`/\`--no-progress\`]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+&& ret=0
+;;
+(pull)
+_arguments "${_arguments_options[@]}" : \
+'--color=[When to colour the output (auto = TTY + \`TERM != dumb\` · honours \`CLICOLOR_FORCE\` · \`NO_COLOR\` · \`CLICOLOR=0\` in that order)]:COLOR:((always\:"Force colour on (pagers accepting escapes · captured demos)"
+never\:"Force colour off (the \`--no-color\` flags fold here)"
+auto\:"Resolve from the environment chain + TTY (the default)"))' \
+'--hyperlink=[When to emit OSC-8 hyperlinks on printed paths (auto = TTY + \`TERM != dumb\` · never to pipes; always = force them, for pagers that pass escapes — tmux/screen may render them as plain text)]:HYPERLINK:((always\:"Force hyperlinks on (escape-passing pagers · captured demos)"
+never\:"Force hyperlinks off"
+auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
+'-y[Skip the size confirmation (CI · scripts)]' \
+'--yes[Skip the size confirmation (CI · scripts)]' \
+'--ascii[Force the ASCII glyph twins everywhere (CI logs · legacy terminals) — colour stays; \`--plain\` is the full sober umbrella]' \
+'--plain[The sober umbrella — one flag for scripts, CI and transcripts\: colour off · ASCII glyphs · hyperlinks off · no animation (\`run\` renders its plain storyboard). The same result as \`--color never --hyperlink never\` plus every verb'\''s \`--ascii\`/\`--no-progress\`]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+':model -- The Hub model\: `owner/repo\[\:QUANT\]` — default quant `Q4_K_M` when the repo tags one:_default' \
+&& ret=0
+;;
+(list)
+_arguments "${_arguments_options[@]}" : \
+'--color=[When to colour the output (auto = TTY + \`TERM != dumb\` · honours \`CLICOLOR_FORCE\` · \`NO_COLOR\` · \`CLICOLOR=0\` in that order)]:COLOR:((always\:"Force colour on (pagers accepting escapes · captured demos)"
+never\:"Force colour off (the \`--no-color\` flags fold here)"
+auto\:"Resolve from the environment chain + TTY (the default)"))' \
+'--hyperlink=[When to emit OSC-8 hyperlinks on printed paths (auto = TTY + \`TERM != dumb\` · never to pipes; always = force them, for pagers that pass escapes — tmux/screen may render them as plain text)]:HYPERLINK:((always\:"Force hyperlinks on (escape-passing pagers · captured demos)"
+never\:"Force hyperlinks off"
+auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
+'--ascii[Force the ASCII glyph twins everywhere (CI logs · legacy terminals) — colour stays; \`--plain\` is the full sober umbrella]' \
+'--plain[The sober umbrella — one flag for scripts, CI and transcripts\: colour off · ASCII glyphs · hyperlinks off · no animation (\`run\` renders its plain storyboard). The same result as \`--color never --hyperlink never\` plus every verb'\''s \`--ascii\`/\`--no-progress\`]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+&& ret=0
+;;
+(rm)
+_arguments "${_arguments_options[@]}" : \
+'--color=[When to colour the output (auto = TTY + \`TERM != dumb\` · honours \`CLICOLOR_FORCE\` · \`NO_COLOR\` · \`CLICOLOR=0\` in that order)]:COLOR:((always\:"Force colour on (pagers accepting escapes · captured demos)"
+never\:"Force colour off (the \`--no-color\` flags fold here)"
+auto\:"Resolve from the environment chain + TTY (the default)"))' \
+'--hyperlink=[When to emit OSC-8 hyperlinks on printed paths (auto = TTY + \`TERM != dumb\` · never to pipes; always = force them, for pagers that pass escapes — tmux/screen may render them as plain text)]:HYPERLINK:((always\:"Force hyperlinks on (escape-passing pagers · captured demos)"
+never\:"Force hyperlinks off"
+auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
+'--ascii[Force the ASCII glyph twins everywhere (CI logs · legacy terminals) — colour stays; \`--plain\` is the full sober umbrella]' \
+'--plain[The sober umbrella — one flag for scripts, CI and transcripts\: colour off · ASCII glyphs · hyperlinks off · no animation (\`run\` renders its plain storyboard). The same result as \`--color never --hyperlink never\` plus every verb'\''s \`--ascii\`/\`--no-progress\`]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+':id -- The id to remove (`owner/repo\[\:QUANT\]`, or a file stem from `list`):_default' \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" : \
+":: :_nika__subcmd__model__subcmd__help_commands" \
+"*::: :->help" \
+&& ret=0
+
+    case $state in
+    (help)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:nika-model-help-command-$line[1]:"
+        case $line[1] in
+            (serve)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(pull)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(list)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(rm)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+        esac
+    ;;
+esac
+;;
+(spec)
+_arguments "${_arguments_options[@]}" : \
+'--color=[When to colour the output (auto = TTY + \`TERM != dumb\` · honours \`CLICOLOR_FORCE\` · \`NO_COLOR\` · \`CLICOLOR=0\` in that order)]:COLOR:((always\:"Force colour on (pagers accepting escapes · captured demos)"
+never\:"Force colour off (the \`--no-color\` flags fold here)"
+auto\:"Resolve from the environment chain + TTY (the default)"))' \
+'--hyperlink=[When to emit OSC-8 hyperlinks on printed paths (auto = TTY + \`TERM != dumb\` · never to pipes; always = force them, for pagers that pass escapes — tmux/screen may render them as plain text)]:HYPERLINK:((always\:"Force hyperlinks on (escape-passing pagers · captured demos)"
+never\:"Force hyperlinks off"
+auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
+'--canon[Print the canon.yaml single source of truth]' \
+'(--canon)--schema[Print the embedded JSON Schema for \`*.nika.yaml\` (the old \`schema\` verb, one roof)]' \
+'--ascii[Force the ASCII glyph twins everywhere (CI logs · legacy terminals) — colour stays; \`--plain\` is the full sober umbrella]' \
+'--plain[The sober umbrella — one flag for scripts, CI and transcripts\: colour off · ASCII glyphs · hyperlinks off · no animation (\`run\` renders its plain storyboard). The same result as \`--color never --hyperlink never\` plus every verb'\''s \`--ascii\`/\`--no-progress\`]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+&& ret=0
+;;
+(catalog)
+_arguments "${_arguments_options[@]}" : \
+'--color=[When to colour the output (auto = TTY + \`TERM != dumb\` · honours \`CLICOLOR_FORCE\` · \`NO_COLOR\` · \`CLICOLOR=0\` in that order)]:COLOR:((always\:"Force colour on (pagers accepting escapes · captured demos)"
+never\:"Force colour off (the \`--no-color\` flags fold here)"
+auto\:"Resolve from the environment chain + TTY (the default)"))' \
+'--hyperlink=[When to emit OSC-8 hyperlinks on printed paths (auto = TTY + \`TERM != dumb\` · never to pipes; always = force them, for pagers that pass escapes — tmux/screen may render them as plain text)]:HYPERLINK:((always\:"Force hyperlinks on (escape-passing pagers · captured demos)"
+never\:"Force hyperlinks off"
+auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
+'--json[Emit the versioned machine projection (\`catalog_version\: 1\`)]' \
+'--tools[The \`nika\:*\` builtin tool catalog instead (what \`invoke\` reaches without MCP — the old \`tools\` verb, one roof)]' \
+'--ascii[Force the ASCII glyph twins everywhere (CI logs · legacy terminals) — colour stays; \`--plain\` is the full sober umbrella]' \
+'--plain[The sober umbrella — one flag for scripts, CI and transcripts\: colour off · ASCII glyphs · hyperlinks off · no animation (\`run\` renders its plain storyboard). The same result as \`--color never --hyperlink never\` plus every verb'\''s \`--ascii\`/\`--no-progress\`]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+&& ret=0
+;;
+(examples)
+_arguments "${_arguments_options[@]}" : \
+'--color=[When to colour the output (auto = TTY + \`TERM != dumb\` · honours \`CLICOLOR_FORCE\` · \`NO_COLOR\` · \`CLICOLOR=0\` in that order)]:COLOR:((always\:"Force colour on (pagers accepting escapes · captured demos)"
+never\:"Force colour off (the \`--no-color\` flags fold here)"
+auto\:"Resolve from the environment chain + TTY (the default)"))' \
+'--hyperlink=[When to emit OSC-8 hyperlinks on printed paths (auto = TTY + \`TERM != dumb\` · never to pipes; always = force them, for pagers that pass escapes — tmux/screen may render them as plain text)]:HYPERLINK:((always\:"Force hyperlinks on (escape-passing pagers · captured demos)"
+never\:"Force hyperlinks off"
+auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
+'--ascii[Force the ASCII glyph twins everywhere (CI logs · legacy terminals) — colour stays; \`--plain\` is the full sober umbrella]' \
+'--plain[The sober umbrella — one flag for scripts, CI and transcripts\: colour off · ASCII glyphs · hyperlinks off · no animation (\`run\` renders its plain storyboard). The same result as \`--color never --hyperlink never\` plus every verb'\''s \`--ascii\`/\`--no-progress\`]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+":: :_nika__subcmd__examples_commands" \
+"*::: :->examples" \
+&& ret=0
+
+    case $state in
+    (examples)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:nika-examples-command-$line[1]:"
+        case $line[1] in
+            (list)
+_arguments "${_arguments_options[@]}" : \
+'--color=[When to colour the output (auto = TTY + \`TERM != dumb\` · honours \`CLICOLOR_FORCE\` · \`NO_COLOR\` · \`CLICOLOR=0\` in that order)]:COLOR:((always\:"Force colour on (pagers accepting escapes · captured demos)"
+never\:"Force colour off (the \`--no-color\` flags fold here)"
+auto\:"Resolve from the environment chain + TTY (the default)"))' \
+'--hyperlink=[When to emit OSC-8 hyperlinks on printed paths (auto = TTY + \`TERM != dumb\` · never to pipes; always = force them, for pagers that pass escapes — tmux/screen may render them as plain text)]:HYPERLINK:((always\:"Force hyperlinks on (escape-passing pagers · captured demos)"
+never\:"Force hyperlinks off"
+auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
+'--ascii[Force the ASCII glyph twins everywhere (CI logs · legacy terminals) — colour stays; \`--plain\` is the full sober umbrella]' \
+'--plain[The sober umbrella — one flag for scripts, CI and transcripts\: colour off · ASCII glyphs · hyperlinks off · no animation (\`run\` renders its plain storyboard). The same result as \`--color never --hyperlink never\` plus every verb'\''s \`--ascii\`/\`--no-progress\`]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+&& ret=0
+;;
+(show)
+_arguments "${_arguments_options[@]}" : \
+'--color=[When to colour the output (auto = TTY + \`TERM != dumb\` · honours \`CLICOLOR_FORCE\` · \`NO_COLOR\` · \`CLICOLOR=0\` in that order)]:COLOR:((always\:"Force colour on (pagers accepting escapes · captured demos)"
+never\:"Force colour off (the \`--no-color\` flags fold here)"
+auto\:"Resolve from the environment chain + TTY (the default)"))' \
+'--hyperlink=[When to emit OSC-8 hyperlinks on printed paths (auto = TTY + \`TERM != dumb\` · never to pipes; always = force them, for pagers that pass escapes — tmux/screen may render them as plain text)]:HYPERLINK:((always\:"Force hyperlinks on (escape-passing pagers · captured demos)"
+never\:"Force hyperlinks off"
+auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
+'--ascii[Force the ASCII glyph twins everywhere (CI logs · legacy terminals) — colour stays; \`--plain\` is the full sober umbrella]' \
+'--plain[The sober umbrella — one flag for scripts, CI and transcripts\: colour off · ASCII glyphs · hyperlinks off · no animation (\`run\` renders its plain storyboard). The same result as \`--color never --hyperlink never\` plus every verb'\''s \`--ascii\`/\`--no-progress\`]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+':slug -- Example slug (from `list`):_default' \
+&& ret=0
+;;
+(copy)
+_arguments "${_arguments_options[@]}" : \
+'--color=[When to colour the output (auto = TTY + \`TERM != dumb\` · honours \`CLICOLOR_FORCE\` · \`NO_COLOR\` · \`CLICOLOR=0\` in that order)]:COLOR:((always\:"Force colour on (pagers accepting escapes · captured demos)"
+never\:"Force colour off (the \`--no-color\` flags fold here)"
+auto\:"Resolve from the environment chain + TTY (the default)"))' \
+'--hyperlink=[When to emit OSC-8 hyperlinks on printed paths (auto = TTY + \`TERM != dumb\` · never to pipes; always = force them, for pagers that pass escapes — tmux/screen may render them as plain text)]:HYPERLINK:((always\:"Force hyperlinks on (escape-passing pagers · captured demos)"
+never\:"Force hyperlinks off"
+auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
+'--force[Overwrite an existing destination]' \
+'--ascii[Force the ASCII glyph twins everywhere (CI logs · legacy terminals) — colour stays; \`--plain\` is the full sober umbrella]' \
+'--plain[The sober umbrella — one flag for scripts, CI and transcripts\: colour off · ASCII glyphs · hyperlinks off · no animation (\`run\` renders its plain storyboard). The same result as \`--color never --hyperlink never\` plus every verb'\''s \`--ascii\`/\`--no-progress\`]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+':slug -- Example slug (from `list`):_default' \
+'::dest -- Destination path (default\: `<slug>.nika.yaml` beside you):_default' \
+&& ret=0
+;;
+(run)
+_arguments "${_arguments_options[@]}" : \
+'--model=[Override the example'\''s \`model\:\` (\`<provider>/<name>\`). Use \`--model mock/echo\` to preview offline (zero key · zero network)]:PROVIDER/NAME:_default' \
+'*--var=[Set a workflow \`vars\:\` input (repeatable) — several examples declare required vars and say so in their header]:KEY=VALUE:_default' \
+'--max-cost-usd=[Refuse to start if the static cost floor exceeds this (USD); metered spend aborts past it mid-run. Same guard, same parser as \`nika run\` — a NaN/inf here would silently disarm the budget (every comparison false), the exact class the parser exists to kill]:USD:_default' \
+'--color=[When to colour the output (auto = TTY + \`TERM != dumb\` · honours \`CLICOLOR_FORCE\` · \`NO_COLOR\` · \`CLICOLOR=0\` in that order)]:COLOR:((always\:"Force colour on (pagers accepting escapes · captured demos)"
+never\:"Force colour off (the \`--no-color\` flags fold here)"
+auto\:"Resolve from the environment chain + TTY (the default)"))' \
+'--hyperlink=[When to emit OSC-8 hyperlinks on printed paths (auto = TTY + \`TERM != dumb\` · never to pipes; always = force them, for pagers that pass escapes — tmux/screen may render them as plain text)]:HYPERLINK:((always\:"Force hyperlinks on (escape-passing pagers · captured demos)"
+never\:"Force hyperlinks off"
+auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
+'--quiet[Verdict line only (suppress the storyboard)]' \
+'--no-progress[One final storyboard frame (no live repaints) — pipes/CI get this automatically]' \
+'--ascii[Force the ASCII glyph twins everywhere (CI logs · legacy terminals) — colour stays; \`--plain\` is the full sober umbrella]' \
+'--plain[The sober umbrella — one flag for scripts, CI and transcripts\: colour off · ASCII glyphs · hyperlinks off · no animation (\`run\` renders its plain storyboard). The same result as \`--color never --hyperlink never\` plus every verb'\''s \`--ascii\`/\`--no-progress\`]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+':slug -- Example slug (from `list`):_default' \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" : \
+":: :_nika__subcmd__examples__subcmd__help_commands" \
+"*::: :->help" \
+&& ret=0
+
+    case $state in
+    (help)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:nika-examples-help-command-$line[1]:"
+        case $line[1] in
+            (list)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(show)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(copy)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(run)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+        esac
+    ;;
+esac
+;;
+(new)
+_arguments "${_arguments_options[@]}" : \
+'--from=[Template name or plain-words intent (\`--from '\''?'\''\` lists the set). Omitted on a terminal → the guided three-question flow; omitted in a pipe → fail fast naming this flag]:FROM:_default' \
+'--color=[When to colour the output (auto = TTY + \`TERM != dumb\` · honours \`CLICOLOR_FORCE\` · \`NO_COLOR\` · \`CLICOLOR=0\` in that order)]:COLOR:((always\:"Force colour on (pagers accepting escapes · captured demos)"
+never\:"Force colour off (the \`--no-color\` flags fold here)"
+auto\:"Resolve from the environment chain + TTY (the default)"))' \
+'--hyperlink=[When to emit OSC-8 hyperlinks on printed paths (auto = TTY + \`TERM != dumb\` · never to pipes; always = force them, for pagers that pass escapes — tmux/screen may render them as plain text)]:HYPERLINK:((always\:"Force hyperlinks on (escape-passing pagers · captured demos)"
+never\:"Force hyperlinks off"
+auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
+'--force[Overwrite an existing destination]' \
+'--ascii[Force the ASCII glyph twins everywhere (CI logs · legacy terminals) — colour stays; \`--plain\` is the full sober umbrella]' \
+'--plain[The sober umbrella — one flag for scripts, CI and transcripts\: colour off · ASCII glyphs · hyperlinks off · no animation (\`run\` renders its plain storyboard). The same result as \`--color never --hyperlink never\` plus every verb'\''s \`--ascii\`/\`--no-progress\`]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'::dest -- Destination path (`*.nika.yaml`). Optional for the `--from '\''?'\''` discovery query; required to instantiate a template:_default' \
+&& ret=0
+;;
+(completions)
+_arguments "${_arguments_options[@]}" : \
+'--color=[When to colour the output (auto = TTY + \`TERM != dumb\` · honours \`CLICOLOR_FORCE\` · \`NO_COLOR\` · \`CLICOLOR=0\` in that order)]:COLOR:((always\:"Force colour on (pagers accepting escapes · captured demos)"
+never\:"Force colour off (the \`--no-color\` flags fold here)"
+auto\:"Resolve from the environment chain + TTY (the default)"))' \
+'--hyperlink=[When to emit OSC-8 hyperlinks on printed paths (auto = TTY + \`TERM != dumb\` · never to pipes; always = force them, for pagers that pass escapes — tmux/screen may render them as plain text)]:HYPERLINK:((always\:"Force hyperlinks on (escape-passing pagers · captured demos)"
+never\:"Force hyperlinks off"
+auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
+'--ascii[Force the ASCII glyph twins everywhere (CI logs · legacy terminals) — colour stays; \`--plain\` is the full sober umbrella]' \
+'--plain[The sober umbrella — one flag for scripts, CI and transcripts\: colour off · ASCII glyphs · hyperlinks off · no animation (\`run\` renders its plain storyboard). The same result as \`--color never --hyperlink never\` plus every verb'\''s \`--ascii\`/\`--no-progress\`]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+':shell -- Target shell:(bash elvish fish powershell zsh)' \
+&& ret=0
+;;
+(trace)
+_arguments "${_arguments_options[@]}" : \
+'--color=[When to colour the output (auto = TTY + \`TERM != dumb\` · honours \`CLICOLOR_FORCE\` · \`NO_COLOR\` · \`CLICOLOR=0\` in that order)]:COLOR:((always\:"Force colour on (pagers accepting escapes · captured demos)"
+never\:"Force colour off (the \`--no-color\` flags fold here)"
+auto\:"Resolve from the environment chain + TTY (the default)"))' \
+'--hyperlink=[When to emit OSC-8 hyperlinks on printed paths (auto = TTY + \`TERM != dumb\` · never to pipes; always = force them, for pagers that pass escapes — tmux/screen may render them as plain text)]:HYPERLINK:((always\:"Force hyperlinks on (escape-passing pagers · captured demos)"
+never\:"Force hyperlinks off"
+auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
+'--ascii[Force the ASCII glyph twins everywhere (CI logs · legacy terminals) — colour stays; \`--plain\` is the full sober umbrella]' \
+'--plain[The sober umbrella — one flag for scripts, CI and transcripts\: colour off · ASCII glyphs · hyperlinks off · no animation (\`run\` renders its plain storyboard). The same result as \`--color never --hyperlink never\` plus every verb'\''s \`--ascii\`/\`--no-progress\`]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+":: :_nika__subcmd__trace_commands" \
+"*::: :->trace" \
+&& ret=0
+
+    case $state in
+    (trace)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:nika-trace-command-$line[1]:"
+        case $line[1] in
+            (replay)
+_arguments "${_arguments_options[@]}" : \
+'--speed=[Replay time compression (6 = 6× faster than recorded)]:SPEED:_default' \
+'--color=[When to colour the output (auto = TTY + \`TERM != dumb\` · honours \`CLICOLOR_FORCE\` · \`NO_COLOR\` · \`CLICOLOR=0\` in that order)]:COLOR:((always\:"Force colour on (pagers accepting escapes · captured demos)"
+never\:"Force colour off (the \`--no-color\` flags fold here)"
+auto\:"Resolve from the environment chain + TTY (the default)"))' \
+'--hyperlink=[When to emit OSC-8 hyperlinks on printed paths (auto = TTY + \`TERM != dumb\` · never to pipes; always = force them, for pagers that pass escapes — tmux/screen may render them as plain text)]:HYPERLINK:((always\:"Force hyperlinks on (escape-passing pagers · captured demos)"
+never\:"Force hyperlinks off"
+auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
+'()--demo[Render the built-in success storyboard]' \
+'(--demo)--demo-fail[Render the built-in failure storyboard]' \
+'--no-outputs[Hide the per-task output summaries (\`→ {…} · 312B\`) on the rendered storyboard. Interactive TTY only — a piped \`trace show\` never carries them anyway]' \
+'--ascii[Force the ASCII glyph twins everywhere (CI logs · legacy terminals) — colour stays; \`--plain\` is the full sober umbrella]' \
+'--plain[The sober umbrella — one flag for scripts, CI and transcripts\: colour off · ASCII glyphs · hyperlinks off · no animation (\`run\` renders its plain storyboard). The same result as \`--color never --hyperlink never\` plus every verb'\''s \`--ascii\`/\`--no-progress\`]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'::trace -- Trace NDJSON path (one `nika-event` Event per line):_files' \
+&& ret=0
+;;
+(show)
+_arguments "${_arguments_options[@]}" : \
+'--speed=[Replay time compression (6 = 6× faster than recorded)]:SPEED:_default' \
+'--color=[When to colour the output (auto = TTY + \`TERM != dumb\` · honours \`CLICOLOR_FORCE\` · \`NO_COLOR\` · \`CLICOLOR=0\` in that order)]:COLOR:((always\:"Force colour on (pagers accepting escapes · captured demos)"
+never\:"Force colour off (the \`--no-color\` flags fold here)"
+auto\:"Resolve from the environment chain + TTY (the default)"))' \
+'--hyperlink=[When to emit OSC-8 hyperlinks on printed paths (auto = TTY + \`TERM != dumb\` · never to pipes; always = force them, for pagers that pass escapes — tmux/screen may render them as plain text)]:HYPERLINK:((always\:"Force hyperlinks on (escape-passing pagers · captured demos)"
+never\:"Force hyperlinks off"
+auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
+'()--demo[Render the built-in success storyboard]' \
+'(--demo)--demo-fail[Render the built-in failure storyboard]' \
+'--no-outputs[Hide the per-task output summaries (\`→ {…} · 312B\`) on the rendered storyboard. Interactive TTY only — a piped \`trace show\` never carries them anyway]' \
+'--ascii[Force the ASCII glyph twins everywhere (CI logs · legacy terminals) — colour stays; \`--plain\` is the full sober umbrella]' \
+'--plain[The sober umbrella — one flag for scripts, CI and transcripts\: colour off · ASCII glyphs · hyperlinks off · no animation (\`run\` renders its plain storyboard). The same result as \`--color never --hyperlink never\` plus every verb'\''s \`--ascii\`/\`--no-progress\`]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'::trace -- Trace NDJSON path (one `nika-event` Event per line):_files' \
+&& ret=0
+;;
+(ls)
+_arguments "${_arguments_options[@]}" : \
+'--color=[When to colour the output (auto = TTY + \`TERM != dumb\` · honours \`CLICOLOR_FORCE\` · \`NO_COLOR\` · \`CLICOLOR=0\` in that order)]:COLOR:((always\:"Force colour on (pagers accepting escapes · captured demos)"
+never\:"Force colour off (the \`--no-color\` flags fold here)"
+auto\:"Resolve from the environment chain + TTY (the default)"))' \
+'--hyperlink=[When to emit OSC-8 hyperlinks on printed paths (auto = TTY + \`TERM != dumb\` · never to pipes; always = force them, for pagers that pass escapes — tmux/screen may render them as plain text)]:HYPERLINK:((always\:"Force hyperlinks on (escape-passing pagers · captured demos)"
+never\:"Force hyperlinks off"
+auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
+'--ascii[Force the ASCII glyph twins everywhere (CI logs · legacy terminals) — colour stays; \`--plain\` is the full sober umbrella]' \
+'--plain[The sober umbrella — one flag for scripts, CI and transcripts\: colour off · ASCII glyphs · hyperlinks off · no animation (\`run\` renders its plain storyboard). The same result as \`--color never --hyperlink never\` plus every verb'\''s \`--ascii\`/\`--no-progress\`]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+&& ret=0
+;;
+(rm)
+_arguments "${_arguments_options[@]}" : \
+'(--all)--older-than=[Remove every trace older than this (\`45s\` · \`30m\` · \`12h\` · \`7d\`)]:DURATION:_default' \
+'--color=[When to colour the output (auto = TTY + \`TERM != dumb\` · honours \`CLICOLOR_FORCE\` · \`NO_COLOR\` · \`CLICOLOR=0\` in that order)]:COLOR:((always\:"Force colour on (pagers accepting escapes · captured demos)"
+never\:"Force colour off (the \`--no-color\` flags fold here)"
+auto\:"Resolve from the environment chain + TTY (the default)"))' \
+'--hyperlink=[When to emit OSC-8 hyperlinks on printed paths (auto = TTY + \`TERM != dumb\` · never to pipes; always = force them, for pagers that pass escapes — tmux/screen may render them as plain text)]:HYPERLINK:((always\:"Force hyperlinks on (escape-passing pagers · captured demos)"
+never\:"Force hyperlinks off"
+auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
+'--all[Remove every trace in the store]' \
+'--force[Remove even a paused trace (destroys its unanswered prompt)]' \
+'--ascii[Force the ASCII glyph twins everywhere (CI logs · legacy terminals) — colour stays; \`--plain\` is the full sober umbrella]' \
+'--plain[The sober umbrella — one flag for scripts, CI and transcripts\: colour off · ASCII glyphs · hyperlinks off · no animation (\`run\` renders its plain storyboard). The same result as \`--color never --hyperlink never\` plus every verb'\''s \`--ascii\`/\`--no-progress\`]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'::trace -- The trace to remove — a name from `trace ls` or a path:_default' \
+&& ret=0
+;;
+(outputs)
+_arguments "${_arguments_options[@]}" : \
+'--color=[When to colour the output (auto = TTY + \`TERM != dumb\` · honours \`CLICOLOR_FORCE\` · \`NO_COLOR\` · \`CLICOLOR=0\` in that order)]:COLOR:((always\:"Force colour on (pagers accepting escapes · captured demos)"
+never\:"Force colour off (the \`--no-color\` flags fold here)"
+auto\:"Resolve from the environment chain + TTY (the default)"))' \
+'--hyperlink=[When to emit OSC-8 hyperlinks on printed paths (auto = TTY + \`TERM != dumb\` · never to pipes; always = force them, for pagers that pass escapes — tmux/screen may render them as plain text)]:HYPERLINK:((always\:"Force hyperlinks on (escape-passing pagers · captured demos)"
+never\:"Force hyperlinks off"
+auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
+'--ascii[Force the ASCII glyph twins everywhere (CI logs · legacy terminals) — colour stays; \`--plain\` is the full sober umbrella]' \
+'--plain[The sober umbrella — one flag for scripts, CI and transcripts\: colour off · ASCII glyphs · hyperlinks off · no animation (\`run\` renders its plain storyboard). The same result as \`--color never --hyperlink never\` plus every verb'\''s \`--ascii\`/\`--no-progress\`]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'::trace -- Trace NDJSON path (default\: the workspace'\''s latest trace):_files' \
+&& ret=0
+;;
+(export)
+_arguments "${_arguments_options[@]}" : \
+'-o+[Output path (default\: \`<trace>.otlp.jsonl\` beside the journal)]:OUT:_files' \
+'--out=[Output path (default\: \`<trace>.otlp.jsonl\` beside the journal)]:OUT:_files' \
+'--color=[When to colour the output (auto = TTY + \`TERM != dumb\` · honours \`CLICOLOR_FORCE\` · \`NO_COLOR\` · \`CLICOLOR=0\` in that order)]:COLOR:((always\:"Force colour on (pagers accepting escapes · captured demos)"
+never\:"Force colour off (the \`--no-color\` flags fold here)"
+auto\:"Resolve from the environment chain + TTY (the default)"))' \
+'--hyperlink=[When to emit OSC-8 hyperlinks on printed paths (auto = TTY + \`TERM != dumb\` · never to pipes; always = force them, for pagers that pass escapes — tmux/screen may render them as plain text)]:HYPERLINK:((always\:"Force hyperlinks on (escape-passing pagers · captured demos)"
+never\:"Force hyperlinks off"
+auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
+'--include-content[Include recorded task outputs as span attributes (payloads stay LOCAL either way — this only widens the exported file)]' \
+'--ascii[Force the ASCII glyph twins everywhere (CI logs · legacy terminals) — colour stays; \`--plain\` is the full sober umbrella]' \
+'--plain[The sober umbrella — one flag for scripts, CI and transcripts\: colour off · ASCII glyphs · hyperlinks off · no animation (\`run\` renders its plain storyboard). The same result as \`--color never --hyperlink never\` plus every verb'\''s \`--ascii\`/\`--no-progress\`]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+':trace -- Trace NDJSON path (one `nika-event` Event per line):_files' \
+&& ret=0
+;;
+(verify)
+_arguments "${_arguments_options[@]}" : \
+'--color=[When to colour the output (auto = TTY + \`TERM != dumb\` · honours \`CLICOLOR_FORCE\` · \`NO_COLOR\` · \`CLICOLOR=0\` in that order)]:COLOR:((always\:"Force colour on (pagers accepting escapes · captured demos)"
+never\:"Force colour off (the \`--no-color\` flags fold here)"
+auto\:"Resolve from the environment chain + TTY (the default)"))' \
+'--hyperlink=[When to emit OSC-8 hyperlinks on printed paths (auto = TTY + \`TERM != dumb\` · never to pipes; always = force them, for pagers that pass escapes — tmux/screen may render them as plain text)]:HYPERLINK:((always\:"Force hyperlinks on (escape-passing pagers · captured demos)"
+never\:"Force hyperlinks off"
+auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
+'--ascii[Force the ASCII glyph twins everywhere (CI logs · legacy terminals) — colour stays; \`--plain\` is the full sober umbrella]' \
+'--plain[The sober umbrella — one flag for scripts, CI and transcripts\: colour off · ASCII glyphs · hyperlinks off · no animation (\`run\` renders its plain storyboard). The same result as \`--color never --hyperlink never\` plus every verb'\''s \`--ascii\`/\`--no-progress\`]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'*::traces -- Trace NDJSON path(s) — a shell glob (`.nika/traces/*.ndjson`) just works\: each file verifies under its own header, the worst exit survives (default\: the workspace'\''s latest trace):_files' \
+&& ret=0
+;;
+(reproduce)
+_arguments "${_arguments_options[@]}" : \
+'--color=[When to colour the output (auto = TTY + \`TERM != dumb\` · honours \`CLICOLOR_FORCE\` · \`NO_COLOR\` · \`CLICOLOR=0\` in that order)]:COLOR:((always\:"Force colour on (pagers accepting escapes · captured demos)"
+never\:"Force colour off (the \`--no-color\` flags fold here)"
+auto\:"Resolve from the environment chain + TTY (the default)"))' \
+'--hyperlink=[When to emit OSC-8 hyperlinks on printed paths (auto = TTY + \`TERM != dumb\` · never to pipes; always = force them, for pagers that pass escapes — tmux/screen may render them as plain text)]:HYPERLINK:((always\:"Force hyperlinks on (escape-passing pagers · captured demos)"
+never\:"Force hyperlinks off"
+auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
+'--ascii[Force the ASCII glyph twins everywhere (CI logs · legacy terminals) — colour stays; \`--plain\` is the full sober umbrella]' \
+'--plain[The sober umbrella — one flag for scripts, CI and transcripts\: colour off · ASCII glyphs · hyperlinks off · no animation (\`run\` renders its plain storyboard). The same result as \`--color never --hyperlink never\` plus every verb'\''s \`--ascii\`/\`--no-progress\`]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+':recorded -- The RECORDED journal (the reference frame):_files' \
+':fresh -- A FRESH journal of the same workflow (run it again first):_files' \
+&& ret=0
+;;
+(peek)
+_arguments "${_arguments_options[@]}" : \
+'--color=[When to colour the output (auto = TTY + \`TERM != dumb\` · honours \`CLICOLOR_FORCE\` · \`NO_COLOR\` · \`CLICOLOR=0\` in that order)]:COLOR:((always\:"Force colour on (pagers accepting escapes · captured demos)"
+never\:"Force colour off (the \`--no-color\` flags fold here)"
+auto\:"Resolve from the environment chain + TTY (the default)"))' \
+'--hyperlink=[When to emit OSC-8 hyperlinks on printed paths (auto = TTY + \`TERM != dumb\` · never to pipes; always = force them, for pagers that pass escapes — tmux/screen may render them as plain text)]:HYPERLINK:((always\:"Force hyperlinks on (escape-passing pagers · captured demos)"
+never\:"Force hyperlinks off"
+auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
+'--raw[Print the exact recorded value only (machine-friendly)]' \
+'--ascii[Force the ASCII glyph twins everywhere (CI logs · legacy terminals) — colour stays; \`--plain\` is the full sober umbrella]' \
+'--plain[The sober umbrella — one flag for scripts, CI and transcripts\: colour off · ASCII glyphs · hyperlinks off · no animation (\`run\` renders its plain storyboard). The same result as \`--color never --hyperlink never\` plus every verb'\''s \`--ascii\`/\`--no-progress\`]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+':trace -- Trace NDJSON path (one `nika-event` Event per line):_files' \
+':task -- The task id whose output to read:_default' \
+&& ret=0
+;;
+(flow)
+_arguments "${_arguments_options[@]}" : \
+'--color=[When to colour the output (auto = TTY + \`TERM != dumb\` · honours \`CLICOLOR_FORCE\` · \`NO_COLOR\` · \`CLICOLOR=0\` in that order)]:COLOR:((always\:"Force colour on (pagers accepting escapes · captured demos)"
+never\:"Force colour off (the \`--no-color\` flags fold here)"
+auto\:"Resolve from the environment chain + TTY (the default)"))' \
+'--hyperlink=[When to emit OSC-8 hyperlinks on printed paths (auto = TTY + \`TERM != dumb\` · never to pipes; always = force them, for pagers that pass escapes — tmux/screen may render them as plain text)]:HYPERLINK:((always\:"Force hyperlinks on (escape-passing pagers · captured demos)"
+never\:"Force hyperlinks off"
+auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
+'--ascii[Force the ASCII glyph twins everywhere (CI logs · legacy terminals) — colour stays; \`--plain\` is the full sober umbrella]' \
+'--plain[The sober umbrella — one flag for scripts, CI and transcripts\: colour off · ASCII glyphs · hyperlinks off · no animation (\`run\` renders its plain storyboard). The same result as \`--color never --hyperlink never\` plus every verb'\''s \`--ascii\`/\`--no-progress\`]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'::trace -- Trace NDJSON path (default\: the workspace'\''s latest trace — `nika trace flow <workflow>` alone reads the last run):_files' \
+'::workflow -- The workflow file the run executed (`*.nika.yaml`) — the trace records values, the definition records the bindings:_default' \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" : \
+":: :_nika__subcmd__trace__subcmd__help_commands" \
+"*::: :->help" \
+&& ret=0
+
+    case $state in
+    (help)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:nika-trace-help-command-$line[1]:"
+        case $line[1] in
+            (replay)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(show)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(ls)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(rm)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(outputs)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(export)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(verify)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(reproduce)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(peek)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(flow)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+        esac
+    ;;
+esac
+;;
+(dap)
+_arguments "${_arguments_options[@]}" : \
+'--color=[When to colour the output (auto = TTY + \`TERM != dumb\` · honours \`CLICOLOR_FORCE\` · \`NO_COLOR\` · \`CLICOLOR=0\` in that order)]:COLOR:((always\:"Force colour on (pagers accepting escapes · captured demos)"
+never\:"Force colour off (the \`--no-color\` flags fold here)"
+auto\:"Resolve from the environment chain + TTY (the default)"))' \
+'--hyperlink=[When to emit OSC-8 hyperlinks on printed paths (auto = TTY + \`TERM != dumb\` · never to pipes; always = force them, for pagers that pass escapes — tmux/screen may render them as plain text)]:HYPERLINK:((always\:"Force hyperlinks on (escape-passing pagers · captured demos)"
+never\:"Force hyperlinks off"
+auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
+'--ascii[Force the ASCII glyph twins everywhere (CI logs · legacy terminals) — colour stays; \`--plain\` is the full sober umbrella]' \
+'--plain[The sober umbrella — one flag for scripts, CI and transcripts\: colour off · ASCII glyphs · hyperlinks off · no animation (\`run\` renders its plain storyboard). The same result as \`--color never --hyperlink never\` plus every verb'\''s \`--ascii\`/\`--no-progress\`]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+&& ret=0
+;;
+(lsp)
+_arguments "${_arguments_options[@]}" : \
+'--color=[When to colour the output (auto = TTY + \`TERM != dumb\` · honours \`CLICOLOR_FORCE\` · \`NO_COLOR\` · \`CLICOLOR=0\` in that order)]:COLOR:((always\:"Force colour on (pagers accepting escapes · captured demos)"
+never\:"Force colour off (the \`--no-color\` flags fold here)"
+auto\:"Resolve from the environment chain + TTY (the default)"))' \
+'--hyperlink=[When to emit OSC-8 hyperlinks on printed paths (auto = TTY + \`TERM != dumb\` · never to pipes; always = force them, for pagers that pass escapes — tmux/screen may render them as plain text)]:HYPERLINK:((always\:"Force hyperlinks on (escape-passing pagers · captured demos)"
+never\:"Force hyperlinks off"
+auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
+'--ascii[Force the ASCII glyph twins everywhere (CI logs · legacy terminals) — colour stays; \`--plain\` is the full sober umbrella]' \
+'--plain[The sober umbrella — one flag for scripts, CI and transcripts\: colour off · ASCII glyphs · hyperlinks off · no animation (\`run\` renders its plain storyboard). The same result as \`--color never --hyperlink never\` plus every verb'\''s \`--ascii\`/\`--no-progress\`]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+&& ret=0
+;;
+(mcp)
+_arguments "${_arguments_options[@]}" : \
+'--transport=[The wire\: \`stdio\` (the editor/agent default) or \`http\` (Streamable HTTP · POST JSON-RPC · spec 2025-11-25)]:TRANSPORT:((stdio\:"Newline-delimited JSON-RPC over stdin/stdout"
+http\:"Streamable HTTP (POST JSON-RPC · origin-gated · loopback default)"))' \
+'--port=[HTTP port (with \`--transport http\`)]:PORT:_default' \
+'--bind=[HTTP bind address. Loopback by default — widening this exposes the server to your network; put TLS + auth (a reverse proxy · \`NIKA_MCP_TOKEN\`) in front before you do]:BIND:_default' \
+'--color=[When to colour the output (auto = TTY + \`TERM != dumb\` · honours \`CLICOLOR_FORCE\` · \`NO_COLOR\` · \`CLICOLOR=0\` in that order)]:COLOR:((always\:"Force colour on (pagers accepting escapes · captured demos)"
+never\:"Force colour off (the \`--no-color\` flags fold here)"
+auto\:"Resolve from the environment chain + TTY (the default)"))' \
+'--hyperlink=[When to emit OSC-8 hyperlinks on printed paths (auto = TTY + \`TERM != dumb\` · never to pipes; always = force them, for pagers that pass escapes — tmux/screen may render them as plain text)]:HYPERLINK:((always\:"Force hyperlinks on (escape-passing pagers · captured demos)"
+never\:"Force hyperlinks off"
+auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
+'--ascii[Force the ASCII glyph twins everywhere (CI logs · legacy terminals) — colour stays; \`--plain\` is the full sober umbrella]' \
+'--plain[The sober umbrella — one flag for scripts, CI and transcripts\: colour off · ASCII glyphs · hyperlinks off · no animation (\`run\` renders its plain storyboard). The same result as \`--color never --hyperlink never\` plus every verb'\''s \`--ascii\`/\`--no-progress\`]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" : \
+":: :_nika__subcmd__help_commands" \
+"*::: :->help" \
+&& ret=0
+
+    case $state in
+    (help)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:nika-help-command-$line[1]:"
+        case $line[1] in
+            (welcome)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(check)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(run)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(test)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(inspect)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(explain)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(doctor)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(init)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(wire)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(model)
+_arguments "${_arguments_options[@]}" : \
+":: :_nika__subcmd__help__subcmd__model_commands" \
+"*::: :->model" \
+&& ret=0
+
+    case $state in
+    (model)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:nika-help-model-command-$line[1]:"
+        case $line[1] in
+            (serve)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(pull)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(list)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(rm)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+(spec)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(catalog)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(examples)
+_arguments "${_arguments_options[@]}" : \
+":: :_nika__subcmd__help__subcmd__examples_commands" \
+"*::: :->examples" \
+&& ret=0
+
+    case $state in
+    (examples)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:nika-help-examples-command-$line[1]:"
+        case $line[1] in
+            (list)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(show)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(copy)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(run)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+(new)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(completions)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(trace)
+_arguments "${_arguments_options[@]}" : \
+":: :_nika__subcmd__help__subcmd__trace_commands" \
+"*::: :->trace" \
+&& ret=0
+
+    case $state in
+    (trace)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:nika-help-trace-command-$line[1]:"
+        case $line[1] in
+            (replay)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(show)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(ls)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(rm)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(outputs)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(export)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(verify)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(reproduce)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(peek)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(flow)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+(dap)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(lsp)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(mcp)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+        esac
+    ;;
+esac
+}
+
+(( $+functions[_nika_commands] )) ||
+_nika_commands() {
+    local commands; commands=(
+'welcome:The mirror\: what Nika is · what this machine already has (editors · local models · key presence · this workspace) · the next commands. Offline · presence-only · always exit 0 — a greeting, not a gate' \
+'check:Audit a workflow BEFORE it runs\: plan · cost ceiling · secret flows · types · tools — every finding teaches its fix' \
+'run:Run a workflow (the same audit runs first · live render)' \
+'test:Golden test\: run under the MOCK provider (offline · deterministic) and compare the typed \`outputs\:\` against \`<file>.golden.json\`' \
+'inspect:Static anatomy\: tasks · verbs · wave groups · cost · permits — and the ONE graph projector (\`--format json|mermaid|dot\` for the machine surfaces · human stays the default)' \
+'explain:Teach one error code (cause · category · fix-form) — or narrate a workflow FILE\: what it does · the waves · cost before a token is spent · what it touches · how to run it' \
+'doctor:Diagnose this machine (binary · config · provider keys · local models). Diagnose-only — prints the exact fix command, never mutates anything' \
+'init:Found a repo (\`.vscode\` schema wiring · \`AGENTS.md\` · Cursor rule + MCP · \`.agents/skills\` authoring skill · optional workflow set). Bare on a terminal the founding wizard runs; flags are the scriptable twin. Existing files are skipped — \`--force\` overwrites' \
+'wire:Wire Nika into editor/agent MCP clients (explicit, idempotent)' \
+'model:Local models — pull from the Hugging Face Hub, serve on this machine, list/rm the disk (ONE models dir · no external daemon)' \
+'spec:The embedded spec identity (\`--canon\` prints the SSOT)' \
+'catalog:The embedded provider/model catalog (models · capabilities · env vars)' \
+'examples:Browse the embedded examples' \
+'new:Instantiate an embedded template skeleton' \
+'completions:Generate shell completions (bash · zsh · fish · elvish · powershell)' \
+'trace:Read the flight recorder (replay or summarize a run)' \
+'dap:Debug Adapter Protocol server (stdio) — time-travel a recorded run under a debugger UI\: breakpoints on task lines · step forward AND back through settles · outputs in the variables pane. Replay re-renders, never re-executes' \
+'lsp:Run the language server over stdio (drives the editor extension)' \
+'mcp:Run the MCP server (validate\: check/explain · learn\: schema/examples/templates/canon — the in-binary Model Context Protocol surface for Cursor · Claude Desktop · agents). Default transport\: stdio; \`--transport http\` serves Streamable HTTP for managed hosts' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'nika commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__catalog_commands] )) ||
+_nika__subcmd__catalog_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika catalog commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__check_commands] )) ||
+_nika__subcmd__check_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika check commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__completions_commands] )) ||
+_nika__subcmd__completions_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika completions commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__dap_commands] )) ||
+_nika__subcmd__dap_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika dap commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__doctor_commands] )) ||
+_nika__subcmd__doctor_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika doctor commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__examples_commands] )) ||
+_nika__subcmd__examples_commands() {
+    local commands; commands=(
+'list:List the embedded example slugs' \
+'show:Print one embedded example' \
+'copy:Copy an embedded example into YOUR workspace (make it yours)' \
+'run:Run an embedded example (audited first · live render)' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'nika examples commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__examples__subcmd__copy_commands] )) ||
+_nika__subcmd__examples__subcmd__copy_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika examples copy commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__examples__subcmd__help_commands] )) ||
+_nika__subcmd__examples__subcmd__help_commands() {
+    local commands; commands=(
+'list:List the embedded example slugs' \
+'show:Print one embedded example' \
+'copy:Copy an embedded example into YOUR workspace (make it yours)' \
+'run:Run an embedded example (audited first · live render)' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'nika examples help commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__examples__subcmd__help__subcmd__copy_commands] )) ||
+_nika__subcmd__examples__subcmd__help__subcmd__copy_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika examples help copy commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__examples__subcmd__help__subcmd__help_commands] )) ||
+_nika__subcmd__examples__subcmd__help__subcmd__help_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika examples help help commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__examples__subcmd__help__subcmd__list_commands] )) ||
+_nika__subcmd__examples__subcmd__help__subcmd__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika examples help list commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__examples__subcmd__help__subcmd__run_commands] )) ||
+_nika__subcmd__examples__subcmd__help__subcmd__run_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika examples help run commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__examples__subcmd__help__subcmd__show_commands] )) ||
+_nika__subcmd__examples__subcmd__help__subcmd__show_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika examples help show commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__examples__subcmd__list_commands] )) ||
+_nika__subcmd__examples__subcmd__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika examples list commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__examples__subcmd__run_commands] )) ||
+_nika__subcmd__examples__subcmd__run_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika examples run commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__examples__subcmd__show_commands] )) ||
+_nika__subcmd__examples__subcmd__show_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika examples show commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__explain_commands] )) ||
+_nika__subcmd__explain_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika explain commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__help_commands] )) ||
+_nika__subcmd__help_commands() {
+    local commands; commands=(
+'welcome:The mirror\: what Nika is · what this machine already has (editors · local models · key presence · this workspace) · the next commands. Offline · presence-only · always exit 0 — a greeting, not a gate' \
+'check:Audit a workflow BEFORE it runs\: plan · cost ceiling · secret flows · types · tools — every finding teaches its fix' \
+'run:Run a workflow (the same audit runs first · live render)' \
+'test:Golden test\: run under the MOCK provider (offline · deterministic) and compare the typed \`outputs\:\` against \`<file>.golden.json\`' \
+'inspect:Static anatomy\: tasks · verbs · wave groups · cost · permits — and the ONE graph projector (\`--format json|mermaid|dot\` for the machine surfaces · human stays the default)' \
+'explain:Teach one error code (cause · category · fix-form) — or narrate a workflow FILE\: what it does · the waves · cost before a token is spent · what it touches · how to run it' \
+'doctor:Diagnose this machine (binary · config · provider keys · local models). Diagnose-only — prints the exact fix command, never mutates anything' \
+'init:Found a repo (\`.vscode\` schema wiring · \`AGENTS.md\` · Cursor rule + MCP · \`.agents/skills\` authoring skill · optional workflow set). Bare on a terminal the founding wizard runs; flags are the scriptable twin. Existing files are skipped — \`--force\` overwrites' \
+'wire:Wire Nika into editor/agent MCP clients (explicit, idempotent)' \
+'model:Local models — pull from the Hugging Face Hub, serve on this machine, list/rm the disk (ONE models dir · no external daemon)' \
+'spec:The embedded spec identity (\`--canon\` prints the SSOT)' \
+'catalog:The embedded provider/model catalog (models · capabilities · env vars)' \
+'examples:Browse the embedded examples' \
+'new:Instantiate an embedded template skeleton' \
+'completions:Generate shell completions (bash · zsh · fish · elvish · powershell)' \
+'trace:Read the flight recorder (replay or summarize a run)' \
+'dap:Debug Adapter Protocol server (stdio) — time-travel a recorded run under a debugger UI\: breakpoints on task lines · step forward AND back through settles · outputs in the variables pane. Replay re-renders, never re-executes' \
+'lsp:Run the language server over stdio (drives the editor extension)' \
+'mcp:Run the MCP server (validate\: check/explain · learn\: schema/examples/templates/canon — the in-binary Model Context Protocol surface for Cursor · Claude Desktop · agents). Default transport\: stdio; \`--transport http\` serves Streamable HTTP for managed hosts' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'nika help commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__help__subcmd__catalog_commands] )) ||
+_nika__subcmd__help__subcmd__catalog_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika help catalog commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__help__subcmd__check_commands] )) ||
+_nika__subcmd__help__subcmd__check_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika help check commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__help__subcmd__completions_commands] )) ||
+_nika__subcmd__help__subcmd__completions_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika help completions commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__help__subcmd__dap_commands] )) ||
+_nika__subcmd__help__subcmd__dap_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika help dap commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__help__subcmd__doctor_commands] )) ||
+_nika__subcmd__help__subcmd__doctor_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika help doctor commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__help__subcmd__examples_commands] )) ||
+_nika__subcmd__help__subcmd__examples_commands() {
+    local commands; commands=(
+'list:List the embedded example slugs' \
+'show:Print one embedded example' \
+'copy:Copy an embedded example into YOUR workspace (make it yours)' \
+'run:Run an embedded example (audited first · live render)' \
+    )
+    _describe -t commands 'nika help examples commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__help__subcmd__examples__subcmd__copy_commands] )) ||
+_nika__subcmd__help__subcmd__examples__subcmd__copy_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika help examples copy commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__help__subcmd__examples__subcmd__list_commands] )) ||
+_nika__subcmd__help__subcmd__examples__subcmd__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika help examples list commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__help__subcmd__examples__subcmd__run_commands] )) ||
+_nika__subcmd__help__subcmd__examples__subcmd__run_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika help examples run commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__help__subcmd__examples__subcmd__show_commands] )) ||
+_nika__subcmd__help__subcmd__examples__subcmd__show_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika help examples show commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__help__subcmd__explain_commands] )) ||
+_nika__subcmd__help__subcmd__explain_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika help explain commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__help__subcmd__help_commands] )) ||
+_nika__subcmd__help__subcmd__help_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika help help commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__help__subcmd__init_commands] )) ||
+_nika__subcmd__help__subcmd__init_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika help init commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__help__subcmd__inspect_commands] )) ||
+_nika__subcmd__help__subcmd__inspect_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika help inspect commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__help__subcmd__lsp_commands] )) ||
+_nika__subcmd__help__subcmd__lsp_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika help lsp commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__help__subcmd__mcp_commands] )) ||
+_nika__subcmd__help__subcmd__mcp_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika help mcp commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__help__subcmd__model_commands] )) ||
+_nika__subcmd__help__subcmd__model_commands() {
+    local commands; commands=(
+'serve:Serve a GGUF model — an OpenAI-compatible foreground server on 127.0.0.1 (Ctrl-C stops it · the banner says how workflows reach it)' \
+'pull:Download a GGUF from the Hugging Face Hub into the ONE models dir (\`~/.nika/models\` — the same dir \`serve --model <id>\` resolves, by construction). Size prints BEFORE downloading; 2 GiB and over confirms (\`--yes\` for CI). An interrupted pull resumes from its \`.part\`. \`HF_TOKEN\` authenticates gated repos. This fetch is CLI-level, like \`registry\:\` pulls — a workflow'\''s \`permits\:\` never govern it' \
+'list:What'\''s on disk\: id · size · file per GGUF — the ONE models dir printed once at top' \
+'rm:Remove a pulled model\: \`owner/repo\` removes every quant (and the tokenizer beside them) · \`owner/repo\:QUANT\` one file. A no-match refuses, listing what IS there' \
+    )
+    _describe -t commands 'nika help model commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__help__subcmd__model__subcmd__list_commands] )) ||
+_nika__subcmd__help__subcmd__model__subcmd__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika help model list commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__help__subcmd__model__subcmd__pull_commands] )) ||
+_nika__subcmd__help__subcmd__model__subcmd__pull_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika help model pull commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__help__subcmd__model__subcmd__rm_commands] )) ||
+_nika__subcmd__help__subcmd__model__subcmd__rm_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika help model rm commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__help__subcmd__model__subcmd__serve_commands] )) ||
+_nika__subcmd__help__subcmd__model__subcmd__serve_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika help model serve commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__help__subcmd__new_commands] )) ||
+_nika__subcmd__help__subcmd__new_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika help new commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__help__subcmd__run_commands] )) ||
+_nika__subcmd__help__subcmd__run_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika help run commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__help__subcmd__spec_commands] )) ||
+_nika__subcmd__help__subcmd__spec_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika help spec commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__help__subcmd__test_commands] )) ||
+_nika__subcmd__help__subcmd__test_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika help test commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__help__subcmd__trace_commands] )) ||
+_nika__subcmd__help__subcmd__trace_commands() {
+    local commands; commands=(
+'replay:Re-render a run live (replay = re-render, NEVER re-execute)' \
+'show:Print the final card only' \
+'ls:List the workspace trace store (\`.nika/traces/\`)\: age · size · workflow · terminal state (completed/failed/paused) · the resume-candidate marker (★ — the newest of each workflow, the trace retention never collects · ADR-100)' \
+'rm:Remove traces from the store — one by name/path, \`--older-than <dur>\`, or \`--all\`. Removing a paused trace refuses without \`--force\` and names the unanswered prompt it would destroy (ADR-100)' \
+'outputs:Browse per-task outputs\: verb · duration · tokens · bounded preview (full value\: \`trace peek\`)' \
+'export:Project the journal to OTLP/JSON lines — every \`OTel\` tool becomes a viewer (drag into Jaeger UI ≥1.60 · POST lines to any OTLP/HTTP endpoint). Local file, zero collector, zero vendor' \
+'verify:Verify the journal'\''s tamper-evidence chain (0.96+)\: any edited, inserted, dropped or reordered line breaks every hash after it. Exit 0 intact · 2 broken · 3 unchained (pre-chain journal)' \
+'reproduce:Is this run reproducible? Compare a recorded journal against a fresh one and classify every task\: reproduced · nondeterministic (same def+inputs, different output) · authored · environment · status-changed · unverifiable. Exit 0 reproduced · 2 diverged' \
+'peek:Read ONE task'\''s full output + its identity (hashes · duration · tokens). \`--raw\` prints the exact value only (pipe it to jq)' \
+'flow:The data waterfall\: which output fed which task, with recorded sizes (plan bindings from the workflow file × sizes from the trace)' \
+    )
+    _describe -t commands 'nika help trace commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__help__subcmd__trace__subcmd__export_commands] )) ||
+_nika__subcmd__help__subcmd__trace__subcmd__export_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika help trace export commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__help__subcmd__trace__subcmd__flow_commands] )) ||
+_nika__subcmd__help__subcmd__trace__subcmd__flow_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika help trace flow commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__help__subcmd__trace__subcmd__ls_commands] )) ||
+_nika__subcmd__help__subcmd__trace__subcmd__ls_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika help trace ls commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__help__subcmd__trace__subcmd__outputs_commands] )) ||
+_nika__subcmd__help__subcmd__trace__subcmd__outputs_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika help trace outputs commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__help__subcmd__trace__subcmd__peek_commands] )) ||
+_nika__subcmd__help__subcmd__trace__subcmd__peek_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika help trace peek commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__help__subcmd__trace__subcmd__replay_commands] )) ||
+_nika__subcmd__help__subcmd__trace__subcmd__replay_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika help trace replay commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__help__subcmd__trace__subcmd__reproduce_commands] )) ||
+_nika__subcmd__help__subcmd__trace__subcmd__reproduce_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika help trace reproduce commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__help__subcmd__trace__subcmd__rm_commands] )) ||
+_nika__subcmd__help__subcmd__trace__subcmd__rm_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika help trace rm commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__help__subcmd__trace__subcmd__show_commands] )) ||
+_nika__subcmd__help__subcmd__trace__subcmd__show_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika help trace show commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__help__subcmd__trace__subcmd__verify_commands] )) ||
+_nika__subcmd__help__subcmd__trace__subcmd__verify_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika help trace verify commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__help__subcmd__welcome_commands] )) ||
+_nika__subcmd__help__subcmd__welcome_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika help welcome commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__help__subcmd__wire_commands] )) ||
+_nika__subcmd__help__subcmd__wire_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika help wire commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__init_commands] )) ||
+_nika__subcmd__init_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika init commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__inspect_commands] )) ||
+_nika__subcmd__inspect_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika inspect commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__lsp_commands] )) ||
+_nika__subcmd__lsp_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika lsp commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__mcp_commands] )) ||
+_nika__subcmd__mcp_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika mcp commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__model_commands] )) ||
+_nika__subcmd__model_commands() {
+    local commands; commands=(
+'serve:Serve a GGUF model — an OpenAI-compatible foreground server on 127.0.0.1 (Ctrl-C stops it · the banner says how workflows reach it)' \
+'pull:Download a GGUF from the Hugging Face Hub into the ONE models dir (\`~/.nika/models\` — the same dir \`serve --model <id>\` resolves, by construction). Size prints BEFORE downloading; 2 GiB and over confirms (\`--yes\` for CI). An interrupted pull resumes from its \`.part\`. \`HF_TOKEN\` authenticates gated repos. This fetch is CLI-level, like \`registry\:\` pulls — a workflow'\''s \`permits\:\` never govern it' \
+'list:What'\''s on disk\: id · size · file per GGUF — the ONE models dir printed once at top' \
+'rm:Remove a pulled model\: \`owner/repo\` removes every quant (and the tokenizer beside them) · \`owner/repo\:QUANT\` one file. A no-match refuses, listing what IS there' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'nika model commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__model__subcmd__help_commands] )) ||
+_nika__subcmd__model__subcmd__help_commands() {
+    local commands; commands=(
+'serve:Serve a GGUF model — an OpenAI-compatible foreground server on 127.0.0.1 (Ctrl-C stops it · the banner says how workflows reach it)' \
+'pull:Download a GGUF from the Hugging Face Hub into the ONE models dir (\`~/.nika/models\` — the same dir \`serve --model <id>\` resolves, by construction). Size prints BEFORE downloading; 2 GiB and over confirms (\`--yes\` for CI). An interrupted pull resumes from its \`.part\`. \`HF_TOKEN\` authenticates gated repos. This fetch is CLI-level, like \`registry\:\` pulls — a workflow'\''s \`permits\:\` never govern it' \
+'list:What'\''s on disk\: id · size · file per GGUF — the ONE models dir printed once at top' \
+'rm:Remove a pulled model\: \`owner/repo\` removes every quant (and the tokenizer beside them) · \`owner/repo\:QUANT\` one file. A no-match refuses, listing what IS there' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'nika model help commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__model__subcmd__help__subcmd__help_commands] )) ||
+_nika__subcmd__model__subcmd__help__subcmd__help_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika model help help commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__model__subcmd__help__subcmd__list_commands] )) ||
+_nika__subcmd__model__subcmd__help__subcmd__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika model help list commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__model__subcmd__help__subcmd__pull_commands] )) ||
+_nika__subcmd__model__subcmd__help__subcmd__pull_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika model help pull commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__model__subcmd__help__subcmd__rm_commands] )) ||
+_nika__subcmd__model__subcmd__help__subcmd__rm_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika model help rm commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__model__subcmd__help__subcmd__serve_commands] )) ||
+_nika__subcmd__model__subcmd__help__subcmd__serve_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika model help serve commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__model__subcmd__list_commands] )) ||
+_nika__subcmd__model__subcmd__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika model list commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__model__subcmd__pull_commands] )) ||
+_nika__subcmd__model__subcmd__pull_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika model pull commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__model__subcmd__rm_commands] )) ||
+_nika__subcmd__model__subcmd__rm_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika model rm commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__model__subcmd__serve_commands] )) ||
+_nika__subcmd__model__subcmd__serve_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika model serve commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__new_commands] )) ||
+_nika__subcmd__new_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika new commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__run_commands] )) ||
+_nika__subcmd__run_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika run commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__spec_commands] )) ||
+_nika__subcmd__spec_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika spec commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__test_commands] )) ||
+_nika__subcmd__test_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika test commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__trace_commands] )) ||
+_nika__subcmd__trace_commands() {
+    local commands; commands=(
+'replay:Re-render a run live (replay = re-render, NEVER re-execute)' \
+'show:Print the final card only' \
+'ls:List the workspace trace store (\`.nika/traces/\`)\: age · size · workflow · terminal state (completed/failed/paused) · the resume-candidate marker (★ — the newest of each workflow, the trace retention never collects · ADR-100)' \
+'rm:Remove traces from the store — one by name/path, \`--older-than <dur>\`, or \`--all\`. Removing a paused trace refuses without \`--force\` and names the unanswered prompt it would destroy (ADR-100)' \
+'outputs:Browse per-task outputs\: verb · duration · tokens · bounded preview (full value\: \`trace peek\`)' \
+'export:Project the journal to OTLP/JSON lines — every \`OTel\` tool becomes a viewer (drag into Jaeger UI ≥1.60 · POST lines to any OTLP/HTTP endpoint). Local file, zero collector, zero vendor' \
+'verify:Verify the journal'\''s tamper-evidence chain (0.96+)\: any edited, inserted, dropped or reordered line breaks every hash after it. Exit 0 intact · 2 broken · 3 unchained (pre-chain journal)' \
+'reproduce:Is this run reproducible? Compare a recorded journal against a fresh one and classify every task\: reproduced · nondeterministic (same def+inputs, different output) · authored · environment · status-changed · unverifiable. Exit 0 reproduced · 2 diverged' \
+'peek:Read ONE task'\''s full output + its identity (hashes · duration · tokens). \`--raw\` prints the exact value only (pipe it to jq)' \
+'flow:The data waterfall\: which output fed which task, with recorded sizes (plan bindings from the workflow file × sizes from the trace)' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'nika trace commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__trace__subcmd__export_commands] )) ||
+_nika__subcmd__trace__subcmd__export_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika trace export commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__trace__subcmd__flow_commands] )) ||
+_nika__subcmd__trace__subcmd__flow_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika trace flow commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__trace__subcmd__help_commands] )) ||
+_nika__subcmd__trace__subcmd__help_commands() {
+    local commands; commands=(
+'replay:Re-render a run live (replay = re-render, NEVER re-execute)' \
+'show:Print the final card only' \
+'ls:List the workspace trace store (\`.nika/traces/\`)\: age · size · workflow · terminal state (completed/failed/paused) · the resume-candidate marker (★ — the newest of each workflow, the trace retention never collects · ADR-100)' \
+'rm:Remove traces from the store — one by name/path, \`--older-than <dur>\`, or \`--all\`. Removing a paused trace refuses without \`--force\` and names the unanswered prompt it would destroy (ADR-100)' \
+'outputs:Browse per-task outputs\: verb · duration · tokens · bounded preview (full value\: \`trace peek\`)' \
+'export:Project the journal to OTLP/JSON lines — every \`OTel\` tool becomes a viewer (drag into Jaeger UI ≥1.60 · POST lines to any OTLP/HTTP endpoint). Local file, zero collector, zero vendor' \
+'verify:Verify the journal'\''s tamper-evidence chain (0.96+)\: any edited, inserted, dropped or reordered line breaks every hash after it. Exit 0 intact · 2 broken · 3 unchained (pre-chain journal)' \
+'reproduce:Is this run reproducible? Compare a recorded journal against a fresh one and classify every task\: reproduced · nondeterministic (same def+inputs, different output) · authored · environment · status-changed · unverifiable. Exit 0 reproduced · 2 diverged' \
+'peek:Read ONE task'\''s full output + its identity (hashes · duration · tokens). \`--raw\` prints the exact value only (pipe it to jq)' \
+'flow:The data waterfall\: which output fed which task, with recorded sizes (plan bindings from the workflow file × sizes from the trace)' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'nika trace help commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__trace__subcmd__help__subcmd__export_commands] )) ||
+_nika__subcmd__trace__subcmd__help__subcmd__export_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika trace help export commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__trace__subcmd__help__subcmd__flow_commands] )) ||
+_nika__subcmd__trace__subcmd__help__subcmd__flow_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika trace help flow commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__trace__subcmd__help__subcmd__help_commands] )) ||
+_nika__subcmd__trace__subcmd__help__subcmd__help_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika trace help help commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__trace__subcmd__help__subcmd__ls_commands] )) ||
+_nika__subcmd__trace__subcmd__help__subcmd__ls_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika trace help ls commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__trace__subcmd__help__subcmd__outputs_commands] )) ||
+_nika__subcmd__trace__subcmd__help__subcmd__outputs_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika trace help outputs commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__trace__subcmd__help__subcmd__peek_commands] )) ||
+_nika__subcmd__trace__subcmd__help__subcmd__peek_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika trace help peek commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__trace__subcmd__help__subcmd__replay_commands] )) ||
+_nika__subcmd__trace__subcmd__help__subcmd__replay_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika trace help replay commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__trace__subcmd__help__subcmd__reproduce_commands] )) ||
+_nika__subcmd__trace__subcmd__help__subcmd__reproduce_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika trace help reproduce commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__trace__subcmd__help__subcmd__rm_commands] )) ||
+_nika__subcmd__trace__subcmd__help__subcmd__rm_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika trace help rm commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__trace__subcmd__help__subcmd__show_commands] )) ||
+_nika__subcmd__trace__subcmd__help__subcmd__show_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika trace help show commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__trace__subcmd__help__subcmd__verify_commands] )) ||
+_nika__subcmd__trace__subcmd__help__subcmd__verify_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika trace help verify commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__trace__subcmd__ls_commands] )) ||
+_nika__subcmd__trace__subcmd__ls_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika trace ls commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__trace__subcmd__outputs_commands] )) ||
+_nika__subcmd__trace__subcmd__outputs_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika trace outputs commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__trace__subcmd__peek_commands] )) ||
+_nika__subcmd__trace__subcmd__peek_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika trace peek commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__trace__subcmd__replay_commands] )) ||
+_nika__subcmd__trace__subcmd__replay_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika trace replay commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__trace__subcmd__reproduce_commands] )) ||
+_nika__subcmd__trace__subcmd__reproduce_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika trace reproduce commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__trace__subcmd__rm_commands] )) ||
+_nika__subcmd__trace__subcmd__rm_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika trace rm commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__trace__subcmd__show_commands] )) ||
+_nika__subcmd__trace__subcmd__show_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika trace show commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__trace__subcmd__verify_commands] )) ||
+_nika__subcmd__trace__subcmd__verify_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika trace verify commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__welcome_commands] )) ||
+_nika__subcmd__welcome_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika welcome commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__wire_commands] )) ||
+_nika__subcmd__wire_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika wire commands' commands "$@"
+}
+
+if [ "$funcstack[1]" = "_nika" ]; then
+    _nika "$@"
+else
+    compdef _nika nika
+fi

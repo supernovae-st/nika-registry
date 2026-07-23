@@ -2,19 +2,19 @@
   "certificate": {
     "broad": false,
     "capability_escapes": [],
-    "clean": true,
+    "clean": false,
     "cost_usd": {
-      "bounded_total": 0.0,
-      "has_unbounded": true
+      "bounded_total": null,
+      "has_unbounded": null
     },
-    "effect_calls": 9,
-    "llm_calls": 1,
-    "permits_boundary": "permits:\n  exec: false\n  tools: [\"nika:emit\", \"nika:fetch\", \"nika:hash\", \"nika:json_diff\", \"nika:json_merge_patch\", \"nika:notify\", \"nika:read\"]\n\n# review \u2014 effects too dynamic to pin statically:\n#   \u00b7 task `live` reaches a dynamic URL \u2014 `net.http` cannot express 'any host'; add the resolved host(s) before running\n#   \u00b7 task `baseline` uses a dynamic path \u2014 `fs` cannot express 'any path'; add the resolved path(s) before running\n#   \u00b7 task `alert` reaches a dynamic URL \u2014 `net.http` cannot express 'any host'; add the resolved host(s) before running",
+    "effect_calls": null,
+    "llm_calls": null,
+    "permits_boundary": "PARSE \u2717  [NIKA-PARSE-021] top-level `description:` moved into the workflow object \u2014 write it as `workflow.description`",
     "secret_egresses": [],
     "secret_leaks": [],
     "vars_required": []
   },
-  "engine": "0.104.0",
+  "engine": "0.105.0",
   "entry": "registry/workflows/supernovae-st/config-drift-sentinel/0.1.0.toml",
   "schema": 1,
   "sha256": "d7455f482256aa79631a8e0207794815f847bafe2bf24c54c7f349863684f9cc"
