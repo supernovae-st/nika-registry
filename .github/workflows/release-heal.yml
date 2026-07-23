@@ -22,6 +22,10 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+        with:
+          # The heal edits .github/workflows/verify.yml — a GitHub App
+          # token cannot push workflow files, the deploy key can.
+          ssh-key: ${{ secrets.HEAL_DEPLOY_KEY }}
       - name: The certifier follows the release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
