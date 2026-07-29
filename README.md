@@ -24,6 +24,35 @@ on every PR and every night. The `[cert]` block in an entry is informative -
 **the proof is `scripts/verify.py`, and you can run it offline against a
 mirror.** Trust lives in the artifact, not in this repo.
 
+<!-- city:map -->
+## The city · where this repo sits
+
+```
+📜 nika-spec ──── the civil code · the law tables, the corpus, the exam
+    │ sync-pack: byte-gated mirror        │ projectors: drift-gated
+    ▼                                     ▼
+⚙️ nika ───────── the engine + the catalog (the yellow pages)
+    │ the release train                  🖥️ nika.sh · 📖 nika-docs
+    ▼                                     the showroom · the manual
+📦 homebrew-tap · npm · Docker ── the docks
+🔌 nika-client · 🎨 nika-vscode · 🤖 nika-agents ── the doors
+🏪 nika-registry ── the market · 🔍 nika-site-audit ── the witness   ◀── you are here
+```
+
+**This building** · THE MARKET · share workflows, packs, skills and agents; every entry machine-re-proven, never gatekeeper-trusted.
+
+**Consumes** · publisher repos (a pointer + a digest + a proof, never a copy) · the spec's conformance oracle · the engine's static certificate.
+
+**Serves** · `nika check|run registry:<owner>/<name>` · `scripts/get.py` · agents via [`index.json`](index.json) + [`llms.txt`](llms.txt).
+
+**Truth lives** · every entry pinned to a full commit + sha256, re-proven in CI on every PR and every night · the `[cert]` block is informative, `scripts/verify.py` is the proof you re-run yourself.
+
+All the buildings: [nika-spec](https://github.com/supernovae-st/nika-spec) · [nika](https://github.com/supernovae-st/nika) · [nika.sh](https://github.com/supernovae-st/nika.sh) · [nika-docs](https://github.com/supernovae-st/nika-docs) · [nika-client](https://github.com/supernovae-st/nika-client) · [nika-vscode](https://github.com/supernovae-st/nika-vscode) · [nika-agents](https://github.com/supernovae-st/nika-agents) · [homebrew-tap](https://github.com/supernovae-st/homebrew-tap) · [nika-registry](https://github.com/supernovae-st/nika-registry) · [nika-site-audit](https://github.com/supernovae-st/nika-site-audit)
+
+Every fact has one home · everything else is a gated projection.
+The living map: [nika.sh/map](https://nika.sh/map).
+<!-- /city:map -->
+
 ## Install: the engine pulls it natively °
 
 ```sh
