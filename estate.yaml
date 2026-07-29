@@ -18,14 +18,14 @@ classes:
   testimonial: "captured evidence — fixtures, corpora, traces, receipts: proves behavior; neither shipped source nor regenerable output"
   foreign: "pointer to a third-party sovereign source"
 summary:
-  classified_files: 109
-  file_rows: 108
+  classified_files: 110
+  file_rows: 109
   pattern_rows: 2
   by_class:
-    authored: 22
-    authored-pin: 1
+    authored: 21
+    authored-pin: 2
     generated: 85
-    pinned-copy: 1
+    pinned-copy: 2
     testimonial: 0
     foreign: 0
   unverified-default: 0
@@ -48,7 +48,7 @@ files:
   evidence: "hand-written bot workflow (it edits OTHER files, nothing writes it)"
 - path: ".github/workflows/verify.yml"
   class: authored
-  sha256: 77f55a18eb84791c52d2b1c97cbe93d051c6d7b15f55f33340900a3c78949c2d
+  sha256: db57d9ac3c6344af68662fd6cf2aa8e96c1e5bbff570ec5bfc360fe883d57689
   evidence: "hand-written CI trust model (comments narrate design decisions)"
   note: "release-heal.yml rewrites the engine download URL + sha256 digest lines — bot-maintained fields inside an authored file"
 - path: ".gitignore"
@@ -78,6 +78,10 @@ files:
   class: authored
   sha256: da3951c8a03f4216ddaf7b414ed392189bc2d648f25aea672dc73ea60e7e5f4b
   evidence: "the copy-me template for community PRs · its own header says 'Copy to …'"
+- path: "ESTATE_PIN"
+  class: authored-pin
+  sha256: e51cd1e4b2fb74b8ffea6df4ec25d00a1aafbc4278cd07e7ebc0a2cde1f2460c
+  evidence: "its own header: 'Bump deliberately: edit this' · the rev the shared estate tool is mirrored from, and the INPUT the mirror gate compares against"
 - path: "LICENSE"
   class: pinned-copy
   sha256: cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30
@@ -1031,12 +1035,18 @@ files:
   evidence: "hand-written certifier · SPDX header + design prose"
   note: "release-heal.yml rewrites the ENGINE_VERSION pin line on engine releases — a bot-maintained field inside an authored file"
 - path: "scripts/estate.py"
-  class: authored
-  sha256: e969a7fcbcb573fcd06e4aae41e8b4faa88f19415a20ec42e0ceb464ca964a27
-  evidence: "the shared estate tool, mirrored byte-for-byte from supernovae-st/nika-estate"
+  class: pinned-copy
+  sha256: a77b3331d08ab86531f86a1bc33e9e5f0bf1fbe378803b39b2e73a42c83d93fa
+  evidence: "the shared estate tool, mirrored byte-for-byte from supernovae-st/nika-estate · editing it here is a lost gesture: change it upstream, bump ESTATE_PIN, re-mirror"
+  derivation:
+    tool: "curl the tool from nika-estate at the rev named in ESTATE_PIN"
+    gate: "the `mirror` job byte-compares scripts/estate.py against nika-estate@ESTATE_PIN and fails the run on any difference"
+    inputs:
+    - "ESTATE_PIN"
+    - "supernovae-st/nika-estate@<ESTATE_PIN>:scripts/estate.py"
 - path: "scripts/estate_rules.py"
   class: authored
-  sha256: ffc59e8ae5c6d34a5d86681617b778f87b31d259b0ade4db8b7a947ad706d27b
+  sha256: 1046bdb14be123c75dfa6298d24d27c59981ab177e9966e5c137b495468f4497
   evidence: "hand-written per-repo estate rules (this file) · the tool is shared, these declarations are ours"
 - path: "scripts/get.py"
   class: authored

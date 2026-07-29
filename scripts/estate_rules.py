@@ -90,7 +90,6 @@ _AUTHORED = {
     "scripts/get.py": "hand-written consume path · SPDX header + design prose",
     "scripts/selftest.py": "hand-written guard assertions · SPDX header + design prose",
     "scripts/orphan_gate.py": "hand-written gate · SPDX header + design prose · POLICIES.md law 8 (check-only by design)",
-    SELF: "the shared estate tool, mirrored byte-for-byte from supernovae-st/nika-estate",  # noqa: F821
     RULES: "hand-written per-repo estate rules (this file) · the tool is shared, these declarations are ours",  # noqa: F821
 }
 
@@ -101,6 +100,17 @@ _NOTES = {
 
 
 # ── FILES · computed from what each file actually contains ──────────────────
+
+_MIRROR_ROWS = [
+    {"path": SELF, "class": "pinned-copy", "evidence": "the shared estate tool, mirrored byte-for-byte from supernovae-st/nika-estate · editing it here is a lost gesture: change it upstream, bump ESTATE_PIN, re-mirror",
+      "derivation": {
+            "tool": "curl the tool from nika-estate at the rev named in ESTATE_PIN",
+            "gate": "the `mirror` job byte-compares scripts/estate.py against nika-estate@ESTATE_PIN and fails the run on any difference",
+            "inputs": ["ESTATE_PIN", "supernovae-st/nika-estate@<ESTATE_PIN>:scripts/estate.py"],
+        }},
+    {"path": "ESTATE_PIN", "class": "authored-pin",
+      "evidence": "its own header: 'Bump deliberately: edit this' \u00b7 the rev the shared estate tool is mirrored from, and the INPUT the mirror gate compares against"},
+]
 
 FILES = []
 _seen = set()
@@ -270,3 +280,6 @@ PATTERNS = [
      "evidence": "no generation marker or known role found",
      "note": "unverified-default"},
 ]
+
+for _r in _MIRROR_ROWS:
+    _add(_r)
