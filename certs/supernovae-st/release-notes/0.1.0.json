@@ -2,14 +2,14 @@
   "certificate": {
     "broad": false,
     "capability_escapes": [],
-    "clean": false,
+    "clean": true,
     "cost_usd": {
-      "bounded_total": null,
-      "has_unbounded": null
+      "bounded_total": 0.0,
+      "has_unbounded": true
     },
-    "effect_calls": null,
-    "llm_calls": null,
-    "permits_boundary": "PARSE \u2717  [NIKA-PARSE-021] top-level `description:` moved into the workflow object \u2014 write it as `workflow.description`",
+    "effect_calls": 6,
+    "llm_calls": 1,
+    "permits_boundary": "permits:\n  fs:\n    read: [\"examples/fixtures/CHANGELOG.md\", \"out/CHANGELOG.md\"]\n    write: [\"out/CHANGELOG.md\"]\n  exec: [\"git\"]\n  tools: [\"nika:edit\", \"nika:notify\", \"nika:prompt\", \"nika:read\", \"nika:write\"]\n\n# review \u2014 effects too dynamic to pin statically:\n#   \u00b7 task `announce` reaches a dynamic URL \u2014 `net.http` cannot express 'any host'; add the resolved host(s) before running",
     "secret_egresses": [],
     "secret_leaks": [],
     "vars_required": []
@@ -17,5 +17,5 @@
   "engine": "0.106.1",
   "entry": "registry/workflows/supernovae-st/release-notes/0.1.0.toml",
   "schema": 1,
-  "sha256": "e2b7d88d1a389df492d0f21701a60f870a0c9052f8d16965ba95f539ef79e23e"
+  "sha256": "2594c637d3826df6367350ec8e7ca514c14216f5f72f6013f27291f8f9ec66b3"
 }

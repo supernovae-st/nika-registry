@@ -2,14 +2,14 @@
   "certificate": {
     "broad": false,
     "capability_escapes": [],
-    "clean": false,
+    "clean": true,
     "cost_usd": {
-      "bounded_total": null,
-      "has_unbounded": null
+      "bounded_total": 0.0,
+      "has_unbounded": true
     },
-    "effect_calls": null,
-    "llm_calls": null,
-    "permits_boundary": "PARSE \u2717  [NIKA-PARSE-021] top-level `description:` moved into the workflow object \u2014 write it as `workflow.description`",
+    "effect_calls": 2,
+    "llm_calls": 27,
+    "permits_boundary": "permits:\n  exec: false\n  tools: [\"nika:done\", \"nika:fetch\", \"nika:jq\", \"nika:write\"]\n\n# review \u2014 effects too dynamic to pin statically:\n#   \u00b7 task `save` uses a dynamic path \u2014 `fs` cannot express 'any path'; add the resolved path(s) before running",
     "secret_egresses": [],
     "secret_leaks": [],
     "vars_required": []
@@ -17,5 +17,5 @@
   "engine": "0.106.1",
   "entry": "registry/workflows/supernovae-st/deep-research-brief/0.1.0.toml",
   "schema": 1,
-  "sha256": "baaa3a1d77cf98836b280c40de2abb289b2a2dc64af2196ba8560cbbd4f0f76b"
+  "sha256": "09fce349706698173cc6e336d06d3eb43ee4d4e30cf1c0bdd525174b8b1eca48"
 }

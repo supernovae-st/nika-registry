@@ -2,14 +2,14 @@
   "certificate": {
     "broad": false,
     "capability_escapes": [],
-    "clean": false,
+    "clean": true,
     "cost_usd": {
-      "bounded_total": null,
-      "has_unbounded": null
+      "bounded_total": 0.0,
+      "has_unbounded": true
     },
-    "effect_calls": null,
-    "llm_calls": null,
-    "permits_boundary": "PARSE \u2717  [NIKA-PARSE-021] top-level `description:` moved into the workflow object \u2014 write it as `workflow.description`",
+    "effect_calls": 4,
+    "llm_calls": 2,
+    "permits_boundary": "permits:\n  fs:\n    write: [\"out/risk-memo.md\"]\n  exec: false\n  tools: [\"nika:assert\", \"nika:read\", \"nika:validate\", \"nika:write\"]\n\n# review \u2014 effects too dynamic to pin statically:\n#   \u00b7 task `contract` uses a dynamic path \u2014 `fs` cannot express 'any path'; add the resolved path(s) before running",
     "secret_egresses": [],
     "secret_leaks": [],
     "vars_required": []
@@ -17,5 +17,5 @@
   "engine": "0.106.1",
   "entry": "registry/workflows/supernovae-st/contract-guard/0.1.0.toml",
   "schema": 1,
-  "sha256": "04d0727f989580e14bb24eadbaab01f8b7855b863ab0a93a6cedf74e09b448df"
+  "sha256": "fa4db518feb6fcd455fc0c41dc262fcc9b6fa1cfca62acb2425fbc898a357167"
 }

@@ -2,14 +2,14 @@
   "certificate": {
     "broad": false,
     "capability_escapes": [],
-    "clean": false,
+    "clean": true,
     "cost_usd": {
-      "bounded_total": null,
-      "has_unbounded": null
+      "bounded_total": 0.0,
+      "has_unbounded": true
     },
-    "effect_calls": null,
-    "llm_calls": null,
-    "permits_boundary": "PARSE \u2717  [NIKA-PARSE-021] top-level `description:` moved into the workflow object \u2014 write it as `workflow.description`",
+    "effect_calls": 6,
+    "llm_calls": 1,
+    "permits_boundary": "permits:\n  fs:\n    read: [\"./src/**\"]\n    write: [\"./REVIEW.md\"]\n  exec: [\"git\"]\n  tools: [\"nika:done\", \"nika:grep\", \"nika:jq\", \"nika:prompt\", \"nika:read\", \"nika:write\"]",
     "secret_egresses": [],
     "secret_leaks": [],
     "vars_required": []
@@ -17,5 +17,5 @@
   "engine": "0.106.1",
   "entry": "registry/workflows/supernovae-st/pr-review-fanout/0.1.0.toml",
   "schema": 1,
-  "sha256": "954088df27ee380a655a0dc91b55b56e7783923a710fdff4fc86111ea6aa2e3c"
+  "sha256": "a4ed71b5d8637907a855c0e5c59eb89d4dca0bc61a55a3a6604d400d6458fba9"
 }

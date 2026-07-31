@@ -2,14 +2,14 @@
   "certificate": {
     "broad": false,
     "capability_escapes": [],
-    "clean": false,
+    "clean": true,
     "cost_usd": {
-      "bounded_total": null,
-      "has_unbounded": null
+      "bounded_total": 0.0,
+      "has_unbounded": true
     },
-    "effect_calls": null,
-    "llm_calls": null,
-    "permits_boundary": "PARSE \u2717  [NIKA-PARSE-021] top-level `description:` moved into the workflow object \u2014 write it as `workflow.description`",
+    "effect_calls": 5,
+    "llm_calls": 1,
+    "permits_boundary": "permits:\n  fs:\n    write: [\"./hiring/shortlist-brief.md\"]\n  exec: false\n  tools: [\"nika:glob\", \"nika:jq\", \"nika:read\", \"nika:write\"]\n\n# review \u2014 effects too dynamic to pin statically:\n#   \u00b7 task `cvs` uses a dynamic path \u2014 `fs` cannot express 'any path'; add the resolved path(s) before running",
     "secret_egresses": [],
     "secret_leaks": [],
     "vars_required": []
@@ -17,5 +17,5 @@
   "engine": "0.106.1",
   "entry": "registry/workflows/supernovae-st/resume-screener/0.1.0.toml",
   "schema": 1,
-  "sha256": "0452fa71fc9a19cd8b8efca09d1da2f0aaeebdd9a6b391c05e38976fcf2f7131"
+  "sha256": "b8eba221a8acc560dcb2a7c64d977bc4a7e53d1c0ee8165330ac230d520bc050"
 }

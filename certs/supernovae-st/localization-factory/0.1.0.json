@@ -2,14 +2,14 @@
   "certificate": {
     "broad": false,
     "capability_escapes": [],
-    "clean": false,
+    "clean": true,
     "cost_usd": {
-      "bounded_total": null,
-      "has_unbounded": null
+      "bounded_total": 0.0,
+      "has_unbounded": true
     },
-    "effect_calls": null,
-    "llm_calls": null,
-    "permits_boundary": "PARSE \u2717  [NIKA-PARSE-021] top-level `description:` moved into the workflow object \u2014 write it as `workflow.description`",
+    "effect_calls": 3,
+    "llm_calls": 0,
+    "permits_boundary": "permits:\n  exec: false\n  tools: [\"nika:glob\", \"nika:jq\", \"nika:read\", \"nika:write\"]\n\n# review \u2014 effects too dynamic to pin statically:\n#   \u00b7 task `texts` uses a dynamic path \u2014 `fs` cannot express 'any path'; add the resolved path(s) before running\n#   \u00b7 task `mirror` uses a dynamic path \u2014 `fs` cannot express 'any path'; add the resolved path(s) before running",
     "secret_egresses": [],
     "secret_leaks": [],
     "vars_required": []
@@ -17,5 +17,5 @@
   "engine": "0.106.1",
   "entry": "registry/workflows/supernovae-st/localization-factory/0.1.0.toml",
   "schema": 1,
-  "sha256": "e8e018916cd8c719e3a82bc8061afd17ae7e6ff492b2797e73896a1f9dfa3068"
+  "sha256": "c91612762809bee3f59557a7d3a282a075b35b9773a6e1357366daa0582239db"
 }

@@ -2,14 +2,14 @@
   "certificate": {
     "broad": false,
     "capability_escapes": [],
-    "clean": false,
+    "clean": true,
     "cost_usd": {
-      "bounded_total": null,
-      "has_unbounded": null
+      "bounded_total": 0.0,
+      "has_unbounded": true
     },
-    "effect_calls": null,
-    "llm_calls": null,
-    "permits_boundary": "PARSE \u2717  [NIKA-PARSE-021] top-level `description:` moved into the workflow object \u2014 write it as `workflow.description`",
+    "effect_calls": 3,
+    "llm_calls": 1,
+    "permits_boundary": "permits:\n  fs:\n    read: [\"examples/fixtures/episode-transcript.txt\"]\n    write: [\"out/show-notes.md\"]\n  exec: false\n  tools: [\"nika:jq\", \"nika:read\", \"nika:write\"]",
     "secret_egresses": [],
     "secret_leaks": [],
     "vars_required": []
@@ -17,5 +17,5 @@
   "engine": "0.106.1",
   "entry": "registry/workflows/supernovae-st/transcript-shownotes/0.1.0.toml",
   "schema": 1,
-  "sha256": "25ad4012adfc6934f33acbcfd05a170d9f7132d518b8edca7d9d4ed2da5ee2e5"
+  "sha256": "4d52e683bf384c82918ede32008f40b451ffec9ca819e05664c7a527fb7a3e01"
 }

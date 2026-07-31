@@ -2,14 +2,14 @@
   "certificate": {
     "broad": false,
     "capability_escapes": [],
-    "clean": false,
+    "clean": true,
     "cost_usd": {
-      "bounded_total": null,
-      "has_unbounded": null
+      "bounded_total": 0.0,
+      "has_unbounded": false
     },
-    "effect_calls": null,
-    "llm_calls": null,
-    "permits_boundary": "PARSE \u2717  [NIKA-PARSE-021] top-level `description:` moved into the workflow object \u2014 write it as `workflow.description`",
+    "effect_calls": 20,
+    "llm_calls": 0,
+    "permits_boundary": "permits:\n  fs:\n    read: [\"./CHANGELOG.md\", \"./VERSION\", \"./schemas/workflow.schema.json\"]\n  net: { http: [\"api.example.com\"] }\n  exec: [\"./scripts/release.sh\"]\n  tools: [\"nika:assert\", \"nika:date\", \"nika:emit\", \"nika:fetch\", \"nika:jq\", \"nika:prompt\", \"nika:read\", \"nika:wait\"]",
     "secret_egresses": [],
     "secret_leaks": [],
     "vars_required": []
@@ -17,5 +17,5 @@
   "engine": "0.106.1",
   "entry": "registry/workflows/supernovae-st/release-train/0.1.0.toml",
   "schema": 1,
-  "sha256": "dcc15649fbc58ead2eb44d53cc1003b3aba0927b4c499aea9ca8e9b527750642"
+  "sha256": "b90e4cd8c3ffbb2b9a7d2e9a7e37b736d8587c9bc46bbeb3d6dca42f048cbd01"
 }

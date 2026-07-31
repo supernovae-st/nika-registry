@@ -2,14 +2,14 @@
   "certificate": {
     "broad": false,
     "capability_escapes": [],
-    "clean": false,
+    "clean": true,
     "cost_usd": {
-      "bounded_total": null,
-      "has_unbounded": null
+      "bounded_total": 0.0,
+      "has_unbounded": true
     },
-    "effect_calls": null,
-    "llm_calls": null,
-    "permits_boundary": "PARSE \u2717  [NIKA-PARSE-021] top-level `description:` moved into the workflow object \u2014 write it as `workflow.description`",
+    "effect_calls": 5,
+    "llm_calls": 1,
+    "permits_boundary": "permits:\n  fs:\n    read: [\"examples/fixtures/invoices.csv\"]\n    write: [\"out/reminders-to-send.md\"]\n  exec: false\n  tools: [\"nika:convert\", \"nika:jq\", \"nika:prompt\", \"nika:read\", \"nika:write\"]",
     "secret_egresses": [],
     "secret_leaks": [],
     "vars_required": []
@@ -17,5 +17,5 @@
   "engine": "0.106.1",
   "entry": "registry/workflows/supernovae-st/invoice-chaser/0.1.0.toml",
   "schema": 1,
-  "sha256": "e22d7ddfd806187a97e20d35bc43f07350cf0b1a34d7a0dc20bca878aee59444"
+  "sha256": "f0505a10a643a81059f4b13c6441dc6c27a668ad4950087ba78e7a357ef757bd"
 }
