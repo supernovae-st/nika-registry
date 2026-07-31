@@ -13,12 +13,12 @@ spec = "nika/v1"
 
 [source]
 repo = "supernovae-st/nika-spec"
-rev = "12157ad949e75859c0cc41806c73876887871fac"
-path = "examples/showcase/t1-image-fx-batch.nika.yaml"
+rev = "699ebb08585da2b4b908e8dac6ca584332fe0783"
+path = "examples/image-fx-batch.nika.yaml"
 
 [integrity]
-sha256 = "bb928b43443aa69402d894fdcc9fee9dc76cc39e099618db9e5ed30336e4d5a4"
+sha256 = "85740a11ed1862145d81c7d9ea81caf74717153a2a941d0d4eaa7263aaeef339"
 
 [cert]
-oracle = "nika-spec conformance/runner.py @ 12157ad94"
+oracle = "nika-spec conformance/runner.py @ 699ebb085"
 conformance = "pass"

@@ -7,18 +7,18 @@ type = "workflow"
 name = "incident-war-room"
 publisher = "supernovae-st"
 version = "0.1.0"
-description = "parallel evidence → typed timeline → settle + recheck → postmortem draft"
+description = "parallel evidence → typed timeline → settle + recheck → refuse or draft → record"
 license = "Apache-2.0"
 spec = "nika/v1"
 
 [source]
 repo = "supernovae-st/nika-spec"
-rev = "12157ad949e75859c0cc41806c73876887871fac"
-path = "examples/showcase/t4-incident-war-room.nika.yaml"
+rev = "699ebb08585da2b4b908e8dac6ca584332fe0783"
+path = "examples/incident-war-room.nika.yaml"
 
 [integrity]
-sha256 = "5d29b2ddb4dc7ea10426b34eb6f50bff2eb7a1d1aa57a5520052fa310ffc0c95"
+sha256 = "82fe531493528ea15fa636e5417e6e95e5b6281239fcb3000bf8af87814ff9cc"
 
 [cert]
-oracle = "nika-spec conformance/runner.py @ 12157ad94"
+oracle = "nika-spec conformance/runner.py @ 699ebb085"
 conformance = "pass"

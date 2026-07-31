@@ -13,12 +13,12 @@ spec = "nika/v1"
 
 [source]
 repo = "supernovae-st/nika-spec"
-rev = "12157ad949e75859c0cc41806c73876887871fac"
-path = "examples/showcase/t2-csv-chart-report.nika.yaml"
+rev = "699ebb08585da2b4b908e8dac6ca584332fe0783"
+path = "examples/csv-chart-report.nika.yaml"
 
 [integrity]
-sha256 = "2d16b2a8f7f92a4898c150addda45aeba3199477f9508980a18241a2ae504b2a"
+sha256 = "3038fd9cc23a27afad167959a26c36789746c597345149e795540419f596a051"
 
 [cert]
-oracle = "nika-spec conformance/runner.py @ 12157ad94"
+oracle = "nika-spec conformance/runner.py @ 699ebb085"
 conformance = "pass"

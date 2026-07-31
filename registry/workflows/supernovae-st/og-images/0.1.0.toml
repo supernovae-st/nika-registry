@@ -7,18 +7,18 @@ type = "workflow"
 name = "og-images"
 publisher = "supernovae-st"
 version = "0.1.0"
-description = "Generate the launch OG hero image set into ./assets/og"
+description = "Generate the launch OG hero image set into out/og"
 license = "Apache-2.0"
 spec = "nika/v1"
 
 [source]
 repo = "supernovae-st/nika-spec"
-rev = "12157ad949e75859c0cc41806c73876887871fac"
-path = "examples/showcase/t1-og-images.nika.yaml"
+rev = "699ebb08585da2b4b908e8dac6ca584332fe0783"
+path = "examples/og-images.nika.yaml"
 
 [integrity]
-sha256 = "f70d2be6aa553a2feeb445959480a19df20d7634cd0b65ad29fa32d038c30e7a"
+sha256 = "4861331dad6c0d8fd4d20445999556a4046d3e69fdd10dcfcb8ff586ba489306"
 
 [cert]
-oracle = "nika-spec conformance/runner.py @ 12157ad94"
+oracle = "nika-spec conformance/runner.py @ 699ebb085"
 conformance = "pass"

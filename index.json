@@ -16,11 +16,11 @@
       "license": "Apache-2.0",
       "name": "bookmark-triage",
       "publisher": "supernovae-st",
-      "sha256": "8ac1b47b3e1d0bdc2745a7c384e34553b4ba5ef57a0d45c946b96e2706977300",
+      "sha256": "d998d3b69160f27ce9ea2597a80171eac1c2ab39759b87e3439b81faafa128a3",
       "source": {
-        "path": "examples/showcase/t2-bookmark-triage.nika.yaml",
+        "path": "examples/bookmark-triage.nika.yaml",
         "repo": "supernovae-st/nika-spec",
-        "rev": "12157ad949e75859c0cc41806c73876887871fac"
+        "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783"
       },
       "spec": "nika/v1",
       "type": "workflow",
@@ -37,16 +37,16 @@
         "llm_calls": null,
         "secret_leaks": 0
       },
-      "description": "news + repo pulse + KPIs \u2192 thinking synthesis \u2192 dated brief + cost ping",
+      "description": "news + repo pulse + KPIs \u2192 one synthesis \u2192 dated brief \u2192 a ping on every outcome",
       "entry": "registry/workflows/supernovae-st/ceo-monday-brief/0.1.0.toml",
       "license": "Apache-2.0",
       "name": "ceo-monday-brief",
       "publisher": "supernovae-st",
-      "sha256": "a566cc5671694d0740ffd315d6d7f8164531f673841e07312a862f33d81de4cb",
+      "sha256": "26d2418fbab409998367cf507f7c5c3c62dca0aa3f0635658d5556bc9ce1d102",
       "source": {
-        "path": "examples/showcase/t4-ceo-monday-brief.nika.yaml",
+        "path": "examples/ceo-monday-brief.nika.yaml",
         "repo": "supernovae-st/nika-spec",
-        "rev": "12157ad949e75859c0cc41806c73876887871fac"
+        "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783"
       },
       "spec": "nika/v1",
       "type": "workflow",
@@ -63,16 +63,16 @@
         "llm_calls": null,
         "secret_leaks": 0
       },
-      "description": "Sitemap \u2192 parallel page reads \u2192 one competitive brief + ping",
+      "description": "sitemap \u2192 what changed this window \u2192 parallel page reads \u2192 one brief",
       "entry": "registry/workflows/supernovae-st/competitor-radar/0.1.0.toml",
       "license": "Apache-2.0",
       "name": "competitor-radar",
       "publisher": "supernovae-st",
-      "sha256": "116ad4796dcd7e4f465a1848980a349922a547d3873ee0adb1dd014834870a77",
+      "sha256": "02f466ff0a0ab1c150ed7b9d023cf818bcf97768fc40eb35315d35d37e8eef5f",
       "source": {
-        "path": "examples/showcase/t3-competitor-radar.nika.yaml",
+        "path": "examples/competitor-radar.nika.yaml",
         "repo": "supernovae-st/nika-spec",
-        "rev": "12157ad949e75859c0cc41806c73876887871fac"
+        "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783"
       },
       "spec": "nika/v1",
       "type": "workflow",
@@ -89,16 +89,16 @@
         "llm_calls": null,
         "secret_leaks": 0
       },
-      "description": "live config vs sanctioned baseline \u2192 typed drift \u2192 explained alert",
+      "description": "live config vs sanctioned baseline \u2192 typed drift \u2192 triaged, explained alert",
       "entry": "registry/workflows/supernovae-st/config-drift-sentinel/0.1.0.toml",
       "license": "Apache-2.0",
       "name": "config-drift-sentinel",
       "publisher": "supernovae-st",
-      "sha256": "d7455f482256aa79631a8e0207794815f847bafe2bf24c54c7f349863684f9cc",
+      "sha256": "99e6e9bfe4292159a91bf2a921135d95d33f64b5daa68ddc35172d346fcf3d43",
       "source": {
-        "path": "examples/showcase/t3-config-drift-sentinel.nika.yaml",
+        "path": "examples/config-drift-sentinel.nika.yaml",
         "repo": "supernovae-st/nika-spec",
-        "rev": "12157ad949e75859c0cc41806c73876887871fac"
+        "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783"
       },
       "spec": "nika/v1",
       "type": "workflow",
@@ -120,11 +120,11 @@
       "license": "Apache-2.0",
       "name": "contract-guard",
       "publisher": "supernovae-st",
-      "sha256": "04d0727f989580e14bb24eadbaab01f8b7855b863ab0a93a6cedf74e09b448df",
+      "sha256": "fa4db518feb6fcd455fc0c41dc262fcc9b6fa1cfca62acb2425fbc898a357167",
       "source": {
-        "path": "examples/showcase/t2-contract-guard.nika.yaml",
+        "path": "examples/contract-guard.nika.yaml",
         "repo": "supernovae-st/nika-spec",
-        "rev": "12157ad949e75859c0cc41806c73876887871fac"
+        "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783"
       },
       "spec": "nika/v1",
       "type": "workflow",
@@ -146,11 +146,11 @@
       "license": "Apache-2.0",
       "name": "csv-chart-report",
       "publisher": "supernovae-st",
-      "sha256": "2d16b2a8f7f92a4898c150addda45aeba3199477f9508980a18241a2ae504b2a",
+      "sha256": "3038fd9cc23a27afad167959a26c36789746c597345149e795540419f596a051",
       "source": {
-        "path": "examples/showcase/t2-csv-chart-report.nika.yaml",
+        "path": "examples/csv-chart-report.nika.yaml",
         "repo": "supernovae-st/nika-spec",
-        "rev": "12157ad949e75859c0cc41806c73876887871fac"
+        "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783"
       },
       "spec": "nika/v1",
       "type": "workflow",
@@ -172,11 +172,11 @@
       "license": "Apache-2.0",
       "name": "deep-research-brief",
       "publisher": "supernovae-st",
-      "sha256": "baaa3a1d77cf98836b280c40de2abb289b2a2dc64af2196ba8560cbbd4f0f76b",
+      "sha256": "09fce349706698173cc6e336d06d3eb43ee4d4e30cf1c0bdd525174b8b1eca48",
       "source": {
-        "path": "examples/showcase/t4-deep-research-brief.nika.yaml",
+        "path": "examples/deep-research-brief.nika.yaml",
         "repo": "supernovae-st/nika-spec",
-        "rev": "12157ad949e75859c0cc41806c73876887871fac"
+        "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783"
       },
       "spec": "nika/v1",
       "type": "workflow",
@@ -198,11 +198,11 @@
       "license": "Apache-2.0",
       "name": "etl-quarantine",
       "publisher": "supernovae-st",
-      "sha256": "3f5d11dbaaea4d20e8da363f76f8f8c89e0f94727760d14a66ad3fe48e90697b",
+      "sha256": "04377cd7762d676609275c20dc7c6cbcee4582544b74cb8616f6282f1b48cdbb",
       "source": {
-        "path": "examples/showcase/t2-etl-quarantine.nika.yaml",
+        "path": "examples/etl-quarantine.nika.yaml",
         "repo": "supernovae-st/nika-spec",
-        "rev": "12157ad949e75859c0cc41806c73876887871fac"
+        "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783"
       },
       "spec": "nika/v1",
       "type": "workflow",
@@ -224,11 +224,11 @@
       "license": "Apache-2.0",
       "name": "image-fx-batch",
       "publisher": "supernovae-st",
-      "sha256": "bb928b43443aa69402d894fdcc9fee9dc76cc39e099618db9e5ed30336e4d5a4",
+      "sha256": "85740a11ed1862145d81c7d9ea81caf74717153a2a941d0d4eaa7263aaeef339",
       "source": {
-        "path": "examples/showcase/t1-image-fx-batch.nika.yaml",
+        "path": "examples/image-fx-batch.nika.yaml",
         "repo": "supernovae-st/nika-spec",
-        "rev": "12157ad949e75859c0cc41806c73876887871fac"
+        "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783"
       },
       "spec": "nika/v1",
       "type": "workflow",
@@ -245,16 +245,16 @@
         "llm_calls": null,
         "secret_leaks": 0
       },
-      "description": "parallel evidence \u2192 typed timeline \u2192 settle + recheck \u2192 postmortem draft",
+      "description": "parallel evidence \u2192 typed timeline \u2192 settle + recheck \u2192 refuse or draft \u2192 record",
       "entry": "registry/workflows/supernovae-st/incident-war-room/0.1.0.toml",
       "license": "Apache-2.0",
       "name": "incident-war-room",
       "publisher": "supernovae-st",
-      "sha256": "5d29b2ddb4dc7ea10426b34eb6f50bff2eb7a1d1aa57a5520052fa310ffc0c95",
+      "sha256": "82fe531493528ea15fa636e5417e6e95e5b6281239fcb3000bf8af87814ff9cc",
       "source": {
-        "path": "examples/showcase/t4-incident-war-room.nika.yaml",
+        "path": "examples/incident-war-room.nika.yaml",
         "repo": "supernovae-st/nika-spec",
-        "rev": "12157ad949e75859c0cc41806c73876887871fac"
+        "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783"
       },
       "spec": "nika/v1",
       "type": "workflow",
@@ -276,11 +276,11 @@
       "license": "Apache-2.0",
       "name": "invoice-chaser",
       "publisher": "supernovae-st",
-      "sha256": "e22d7ddfd806187a97e20d35bc43f07350cf0b1a34d7a0dc20bca878aee59444",
+      "sha256": "f0505a10a643a81059f4b13c6441dc6c27a668ad4950087ba78e7a357ef757bd",
       "source": {
-        "path": "examples/showcase/t2-invoice-chaser.nika.yaml",
+        "path": "examples/invoice-chaser.nika.yaml",
         "repo": "supernovae-st/nika-spec",
-        "rev": "12157ad949e75859c0cc41806c73876887871fac"
+        "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783"
       },
       "spec": "nika/v1",
       "type": "workflow",
@@ -302,11 +302,11 @@
       "license": "Apache-2.0",
       "name": "localization-factory",
       "publisher": "supernovae-st",
-      "sha256": "e8e018916cd8c719e3a82bc8061afd17ae7e6ff492b2797e73896a1f9dfa3068",
+      "sha256": "c91612762809bee3f59557a7d3a282a075b35b9773a6e1357366daa0582239db",
       "source": {
-        "path": "examples/showcase/t3-localization-factory.nika.yaml",
+        "path": "examples/localization-factory.nika.yaml",
         "repo": "supernovae-st/nika-spec",
-        "rev": "12157ad949e75859c0cc41806c73876887871fac"
+        "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783"
       },
       "spec": "nika/v1",
       "type": "workflow",
@@ -328,11 +328,11 @@
       "license": "Apache-2.0",
       "name": "meeting-actions",
       "publisher": "supernovae-st",
-      "sha256": "12b72a7c1c2fe92394926cc29b6b42aa7316e65733f18e60770ea8be59a02062",
+      "sha256": "31b0aeef8f79f2452c3f79c169f1e500c91c5bc1cca50e3f68dde571f2e3c073",
       "source": {
-        "path": "examples/showcase/t1-meeting-actions.nika.yaml",
+        "path": "examples/meeting-actions.nika.yaml",
         "repo": "supernovae-st/nika-spec",
-        "rev": "12157ad949e75859c0cc41806c73876887871fac"
+        "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783"
       },
       "spec": "nika/v1",
       "type": "workflow",
@@ -354,11 +354,11 @@
       "license": "Apache-2.0",
       "name": "model-bench",
       "publisher": "supernovae-st",
-      "sha256": "addcc74a8dc0d725950142588536b9ddb6304ef4ac38dda825a74055896d3a64",
+      "sha256": "beb1a3e86976636453211dd95f520a89ceed5d3087633a7b7ec21dc99582d298",
       "source": {
-        "path": "examples/showcase/t2-model-bench.nika.yaml",
+        "path": "examples/model-bench.nika.yaml",
         "repo": "supernovae-st/nika-spec",
-        "rev": "12157ad949e75859c0cc41806c73876887871fac"
+        "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783"
       },
       "spec": "nika/v1",
       "type": "workflow",
@@ -375,16 +375,16 @@
         "llm_calls": null,
         "secret_leaks": 0
       },
-      "description": "Generate the launch OG hero image set into ./assets/og",
+      "description": "Generate the launch OG hero image set into out/og",
       "entry": "registry/workflows/supernovae-st/og-images/0.1.0.toml",
       "license": "Apache-2.0",
       "name": "og-images",
       "publisher": "supernovae-st",
-      "sha256": "f70d2be6aa553a2feeb445959480a19df20d7634cd0b65ad29fa32d038c30e7a",
+      "sha256": "4861331dad6c0d8fd4d20445999556a4046d3e69fdd10dcfcb8ff586ba489306",
       "source": {
-        "path": "examples/showcase/t1-og-images.nika.yaml",
+        "path": "examples/og-images.nika.yaml",
         "repo": "supernovae-st/nika-spec",
-        "rev": "12157ad949e75859c0cc41806c73876887871fac"
+        "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783"
       },
       "spec": "nika/v1",
       "type": "workflow",
@@ -406,11 +406,11 @@
       "license": "Apache-2.0",
       "name": "pr-review-fanout",
       "publisher": "supernovae-st",
-      "sha256": "954088df27ee380a655a0dc91b55b56e7783923a710fdff4fc86111ea6aa2e3c",
+      "sha256": "a4ed71b5d8637907a855c0e5c59eb89d4dca0bc61a55a3a6604d400d6458fba9",
       "source": {
-        "path": "examples/showcase/t3-pr-review-fanout.nika.yaml",
+        "path": "examples/pr-review-fanout.nika.yaml",
         "repo": "supernovae-st/nika-spec",
-        "rev": "12157ad949e75859c0cc41806c73876887871fac"
+        "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783"
       },
       "spec": "nika/v1",
       "type": "workflow",
@@ -432,11 +432,11 @@
       "license": "Apache-2.0",
       "name": "price-watch",
       "publisher": "supernovae-st",
-      "sha256": "b9789f837d90f309a5c9b1ea51120ababac0efefe816056bd8fd655afe7e4253",
+      "sha256": "90ef5df4ab134161ba4ad3fd2726ab7ab07c96612a770c08b954a8d6dadaa18c",
       "source": {
-        "path": "examples/showcase/t1-price-watch.nika.yaml",
+        "path": "examples/price-watch.nika.yaml",
         "repo": "supernovae-st/nika-spec",
-        "rev": "12157ad949e75859c0cc41806c73876887871fac"
+        "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783"
       },
       "spec": "nika/v1",
       "type": "workflow",
@@ -458,11 +458,11 @@
       "license": "Apache-2.0",
       "name": "release-notes",
       "publisher": "supernovae-st",
-      "sha256": "e2b7d88d1a389df492d0f21701a60f870a0c9052f8d16965ba95f539ef79e23e",
+      "sha256": "2594c637d3826df6367350ec8e7ca514c14216f5f72f6013f27291f8f9ec66b3",
       "source": {
-        "path": "examples/showcase/t2-release-notes.nika.yaml",
+        "path": "examples/release-notes.nika.yaml",
         "repo": "supernovae-st/nika-spec",
-        "rev": "12157ad949e75859c0cc41806c73876887871fac"
+        "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783"
       },
       "spec": "nika/v1",
       "type": "workflow",
@@ -484,11 +484,11 @@
       "license": "Apache-2.0",
       "name": "release-radar",
       "publisher": "supernovae-st",
-      "sha256": "396e439996a47af767157166e6f1391aa7316ac2d69a74a014db43b4aa4b33ce",
+      "sha256": "8116b035a22dbcac19860e5ce7e6b464224b201aa61bd22b3e5a08eb8f400f10",
       "source": {
-        "path": "examples/showcase/t2-release-radar.nika.yaml",
+        "path": "examples/release-radar.nika.yaml",
         "repo": "supernovae-st/nika-spec",
-        "rev": "12157ad949e75859c0cc41806c73876887871fac"
+        "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783"
       },
       "spec": "nika/v1",
       "type": "workflow",
@@ -505,16 +505,16 @@
         "llm_calls": null,
         "secret_leaks": 0
       },
-      "description": "parallel gates \u2192 human GO \u2192 hold until the window \u2192 ship \u00b7 verify \u00b7 record",
+      "description": "parallel gates \u2192 one verdict \u2192 human GO \u2192 hold until the window \u2192 ship \u00b7 verify \u00b7 record",
       "entry": "registry/workflows/supernovae-st/release-train/0.1.0.toml",
       "license": "Apache-2.0",
       "name": "release-train",
       "publisher": "supernovae-st",
-      "sha256": "dcc15649fbc58ead2eb44d53cc1003b3aba0927b4c499aea9ca8e9b527750642",
+      "sha256": "b90e4cd8c3ffbb2b9a7d2e9a7e37b736d8587c9bc46bbeb3d6dca42f048cbd01",
       "source": {
-        "path": "examples/showcase/t4-release-train.nika.yaml",
+        "path": "examples/release-train.nika.yaml",
         "repo": "supernovae-st/nika-spec",
-        "rev": "12157ad949e75859c0cc41806c73876887871fac"
+        "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783"
       },
       "spec": "nika/v1",
       "type": "workflow",
@@ -536,11 +536,11 @@
       "license": "Apache-2.0",
       "name": "resume-screener",
       "publisher": "supernovae-st",
-      "sha256": "0452fa71fc9a19cd8b8efca09d1da2f0aaeebdd9a6b391c05e38976fcf2f7131",
+      "sha256": "b8eba221a8acc560dcb2a7c64d977bc4a7e53d1c0ee8165330ac230d520bc050",
       "source": {
-        "path": "examples/showcase/t3-resume-screener.nika.yaml",
+        "path": "examples/resume-screener.nika.yaml",
         "repo": "supernovae-st/nika-spec",
-        "rev": "12157ad949e75859c0cc41806c73876887871fac"
+        "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783"
       },
       "spec": "nika/v1",
       "type": "workflow",
@@ -562,11 +562,11 @@
       "license": "Apache-2.0",
       "name": "seo-content-brief",
       "publisher": "supernovae-st",
-      "sha256": "ebefb86db5eb5dadfb010c44a554c1514ad9a82456fc7e7bbf20142773cb103f",
+      "sha256": "4781f1b10edd46a5c8f9c9d8be4cde8b76c23b2b9d5662ef70ac2838fc812230",
       "source": {
-        "path": "examples/showcase/t2-seo-content-brief.nika.yaml",
+        "path": "examples/seo-content-brief.nika.yaml",
         "repo": "supernovae-st/nika-spec",
-        "rev": "12157ad949e75859c0cc41806c73876887871fac"
+        "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783"
       },
       "spec": "nika/v1",
       "type": "workflow",
@@ -588,11 +588,11 @@
       "license": "Apache-2.0",
       "name": "social-repurpose",
       "publisher": "supernovae-st",
-      "sha256": "e88d0be849e2d16dc264da3cfe3e41377d614c7674d227cecd78a8615a909bc3",
+      "sha256": "028c6e1fa5726bd3ba3757f1d48518f58ce70329b29fe2a206ee0596f9824e7d",
       "source": {
-        "path": "examples/showcase/t1-social-repurpose.nika.yaml",
+        "path": "examples/social-repurpose.nika.yaml",
         "repo": "supernovae-st/nika-spec",
-        "rev": "12157ad949e75859c0cc41806c73876887871fac"
+        "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783"
       },
       "spec": "nika/v1",
       "type": "workflow",
@@ -614,11 +614,11 @@
       "license": "Apache-2.0",
       "name": "standup-digest",
       "publisher": "supernovae-st",
-      "sha256": "c50a0ec548b9d2eda8530516ccb9e2026d7d809665968dfd469e0e26c680666f",
+      "sha256": "c8146a99c11ddbd98f2500ce01339bffe2d43d43da8e8c4f4ce1008a9989ba7e",
       "source": {
-        "path": "examples/showcase/t1-standup-digest.nika.yaml",
+        "path": "examples/standup-digest.nika.yaml",
         "repo": "supernovae-st/nika-spec",
-        "rev": "12157ad949e75859c0cc41806c73876887871fac"
+        "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783"
       },
       "spec": "nika/v1",
       "type": "workflow",
@@ -640,11 +640,11 @@
       "license": "Apache-2.0",
       "name": "support-triage",
       "publisher": "supernovae-st",
-      "sha256": "a2bcaefac4b7d609374aeef63bdc34b71a495b3891a535e08045839b2c0e8695",
+      "sha256": "c1e31fc5125d693539ec20cca14e34f64786146e8c31a34266bdef17cd785544",
       "source": {
-        "path": "examples/showcase/t2-support-triage.nika.yaml",
+        "path": "examples/support-triage.nika.yaml",
         "repo": "supernovae-st/nika-spec",
-        "rev": "12157ad949e75859c0cc41806c73876887871fac"
+        "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783"
       },
       "spec": "nika/v1",
       "type": "workflow",
@@ -666,11 +666,11 @@
       "license": "Apache-2.0",
       "name": "transcript-shownotes",
       "publisher": "supernovae-st",
-      "sha256": "25ad4012adfc6934f33acbcfd05a170d9f7132d518b8edca7d9d4ed2da5ee2e5",
+      "sha256": "4d52e683bf384c82918ede32008f40b451ffec9ca819e05664c7a527fb7a3e01",
       "source": {
-        "path": "examples/showcase/t2-transcript-shownotes.nika.yaml",
+        "path": "examples/transcript-shownotes.nika.yaml",
         "repo": "supernovae-st/nika-spec",
-        "rev": "12157ad949e75859c0cc41806c73876887871fac"
+        "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783"
       },
       "spec": "nika/v1",
       "type": "workflow",

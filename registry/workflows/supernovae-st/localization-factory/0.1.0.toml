@@ -13,12 +13,12 @@ spec = "nika/v1"
 
 [source]
 repo = "supernovae-st/nika-spec"
-rev = "12157ad949e75859c0cc41806c73876887871fac"
-path = "examples/showcase/t3-localization-factory.nika.yaml"
+rev = "699ebb08585da2b4b908e8dac6ca584332fe0783"
+path = "examples/localization-factory.nika.yaml"
 
 [integrity]
-sha256 = "e8e018916cd8c719e3a82bc8061afd17ae7e6ff492b2797e73896a1f9dfa3068"
+sha256 = "c91612762809bee3f59557a7d3a282a075b35b9773a6e1357366daa0582239db"
 
 [cert]
-oracle = "nika-spec conformance/runner.py @ 12157ad94"
+oracle = "nika-spec conformance/runner.py @ 699ebb085"
 conformance = "pass"

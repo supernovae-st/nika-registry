@@ -7,18 +7,18 @@ type = "workflow"
 name = "competitor-radar"
 publisher = "supernovae-st"
 version = "0.1.0"
-description = "Sitemap → parallel page reads → one competitive brief + ping"
+description = "sitemap → what changed this window → parallel page reads → one brief"
 license = "Apache-2.0"
 spec = "nika/v1"
 
 [source]
 repo = "supernovae-st/nika-spec"
-rev = "12157ad949e75859c0cc41806c73876887871fac"
-path = "examples/showcase/t3-competitor-radar.nika.yaml"
+rev = "699ebb08585da2b4b908e8dac6ca584332fe0783"
+path = "examples/competitor-radar.nika.yaml"
 
 [integrity]
-sha256 = "116ad4796dcd7e4f465a1848980a349922a547d3873ee0adb1dd014834870a77"
+sha256 = "02f466ff0a0ab1c150ed7b9d023cf818bcf97768fc40eb35315d35d37e8eef5f"
 
 [cert]
-oracle = "nika-spec conformance/runner.py @ 12157ad94"
+oracle = "nika-spec conformance/runner.py @ 699ebb085"
 conformance = "pass"

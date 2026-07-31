@@ -7,18 +7,18 @@ type = "workflow"
 name = "config-drift-sentinel"
 publisher = "supernovae-st"
 version = "0.1.0"
-description = "live config vs sanctioned baseline → typed drift → explained alert"
+description = "live config vs sanctioned baseline → typed drift → triaged, explained alert"
 license = "Apache-2.0"
 spec = "nika/v1"
 
 [source]
 repo = "supernovae-st/nika-spec"
-rev = "12157ad949e75859c0cc41806c73876887871fac"
-path = "examples/showcase/t3-config-drift-sentinel.nika.yaml"
+rev = "699ebb08585da2b4b908e8dac6ca584332fe0783"
+path = "examples/config-drift-sentinel.nika.yaml"
 
 [integrity]
-sha256 = "d7455f482256aa79631a8e0207794815f847bafe2bf24c54c7f349863684f9cc"
+sha256 = "99e6e9bfe4292159a91bf2a921135d95d33f64b5daa68ddc35172d346fcf3d43"
 
 [cert]
-oracle = "nika-spec conformance/runner.py @ 12157ad94"
+oracle = "nika-spec conformance/runner.py @ 699ebb085"
 conformance = "pass"

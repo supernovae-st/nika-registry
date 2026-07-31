@@ -99,7 +99,12 @@ def main() -> int:
 
     generated = {}  # rel_path -> rendered
     for sc in manifest["showcase"]:
-        name = sc["workflow"]
+        # Two manifest eras, one projector: the pre-0.106 pack wrote
+        # `workflow: <id>` + a top-level description; the current pack
+        # writes `workflow: {id, description}`. The pin decides which
+        # era is read — the projector accepts both, never guesses.
+        wf = sc["workflow"]
+        name = wf["id"] if isinstance(wf, dict) else wf
         path = sc["file"]
         body = at_rev(path)
         # The registry pins the REAL bytes a consumer downloads (banner
@@ -107,7 +112,8 @@ def main() -> int:
         # display text (comment banner stripped for the site/docs render).
         # Two legitimate contracts; the registry's is the install one.
         sha = hashlib.sha256(body).hexdigest()
-        desc = sc["description"].replace('"', "'")
+        desc = ((wf.get("description") if isinstance(wf, dict) else None)
+                or sc.get("description", "")).replace('"', "'")
         rel = pathlib.Path("registry/workflows") / PUBLISHER / name / f"{version}.toml"
         generated[rel] = ENTRY.format(name=name, publisher=PUBLISHER, version=version,
                                       desc=desc, repo=SPEC_REPO, rev=rev, path=path,

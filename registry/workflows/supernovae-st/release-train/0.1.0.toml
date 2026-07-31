@@ -7,18 +7,18 @@ type = "workflow"
 name = "release-train"
 publisher = "supernovae-st"
 version = "0.1.0"
-description = "parallel gates → human GO → hold until the window → ship · verify · record"
+description = "parallel gates → one verdict → human GO → hold until the window → ship · verify · record"
 license = "Apache-2.0"
 spec = "nika/v1"
 
 [source]
 repo = "supernovae-st/nika-spec"
-rev = "12157ad949e75859c0cc41806c73876887871fac"
-path = "examples/showcase/t4-release-train.nika.yaml"
+rev = "699ebb08585da2b4b908e8dac6ca584332fe0783"
+path = "examples/release-train.nika.yaml"
 
 [integrity]
-sha256 = "dcc15649fbc58ead2eb44d53cc1003b3aba0927b4c499aea9ca8e9b527750642"
+sha256 = "b90e4cd8c3ffbb2b9a7d2e9a7e37b736d8587c9bc46bbeb3d6dca42f048cbd01"
 
 [cert]
-oracle = "nika-spec conformance/runner.py @ 12157ad94"
+oracle = "nika-spec conformance/runner.py @ 699ebb085"
 conformance = "pass"
