@@ -48,7 +48,7 @@ files:
   evidence: "hand-written bot workflow (it edits OTHER files, nothing writes it)"
 - path: ".github/workflows/verify.yml"
   class: authored
-  sha256: be2c272f10a5bf917b53e458c1c087ff03602141dceccd55d7c558b0b23d5e0b
+  sha256: a25884b85b7e518cda60a9175531ce35b871bff5265facde883254b7c4f2cfa5
   evidence: "hand-written CI trust model (comments narrate design decisions)"
   note: "release-heal.yml rewrites the engine download URL + sha256 digest lines — bot-maintained fields inside an authored file"
 - path: ".gitignore"

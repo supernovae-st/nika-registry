@@ -105,6 +105,24 @@ jobs:
           NIKA_BIN: ${{ github.workspace }}/nika
           OFFLINE_ROOT: ${{ steps.mode.outputs.offline_root }}
         run: python3 scripts/cert.py --check
+      # On drift, regenerate and upload the RUNNER's rendering — the repair
+      # source (the engine diff-job pattern). The runner is the canonical
+      # cert environment; a darwin --write is a convenience that nika#774
+      # showed can diverge (fs.read grants · a clean verdict). Baselines
+      # come from the judge.
+      - name: Upload canonical certs (drift repair source)
+        if: failure()
+        env:
+          NIKA_BIN: ${{ github.workspace }}/nika
+          OFFLINE_ROOT: ${{ steps.mode.outputs.offline_root }}
+        run: python3 scripts/cert.py --write
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: canonical-certs
+          path: |
+            certs/
+            CATALOG.md
 
       - name: Index + llms.txt + badges in sync
         run: python3 scripts/index.py --check
