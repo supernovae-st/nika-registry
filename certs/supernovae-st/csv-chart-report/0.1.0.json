@@ -9,7 +9,7 @@
     },
     "effect_calls": 6,
     "llm_calls": 0,
-    "permits_boundary": "permits:\n  fs:\n    read: [\"examples/fixtures/sales.csv\"]\n    write: [\"out/revenue-by-region.svg\", \"out/revenue-report.md\"]\n  exec: false\n  tools: [\"nika:chart\", \"nika:convert\", \"nika:jq\", \"nika:read\", \"nika:write\"]",
+    "permits_boundary": "permits:\n  fs:\n    write: [\"out/revenue-by-region.svg\", \"out/revenue-report.md\"]\n  exec: false\n  tools: [\"nika:chart\", \"nika:convert\", \"nika:jq\", \"nika:read\", \"nika:write\"]\n\n# review \u2014 effects too dynamic to pin statically:\n#   \u00b7 task `raw` uses a dynamic path \u2014 `fs` cannot express 'any path'; add the resolved path(s) before running",
     "secret_egresses": [],
     "secret_leaks": [],
     "vars_required": []

@@ -2,14 +2,14 @@
   "certificate": {
     "broad": false,
     "capability_escapes": [],
-    "clean": true,
+    "clean": false,
     "cost_usd": {
-      "bounded_total": 0.0,
-      "has_unbounded": true
+      "bounded_total": null,
+      "has_unbounded": null
     },
-    "effect_calls": 9,
-    "llm_calls": 1,
-    "permits_boundary": "permits:\n  exec: [\"git\"]\n  tools: [\"nika:convert\", \"nika:date\", \"nika:fetch\", \"nika:jq\", \"nika:notify\", \"nika:prompt\", \"nika:read\", \"nika:write\"]\n\n# review \u2014 effects too dynamic to pin statically:\n#   \u00b7 task `news` reaches a dynamic URL \u2014 `net.http` cannot express 'any host'; add the resolved host(s) before running\n#   \u00b7 task `sheet` uses a dynamic path \u2014 `fs` cannot express 'any path'; add the resolved path(s) before running\n#   \u00b7 task `save` uses a dynamic path \u2014 `fs` cannot express 'any path'; add the resolved path(s) before running\n#   \u00b7 task `alert` reaches a dynamic URL \u2014 `net.http` cannot express 'any host'; add the resolved host(s) before running",
+    "effect_calls": null,
+    "llm_calls": null,
+    "permits_boundary": "PARSE \u2717  [NIKA-PARSE-019] validation error: `policy:` is refused \u2014 unknown field `endorsement`, expected one of `require`, `forbid`, `allow`, `limits`, `prefer`, `optimize` \u00b7 the rule set is closed per minor (spec 10 \u00a7policy): families require \u00b7 forbid \u00b7 allow \u00b7 limits \u00b7 prefer \u00b7 optimize \u00b7 rules require.human_gate_before [exec\u00b7write\u00b7net\u00b7tools] \u00b7 forbid.exec_after [exec\u00b7write\u00b7net\u00b7tools] \u00b7 allow.providers \u00b7 limits.max_tasks (\u2265 1) \u00b7 prefer.providers \u00b7 optimize (cost\u00b7latency\u00b7quality)",
     "secret_egresses": [],
     "secret_leaks": [],
     "vars_required": []

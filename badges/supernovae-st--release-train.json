@@ -1,6 +1,6 @@
 {
-  "color": "brightgreen",
+  "color": "orange",
   "label": "nika cert",
-  "message": "clean \u00b7 \u2264 $0.00/run",
+  "message": "findings",
   "schemaVersion": 1
 }

@@ -9,7 +9,7 @@
     },
     "effect_calls": 11,
     "llm_calls": 1,
-    "permits_boundary": "permits:\n  fs:\n    read: [\"./examples/fixtures/config-baseline.json\"]\n  exec: false\n  tools: [\"nika:emit\", \"nika:fetch\", \"nika:hash\", \"nika:jq\", \"nika:json_diff\", \"nika:json_merge_patch\", \"nika:notify\", \"nika:read\"]\n\n# review \u2014 effects too dynamic to pin statically:\n#   \u00b7 task `live_raw` reaches a dynamic URL \u2014 `net.http` cannot express 'any host'; add the resolved host(s) before running\n#   \u00b7 task `alert` reaches a dynamic URL \u2014 `net.http` cannot express 'any host'; add the resolved host(s) before running",
+    "permits_boundary": "permits:\n  exec: false\n  tools: [\"nika:emit\", \"nika:fetch\", \"nika:hash\", \"nika:jq\", \"nika:json_diff\", \"nika:json_merge_patch\", \"nika:notify\", \"nika:read\"]\n\n# review \u2014 effects too dynamic to pin statically:\n#   \u00b7 task `live_raw` reaches a dynamic URL \u2014 `net.http` cannot express 'any host'; add the resolved host(s) before running\n#   \u00b7 task `baseline_raw` uses a dynamic path \u2014 `fs` cannot express 'any path'; add the resolved path(s) before running\n#   \u00b7 task `alert` reaches a dynamic URL \u2014 `net.http` cannot express 'any host'; add the resolved host(s) before running",
     "secret_egresses": [],
     "secret_leaks": [],
     "vars_required": []
