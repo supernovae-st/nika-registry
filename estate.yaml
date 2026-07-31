@@ -1031,7 +1031,7 @@ files:
     - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/transcript-shownotes.nika.yaml"
 - path: "scripts/cert.py"
   class: authored
-  sha256: 1bc86ff50f111ebb61d783aeb3614a7cb67b1da621e8410a8dae7c7f10a58ae9
+  sha256: 7368fba8e4119bd5370b1f1196d7ca167e628f26c43a44617bcde2cf9f21a6ed
   evidence: "hand-written certifier · SPDX header + design prose"
   note: "release-heal.yml rewrites the ENGINE_VERSION pin line on engine releases — a bot-maintained field inside an authored file"
 - path: "scripts/estate.py"

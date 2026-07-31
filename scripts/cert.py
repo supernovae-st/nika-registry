@@ -200,6 +200,21 @@ def main() -> int:
             print(f"✓ cert {e['name']}@{e['version']} · clean={cert['clean']} · llm={cert['llm_calls']}")
         elif not out.is_file() or out.read_text() != rendered:
             print(f"✗ cert drift · {out.relative_to(ROOT)}", file=sys.stderr)
+            # The gate NAMES the drift (first divergent lines · committed vs
+            # re-proven) — earned 2026-07-31: a red that only says « drift »
+            # forced a cross-platform bisection that a six-line diff answers.
+            if out.is_file():
+                have = out.read_text().splitlines()
+                want = rendered.splitlines()
+                shown = 0
+                for i in range(max(len(have), len(want))):
+                    h = have[i] if i < len(have) else "<absent>"
+                    w = want[i] if i < len(want) else "<absent>"
+                    if h != w:
+                        print(f"    line {i + 1}:\n      committed: {h.strip()[:160]}\n      re-proven: {w.strip()[:160]}", file=sys.stderr)
+                        shown += 1
+                        if shown >= 3:
+                            break
             drift = True
         rows.append({"name": e["name"], "version": e["version"], "publisher": e["publisher"],
                      "description": e["description"], "tools": tools, "cert": cert})
