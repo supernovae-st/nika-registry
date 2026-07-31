@@ -18,17 +18,17 @@ classes:
   testimonial: "captured evidence — fixtures, corpora, traces, receipts: proves behavior; neither shipped source nor regenerable output"
   foreign: "pointer to a third-party sovereign source"
 summary:
-  classified_files: 110
+  classified_files: 113
   file_rows: 109
   pattern_rows: 2
   by_class:
-    authored: 21
+    authored: 24
     authored-pin: 2
     generated: 85
     pinned-copy: 2
     testimonial: 0
     foreign: 0
-  unverified-default: 0
+  unverified-default: 3
 files:
 - path: ".github/CODEOWNERS"
   class: authored
@@ -97,7 +97,7 @@ files:
   evidence: "prose policy pack (the 8 laws) · no generation marker · gates cite it, nothing writes it"
 - path: "README.md"
   class: authored
-  sha256: 6820b7f5d1b70834efa5cf3fc761ac9806c89bb91660581eeffddd4730cbb5d7
+  sha256: 94b6465c93961daf73ce2e55f3f8803054d185476344b8645a4146157d689580
   evidence: "prose entry surface · no generation marker · README.md:102 says only CATALOG.md is generated"
 - path: "SPEC_PIN"
   class: authored-pin
@@ -1080,8 +1080,11 @@ patterns:
   evidence: "an advisory is authored per incident (advisories/README.md · OSV-inspired TOML), never derived"
 - glob: "**"
   class: authored
-  match_count: 0
-  aggregate_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+  match_count: 3
+  aggregate_sha256: 7ea7d24fd19f5b92de1b5e0031ac068bb6ed423203cc78bc6942595db00e71d0
   evidence: "no generation marker or known role found"
   note: "unverified-default"
-unverified: []
+unverified:
+- "media/audited-artifact.gif"
+- "scripts/media/audited-artifact.tape"
+- "scripts/media/render.sh"

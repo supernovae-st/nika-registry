@@ -24,7 +24,7 @@ on every PR and every night. The `[cert]` block in an entry is informative -
 **the proof is `scripts/verify.py`, and you can run it offline against a
 mirror.** Trust lives in the artifact, not in this repo.
 
-![nika check audits the workflow (plan, permits, cost, secrets, types, the lethal-trifecta gate), then nika run executes it locally and seals the hash-chained trace — the audit-then-run story](https://raw.githubusercontent.com/supernovae-st/nika/main/media/nika-hero.gif)
+![One command fetches an entry from the live registry, verifies its digest against the pinned sha256, and runs the full static audit at the released engine: the check ladder passes, the trifecta gate is satisfied by the human-gated wave one, and the artifact is cached for offline re-audits · recorded live](media/audited-artifact.gif)
 
 <!-- city:map -->
 ## The city · where this repo sits
