@@ -9,12 +9,12 @@
     },
     "effect_calls": 6,
     "llm_calls": 1,
-    "permits_boundary": "permits:\n  exec: [\"git\"]\n  tools: [\"nika:edit\", \"nika:notify\", \"nika:prompt\", \"nika:read\", \"nika:write\"]\n\n# review \u2014 effects too dynamic to pin statically:\n#   \u00b7 task `existing` uses a dynamic path \u2014 `fs` cannot express 'any path'; add the resolved path(s) before running\n#   \u00b7 task `copy` uses a dynamic path \u2014 `fs` cannot express 'any path'; add the resolved path(s) before running\n#   \u00b7 task `changelog` uses a dynamic path \u2014 `fs` cannot express 'any path'; add the resolved path(s) before running\n#   \u00b7 task `announce` reaches a dynamic URL \u2014 `net.http` cannot express 'any host'; add the resolved host(s) before running",
+    "permits_boundary": "permits:\n  fs:\n    read: [\"examples/fixtures/CHANGELOG.md\", \"out/CHANGELOG.md\"]\n    write: [\"out/CHANGELOG.md\"]\n  exec: [\"git\"]\n  tools: [\"nika:edit\", \"nika:notify\", \"nika:prompt\", \"nika:read\", \"nika:write\"]\n\n# review \u2014 effects too dynamic to pin statically:\n#   \u00b7 task `announce` reaches a dynamic URL \u2014 `net.http` cannot express 'any host'; add the resolved host(s) before running",
     "secret_egresses": [],
     "secret_leaks": [],
     "vars_required": []
   },
-  "engine": "0.106.1",
+  "engine": "0.107.0",
   "entry": "registry/workflows/supernovae-st/release-notes/0.1.0.toml",
   "schema": 1,
   "sha256": "2594c637d3826df6367350ec8e7ca514c14216f5f72f6013f27291f8f9ec66b3"

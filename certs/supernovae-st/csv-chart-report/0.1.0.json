@@ -9,12 +9,12 @@
     },
     "effect_calls": 6,
     "llm_calls": 0,
-    "permits_boundary": "permits:\n  fs:\n    write: [\"out/revenue-by-region.svg\", \"out/revenue-report.md\"]\n  exec: false\n  tools: [\"nika:chart\", \"nika:convert\", \"nika:jq\", \"nika:read\", \"nika:write\"]\n\n# review \u2014 effects too dynamic to pin statically:\n#   \u00b7 task `raw` uses a dynamic path \u2014 `fs` cannot express 'any path'; add the resolved path(s) before running",
+    "permits_boundary": "permits:\n  fs:\n    read: [\"examples/fixtures/sales.csv\"]\n    write: [\"out/revenue-by-region.svg\", \"out/revenue-report.md\"]\n  exec: false\n  tools: [\"nika:chart\", \"nika:convert\", \"nika:jq\", \"nika:read\", \"nika:write\"]",
     "secret_egresses": [],
     "secret_leaks": [],
     "vars_required": []
   },
-  "engine": "0.106.1",
+  "engine": "0.107.0",
   "entry": "registry/workflows/supernovae-st/csv-chart-report/0.1.0.toml",
   "schema": 1,
   "sha256": "3038fd9cc23a27afad167959a26c36789746c597345149e795540419f596a051"

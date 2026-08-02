@@ -2,19 +2,19 @@
   "certificate": {
     "broad": false,
     "capability_escapes": [],
-    "clean": false,
+    "clean": true,
     "cost_usd": {
-      "bounded_total": null,
-      "has_unbounded": null
+      "bounded_total": 0.0,
+      "has_unbounded": false
     },
-    "effect_calls": null,
-    "llm_calls": null,
-    "permits_boundary": "PARSE \u2717  [NIKA-PARSE-019] validation error: `policy:` is refused \u2014 unknown field `endorsement`, expected one of `require`, `forbid`, `allow`, `limits`, `prefer`, `optimize` \u00b7 the rule set is closed per minor (spec 10 \u00a7policy): families require \u00b7 forbid \u00b7 allow \u00b7 limits \u00b7 prefer \u00b7 optimize \u00b7 rules require.human_gate_before [exec\u00b7write\u00b7net\u00b7tools] \u00b7 forbid.exec_after [exec\u00b7write\u00b7net\u00b7tools] \u00b7 allow.providers \u00b7 limits.max_tasks (\u2265 1) \u00b7 prefer.providers \u00b7 optimize (cost\u00b7latency\u00b7quality)",
+    "effect_calls": 20,
+    "llm_calls": 0,
+    "permits_boundary": "permits:\n  fs:\n    read: [\"./CHANGELOG.md\", \"./VERSION\", \"./schemas/workflow.schema.json\"]\n  net: { http: [\"api.example.com\"] }\n  exec: [\"./scripts/release.sh\"]\n  tools: [\"nika:assert\", \"nika:date\", \"nika:emit\", \"nika:fetch\", \"nika:jq\", \"nika:prompt\", \"nika:read\", \"nika:wait\"]",
     "secret_egresses": [],
     "secret_leaks": [],
     "vars_required": []
   },
-  "engine": "0.106.1",
+  "engine": "0.107.0",
   "entry": "registry/workflows/supernovae-st/release-train/0.1.0.toml",
   "schema": 1,
   "sha256": "b90e4cd8c3ffbb2b9a7d2e9a7e37b736d8587c9bc46bbeb3d6dca42f048cbd01"

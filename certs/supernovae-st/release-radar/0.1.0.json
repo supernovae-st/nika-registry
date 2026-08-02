@@ -9,12 +9,12 @@
     },
     "effect_calls": 6,
     "llm_calls": 1,
-    "permits_boundary": "permits:\n  exec: false\n  tools: [\"nika:fetch\", \"nika:jq\", \"nika:json_diff\", \"nika:prompt\", \"nika:read\", \"nika:write\"]\n\n# review \u2014 effects too dynamic to pin statically:\n#   \u00b7 task `previous` uses a dynamic path \u2014 `fs` cannot express 'any path'; add the resolved path(s) before running\n#   \u00b7 task `feed` reaches a dynamic URL \u2014 `net.http` cannot express 'any host'; add the resolved host(s) before running\n#   \u00b7 task `save_state` uses a dynamic path \u2014 `fs` cannot express 'any path'; add the resolved path(s) before running",
+    "permits_boundary": "permits:\n  fs:\n    read: [\"out/release-radar.json\"]\n    write: [\"out/release-radar.json\"]\n  net: { http: [\"github.com\"] }\n  exec: false\n  tools: [\"nika:fetch\", \"nika:jq\", \"nika:json_diff\", \"nika:prompt\", \"nika:read\", \"nika:write\"]",
     "secret_egresses": [],
     "secret_leaks": [],
     "vars_required": []
   },
-  "engine": "0.106.1",
+  "engine": "0.107.0",
   "entry": "registry/workflows/supernovae-st/release-radar/0.1.0.toml",
   "schema": 1,
   "sha256": "8116b035a22dbcac19860e5ce7e6b464224b201aa61bd22b3e5a08eb8f400f10"

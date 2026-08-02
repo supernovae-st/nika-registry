@@ -9,12 +9,12 @@
     },
     "effect_calls": 7,
     "llm_calls": 0,
-    "permits_boundary": "permits:\n  fs:\n    write: [\"out/quarantine/orders-rejected.json\", \"out/reports/daily-totals.json\"]\n  exec: false\n  tools: [\"nika:convert\", \"nika:jq\", \"nika:read\", \"nika:validate\", \"nika:write\"]\n\n# review \u2014 effects too dynamic to pin statically:\n#   \u00b7 task `raw` uses a dynamic path \u2014 `fs` cannot express 'any path'; add the resolved path(s) before running",
+    "permits_boundary": "permits:\n  fs:\n    read: [\"examples/fixtures/orders.csv\"]\n    write: [\"out/quarantine/orders-rejected.json\", \"out/reports/daily-totals.json\"]\n  exec: false\n  tools: [\"nika:convert\", \"nika:jq\", \"nika:read\", \"nika:validate\", \"nika:write\"]",
     "secret_egresses": [],
     "secret_leaks": [],
     "vars_required": []
   },
-  "engine": "0.106.1",
+  "engine": "0.107.0",
   "entry": "registry/workflows/supernovae-st/etl-quarantine/0.1.0.toml",
   "schema": 1,
   "sha256": "04377cd7762d676609275c20dc7c6cbcee4582544b74cb8616f6282f1b48cdbb"

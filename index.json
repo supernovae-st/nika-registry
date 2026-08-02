@@ -31,10 +31,10 @@
       "cert": "certs/supernovae-st/ceo-monday-brief/0.1.0.json",
       "cert_summary": {
         "broad": false,
-        "clean": false,
+        "clean": true,
         "cost_usd_bounded": null,
         "exec": false,
-        "llm_calls": null,
+        "llm_calls": 1,
         "secret_leaks": 0
       },
       "description": "news + repo pulse + KPIs \u2192 one synthesis \u2192 dated brief \u2192 a ping on every outcome",
@@ -239,10 +239,10 @@
       "cert": "certs/supernovae-st/incident-war-room/0.1.0.json",
       "cert_summary": {
         "broad": false,
-        "clean": false,
+        "clean": true,
         "cost_usd_bounded": null,
         "exec": false,
-        "llm_calls": null,
+        "llm_calls": 2,
         "secret_leaks": 0
       },
       "description": "parallel evidence \u2192 typed timeline \u2192 settle + recheck \u2192 refuse or draft \u2192 record",
@@ -265,10 +265,10 @@
       "cert": "certs/supernovae-st/invoice-chaser/0.1.0.json",
       "cert_summary": {
         "broad": false,
-        "clean": false,
+        "clean": true,
         "cost_usd_bounded": null,
         "exec": false,
-        "llm_calls": null,
+        "llm_calls": 1,
         "secret_leaks": 0
       },
       "description": "Ledger CSV \u2192 overdue filter \u2192 drafted reminders \u2192 human gate \u2192 drafts file",
@@ -499,10 +499,10 @@
       "cert": "certs/supernovae-st/release-train/0.1.0.json",
       "cert_summary": {
         "broad": false,
-        "clean": false,
-        "cost_usd_bounded": null,
+        "clean": true,
+        "cost_usd_bounded": 0.0,
         "exec": false,
-        "llm_calls": null,
+        "llm_calls": 0,
         "secret_leaks": 0
       },
       "description": "parallel gates \u2192 one verdict \u2192 human GO \u2192 hold until the window \u2192 ship \u00b7 verify \u00b7 record",
