@@ -80,7 +80,7 @@ files:
   evidence: "the copy-me template for community PRs · its own header says 'Copy to …'"
 - path: "ESTATE_PIN"
   class: authored-pin
-  sha256: a0006989e73853bafed83e9eb8e9288e52211e83db69a40e69c927b079027a22
+  sha256: 930f22c1b8675bf2349b0b1a2a051277424505d2410530cdefcef39288c89e8b
   evidence: "its own header: 'Bump deliberately: edit this' · the rev the shared estate tool is mirrored from, and the INPUT the mirror gate compares against"
 - path: "LICENSE"
   class: pinned-copy
