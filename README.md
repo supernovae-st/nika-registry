@@ -58,18 +58,19 @@ Every fact has one home · everything else is a gated projection.
 The living map: [nika.sh/map](https://nika.sh/map).
 <!-- /city:map -->
 
-## Install: the engine pulls it natively °
+## Install: the engine pulls it natively
 
 ```sh
 nika check registry:supernovae-st/meeting-actions   # fetch → verify digest → cache → the full audit ladder
 nika run   registry:supernovae-st/meeting-actions   # same seam: nothing executes before audit-before-run
 ```
 
-The verified file lands under `~/.nika/registry/<owner>/<name>/` and a cache
-hit works offline; a digest mismatch refuses hard. ° ships in the next
-release · until then, the auditable script below does the same job today.
+Shipping since `nika` 0.107.0 — `nika check --help` and `nika run --help`
+both document the `registry:owner/name[@version]` pull. The verified file
+lands under `~/.nika/registry/<owner>/<name>/` and a cache hit works
+offline; a digest mismatch refuses hard.
 
-## Or: one auditable script
+## Or: one auditable script (no engine needed to fetch + verify)
 
 ```sh
 git clone https://github.com/supernovae-st/nika-registry && cd nika-registry
@@ -79,7 +80,7 @@ python3 scripts/get.py meeting-actions        # fetch → verify sha256 → loca
 
 `get.py` refuses on any mismatch (hash · advisory · overwrite) and never
 executes anything: a workflow lands on disk and **you** decide to run it.
-Not `curl | sh`: you cloned the repo, you can read the 140 lines first.
+Not `curl | sh`: you cloned the repo, you can read every line first.
 
 **Agents**: one fetch of [`index.json`](index.json) carries every artifact
 with its pin, digest, cert summary and advisory state; [`llms.txt`](llms.txt)
