@@ -14,7 +14,7 @@
     "secret_leaks": [],
     "vars_required": []
   },
-  "engine": "0.107.0",
+  "engine": "0.107.2",
   "entry": "registry/workflows/supernovae-st/csv-chart-report/0.1.0.toml",
   "schema": 1,
   "sha256": "3038fd9cc23a27afad167959a26c36789746c597345149e795540419f596a051"

@@ -14,7 +14,7 @@
     "secret_leaks": [],
     "vars_required": []
   },
-  "engine": "0.107.0",
+  "engine": "0.107.2",
   "entry": "registry/workflows/supernovae-st/ceo-monday-brief/0.1.0.toml",
   "schema": 1,
   "sha256": "26d2418fbab409998367cf507f7c5c3c62dca0aa3f0635658d5556bc9ce1d102"

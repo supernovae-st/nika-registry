@@ -14,7 +14,7 @@
     "secret_leaks": [],
     "vars_required": []
   },
-  "engine": "0.107.0",
+  "engine": "0.107.2",
   "entry": "registry/workflows/supernovae-st/incident-war-room/0.1.0.toml",
   "schema": 1,
   "sha256": "82fe531493528ea15fa636e5417e6e95e5b6281239fcb3000bf8af87814ff9cc"
