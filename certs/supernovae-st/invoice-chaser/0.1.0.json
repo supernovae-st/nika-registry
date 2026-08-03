@@ -14,7 +14,7 @@
     "secret_leaks": [],
     "vars_required": []
   },
-  "engine": "0.107.0",
+  "engine": "0.107.2",
   "entry": "registry/workflows/supernovae-st/invoice-chaser/0.1.0.toml",
   "schema": 1,
   "sha256": "f0505a10a643a81059f4b13c6441dc6c27a668ad4950087ba78e7a357ef757bd"

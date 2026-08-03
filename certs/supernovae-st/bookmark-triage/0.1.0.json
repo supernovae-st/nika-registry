@@ -14,7 +14,7 @@
     "secret_leaks": [],
     "vars_required": []
   },
-  "engine": "0.107.0",
+  "engine": "0.107.2",
   "entry": "registry/workflows/supernovae-st/bookmark-triage/0.1.0.toml",
   "schema": 1,
   "sha256": "d998d3b69160f27ce9ea2597a80171eac1c2ab39759b87e3439b81faafa128a3"

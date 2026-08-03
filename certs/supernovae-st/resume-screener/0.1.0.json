@@ -14,7 +14,7 @@
     "secret_leaks": [],
     "vars_required": []
   },
-  "engine": "0.107.0",
+  "engine": "0.107.2",
   "entry": "registry/workflows/supernovae-st/resume-screener/0.1.0.toml",
   "schema": 1,
   "sha256": "b8eba221a8acc560dcb2a7c64d977bc4a7e53d1c0ee8165330ac230d520bc050"
