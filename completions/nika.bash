@@ -1806,7 +1806,7 @@ _nika() {
             return 0
             ;;
         nika__subcmd__run)
-            opts="-h --json --output --no-progress --quiet --dry-run --model --var --resume --resume-compat --from --answer --task --no-trace-file --no-outputs --max-cost-usd --no-gc --require-signature --color --hyperlink --ascii --plain --help"
+            opts="-h --json --output --no-progress --quiet --dry-run --model --access --var --resume --resume-compat --from --answer --task --no-trace-file --no-outputs --max-cost-usd --no-gc --require-signature --color --hyperlink --ascii --plain --help"
             if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
                 COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
                 return 0
@@ -1817,6 +1817,10 @@ _nika() {
                     return 0
                     ;;
                 --model)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --access)
                     COMPREPLY=($(compgen -f "${cur}"))
                     return 0
                     ;;
@@ -2574,13 +2578,17 @@ _nika() {
             return 0
             ;;
         nika__subcmd__try)
-            opts="-h --all --model --var --quiet --no-progress --max-cost-usd --color --hyperlink --ascii --plain --help"
+            opts="-h --all --model --access --var --quiet --no-progress --max-cost-usd --color --hyperlink --ascii --plain --help"
             if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
                 COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
                 return 0
             fi
             case "${prev}" in
                 --model)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --access)
                     COMPREPLY=($(compgen -f "${cur}"))
                     return 0
                     ;;
