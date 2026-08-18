@@ -78,6 +78,7 @@ auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
 _arguments "${_arguments_options[@]}" : \
 '(--json)--output=[Print the typed \`outputs\:\` as ONE JSON object on stdout (progress → stderr) · the export contract · powers \`exec\: nika run sub.yaml --output json\` + \`capture\: stdout\`]:FORMAT:_default' \
 '--model=[Override the workflow'\''s envelope \`model\:\` (\`<provider>/<name>\`). Resolved through the SAME path as an envelope model — a bad id fails loud when an infer/agent task resolves it. \`--model mock/echo\` previews any workflow offline (zero key · zero network)]:PROVIDER/NAME:_default' \
+'--access=[Pin the ACCESS path (\`model\:\` picks the intelligence; access picks the path) — an access class (\`local\` · \`api\` · \`harness\` · \`oauth\` · \`mock\`) or an access id \`nika doctor\` lists. A pin is a pin\: unsatisfied refuses before the prologue with a witness, never substitutes another path or model (D-2026-08-04-N1)]:PATH:_default' \
 '*--var=[Set a workflow \`inputs\:\` value (repeatable). Overrides a declared \`default\:\` and satisfies a \`required\: true\` input. JSON when it parses (numbers · booleans · arrays), else a string. Unknown keys refused]:KEY=VALUE:_default' \
 '(--dry-run)--resume=[Resume from a prior run'\''s NDJSON trace (\`nika run … --json > trace.ndjson\`)\: every task whose identity matches a journaled success is skipped with a visible \`task_cache_hit\` — an edited task or a changed input always re-runs (ADR-099). A trace without resume keys runs everything live (a notice, never an error). The trace'\''s recorded engine version is JUDGED (F-P21)\: a resume under a different engine refuses, naming both versions]:TRACE:_files' \
 '--resume-compat=[Declare a cross-version resume compatible (F-P21 · NEP-0014 law 4)\: attests the trace recorded under engine \`<VERSION>\` may resume under this one — the token must name the trace'\''s recorded version exactly (\`unrecorded\` for a pre-versioning journal). The declared compat is journaled on the run'\''s boot manifest]:VERSION:_default' \
@@ -540,6 +541,7 @@ auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
 (try)
 _arguments "${_arguments_options[@]}" : \
 '--model=[Run on a REAL seat instead of the default mock rehearsal (\`<provider>/<name>\` — the example'\''s own \`model\:\` via \`self\`)]:PROVIDER/NAME:_default' \
+'--access=[Pin the ACCESS path for the rehearsal (a class — \`local\` · \`api\` · \`harness\` · \`oauth\` · \`mock\` — or an access id \`nika doctor\` lists). Unsatisfied refuses with a witness, never substitutes]:PATH:_default' \
 '*--var=[Set a workflow \`inputs\:\` value (repeatable)]:KEY=VALUE:_default' \
 '--max-cost-usd=[Refuse to start if the static cost floor exceeds this (USD); metered spend aborts past it mid-run. Same guard, same parser as \`nika run\`]:USD:_default' \
 '--color=[When to colour the output (auto = TTY + \`TERM != dumb\` · honours \`CLICOLOR_FORCE\` · \`NO_COLOR\` · \`CLICOLOR=0\` in that order)]:COLOR:((always\:"Force colour on (pagers accepting escapes · captured demos)"
