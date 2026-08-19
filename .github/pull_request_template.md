@@ -4,7 +4,7 @@
 - [ ] Entry at `registry/<type>s/<MY-github-owner>/<name>/<version>.toml`
 - [ ] `source.rev` is a **full 40-hex commit** (never a tag or branch)
 - [ ] `integrity.sha256` = `shasum -a 256` of the exact pinned bytes
-- [ ] No real endpoints, keys or personal data — parameterized via `vars:`
+- [ ] No real endpoints, keys or personal data — parameterized via `inputs:` (not `vars:`)
 - [ ] I am not editing an already-merged entry (immutable — new version = new file)
 
 CI re-proves everything above; a maintainer reads the prompts (intent

@@ -97,6 +97,8 @@ model): `registry/workflows/<your-github-owner>/<name>/<version>.toml`,
 and CI refuses an entry whose publisher does not own the source repo.
 
 1. Make your workflow pass `nika check` (or `conformance/runner.py validate`).
+   Workflows speak the nine-key envelope of nika 0.109 (`nika: <id>` ·
+   model · inputs · const · secrets · permits · run · tasks · outputs).
 2. Add the entry file (copy ENTRY_TEMPLATE.toml (or any seed entry)).
 3. Open a PR: CI re-proves it (hash · oracle · secrets · license · namespace).
 

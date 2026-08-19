@@ -204,9 +204,9 @@ def handoff_lines(name: str, cert) -> list:
     if llm and uses_fetch:
         return [f"nika run {name} --model mock/echo{var_flags}   "
                 f"# mocks infer · fetch still hits the network{var_note}",
-                f"nika inspect {name}   # check vars: — templates ship placeholder endpoints"]
+                f"nika inspect {name}   # check inputs: — templates ship placeholder endpoints"]
     if uses_fetch:
-        return [f"nika inspect {name}   # zero model calls · set vars: to YOUR endpoints first",
+        return [f"nika inspect {name}   # zero model calls · set inputs: to YOUR endpoints first",
                 f"nika run {name}{var_flags or ' --var <key>=<value>'}   # then run against real targets"]
     return [f"nika run {name}{var_flags}   # offline (no model calls · no network{var_note})"]
 

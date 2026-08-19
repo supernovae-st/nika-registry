@@ -80,7 +80,7 @@ def engine_cert(nika: str, wf: pathlib.Path) -> dict:
         "clean": report.get("clean", False),
         "llm_calls": cert.get("llm_calls", {}).get("constant"),
         "effect_calls": cert.get("effect_calls", {}).get("constant"),
-        # The inputs a run MUST be given — a required `vars:` with no default.
+        # The inputs a run MUST be given — a required `inputs:` with no default.
         # Part of "see what it needs before it runs": even a mock/offline
         # preview fails NIKA-VAR-001 without these, so the consume hand-off
         # warns instead of suggesting a command that cannot run.

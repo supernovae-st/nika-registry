@@ -9,7 +9,8 @@ attack class, and no oracle catches intent).
 - edit a merged entry (immutable — publish a new version)
 - point `source.rev` at a tag or branch (full commit only)
 - commit an artifact copy here (the registry stores pointers + proofs)
-- share a workflow with real endpoints/keys — parameterize via `vars:`
+- share a workflow with real endpoints/keys — parameterize via `inputs:`
+  (the nine-key envelope · nika 0.109 · `vars:` is dead)
 
 **First-party entries** (`supernovae-st/*`) are generated from the spec
 pack by `scripts/project_pack.py` — do not hand-edit them; add the
