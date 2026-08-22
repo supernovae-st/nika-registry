@@ -2,19 +2,19 @@
   "certificate": {
     "broad": false,
     "capability_escapes": [],
-    "clean": true,
+    "clean": false,
     "cost_usd": {
-      "bounded_total": 0.0,
-      "has_unbounded": false
+      "bounded_total": null,
+      "has_unbounded": null
     },
-    "effect_calls": 2,
-    "llm_calls": 0,
-    "permits_boundary": "permits:\n  fs:\n    write: [\"out/bookmarks.md\"]\n  exec: false\n  tools: [\"nika:fetch\", \"nika:jq\", \"nika:write\"]\n\n# review \u2014 effects too dynamic to pin statically:\n#   \u00b7 task `pages` reaches a dynamic URL \u2014 `net.http` cannot express 'any host'; add the resolved host(s) before running",
+    "effect_calls": null,
+    "llm_calls": null,
+    "permits_boundary": "PARSE \u2717  [NIKA-PARSE-005] unknown field `workflow` in the workflow envelope (strict mode) \u2014 this block shipped in the fourteen-key envelope and died with the nine-key one (2026-08-12) \u2014 the identity moved onto `nika:` itself (`nika: <id>` \u00b7 a kebab-case name, no longer `v1`); its `description:` prose belongs in a `#` comment above `nika:`, never dropped \u00b7 the fields here: nika \u00b7 model \u00b7 inputs \u00b7 const \u00b7 secrets \u00b7 permits \u00b7 run \u00b7 tasks \u00b7 outputs \u00b7 \u2192 nika explain NIKA-PARSE-005",
     "secret_egresses": [],
     "secret_leaks": [],
     "vars_required": []
   },
-  "engine": "0.108.0",
+  "engine": "0.113.0",
   "entry": "registry/workflows/supernovae-st/bookmark-triage/0.1.0.toml",
   "schema": 1,
   "sha256": "d998d3b69160f27ce9ea2597a80171eac1c2ab39759b87e3439b81faafa128a3"
