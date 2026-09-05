@@ -96,8 +96,8 @@ jobs:
 
       - name: Fetch the pinned engine (digest-verified — we practice what we gate)
         run: |
-          curl -sSLo nika.tar.gz https://github.com/supernovae-st/nika/releases/download/v0.108.0/nika-linux-x64-0.108.0.tar.gz
-          echo "c58a7d4a4924b5801ede5fd2d1a2b68a9bba2fd12f9d15cd3743486ecc9f138f  nika.tar.gz" | sha256sum -c -
+          curl -sSLo nika.tar.gz https://github.com/supernovae-st/nika/releases/download/v0.116.2/nika-linux-x64-0.116.2.tar.gz
+          echo "5b94ebab8ea5a3e915c33d8b712400dd80e9c8f559d652cb288c38af23356024  nika.tar.gz" | sha256sum -c -
           tar xzf nika.tar.gz
 
       - name: Certs + catalog in sync (the engine's own analysis, re-proven)
