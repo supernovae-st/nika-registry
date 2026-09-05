@@ -2,19 +2,19 @@
   "certificate": {
     "broad": false,
     "capability_escapes": [],
-    "clean": true,
+    "clean": false,
     "cost_usd": {
-      "bounded_total": 0.0,
-      "has_unbounded": true
+      "bounded_total": null,
+      "has_unbounded": null
     },
-    "effect_calls": 3,
-    "llm_calls": 1,
-    "permits_boundary": "permits:\n  fs:\n    write: [\"out/standup-note.md\"]\n  exec: [\"git\"]\n  tools: [\"nika:date\", \"nika:write\"]",
+    "effect_calls": null,
+    "llm_calls": null,
+    "permits_boundary": "PARSE \u2717  [NIKA-PARSE-005] unknown field `workflow` in the workflow envelope (strict mode) \u2014 this block shipped in the fourteen-key envelope and died with the nine-key one (2026-08-12) \u2014 the identity moved onto `nika:` itself (`nika: <id>` \u00b7 a kebab-case name, no longer `v1`); its `description:` prose belongs in a `#` comment above `nika:`, never dropped \u00b7 the fields here: nika \u00b7 model \u00b7 inputs \u00b7 const \u00b7 secrets \u00b7 permits \u00b7 run \u00b7 tasks \u00b7 outputs \u00b7 \u2192 nika explain NIKA-PARSE-005\n  --> /home/runner/work/nika-registry/nika-registry/.cert-tmp/standup-digest-standup-digest.nika.yaml:28:1\n   |\n28 | workflow:\n   | ^",
     "secret_egresses": [],
     "secret_leaks": [],
     "vars_required": []
   },
-  "engine": "0.108.0",
+  "engine": "0.116.2",
   "entry": "registry/workflows/supernovae-st/standup-digest/0.1.0.toml",
   "schema": 1,
   "sha256": "c8146a99c11ddbd98f2500ce01339bffe2d43d43da8e8c4f4ce1008a9989ba7e"

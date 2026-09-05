@@ -16,6 +16,9 @@ _nika() {
             ",$1")
                 cmd="nika"
                 ;;
+            nika,arm)
+                cmd="nika__subcmd__arm"
+                ;;
             nika,catalog)
                 cmd="nika__subcmd__catalog"
                 ;;
@@ -49,6 +52,9 @@ _nika() {
             nika,key)
                 cmd="nika__subcmd__key"
                 ;;
+            nika,list)
+                cmd="nika__subcmd__list"
+                ;;
             nika,lsp)
                 cmd="nika__subcmd__lsp"
                 ;;
@@ -63,6 +69,9 @@ _nika() {
                 ;;
             nika,run)
                 cmd="nika__subcmd__run"
+                ;;
+            nika,serve)
+                cmd="nika__subcmd__serve"
                 ;;
             nika,sign)
                 cmd="nika__subcmd__sign"
@@ -84,6 +93,33 @@ _nika() {
                 ;;
             nika,wire)
                 cmd="nika__subcmd__wire"
+                ;;
+            nika__subcmd__arm,disarm)
+                cmd="nika__subcmd__arm__subcmd__disarm"
+                ;;
+            nika__subcmd__arm,fire)
+                cmd="nika__subcmd__arm__subcmd__fire"
+                ;;
+            nika__subcmd__arm,help)
+                cmd="nika__subcmd__arm__subcmd__help"
+                ;;
+            nika__subcmd__arm,migrate)
+                cmd="nika__subcmd__arm__subcmd__migrate"
+                ;;
+            nika__subcmd__arm__subcmd__help,disarm)
+                cmd="nika__subcmd__arm__subcmd__help__subcmd__disarm"
+                ;;
+            nika__subcmd__arm__subcmd__help,fire)
+                cmd="nika__subcmd__arm__subcmd__help__subcmd__fire"
+                ;;
+            nika__subcmd__arm__subcmd__help,help)
+                cmd="nika__subcmd__arm__subcmd__help__subcmd__help"
+                ;;
+            nika__subcmd__arm__subcmd__help,migrate)
+                cmd="nika__subcmd__arm__subcmd__help__subcmd__migrate"
+                ;;
+            nika__subcmd__help,arm)
+                cmd="nika__subcmd__help__subcmd__arm"
                 ;;
             nika__subcmd__help,catalog)
                 cmd="nika__subcmd__help__subcmd__catalog"
@@ -118,6 +154,9 @@ _nika() {
             nika__subcmd__help,key)
                 cmd="nika__subcmd__help__subcmd__key"
                 ;;
+            nika__subcmd__help,list)
+                cmd="nika__subcmd__help__subcmd__list"
+                ;;
             nika__subcmd__help,lsp)
                 cmd="nika__subcmd__help__subcmd__lsp"
                 ;;
@@ -132,6 +171,9 @@ _nika() {
                 ;;
             nika__subcmd__help,run)
                 cmd="nika__subcmd__help__subcmd__run"
+                ;;
+            nika__subcmd__help,serve)
+                cmd="nika__subcmd__help__subcmd__serve"
                 ;;
             nika__subcmd__help,sign)
                 cmd="nika__subcmd__help__subcmd__sign"
@@ -153,6 +195,15 @@ _nika() {
                 ;;
             nika__subcmd__help,wire)
                 cmd="nika__subcmd__help__subcmd__wire"
+                ;;
+            nika__subcmd__help__subcmd__arm,disarm)
+                cmd="nika__subcmd__help__subcmd__arm__subcmd__disarm"
+                ;;
+            nika__subcmd__help__subcmd__arm,fire)
+                cmd="nika__subcmd__help__subcmd__arm__subcmd__fire"
+                ;;
+            nika__subcmd__help__subcmd__arm,migrate)
+                cmd="nika__subcmd__help__subcmd__arm__subcmd__migrate"
                 ;;
             nika__subcmd__help__subcmd__key,init)
                 cmd="nika__subcmd__help__subcmd__key__subcmd__init"
@@ -210,6 +261,9 @@ _nika() {
                 ;;
             nika__subcmd__help__subcmd__trace,rm)
                 cmd="nika__subcmd__help__subcmd__trace__subcmd__rm"
+                ;;
+            nika__subcmd__help__subcmd__trace,session)
+                cmd="nika__subcmd__help__subcmd__trace__subcmd__session"
                 ;;
             nika__subcmd__help__subcmd__trace,show)
                 cmd="nika__subcmd__help__subcmd__trace__subcmd__show"
@@ -322,6 +376,9 @@ _nika() {
             nika__subcmd__trace,rm)
                 cmd="nika__subcmd__trace__subcmd__rm"
                 ;;
+            nika__subcmd__trace,session)
+                cmd="nika__subcmd__trace__subcmd__session"
+                ;;
             nika__subcmd__trace,show)
                 cmd="nika__subcmd__trace__subcmd__show"
                 ;;
@@ -364,6 +421,9 @@ _nika() {
             nika__subcmd__trace__subcmd__help,rm)
                 cmd="nika__subcmd__trace__subcmd__help__subcmd__rm"
                 ;;
+            nika__subcmd__trace__subcmd__help,session)
+                cmd="nika__subcmd__trace__subcmd__help__subcmd__session"
+                ;;
             nika__subcmd__trace__subcmd__help,show)
                 cmd="nika__subcmd__trace__subcmd__help__subcmd__show"
                 ;;
@@ -392,8 +452,190 @@ _nika() {
 
     case "${cmd}" in
         nika)
-            opts="-h -V --color --hyperlink --ascii --plain --help --version welcome check run test inspect explain key sign doctor init wire model spec catalog try new completions trace guard dap lsp mcp help"
+            opts="-h -V --color --hyperlink --ascii --plain --help --version list welcome check run test inspect explain key arm serve sign doctor init wire model spec catalog try new completions trace guard dap lsp mcp help"
             if [[ ${cur} == -* || ${COMP_CWORD} -eq 1 ]] ; then
+                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+                return 0
+            fi
+            case "${prev}" in
+                --color)
+                    COMPREPLY=($(compgen -W "always never auto" -- "${cur}"))
+                    return 0
+                    ;;
+                --hyperlink)
+                    COMPREPLY=($(compgen -W "always never auto" -- "${cur}"))
+                    return 0
+                    ;;
+                *)
+                    COMPREPLY=()
+                    ;;
+            esac
+            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+            return 0
+            ;;
+        nika__subcmd__arm)
+            opts="-h --emit --write --out --mode --env-file --nika-bin --color --hyperlink --ascii --plain --help fire migrate disarm help"
+            if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
+                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+                return 0
+            fi
+            case "${prev}" in
+                --emit)
+                    COMPREPLY=($(compgen -W "launchd systemd" -- "${cur}"))
+                    return 0
+                    ;;
+                --out)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --mode)
+                    COMPREPLY=($(compgen -W "user system" -- "${cur}"))
+                    return 0
+                    ;;
+                --env-file)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --nika-bin)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --color)
+                    COMPREPLY=($(compgen -W "always never auto" -- "${cur}"))
+                    return 0
+                    ;;
+                --hyperlink)
+                    COMPREPLY=($(compgen -W "always never auto" -- "${cur}"))
+                    return 0
+                    ;;
+                *)
+                    COMPREPLY=()
+                    ;;
+            esac
+            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+            return 0
+            ;;
+        nika__subcmd__arm__subcmd__disarm)
+            opts="-h --write --color --hyperlink --ascii --plain --help"
+            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
+                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+                return 0
+            fi
+            case "${prev}" in
+                --color)
+                    COMPREPLY=($(compgen -W "always never auto" -- "${cur}"))
+                    return 0
+                    ;;
+                --hyperlink)
+                    COMPREPLY=($(compgen -W "always never auto" -- "${cur}"))
+                    return 0
+                    ;;
+                *)
+                    COMPREPLY=()
+                    ;;
+            esac
+            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+            return 0
+            ;;
+        nika__subcmd__arm__subcmd__fire)
+            opts="-h --now --color --hyperlink --ascii --plain --help"
+            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
+                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+                return 0
+            fi
+            case "${prev}" in
+                --now)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --color)
+                    COMPREPLY=($(compgen -W "always never auto" -- "${cur}"))
+                    return 0
+                    ;;
+                --hyperlink)
+                    COMPREPLY=($(compgen -W "always never auto" -- "${cur}"))
+                    return 0
+                    ;;
+                *)
+                    COMPREPLY=()
+                    ;;
+            esac
+            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+            return 0
+            ;;
+        nika__subcmd__arm__subcmd__help)
+            opts="fire migrate disarm help"
+            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
+                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+                return 0
+            fi
+            case "${prev}" in
+                *)
+                    COMPREPLY=()
+                    ;;
+            esac
+            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+            return 0
+            ;;
+        nika__subcmd__arm__subcmd__help__subcmd__disarm)
+            opts=""
+            if [[ ${cur} == -* || ${COMP_CWORD} -eq 4 ]] ; then
+                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+                return 0
+            fi
+            case "${prev}" in
+                *)
+                    COMPREPLY=()
+                    ;;
+            esac
+            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+            return 0
+            ;;
+        nika__subcmd__arm__subcmd__help__subcmd__fire)
+            opts=""
+            if [[ ${cur} == -* || ${COMP_CWORD} -eq 4 ]] ; then
+                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+                return 0
+            fi
+            case "${prev}" in
+                *)
+                    COMPREPLY=()
+                    ;;
+            esac
+            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+            return 0
+            ;;
+        nika__subcmd__arm__subcmd__help__subcmd__help)
+            opts=""
+            if [[ ${cur} == -* || ${COMP_CWORD} -eq 4 ]] ; then
+                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+                return 0
+            fi
+            case "${prev}" in
+                *)
+                    COMPREPLY=()
+                    ;;
+            esac
+            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+            return 0
+            ;;
+        nika__subcmd__arm__subcmd__help__subcmd__migrate)
+            opts=""
+            if [[ ${cur} == -* || ${COMP_CWORD} -eq 4 ]] ; then
+                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+                return 0
+            fi
+            case "${prev}" in
+                *)
+                    COMPREPLY=()
+                    ;;
+            esac
+            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+            return 0
+            ;;
+        nika__subcmd__arm__subcmd__migrate)
+            opts="-h --color --hyperlink --ascii --plain --help"
+            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
                 COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
                 return 0
             fi
@@ -436,7 +678,7 @@ _nika() {
             return 0
             ;;
         nika__subcmd__check)
-            opts="-h --json --infer-permits --fix --native-strict --profile --model --color --hyperlink --ascii --plain --help"
+            opts="-h --json --infer-permits --fix --native-strict --profile --model --sdk-snapshot --color --hyperlink --ascii --plain --help"
             if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
                 COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
                 return 0
@@ -584,8 +826,64 @@ _nika() {
             return 0
             ;;
         nika__subcmd__help)
-            opts="welcome check run test inspect explain key sign doctor init wire model spec catalog try new completions trace guard dap lsp mcp help"
+            opts="list welcome check run test inspect explain key arm serve sign doctor init wire model spec catalog try new completions trace guard dap lsp mcp help"
             if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
+                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+                return 0
+            fi
+            case "${prev}" in
+                *)
+                    COMPREPLY=()
+                    ;;
+            esac
+            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+            return 0
+            ;;
+        nika__subcmd__help__subcmd__arm)
+            opts="fire migrate disarm"
+            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
+                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+                return 0
+            fi
+            case "${prev}" in
+                *)
+                    COMPREPLY=()
+                    ;;
+            esac
+            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+            return 0
+            ;;
+        nika__subcmd__help__subcmd__arm__subcmd__disarm)
+            opts=""
+            if [[ ${cur} == -* || ${COMP_CWORD} -eq 4 ]] ; then
+                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+                return 0
+            fi
+            case "${prev}" in
+                *)
+                    COMPREPLY=()
+                    ;;
+            esac
+            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+            return 0
+            ;;
+        nika__subcmd__help__subcmd__arm__subcmd__fire)
+            opts=""
+            if [[ ${cur} == -* || ${COMP_CWORD} -eq 4 ]] ; then
+                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+                return 0
+            fi
+            case "${prev}" in
+                *)
+                    COMPREPLY=()
+                    ;;
+            esac
+            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+            return 0
+            ;;
+        nika__subcmd__help__subcmd__arm__subcmd__migrate)
+            opts=""
+            if [[ ${cur} == -* || ${COMP_CWORD} -eq 4 ]] ; then
                 COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
                 return 0
             fi
@@ -793,6 +1091,20 @@ _nika() {
             COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
             return 0
             ;;
+        nika__subcmd__help__subcmd__list)
+            opts=""
+            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
+                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+                return 0
+            fi
+            case "${prev}" in
+                *)
+                    COMPREPLY=()
+                    ;;
+            esac
+            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+            return 0
+            ;;
         nika__subcmd__help__subcmd__lsp)
             opts=""
             if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
@@ -933,6 +1245,20 @@ _nika() {
             COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
             return 0
             ;;
+        nika__subcmd__help__subcmd__serve)
+            opts=""
+            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
+                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+                return 0
+            fi
+            case "${prev}" in
+                *)
+                    COMPREPLY=()
+                    ;;
+            esac
+            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+            return 0
+            ;;
         nika__subcmd__help__subcmd__sign)
             opts=""
             if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
@@ -976,7 +1302,7 @@ _nika() {
             return 0
             ;;
         nika__subcmd__help__subcmd__trace)
-            opts="replay evidence receipt show ls rm outputs export verify anchor reproduce peek flow"
+            opts="replay evidence receipt show ls rm outputs export verify anchor reproduce peek session flow"
             if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
                 COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
                 return 0
@@ -1157,6 +1483,20 @@ _nika() {
             COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
             return 0
             ;;
+        nika__subcmd__help__subcmd__trace__subcmd__session)
+            opts=""
+            if [[ ${cur} == -* || ${COMP_CWORD} -eq 4 ]] ; then
+                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+                return 0
+            fi
+            case "${prev}" in
+                *)
+                    COMPREPLY=()
+                    ;;
+            esac
+            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+            return 0
+            ;;
         nika__subcmd__help__subcmd__trace__subcmd__show)
             opts=""
             if [[ ${cur} == -* || ${COMP_CWORD} -eq 4 ]] ; then
@@ -1228,7 +1568,7 @@ _nika() {
             return 0
             ;;
         nika__subcmd__init)
-            opts="-y -h --force --yes --recipe --example --theme --wire --color --hyperlink --ascii --plain --help"
+            opts="-y -h --force --yes --recipe --example --theme --wire --project-file --color --hyperlink --ascii --plain --help"
             if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
                 COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
                 return 0
@@ -1430,6 +1770,28 @@ _nika() {
         nika__subcmd__key__subcmd__trust)
             opts="-h --color --hyperlink --ascii --plain --help"
             if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
+                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+                return 0
+            fi
+            case "${prev}" in
+                --color)
+                    COMPREPLY=($(compgen -W "always never auto" -- "${cur}"))
+                    return 0
+                    ;;
+                --hyperlink)
+                    COMPREPLY=($(compgen -W "always never auto" -- "${cur}"))
+                    return 0
+                    ;;
+                *)
+                    COMPREPLY=()
+                    ;;
+            esac
+            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+            return 0
+            ;;
+        nika__subcmd__list)
+            opts="-h --color --hyperlink --ascii --plain --help"
+            if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
                 COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
                 return 0
             fi
@@ -1806,7 +2168,7 @@ _nika() {
             return 0
             ;;
         nika__subcmd__run)
-            opts="-h --json --output --no-progress --quiet --dry-run --model --access --var --resume --resume-compat --from --answer --task --no-trace-file --no-outputs --max-cost-usd --no-gc --require-signature --color --hyperlink --ascii --plain --help"
+            opts="-h --json --output --no-progress --quiet --dry-run --model --access --var --resume --resume-compat --resume-unverified --from --answer --task --no-trace-file --no-outputs --max-cost-usd --no-gc --require-signature --color --hyperlink --ascii --plain --help"
             if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
                 COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
                 return 0
@@ -1849,6 +2211,52 @@ _nika() {
                     return 0
                     ;;
                 --max-cost-usd)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --color)
+                    COMPREPLY=($(compgen -W "always never auto" -- "${cur}"))
+                    return 0
+                    ;;
+                --hyperlink)
+                    COMPREPLY=($(compgen -W "always never auto" -- "${cur}"))
+                    return 0
+                    ;;
+                *)
+                    COMPREPLY=()
+                    ;;
+            esac
+            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+            return 0
+            ;;
+        nika__subcmd__serve)
+            opts="-h --once --dry --now --until --bind --workflows --allow-remote --token-file --state-root --color --hyperlink --ascii --plain --help"
+            if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
+                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+                return 0
+            fi
+            case "${prev}" in
+                --now)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --until)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --bind)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --workflows)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --token-file)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --state-root)
                     COMPREPLY=($(compgen -f "${cur}"))
                     return 0
                     ;;
@@ -1912,12 +2320,16 @@ _nika() {
             return 0
             ;;
         nika__subcmd__test)
-            opts="-h --update --color --hyperlink --ascii --plain --help"
+            opts="-h --update --answer --color --hyperlink --ascii --plain --help"
             if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
                 COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
                 return 0
             fi
             case "${prev}" in
+                --answer)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
                 --color)
                     COMPREPLY=($(compgen -W "always never auto" -- "${cur}"))
                     return 0
@@ -1934,7 +2346,7 @@ _nika() {
             return 0
             ;;
         nika__subcmd__trace)
-            opts="-h --color --hyperlink --ascii --plain --help replay evidence receipt show ls rm outputs export verify anchor reproduce peek flow help"
+            opts="-h --color --hyperlink --ascii --plain --help replay evidence receipt show ls rm outputs export verify anchor reproduce peek session flow help"
             if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
                 COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
                 return 0
@@ -1986,7 +2398,7 @@ _nika() {
             return 0
             ;;
         nika__subcmd__trace__subcmd__evidence)
-            opts="-o -h --out --workflow --json --color --hyperlink --ascii --plain --help"
+            opts="-o -h --out --workflow --json --full --color --hyperlink --ascii --plain --help"
             if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
                 COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
                 return 0
@@ -2072,7 +2484,7 @@ _nika() {
             return 0
             ;;
         nika__subcmd__trace__subcmd__help)
-            opts="replay evidence receipt show ls rm outputs export verify anchor reproduce peek flow help"
+            opts="replay evidence receipt show ls rm outputs export verify anchor reproduce peek session flow help"
             if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
                 COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
                 return 0
@@ -2254,6 +2666,20 @@ _nika() {
             return 0
             ;;
         nika__subcmd__trace__subcmd__help__subcmd__rm)
+            opts=""
+            if [[ ${cur} == -* || ${COMP_CWORD} -eq 4 ]] ; then
+                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+                return 0
+            fi
+            case "${prev}" in
+                *)
+                    COMPREPLY=()
+                    ;;
+            esac
+            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+            return 0
+            ;;
+        nika__subcmd__trace__subcmd__help__subcmd__session)
             opts=""
             if [[ ${cur} == -* || ${COMP_CWORD} -eq 4 ]] ; then
                 COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
@@ -2521,6 +2947,28 @@ _nika() {
             COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
             return 0
             ;;
+        nika__subcmd__trace__subcmd__session)
+            opts="-h --color --hyperlink --ascii --plain --help"
+            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
+                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+                return 0
+            fi
+            case "${prev}" in
+                --color)
+                    COMPREPLY=($(compgen -W "always never auto" -- "${cur}"))
+                    return 0
+                    ;;
+                --hyperlink)
+                    COMPREPLY=($(compgen -W "always never auto" -- "${cur}"))
+                    return 0
+                    ;;
+                *)
+                    COMPREPLY=()
+                    ;;
+            esac
+            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+            return 0
+            ;;
         nika__subcmd__trace__subcmd__show)
             opts="-h --demo --demo-fail --speed --no-outputs --color --hyperlink --ascii --plain --help"
             if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
@@ -2578,7 +3026,7 @@ _nika() {
             return 0
             ;;
         nika__subcmd__try)
-            opts="-h --all --model --access --var --quiet --no-progress --max-cost-usd --color --hyperlink --ascii --plain --help"
+            opts="-h --all --model --access --var --quiet --no-progress --max-cost-usd --resume --answer --color --hyperlink --ascii --plain --help"
             if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
                 COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
                 return 0
@@ -2597,6 +3045,14 @@ _nika() {
                     return 0
                     ;;
                 --max-cost-usd)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --resume)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --answer)
                     COMPREPLY=($(compgen -f "${cur}"))
                     return 0
                     ;;
