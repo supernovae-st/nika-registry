@@ -72,7 +72,7 @@ def _registry_entry_exists(publisher: str, name: str) -> bool:
 # own header says "Bump deliberately: edit this", and it is the INPUT every
 # projection derives from. That is `authored-pin`, not `authored`.
 _AUTHORED = {
-    "README.md": "prose entry surface · no generation marker · README.md:102 says only CATALOG.md is generated",
+    "README.md": "prose entry surface · no generation marker · it names the generated projections (CATALOG.md · certs/ · index.json · llms.txt · badges/) without being one",
     "POLICIES.md": "prose policy pack (the 8 laws) · no generation marker · gates cite it, nothing writes it",
     "CONTRIBUTING.md": "prose contribution policy · no generation marker",
     "AGENTS.md": "hand-written agent entry per the AGENTS.md convention · no generation marker",
@@ -111,6 +111,13 @@ _MIRROR_ROWS = [
         }},
     {"path": "ESTATE_PIN", "class": "authored-pin",
       "evidence": "its own header: 'Bump deliberately: edit this' \u00b7 the rev the shared estate tool is mirrored from, and the INPUT the mirror gate compares against"},
+    {"path": ".github/workflows/scorecard.yml", "class": "pinned-copy",
+      "evidence": "byte-copy of the engine's OpenSSF Scorecard lane (supernovae-st/nika \u00b7 .github/workflows/scorecard.yml) \u00b7 every step a SHA-pinned uses:, zero run: steps \u00b7 the same lane on every public building",
+      "derivation": {
+            "tool": "cp from a supernovae-st/nika checkout at b3e00c9201fe231f63e23745f2d4af56024da5b1 (sha256 564bf8ad2c1089052d7a2c1edc79a9bb52581aef1e21fd67e87ce967538e79ba)",
+            "gate": "NONE: no step re-compares it against the engine's copy; a drift shows only as a different sha256 in this manifest",
+            "inputs": ["supernovae-st/nika@b3e00c9201fe231f63e23745f2d4af56024da5b1:.github/workflows/scorecard.yml"],
+        }},
 ]
 
 FILES = []

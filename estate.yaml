@@ -18,14 +18,14 @@ classes:
   testimonial: "captured evidence — fixtures, corpora, traces, receipts: proves behavior; neither shipped source nor regenerable output"
   foreign: "pointer to a third-party sovereign source"
 summary:
-  classified_files: 113
-  file_rows: 109
+  classified_files: 114
+  file_rows: 110
   pattern_rows: 2
   by_class:
     authored: 24
     authored-pin: 2
     generated: 85
-    pinned-copy: 2
+    pinned-copy: 3
     testimonial: 0
     foreign: 0
   unverified-default: 3
@@ -46,6 +46,15 @@ files:
   class: authored
   sha256: d38031fab1a9913adc30850514374dc313eb4368c0321a7b319118947ebf3b4e
   evidence: "hand-written bot workflow (it edits OTHER files, nothing writes it)"
+- path: ".github/workflows/scorecard.yml"
+  class: pinned-copy
+  sha256: 564bf8ad2c1089052d7a2c1edc79a9bb52581aef1e21fd67e87ce967538e79ba
+  evidence: "byte-copy of the engine's OpenSSF Scorecard lane (supernovae-st/nika · .github/workflows/scorecard.yml) · every step a SHA-pinned uses:, zero run: steps · the same lane on every public building"
+  derivation:
+    tool: "cp from a supernovae-st/nika checkout at b3e00c9201fe231f63e23745f2d4af56024da5b1 (sha256 564bf8ad2c1089052d7a2c1edc79a9bb52581aef1e21fd67e87ce967538e79ba)"
+    gate: "NONE: no step re-compares it against the engine's copy; a drift shows only as a different sha256 in this manifest"
+    inputs:
+    - "supernovae-st/nika@b3e00c9201fe231f63e23745f2d4af56024da5b1:.github/workflows/scorecard.yml"
 - path: ".github/workflows/verify.yml"
   class: authored
   sha256: 9e6ecccc59459109b8e9022f7c4169b14d11f20f2f7df895f36d0f6d8d3443fa
@@ -97,8 +106,8 @@ files:
   evidence: "prose policy pack (the 8 laws) · no generation marker · gates cite it, nothing writes it"
 - path: "README.md"
   class: authored
-  sha256: b233f59b385b422cf702e1b6c1cc499c78cda846aef9b4fb93240f28000c6584
-  evidence: "prose entry surface · no generation marker · README.md:102 says only CATALOG.md is generated"
+  sha256: 70ba9b693e85070f6e539236ea01997bd58bae26b6f06ca7e515d6ce6c716380
+  evidence: "prose entry surface · no generation marker · it names the generated projections (CATALOG.md · certs/ · index.json · llms.txt · badges/) without being one"
 - path: "SPEC_PIN"
   class: authored-pin
   sha256: 5689a83607138636ebea5da1e93bcb4cbea66a93c6ad72e56fce6be6c970f351
@@ -1046,7 +1055,7 @@ files:
     - "supernovae-st/nika-estate@<ESTATE_PIN>:scripts/estate.py"
 - path: "scripts/estate_rules.py"
   class: authored
-  sha256: 26842b543e09b6475a35f0d1b15d6f8e6a88eb36fb0dfa926a9b1c3963b3dcde
+  sha256: 37aed7376bad5addf295bb37a0bbe35378ef5f932666f4041f1085ff871206db
   evidence: "hand-written per-repo estate rules (this file) · the tool is shared, these declarations are ours"
 - path: "scripts/get.py"
   class: authored
