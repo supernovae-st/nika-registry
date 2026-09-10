@@ -47,7 +47,7 @@ re-hashes them against the entry's sha256, caches the file, then audits it
 exactly as it audits a local file:
 
 ```sh
-nika check registry:supernovae-st/meeting-actions@0.1.0
+./node_modules/.bin/nika check registry:supernovae-st/meeting-actions@0.1.0
 ```
 
 ```
@@ -99,7 +99,7 @@ outputs:
 ```
 
 ```sh
-nika check compose.nika.yaml
+./node_modules/.bin/nika check compose.nika.yaml
 ```
 
 ```
@@ -353,7 +353,7 @@ typed here.
 
 All the buildings: [nika-spec](https://github.com/supernovae-st/nika-spec) ·
 [nika](https://github.com/supernovae-st/nika) ·
-[nika.sh](https://github.com/supernovae-st/nika.sh) ·
+[nika.sh](https://nika.sh) ·
 [nika-docs](https://github.com/supernovae-st/nika-docs) ·
 [nika-client](https://github.com/supernovae-st/nika-client) ·
 [nika-vscode](https://github.com/supernovae-st/nika-vscode) ·
