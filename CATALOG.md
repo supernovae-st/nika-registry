@@ -5,43 +5,44 @@
      (nika 0.118.7 · re-proven in CI). The point: you see what
      a workflow CAN DO — exec, tools, cost, secrets — before it runs. -->
 
-Certified by `nika 0.118.7` static analysis · re-proven on every PR and nightly.
+Static analysis results from `nika 0.118.7` · reproduced on every PR and nightly.
+A parse refusal leaves capabilities unknown. Reproducing a refusal does not qualify a runnable workflow.
 
 ⚠ = an **unbounded grant** (`exec: true` runs any program · `*` allows any
 tool). The cert proves the effect stays inside the *declared* permits — it
 cannot vet what a permitted exec or tool actually does. ⚠ means *read the
 workflow before you run it*; it is not a verdict of unsafe.
 
-| Artifact | Version | What it does | Exec? | Tools | LLM calls | Cost/run | Cert |
-|---|---|---|---|---|---|---|---|
-| **bookmark-triage** | 0.1.0 | URL list → per-page metadata fan-out (dead links survive) → one markdown triage table | no | — | None | unpriced — re-certify | [cert](certs/supernovae-st/bookmark-triage/0.1.0.json) |
-| **ceo-monday-brief** | 0.1.0 | news + repo pulse + KPIs → one synthesis → dated brief → a ping on every outcome | no | — | None | unpriced — re-certify | [cert](certs/supernovae-st/ceo-monday-brief/0.1.0.json) |
-| **competitor-radar** | 0.1.0 | sitemap → what changed this window → parallel page reads → one brief | no | — | None | unpriced — re-certify | [cert](certs/supernovae-st/competitor-radar/0.1.0.json) |
-| **config-drift-sentinel** | 0.1.0 | live config vs sanctioned baseline → typed drift → triaged, explained alert | no | — | None | unpriced — re-certify | [cert](certs/supernovae-st/config-drift-sentinel/0.1.0.json) |
-| **contract-guard** | 0.1.0 | Local-model clause extraction → schema gate → risk memo | no | — | None | unpriced — re-certify | [cert](certs/supernovae-st/contract-guard/0.1.0.json) |
-| **csv-chart-report** | 0.1.0 | CSV → aggregate → rendered bar chart + markdown report · offline · deterministic | no | — | None | unpriced — re-certify | [cert](certs/supernovae-st/csv-chart-report/0.1.0.json) |
-| **deep-research-brief** | 0.1.0 | plan → budgeted research agent → thinking synthesis → brief on disk | no | — | None | unpriced — re-certify | [cert](certs/supernovae-st/deep-research-brief/0.1.0.json) |
-| **etl-quarantine** | 0.1.0 | CSV batch → schema gate → quarantine the bad · aggregate the good | no | — | None | unpriced — re-certify | [cert](certs/supernovae-st/etl-quarantine/0.1.0.json) |
-| **image-fx-batch** | 0.1.0 | Folder of PNG files → deterministic art (grayscale · dither · pixelate) · offline batch | no | — | None | unpriced — re-certify | [cert](certs/supernovae-st/image-fx-batch/0.1.0.json) |
-| **incident-war-room** | 0.1.0 | parallel evidence → typed timeline → settle + recheck → refuse or draft → record | no | — | None | unpriced — re-certify | [cert](certs/supernovae-st/incident-war-room/0.1.0.json) |
-| **invoice-chaser** | 0.1.0 | Ledger CSV → overdue filter → drafted reminders → human gate → drafts file | no | — | None | unpriced — re-certify | [cert](certs/supernovae-st/invoice-chaser/0.1.0.json) |
-| **localization-factory** | 0.1.0 | glob docs → parallel read → parallel translate → mirror tree | no | — | None | unpriced — re-certify | [cert](certs/supernovae-st/localization-factory/0.1.0.json) |
-| **meeting-actions** | 0.1.0 | Transcript → typed action items {owner, task, due} | no | — | None | unpriced — re-certify | [cert](certs/supernovae-st/meeting-actions/0.1.0.json) |
-| **model-bench** | 0.1.0 | One question → three local models → a measured comparison table | no | — | None | unpriced — re-certify | [cert](certs/supernovae-st/model-bench/0.1.0.json) |
-| **og-images** | 0.1.0 | Generate the launch OG hero image set into out/og | no | — | None | unpriced — re-certify | [cert](certs/supernovae-st/og-images/0.1.0.json) |
-| **pr-review-fanout** | 0.1.0 | changed files → one read-only review agent each → merged REVIEW.md | no | — | None | unpriced — re-certify | [cert](certs/supernovae-st/pr-review-fanout/0.1.0.json) |
-| **price-watch** | 0.1.0 | Watch a product price, ping me when it drops below my target | no | — | None | unpriced — re-certify | [cert](certs/supernovae-st/price-watch/0.1.0.json) |
-| **release-notes** | 0.1.0 | git log → typed release notes → CHANGELOG insert → team ping | no | — | None | unpriced — re-certify | [cert](certs/supernovae-st/release-notes/0.1.0.json) |
-| **release-radar** | 0.1.0 | dependency release feed → diff vs last run → only the NEW ships | no | — | None | unpriced — re-certify | [cert](certs/supernovae-st/release-radar/0.1.0.json) |
-| **release-train** | 0.1.0 | parallel gates → one verdict → human GO → hold until the window → ship · verify · record | no | — | None | unpriced — re-certify | [cert](certs/supernovae-st/release-train/0.1.0.json) |
-| **resume-screener** | 0.1.0 | glob CVs → local-model rubric per candidate → deterministic shortlist | no | — | None | unpriced — re-certify | [cert](certs/supernovae-st/resume-screener/0.1.0.json) |
-| **seo-content-brief** | 0.1.0 | Competitor sitemap → top page → gap analysis → typed brief | no | — | None | unpriced — re-certify | [cert](certs/supernovae-st/seo-content-brief/0.1.0.json) |
-| **social-repurpose** | 0.1.0 | One post → thread + LinkedIn + newsletter, in parallel | no | — | None | unpriced — re-certify | [cert](certs/supernovae-st/social-repurpose/0.1.0.json) |
-| **standup-digest** | 0.1.0 | Read yesterday's commits, write today's standup note | no | — | None | unpriced — re-certify | [cert](certs/supernovae-st/standup-digest/0.1.0.json) |
-| **support-triage** | 0.1.0 | Ticket queue → typed triage → urgent escalation → triage board | no | — | None | unpriced — re-certify | [cert](certs/supernovae-st/support-triage/0.1.0.json) |
-| **transcript-shownotes** | 0.1.0 | Raw transcript → typed show-notes (chapters · quotes · summary) · one bounded infer | no | — | None | unpriced — re-certify | [cert](certs/supernovae-st/transcript-shownotes/0.1.0.json) |
+| Artifact | Version | What it does | Analysis | Exec? | Tools | LLM calls | Cost/run | Cert |
+|---|---|---|---|---|---|---|---|---|
+| **bookmark-triage** | 0.1.0 | URL list → per-page metadata fan-out (dead links survive) → one markdown triage table | parse_refused | unknown | unknown | unknown | unknown | [cert](certs/supernovae-st/bookmark-triage/0.1.0.json) |
+| **ceo-monday-brief** | 0.1.0 | news + repo pulse + KPIs → one synthesis → dated brief → a ping on every outcome | parse_refused | unknown | unknown | unknown | unknown | [cert](certs/supernovae-st/ceo-monday-brief/0.1.0.json) |
+| **competitor-radar** | 0.1.0 | sitemap → what changed this window → parallel page reads → one brief | parse_refused | unknown | unknown | unknown | unknown | [cert](certs/supernovae-st/competitor-radar/0.1.0.json) |
+| **config-drift-sentinel** | 0.1.0 | live config vs sanctioned baseline → typed drift → triaged, explained alert | parse_refused | unknown | unknown | unknown | unknown | [cert](certs/supernovae-st/config-drift-sentinel/0.1.0.json) |
+| **contract-guard** | 0.1.0 | Local-model clause extraction → schema gate → risk memo | parse_refused | unknown | unknown | unknown | unknown | [cert](certs/supernovae-st/contract-guard/0.1.0.json) |
+| **csv-chart-report** | 0.1.0 | CSV → aggregate → rendered bar chart + markdown report · offline · deterministic | parse_refused | unknown | unknown | unknown | unknown | [cert](certs/supernovae-st/csv-chart-report/0.1.0.json) |
+| **deep-research-brief** | 0.1.0 | plan → budgeted research agent → thinking synthesis → brief on disk | parse_refused | unknown | unknown | unknown | unknown | [cert](certs/supernovae-st/deep-research-brief/0.1.0.json) |
+| **etl-quarantine** | 0.1.0 | CSV batch → schema gate → quarantine the bad · aggregate the good | parse_refused | unknown | unknown | unknown | unknown | [cert](certs/supernovae-st/etl-quarantine/0.1.0.json) |
+| **image-fx-batch** | 0.1.0 | Folder of PNG files → deterministic art (grayscale · dither · pixelate) · offline batch | parse_refused | unknown | unknown | unknown | unknown | [cert](certs/supernovae-st/image-fx-batch/0.1.0.json) |
+| **incident-war-room** | 0.1.0 | parallel evidence → typed timeline → settle + recheck → refuse or draft → record | parse_refused | unknown | unknown | unknown | unknown | [cert](certs/supernovae-st/incident-war-room/0.1.0.json) |
+| **invoice-chaser** | 0.1.0 | Ledger CSV → overdue filter → drafted reminders → human gate → drafts file | parse_refused | unknown | unknown | unknown | unknown | [cert](certs/supernovae-st/invoice-chaser/0.1.0.json) |
+| **localization-factory** | 0.1.0 | glob docs → parallel read → parallel translate → mirror tree | parse_refused | unknown | unknown | unknown | unknown | [cert](certs/supernovae-st/localization-factory/0.1.0.json) |
+| **meeting-actions** | 0.1.0 | Transcript → typed action items {owner, task, due} | parse_refused | unknown | unknown | unknown | unknown | [cert](certs/supernovae-st/meeting-actions/0.1.0.json) |
+| **model-bench** | 0.1.0 | One question → three local models → a measured comparison table | parse_refused | unknown | unknown | unknown | unknown | [cert](certs/supernovae-st/model-bench/0.1.0.json) |
+| **og-images** | 0.1.0 | Generate the launch OG hero image set into out/og | parse_refused | unknown | unknown | unknown | unknown | [cert](certs/supernovae-st/og-images/0.1.0.json) |
+| **pr-review-fanout** | 0.1.0 | changed files → one read-only review agent each → merged REVIEW.md | parse_refused | unknown | unknown | unknown | unknown | [cert](certs/supernovae-st/pr-review-fanout/0.1.0.json) |
+| **price-watch** | 0.1.0 | Watch a product price, ping me when it drops below my target | parse_refused | unknown | unknown | unknown | unknown | [cert](certs/supernovae-st/price-watch/0.1.0.json) |
+| **release-notes** | 0.1.0 | git log → typed release notes → CHANGELOG insert → team ping | parse_refused | unknown | unknown | unknown | unknown | [cert](certs/supernovae-st/release-notes/0.1.0.json) |
+| **release-radar** | 0.1.0 | dependency release feed → diff vs last run → only the NEW ships | parse_refused | unknown | unknown | unknown | unknown | [cert](certs/supernovae-st/release-radar/0.1.0.json) |
+| **release-train** | 0.1.0 | parallel gates → one verdict → human GO → hold until the window → ship · verify · record | parse_refused | unknown | unknown | unknown | unknown | [cert](certs/supernovae-st/release-train/0.1.0.json) |
+| **resume-screener** | 0.1.0 | glob CVs → local-model rubric per candidate → deterministic shortlist | parse_refused | unknown | unknown | unknown | unknown | [cert](certs/supernovae-st/resume-screener/0.1.0.json) |
+| **seo-content-brief** | 0.1.0 | Competitor sitemap → top page → gap analysis → typed brief | parse_refused | unknown | unknown | unknown | unknown | [cert](certs/supernovae-st/seo-content-brief/0.1.0.json) |
+| **social-repurpose** | 0.1.0 | One post → thread + LinkedIn + newsletter, in parallel | parse_refused | unknown | unknown | unknown | unknown | [cert](certs/supernovae-st/social-repurpose/0.1.0.json) |
+| **standup-digest** | 0.1.0 | Read yesterday's commits, write today's standup note | parse_refused | unknown | unknown | unknown | unknown | [cert](certs/supernovae-st/standup-digest/0.1.0.json) |
+| **support-triage** | 0.1.0 | Ticket queue → typed triage → urgent escalation → triage board | parse_refused | unknown | unknown | unknown | unknown | [cert](certs/supernovae-st/support-triage/0.1.0.json) |
+| **transcript-shownotes** | 0.1.0 | Raw transcript → typed show-notes (chapters · quotes · summary) · one bounded infer | parse_refused | unknown | unknown | unknown | unknown | [cert](certs/supernovae-st/transcript-shownotes/0.1.0.json) |
 
-26 artifacts re-proven · 0 carry an unbounded grant (⚠).
+26 analysis results reproduced · 0 clean · 26 unavailable · 0 broad grants observed (⚠).
 
 Install: read the entry under `registry/`, fetch the pinned bytes, verify
 the sha256, run `nika check` yourself — the cert is re-derivable, never

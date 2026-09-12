@@ -11,6 +11,9 @@ import os
 import pathlib
 import sys
 import tempfile
+import json
+import subprocess
+from unittest.mock import patch
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 import verify  # noqa: E402
@@ -75,6 +78,33 @@ _h_plain = " ".join(get.handoff_lines("w.nika.yaml", {"llm_calls": 1, "permits_b
 check("hand-off omits --var when none required", "--var" not in _h_plain)
 _h_fetch = " ".join(get.handoff_lines("w.nika.yaml", {"llm_calls": 0, "permits_boundary": "tools: [\"nika:fetch\"]", "vars_required": []}))
 check("hand-off never calls a fetch workflow offline", "no network" not in _h_fetch)
+
+# A parser refusal is a reproduced negative result, never an empty capability set.
+import cert as certificate  # noqa: E402
+import index as catalog_index  # noqa: E402
+
+_parse_report = {"clean": False, "parse_fatal": True, "findings": [
+    {"code": "NIKA-PARSE-005", "kind": "parse", "gate": "PARSE", "message": "unknown workflow field"}
+]}
+with patch.object(certificate.subprocess, "run", return_value=subprocess.CompletedProcess(
+        [], 2, json.dumps(_parse_report), "")) as probe:
+    _refused = certificate.engine_cert("nika", pathlib.Path("refused.nika.yaml"))
+check("parse refusal does not infer capabilities from error prose", probe.call_count == 1)
+check("parse refusal preserves its structured diagnostic", _refused["findings"][0]["code"] == "NIKA-PARSE-005")
+check("parse refusal has unknown permits, broad grants and secret leaks",
+      all(_refused[key] is None for key in ("permits_boundary", "broad", "secret_leaks", "vars_required")))
+check("parse refusal exec is unknown", certificate.exec_capability(_refused) is None)
+check("restricted exec is present", certificate.exec_capability({"permits_boundary": "permits:\n  exec: [echo]"}) is True)
+check("explicitly absent exec is absent", certificate.exec_capability({"permits_boundary": "permits:\n  exec: false"}) is False)
+check("empty permits mapping has no exec", certificate.exec_capability({"permits_boundary": "permits: {}"}) is False)
+check("missing permits evidence is unknown", certificate.exec_capability({"permits_boundary": "{}"}) is None)
+_row = {"name": "refused", "publisher": "alice", "version": "1.0.0", "description": "fixture", "tools": [], "cert": _refused}
+_rendered = certificate.render_catalog([_row])
+check("catalog names parse refusal and unknown exec", "| parse_refused | unknown | unknown | unknown | unknown |" in _rendered)
+check("catalog does not call a negative certificate clean", "0 clean · 1 unavailable" in _rendered)
+_badge = catalog_index.badge({"cert_summary": {"analysis_status": "parse_refused", "clean": False}, "advisories": []})
+check("badge names parse refusal", _badge["message"] == "parse_refused" and _badge["color"] == "orange")
+check("refused artifact has no run hand-off", not any(line.startswith("nika run") for line in get.handoff_lines("refused.nika.yaml", _refused)))
 
 if FAILED:
     print(f"\nselftest FAILED: {len(FAILED)} check(s)", file=sys.stderr)

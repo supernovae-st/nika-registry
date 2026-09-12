@@ -146,8 +146,10 @@ def main() -> int:
     cert_path = ROOT / "certs" / e["publisher"] / e["name"] / f"{e['version']}.json"
     if cert_path.is_file():
         c = json.loads(cert_path.read_text())["certificate"]
-        cost = "unbounded (set max_tokens)" if c["cost_usd"]["has_unbounded"] else f"≤ ${c['cost_usd']['bounded_total']:.2f}/run"
-        execs = "YES ⚠" if "exec: true" in c["permits_boundary"] else "no"
+        from cert import exec_capability
+        cost = "unbounded (set max_tokens)" if c["cost_usd"]["has_unbounded"] else "unknown/unpriced" if c["cost_usd"]["bounded_total"] is None else f"≤ ${c['cost_usd']['bounded_total']:.2f}/run"
+        ability = exec_capability(c)
+        execs = "unknown" if ability is None else "yes" if ability else "no"
         print(f"  cert    clean={c['clean']} · exec={execs} · llm_calls={c['llm_calls']} · cost {cost}")
         if is_broad_permits(c["permits_boundary"]):
             # "clean" is NOT "safe": a broad grant (exec / any-tool) means the
@@ -192,7 +194,9 @@ def handoff_lines(name: str, cert) -> list:
         # the artifact does; point at the anatomy first.
         return [f"nika inspect {name}   # no cert on file — see the anatomy first",
                 f"nika run {name} --model mock/echo   # mocks any infer · fetch/exec still real"]
-    uses_fetch = "nika:fetch" in cert.get("permits_boundary", "")
+    if cert.get("clean") is False or cert.get("analysis_status") in ("parse_refused", "unavailable"):
+        return ["# analysis refused or unavailable; repair the workflow and pass nika check before running"]
+    uses_fetch = "nika:fetch" in (cert.get("permits_boundary") or "")
     llm = cert.get("llm_calls") or 0
     reqvars = cert.get("vars_required") or []
     var_flags = "".join(f" --var {v}=<value>" for v in reqvars)

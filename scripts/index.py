@@ -29,10 +29,10 @@ import sys
 import tomllib
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
-from verify import is_broad_permits  # noqa: E402 — one source for the ⚠ predicate
+from cert import exec_capability  # noqa: E402
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-INDEX_SCHEMA = 1
+INDEX_SCHEMA = 2  # unavailable analysis carries null capabilities, not false
 
 
 def build() -> dict:
@@ -51,15 +51,17 @@ def build() -> dict:
         if cert_path.is_file():
             full = json.loads(cert_path.read_text())["certificate"]
             cert = {
+                "analysis_status": full["analysis_status"],
+                "finding_codes": sorted({f["code"] for f in full["findings"] if "code" in f}),
                 "clean": full["clean"],
                 "llm_calls": full["llm_calls"],
-                "exec": "exec: true" in full["permits_boundary"],
+                "exec": exec_capability(full),
                 # An unbounded grant (exec / any-tool): clean means "fits its
                 # permits", but a broad permit makes that near-vacuous — agents
                 # read this before treating "clean" as "safe".
-                "broad": is_broad_permits(full["permits_boundary"]),
+                "broad": full["broad"],
                 "cost_usd_bounded": None if full["cost_usd"]["has_unbounded"] else full["cost_usd"]["bounded_total"],
-                "secret_leaks": len(full["secret_leaks"]),
+                "secret_leaks": len(full["secret_leaks"]) if full["secret_leaks"] is not None else None,
             }
         artifacts.append({
             "type": e["type"],
@@ -99,6 +101,8 @@ def badge(a: dict) -> dict:
         return {"schemaVersion": 1, "label": "nika cert", "message": "none", "color": "lightgrey"}
     if a["advisories"]:
         return {"schemaVersion": 1, "label": "nika cert", "message": "yanked", "color": "red"}
+    if c.get("analysis_status") != "checked":
+        return {"schemaVersion": 1, "label": "nika cert", "message": c.get("analysis_status", "unavailable"), "color": "orange"}
     if not c["clean"]:
         return {"schemaVersion": 1, "label": "nika cert", "message": "findings", "color": "orange"}
     cost = "cost unbounded" if c["cost_usd_bounded"] is None else f"≤ ${c['cost_usd_bounded']:.2f}/run"
@@ -113,9 +117,9 @@ def render_llms(doc: dict) -> str:
         "# nika-registry",
         "",
         "> Share Nika workflows/packs/skills/agents where every entry is",
-        "> machine-re-proven: pinned to a full commit + sha256, re-verified by",
-        "> the conformance oracle in CI, certified by the engine's static",
-        "> analysis (exec · tools · cost · permits) BEFORE anything runs.",
+        "> pinned to a full commit + sha256 and re-verified by the pinned",
+        "> conformance oracle in CI. Engine analysis is recorded separately:",
+        "> a parse refusal means capabilities are unknown, not that effects are absent.",
         "> Entries are immutable; withdrawal is an advisory, never a delete.",
         ">",
         "> \"clean\" means no policy violation within the workflow's DECLARED",
@@ -141,7 +145,8 @@ def render_llms(doc: dict) -> str:
     ]
     for a in doc["artifacts"]:
         c = a["cert_summary"] or {}
-        cost = "unbounded" if not c or c.get("cost_usd_bounded") is None else f"≤${c['cost_usd_bounded']:.2f}"
+        status = c.get("analysis_status", "unavailable")
+        cost = "unknown" if status != "checked" else "unbounded/unpriced" if c.get("cost_usd_bounded") is None else f"≤${c['cost_usd_bounded']:.2f}"
         if c.get("exec"):
             grant = " · exec⚠"
         elif c.get("broad"):
@@ -150,7 +155,7 @@ def render_llms(doc: dict) -> str:
             grant = ""
         lines.append(
             f"- [{a['publisher']}/{a['name']}@{a['version']}]({RAW}/{a['entry']}): "
-            f"{a['description']} (llm={c.get('llm_calls', '?')} · {cost}{grant})"
+            f"{a['description']} ({status} · clean={c.get('clean', False)} · llm={c.get('llm_calls') if c.get('llm_calls') is not None else 'unknown'} · {cost}{grant})"
         )
     lines += [
         "",
@@ -207,7 +212,8 @@ def main() -> int:
     # safe. The ⚠ count foregrounds the unbounded-grant entries so the top-line
     # badge never reads as a blanket safety endorsement (7 exec:true showcases
     # were being counted "certified clean").
-    msg = f"{n} re-proven" + (f" · {broad} ⚠ broad" if broad else "")
+    unavailable = sum(1 for a in doc["artifacts"] if (a["cert_summary"] or {}).get("analysis_status") != "checked")
+    msg = f"{clean}/{n} clean · {unavailable} unavailable" + (f" · {broad} ⚠ broad" if broad else "")
     targets[ROOT / "badges" / "catalog.json"] = json.dumps({
         "schemaVersion": 1, "label": "artifacts",
         "message": msg,

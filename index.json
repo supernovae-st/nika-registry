@@ -4,12 +4,16 @@
       "advisories": [],
       "cert": "certs/supernovae-st/bookmark-triage/0.1.0.json",
       "cert_summary": {
-        "broad": false,
+        "analysis_status": "parse_refused",
+        "broad": null,
         "clean": false,
         "cost_usd_bounded": null,
-        "exec": false,
+        "exec": null,
+        "finding_codes": [
+          "NIKA-PARSE-005"
+        ],
         "llm_calls": null,
-        "secret_leaks": 0
+        "secret_leaks": null
       },
       "description": "URL list \u2192 per-page metadata fan-out (dead links survive) \u2192 one markdown triage table",
       "entry": "registry/workflows/supernovae-st/bookmark-triage/0.1.0.toml",
@@ -30,12 +34,16 @@
       "advisories": [],
       "cert": "certs/supernovae-st/ceo-monday-brief/0.1.0.json",
       "cert_summary": {
-        "broad": false,
+        "analysis_status": "parse_refused",
+        "broad": null,
         "clean": false,
         "cost_usd_bounded": null,
-        "exec": false,
+        "exec": null,
+        "finding_codes": [
+          "NIKA-PARSE-005"
+        ],
         "llm_calls": null,
-        "secret_leaks": 0
+        "secret_leaks": null
       },
       "description": "news + repo pulse + KPIs \u2192 one synthesis \u2192 dated brief \u2192 a ping on every outcome",
       "entry": "registry/workflows/supernovae-st/ceo-monday-brief/0.1.0.toml",
@@ -56,12 +64,16 @@
       "advisories": [],
       "cert": "certs/supernovae-st/competitor-radar/0.1.0.json",
       "cert_summary": {
-        "broad": false,
+        "analysis_status": "parse_refused",
+        "broad": null,
         "clean": false,
         "cost_usd_bounded": null,
-        "exec": false,
+        "exec": null,
+        "finding_codes": [
+          "NIKA-PARSE-005"
+        ],
         "llm_calls": null,
-        "secret_leaks": 0
+        "secret_leaks": null
       },
       "description": "sitemap \u2192 what changed this window \u2192 parallel page reads \u2192 one brief",
       "entry": "registry/workflows/supernovae-st/competitor-radar/0.1.0.toml",
@@ -82,12 +94,16 @@
       "advisories": [],
       "cert": "certs/supernovae-st/config-drift-sentinel/0.1.0.json",
       "cert_summary": {
-        "broad": false,
+        "analysis_status": "parse_refused",
+        "broad": null,
         "clean": false,
         "cost_usd_bounded": null,
-        "exec": false,
+        "exec": null,
+        "finding_codes": [
+          "NIKA-PARSE-005"
+        ],
         "llm_calls": null,
-        "secret_leaks": 0
+        "secret_leaks": null
       },
       "description": "live config vs sanctioned baseline \u2192 typed drift \u2192 triaged, explained alert",
       "entry": "registry/workflows/supernovae-st/config-drift-sentinel/0.1.0.toml",
@@ -108,12 +124,16 @@
       "advisories": [],
       "cert": "certs/supernovae-st/contract-guard/0.1.0.json",
       "cert_summary": {
-        "broad": false,
+        "analysis_status": "parse_refused",
+        "broad": null,
         "clean": false,
         "cost_usd_bounded": null,
-        "exec": false,
+        "exec": null,
+        "finding_codes": [
+          "NIKA-PARSE-005"
+        ],
         "llm_calls": null,
-        "secret_leaks": 0
+        "secret_leaks": null
       },
       "description": "Local-model clause extraction \u2192 schema gate \u2192 risk memo",
       "entry": "registry/workflows/supernovae-st/contract-guard/0.1.0.toml",
@@ -134,12 +154,16 @@
       "advisories": [],
       "cert": "certs/supernovae-st/csv-chart-report/0.1.0.json",
       "cert_summary": {
-        "broad": false,
+        "analysis_status": "parse_refused",
+        "broad": null,
         "clean": false,
         "cost_usd_bounded": null,
-        "exec": false,
+        "exec": null,
+        "finding_codes": [
+          "NIKA-PARSE-005"
+        ],
         "llm_calls": null,
-        "secret_leaks": 0
+        "secret_leaks": null
       },
       "description": "CSV \u2192 aggregate \u2192 rendered bar chart + markdown report \u00b7 offline \u00b7 deterministic",
       "entry": "registry/workflows/supernovae-st/csv-chart-report/0.1.0.toml",
@@ -160,12 +184,16 @@
       "advisories": [],
       "cert": "certs/supernovae-st/deep-research-brief/0.1.0.json",
       "cert_summary": {
-        "broad": false,
+        "analysis_status": "parse_refused",
+        "broad": null,
         "clean": false,
         "cost_usd_bounded": null,
-        "exec": false,
+        "exec": null,
+        "finding_codes": [
+          "NIKA-PARSE-005"
+        ],
         "llm_calls": null,
-        "secret_leaks": 0
+        "secret_leaks": null
       },
       "description": "plan \u2192 budgeted research agent \u2192 thinking synthesis \u2192 brief on disk",
       "entry": "registry/workflows/supernovae-st/deep-research-brief/0.1.0.toml",
@@ -186,12 +214,16 @@
       "advisories": [],
       "cert": "certs/supernovae-st/etl-quarantine/0.1.0.json",
       "cert_summary": {
-        "broad": false,
+        "analysis_status": "parse_refused",
+        "broad": null,
         "clean": false,
         "cost_usd_bounded": null,
-        "exec": false,
+        "exec": null,
+        "finding_codes": [
+          "NIKA-PARSE-005"
+        ],
         "llm_calls": null,
-        "secret_leaks": 0
+        "secret_leaks": null
       },
       "description": "CSV batch \u2192 schema gate \u2192 quarantine the bad \u00b7 aggregate the good",
       "entry": "registry/workflows/supernovae-st/etl-quarantine/0.1.0.toml",
@@ -212,12 +244,16 @@
       "advisories": [],
       "cert": "certs/supernovae-st/image-fx-batch/0.1.0.json",
       "cert_summary": {
-        "broad": false,
+        "analysis_status": "parse_refused",
+        "broad": null,
         "clean": false,
         "cost_usd_bounded": null,
-        "exec": false,
+        "exec": null,
+        "finding_codes": [
+          "NIKA-PARSE-005"
+        ],
         "llm_calls": null,
-        "secret_leaks": 0
+        "secret_leaks": null
       },
       "description": "Folder of PNG files \u2192 deterministic art (grayscale \u00b7 dither \u00b7 pixelate) \u00b7 offline batch",
       "entry": "registry/workflows/supernovae-st/image-fx-batch/0.1.0.toml",
@@ -238,12 +274,16 @@
       "advisories": [],
       "cert": "certs/supernovae-st/incident-war-room/0.1.0.json",
       "cert_summary": {
-        "broad": false,
+        "analysis_status": "parse_refused",
+        "broad": null,
         "clean": false,
         "cost_usd_bounded": null,
-        "exec": false,
+        "exec": null,
+        "finding_codes": [
+          "NIKA-PARSE-005"
+        ],
         "llm_calls": null,
-        "secret_leaks": 0
+        "secret_leaks": null
       },
       "description": "parallel evidence \u2192 typed timeline \u2192 settle + recheck \u2192 refuse or draft \u2192 record",
       "entry": "registry/workflows/supernovae-st/incident-war-room/0.1.0.toml",
@@ -264,12 +304,16 @@
       "advisories": [],
       "cert": "certs/supernovae-st/invoice-chaser/0.1.0.json",
       "cert_summary": {
-        "broad": false,
+        "analysis_status": "parse_refused",
+        "broad": null,
         "clean": false,
         "cost_usd_bounded": null,
-        "exec": false,
+        "exec": null,
+        "finding_codes": [
+          "NIKA-PARSE-005"
+        ],
         "llm_calls": null,
-        "secret_leaks": 0
+        "secret_leaks": null
       },
       "description": "Ledger CSV \u2192 overdue filter \u2192 drafted reminders \u2192 human gate \u2192 drafts file",
       "entry": "registry/workflows/supernovae-st/invoice-chaser/0.1.0.toml",
@@ -290,12 +334,16 @@
       "advisories": [],
       "cert": "certs/supernovae-st/localization-factory/0.1.0.json",
       "cert_summary": {
-        "broad": false,
+        "analysis_status": "parse_refused",
+        "broad": null,
         "clean": false,
         "cost_usd_bounded": null,
-        "exec": false,
+        "exec": null,
+        "finding_codes": [
+          "NIKA-PARSE-005"
+        ],
         "llm_calls": null,
-        "secret_leaks": 0
+        "secret_leaks": null
       },
       "description": "glob docs \u2192 parallel read \u2192 parallel translate \u2192 mirror tree",
       "entry": "registry/workflows/supernovae-st/localization-factory/0.1.0.toml",
@@ -316,12 +364,16 @@
       "advisories": [],
       "cert": "certs/supernovae-st/meeting-actions/0.1.0.json",
       "cert_summary": {
-        "broad": false,
+        "analysis_status": "parse_refused",
+        "broad": null,
         "clean": false,
         "cost_usd_bounded": null,
-        "exec": false,
+        "exec": null,
+        "finding_codes": [
+          "NIKA-PARSE-005"
+        ],
         "llm_calls": null,
-        "secret_leaks": 0
+        "secret_leaks": null
       },
       "description": "Transcript \u2192 typed action items {owner, task, due}",
       "entry": "registry/workflows/supernovae-st/meeting-actions/0.1.0.toml",
@@ -342,12 +394,16 @@
       "advisories": [],
       "cert": "certs/supernovae-st/model-bench/0.1.0.json",
       "cert_summary": {
-        "broad": false,
+        "analysis_status": "parse_refused",
+        "broad": null,
         "clean": false,
         "cost_usd_bounded": null,
-        "exec": false,
+        "exec": null,
+        "finding_codes": [
+          "NIKA-PARSE-005"
+        ],
         "llm_calls": null,
-        "secret_leaks": 0
+        "secret_leaks": null
       },
       "description": "One question \u2192 three local models \u2192 a measured comparison table",
       "entry": "registry/workflows/supernovae-st/model-bench/0.1.0.toml",
@@ -368,12 +424,16 @@
       "advisories": [],
       "cert": "certs/supernovae-st/og-images/0.1.0.json",
       "cert_summary": {
-        "broad": false,
+        "analysis_status": "parse_refused",
+        "broad": null,
         "clean": false,
         "cost_usd_bounded": null,
-        "exec": false,
+        "exec": null,
+        "finding_codes": [
+          "NIKA-PARSE-005"
+        ],
         "llm_calls": null,
-        "secret_leaks": 0
+        "secret_leaks": null
       },
       "description": "Generate the launch OG hero image set into out/og",
       "entry": "registry/workflows/supernovae-st/og-images/0.1.0.toml",
@@ -394,12 +454,16 @@
       "advisories": [],
       "cert": "certs/supernovae-st/pr-review-fanout/0.1.0.json",
       "cert_summary": {
-        "broad": false,
+        "analysis_status": "parse_refused",
+        "broad": null,
         "clean": false,
         "cost_usd_bounded": null,
-        "exec": false,
+        "exec": null,
+        "finding_codes": [
+          "NIKA-PARSE-005"
+        ],
         "llm_calls": null,
-        "secret_leaks": 0
+        "secret_leaks": null
       },
       "description": "changed files \u2192 one read-only review agent each \u2192 merged REVIEW.md",
       "entry": "registry/workflows/supernovae-st/pr-review-fanout/0.1.0.toml",
@@ -420,12 +484,16 @@
       "advisories": [],
       "cert": "certs/supernovae-st/price-watch/0.1.0.json",
       "cert_summary": {
-        "broad": false,
+        "analysis_status": "parse_refused",
+        "broad": null,
         "clean": false,
         "cost_usd_bounded": null,
-        "exec": false,
+        "exec": null,
+        "finding_codes": [
+          "NIKA-PARSE-005"
+        ],
         "llm_calls": null,
-        "secret_leaks": 0
+        "secret_leaks": null
       },
       "description": "Watch a product price, ping me when it drops below my target",
       "entry": "registry/workflows/supernovae-st/price-watch/0.1.0.toml",
@@ -446,12 +514,16 @@
       "advisories": [],
       "cert": "certs/supernovae-st/release-notes/0.1.0.json",
       "cert_summary": {
-        "broad": false,
+        "analysis_status": "parse_refused",
+        "broad": null,
         "clean": false,
         "cost_usd_bounded": null,
-        "exec": false,
+        "exec": null,
+        "finding_codes": [
+          "NIKA-PARSE-005"
+        ],
         "llm_calls": null,
-        "secret_leaks": 0
+        "secret_leaks": null
       },
       "description": "git log \u2192 typed release notes \u2192 CHANGELOG insert \u2192 team ping",
       "entry": "registry/workflows/supernovae-st/release-notes/0.1.0.toml",
@@ -472,12 +544,16 @@
       "advisories": [],
       "cert": "certs/supernovae-st/release-radar/0.1.0.json",
       "cert_summary": {
-        "broad": false,
+        "analysis_status": "parse_refused",
+        "broad": null,
         "clean": false,
         "cost_usd_bounded": null,
-        "exec": false,
+        "exec": null,
+        "finding_codes": [
+          "NIKA-PARSE-005"
+        ],
         "llm_calls": null,
-        "secret_leaks": 0
+        "secret_leaks": null
       },
       "description": "dependency release feed \u2192 diff vs last run \u2192 only the NEW ships",
       "entry": "registry/workflows/supernovae-st/release-radar/0.1.0.toml",
@@ -498,12 +574,16 @@
       "advisories": [],
       "cert": "certs/supernovae-st/release-train/0.1.0.json",
       "cert_summary": {
-        "broad": false,
+        "analysis_status": "parse_refused",
+        "broad": null,
         "clean": false,
         "cost_usd_bounded": null,
-        "exec": false,
+        "exec": null,
+        "finding_codes": [
+          "NIKA-PARSE-005"
+        ],
         "llm_calls": null,
-        "secret_leaks": 0
+        "secret_leaks": null
       },
       "description": "parallel gates \u2192 one verdict \u2192 human GO \u2192 hold until the window \u2192 ship \u00b7 verify \u00b7 record",
       "entry": "registry/workflows/supernovae-st/release-train/0.1.0.toml",
@@ -524,12 +604,16 @@
       "advisories": [],
       "cert": "certs/supernovae-st/resume-screener/0.1.0.json",
       "cert_summary": {
-        "broad": false,
+        "analysis_status": "parse_refused",
+        "broad": null,
         "clean": false,
         "cost_usd_bounded": null,
-        "exec": false,
+        "exec": null,
+        "finding_codes": [
+          "NIKA-PARSE-005"
+        ],
         "llm_calls": null,
-        "secret_leaks": 0
+        "secret_leaks": null
       },
       "description": "glob CVs \u2192 local-model rubric per candidate \u2192 deterministic shortlist",
       "entry": "registry/workflows/supernovae-st/resume-screener/0.1.0.toml",
@@ -550,12 +634,16 @@
       "advisories": [],
       "cert": "certs/supernovae-st/seo-content-brief/0.1.0.json",
       "cert_summary": {
-        "broad": false,
+        "analysis_status": "parse_refused",
+        "broad": null,
         "clean": false,
         "cost_usd_bounded": null,
-        "exec": false,
+        "exec": null,
+        "finding_codes": [
+          "NIKA-PARSE-005"
+        ],
         "llm_calls": null,
-        "secret_leaks": 0
+        "secret_leaks": null
       },
       "description": "Competitor sitemap \u2192 top page \u2192 gap analysis \u2192 typed brief",
       "entry": "registry/workflows/supernovae-st/seo-content-brief/0.1.0.toml",
@@ -576,12 +664,16 @@
       "advisories": [],
       "cert": "certs/supernovae-st/social-repurpose/0.1.0.json",
       "cert_summary": {
-        "broad": false,
+        "analysis_status": "parse_refused",
+        "broad": null,
         "clean": false,
         "cost_usd_bounded": null,
-        "exec": false,
+        "exec": null,
+        "finding_codes": [
+          "NIKA-PARSE-005"
+        ],
         "llm_calls": null,
-        "secret_leaks": 0
+        "secret_leaks": null
       },
       "description": "One post \u2192 thread + LinkedIn + newsletter, in parallel",
       "entry": "registry/workflows/supernovae-st/social-repurpose/0.1.0.toml",
@@ -602,12 +694,16 @@
       "advisories": [],
       "cert": "certs/supernovae-st/standup-digest/0.1.0.json",
       "cert_summary": {
-        "broad": false,
+        "analysis_status": "parse_refused",
+        "broad": null,
         "clean": false,
         "cost_usd_bounded": null,
-        "exec": false,
+        "exec": null,
+        "finding_codes": [
+          "NIKA-PARSE-005"
+        ],
         "llm_calls": null,
-        "secret_leaks": 0
+        "secret_leaks": null
       },
       "description": "Read yesterday's commits, write today's standup note",
       "entry": "registry/workflows/supernovae-st/standup-digest/0.1.0.toml",
@@ -628,12 +724,16 @@
       "advisories": [],
       "cert": "certs/supernovae-st/support-triage/0.1.0.json",
       "cert_summary": {
-        "broad": false,
+        "analysis_status": "parse_refused",
+        "broad": null,
         "clean": false,
         "cost_usd_bounded": null,
-        "exec": false,
+        "exec": null,
+        "finding_codes": [
+          "NIKA-PARSE-005"
+        ],
         "llm_calls": null,
-        "secret_leaks": 0
+        "secret_leaks": null
       },
       "description": "Ticket queue \u2192 typed triage \u2192 urgent escalation \u2192 triage board",
       "entry": "registry/workflows/supernovae-st/support-triage/0.1.0.toml",
@@ -654,12 +754,16 @@
       "advisories": [],
       "cert": "certs/supernovae-st/transcript-shownotes/0.1.0.json",
       "cert_summary": {
-        "broad": false,
+        "analysis_status": "parse_refused",
+        "broad": null,
         "clean": false,
         "cost_usd_bounded": null,
-        "exec": false,
+        "exec": null,
+        "finding_codes": [
+          "NIKA-PARSE-005"
+        ],
         "llm_calls": null,
-        "secret_leaks": 0
+        "secret_leaks": null
       },
       "description": "Raw transcript \u2192 typed show-notes (chapters \u00b7 quotes \u00b7 summary) \u00b7 one bounded infer",
       "entry": "registry/workflows/supernovae-st/transcript-shownotes/0.1.0.toml",
@@ -677,7 +781,7 @@
       "version": "0.1.0"
     }
   ],
-  "index_schema": 1,
+  "index_schema": 2,
   "registry": "supernovae-st/nika-registry",
   "verify": {
     "how": "fetch source.repo@source.rev:source.path \u00b7 sha256 MUST equal .sha256 \u00b7 then `nika check <file>` locally",

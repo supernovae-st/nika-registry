@@ -285,6 +285,14 @@ links a machine certificate under [`certs/`](certs/). You never have to trust
 the column: the cert re-derives locally with `nika check`, and its
 `permits_boundary` is the boundary a composing parent declares.
 
+Certificate schema 2 and index schema 2 distinguish `checked`, `parse_refused`,
+and `unavailable` analysis. A refusal retains its diagnostic and leaves unknown
+capabilities as JSON `null`, including execution, grants, and secret findings.
+`null` never means `false` or an empty set. A reproduced negative result is not
+a runnable workflow; repair it under a new immutable entry version before use.
+The catalogue and badges report clean results separately from unavailable
+analysis, and the download helper does not suggest running a refused artifact.
+
 **"clean" is not "safe".** A cert proves the effect stays inside the
 workflow's *declared* permits; it cannot vet what a permitted program or tool
 actually does. An **unbounded grant** (`exec: true` runs any program, a `*`
