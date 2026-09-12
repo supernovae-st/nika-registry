@@ -1,6 +1,6 @@
 {
-  "color": "brightgreen",
+  "color": "yellow",
   "label": "artifacts",
-  "message": "26 re-proven",
+  "message": "0/26 clean \u00b7 26 unavailable",
   "schemaVersion": 1
 }

@@ -36,13 +36,14 @@ import subprocess
 import sys
 import tomllib
 import urllib.request
+import yaml
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from verify import is_broad_permits  # noqa: E402 — one source for the ⚠ predicate
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 # The cert is only comparable if every generator runs the SAME engine.
-ENGINE_VERSION = "0.108.0"
+ENGINE_VERSION = "0.118.7"
 
 
 def fetch_source(repo: str, rev: str, path: str) -> bytes:
@@ -70,13 +71,21 @@ def engine_cert(nika: str, wf: pathlib.Path) -> dict:
     check = subprocess.run([nika, "check", str(wf), "--json"],
                            capture_output=True, text=True)
     report = json.loads(check.stdout)
-    permits = subprocess.run([nika, "check", str(wf), "--infer-permits"],
-                             capture_output=True, text=True).stdout.strip()
+    parsed = not report.get("parse_fatal", False) and isinstance(report.get("certificate"), dict)
+    permits = None
+    if parsed:
+        inferred = subprocess.run([nika, "check", str(wf), "--infer-permits"],
+                                  capture_output=True, text=True)
+        if inferred.returncode == 0:
+            permits = inferred.stdout.strip()
 
     cost = report.get("cost", {})
     cert = report.get("certificate", {})
     reqs = report.get("requirements", {})
     return {
+        "analysis_status": "checked" if parsed else "parse_refused" if report.get("parse_fatal") else "unavailable",
+        "findings": [{k: f[k] for k in ("code", "gate", "kind", "message", "severity") if k in f}
+                     for f in report.get("findings", [])],
         "clean": report.get("clean", False),
         "llm_calls": cert.get("llm_calls", {}).get("constant"),
         "effect_calls": cert.get("effect_calls", {}).get("constant"),
@@ -84,20 +93,32 @@ def engine_cert(nika: str, wf: pathlib.Path) -> dict:
         # Part of "see what it needs before it runs": even a mock/offline
         # preview fails NIKA-VAR-001 without these, so the consume hand-off
         # warns instead of suggesting a command that cannot run.
-        "vars_required": sorted(reqs.get("vars_required", []) or []),
+        "vars_required": sorted(reqs.get("vars_required", []) or []) if parsed else None,
         "cost_usd": {
             "bounded_total": cost.get("bounded_total_usd"),
             "has_unbounded": cost.get("has_unbounded"),
         },
-        "secret_leaks": report.get("secret_leaks", []),
-        "secret_egresses": report.get("secret_egresses", []),
-        "capability_escapes": report.get("capability_escapes", []),
+        "secret_leaks": report.get("secret_leaks", []) if parsed else None,
+        "secret_egresses": report.get("secret_egresses", []) if parsed else None,
+        "capability_escapes": report.get("capability_escapes", []) if parsed else None,
         "permits_boundary": permits,
         # A machine-readable flag for agents: does this artifact hold an
         # unbounded grant (exec / any-tool)? "clean" + "broad" together say
         # "no policy violation, but the cert cannot vet what the grant does".
-        "broad": is_broad_permits(permits),
+        "broad": is_broad_permits(permits) if permits is not None else None,
     }
+
+
+def exec_capability(cert: dict):
+    """Unknown analysis is not evidence of absent execution authority."""
+    boundary = cert.get("permits_boundary")
+    if boundary is None:
+        return None
+    doc = yaml.safe_load(boundary)
+    if not isinstance(doc, dict) or not isinstance(doc.get("permits"), dict):
+        return None
+    grant = doc["permits"].get("exec", False)
+    return bool(grant) if isinstance(grant, (bool, list)) else None
 
 
 def load_entries():
@@ -116,35 +137,40 @@ def render_catalog(rows: list) -> str:
         f"     (nika {ENGINE_VERSION} · re-proven in CI). The point: you see what",
         "     a workflow CAN DO — exec, tools, cost, secrets — before it runs. -->",
         "",
-        f"Certified by `nika {ENGINE_VERSION}` static analysis · re-proven on every PR and nightly.",
+        f"Static analysis results from `nika {ENGINE_VERSION}` · reproduced on every PR and nightly.",
+        "A parse refusal leaves capabilities unknown. Reproducing a refusal does not qualify a runnable workflow.",
         "",
         "⚠ = an **unbounded grant** (`exec: true` runs any program · `*` allows any",
         "tool). The cert proves the effect stays inside the *declared* permits — it",
         "cannot vet what a permitted exec or tool actually does. ⚠ means *read the",
         "workflow before you run it*; it is not a verdict of unsafe.",
         "",
-        "| Artifact | Version | What it does | Exec? | Tools | LLM calls | Cost/run | Cert |",
-        "|---|---|---|---|---|---|---|---|",
+        "| Artifact | Version | What it does | Analysis | Exec? | Tools | LLM calls | Cost/run | Cert |",
+        "|---|---|---|---|---|---|---|---|---|",
     ]
     for r in rows:
         cu = r["cert"]["cost_usd"]
-        if cu.get("has_unbounded"):
+        if r["cert"]["analysis_status"] != "checked":
+            cost = "unknown"
+        elif cu.get("has_unbounded"):
             cost = "unbounded — set `max_tokens`"
         elif cu.get("bounded_total") is None:
             cost = "unpriced — re-certify"
         else:
             cost = f"≤ ${cu['bounded_total']:.2f}"
-        exec_flag = "yes ⚠" if "exec: true" in r["cert"]["permits_boundary"] else "no"
-        tools = ", ".join("⚠ any" if t == "*" else t for t in r["tools"]) if r["tools"] else "—"
+        capability = exec_capability(r["cert"])
+        exec_flag = "unknown" if capability is None else "no" if not capability else "yes ⚠" if "exec: true" in r["cert"]["permits_boundary"] else "yes"
+        tools = "unknown" if r["cert"]["permits_boundary"] is None else ", ".join("⚠ any" if t == "*" else t for t in r["tools"]) if r["tools"] else "—"
+        status = r["cert"]["analysis_status"] if r["cert"]["analysis_status"] != "checked" else "clean" if r["cert"]["clean"] else "findings"
         lines.append(
             f"| **{r['name']}** | {r['version']} | {r['description']} "
-            f"| {exec_flag} | {tools} | {r['cert']['llm_calls']} | {cost} "
+            f"| {status} | {exec_flag} | {tools} | {r['cert']['llm_calls'] if r['cert']['llm_calls'] is not None else 'unknown'} | {cost} "
             f"| [cert](certs/{r['publisher']}/{r['name']}/{r['version']}.json) |"
         )
     broad = sum(1 for r in rows if is_broad_permits(r["cert"]["permits_boundary"]))
     lines += [
         "",
-        f"{len(rows)} artifacts re-proven · {broad} carry an unbounded grant (⚠).",
+        f"{len(rows)} analysis results reproduced · {sum(r['cert']['clean'] for r in rows)} clean · {sum(r['cert']['analysis_status'] != 'checked' for r in rows)} unavailable · {broad} broad grants observed (⚠).",
         "",
         "Install: read the entry under `registry/`, fetch the pinned bytes, verify",
         "the sha256, run `nika check` yourself — the cert is re-derivable, never",
@@ -183,10 +209,10 @@ def main() -> int:
             for line in cert["permits_boundary"].splitlines()
             for line in line.split("[")[-1].split("]")[0].split(",")
             if line.strip().strip('",').startswith("nika:")
-        }) if "tools:" in cert["permits_boundary"] else []
+        }) if cert["permits_boundary"] is not None and "tools:" in cert["permits_boundary"] else []
 
         doc = {
-            "schema": 1,
+            "schema": 2,  # unknown capabilities are null; findings retain the refusal
             "engine": ENGINE_VERSION,
             "entry": str(rel),
             "sha256": e["integrity"]["sha256"],
