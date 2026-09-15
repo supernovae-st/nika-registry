@@ -24,7 +24,7 @@
     "secret_leaks": null,
     "vars_required": null
   },
-  "engine": "0.118.7",
+  "engine": "0.119.0",
   "entry": "registry/workflows/supernovae-st/etl-quarantine/0.1.0.toml",
   "schema": 2,
   "sha256": "04377cd7762d676609275c20dc7c6cbcee4582544b74cb8616f6282f1b48cdbb"
