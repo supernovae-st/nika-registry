@@ -216,8 +216,8 @@
       "category": "negative",
       "reason": "Mutation fixture that must keep the retired spelling to prove detection.",
       "owner": "nika-registry",
-      "count": 5,
-      "lines_sha256": "sha256:a32ba3434bfdaf8376f7803bbc76ef00e5c225235ea2c23d86c5094ecc33ca74"
+      "count": 4,
+      "lines_sha256": "sha256:1ab3eaa79f687aa7793033e4740c0fd44f881e92f76d53abd8e7e4da43b4be79"
     },
     {
       "path": "scripts/suffix_ratchet.py",
@@ -241,7 +241,14 @@
       "reason": "Mutation fixture that must keep the retired spelling to prove detection.",
       "owner": "nika-registry",
       "count": 3,
-      "lines_sha256": "sha256:37b64153c3b375b8813749607e383a1f3780e8e98c81493002678a6c29b172cf"
+      "lines_sha256": "sha256:3dd4220481d75eb64c93ebcea9fc8fec10aa979b1933e6ef0bdc3093c2caf743"
+    },
+    {
+      "path": "scripts/precut-0.1.0-identities.json",
+      "category": "frozen",
+      "digest": "sha256:036bd8d740c2814800c59e30e93361770521a5f3a61f5d09e778128dce10215e",
+      "reason": "Exact frozen 0.1.0 first-party identities; retired suffix and old-oracle routing bind only these records.",
+      "owner": "scripts/verify.py"
     }
   ]
 }

@@ -17,11 +17,11 @@
 #                       64-hex · no tags, no branches (tj-actions class)
 #   R3 hash match       fetched bytes MUST hash to integrity.sha256
 #                       (manifest-confusion class · the entry cannot lie)
-#   R4 oracle pass      the artifact re-passes conformance at its own
-#                       source.rev (conformance-as-trust · the Nika-only
-#                       moat). SPEC_PIN is the projector pin for NEW
-#                       first-party entries; it is not a floating judge
-#                       over immutable older versions.
+#   R4 oracle pass      the artifact re-passes conformance at the trusted
+#                       SPEC_PIN oracle, except the 26 frozen first-party
+#                       0.1.0 identities in scripts/precut-0.1.0-identities.json
+#                       which use one vetted old spec pin. source.rev never
+#                       selects checker code.
 #   R5 no secrets       key-shaped strings refuse the gate (n8n template
 #                       class — the dominant shared-workflow leak)
 #   R6 namespace = dir  registry/<type>s/<publisher>/ MUST equal the
@@ -37,6 +37,7 @@
 #                   network: <OFFLINE_ROOT>/<repo-name> (mirrors · air-gap)
 
 import hashlib
+import json
 import os
 import pathlib
 import re
@@ -48,15 +49,63 @@ import urllib.request
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 _ORACLE_WT: dict[str, str] = {}
+IDENTITIES_PATH = ROOT / "scripts" / "precut-0.1.0-identities.json"
 
-# First-party identity tuples whose *bytes* still speak a retired suffix.
-# The trusted checker for those tuples is a vetted nika-spec revision,
-# never an arbitrary source.rev (community repos share no history with
-# nika-spec; a matching hex is not an oracle pin).
-PRECUT_FIRST_PARTY = ("supernovae-st/nika-spec", "699ebb08585da2b4b908e8dac6ca584332fe0783")
-PRECUT_ORACLE = {
-    (*PRECUT_FIRST_PARTY, "0.1.0"): PRECUT_FIRST_PARTY[1],
-}
+
+def _load_precut_manifest() -> dict:
+    data = json.loads(IDENTITIES_PATH.read_text(encoding="utf-8"))
+    by_key: dict[tuple, dict] = {}
+    for row in data["entries"]:
+        key = (
+            row["publisher"],
+            row["name"],
+            row["version"],
+            row["repo"],
+            row["rev"],
+            row["path"],
+        )
+        if key in by_key:
+            raise SystemExit(f"duplicate precut identity: {key}")
+        by_key[key] = row
+    data["by_key"] = by_key
+    return data
+
+
+PRECUT_MANIFEST = _load_precut_manifest()
+PRECUT_ORACLE_REV: str = PRECUT_MANIFEST["oracle_spec_rev"]
+PRECUT_BY_KEY: dict[tuple, dict] = PRECUT_MANIFEST["by_key"]
+# Compatibility alias for older tests: the spec repo+rev of the frozen set.
+PRECUT_FIRST_PARTY = ("supernovae-st/nika-spec", PRECUT_ORACLE_REV)
+
+
+def identity_key(entry: dict) -> tuple:
+    src = entry.get("source") or {}
+    return (
+        entry.get("publisher"),
+        entry.get("name"),
+        entry.get("version"),
+        src.get("repo"),
+        src.get("rev"),
+        src.get("path"),
+    )
+
+
+def is_frozen_precut_entry(entry: dict, toml_bytes: bytes | None = None) -> bool:
+    """True only for an exact frozen 0.1.0 first-party identity.
+
+    Publisher, name, version, and source (repo, rev, path) must match a
+    row in scripts/precut-0.1.0-identities.json. When toml_bytes is
+    supplied, the entry file digest must match too — a mutated 0.1.0.toml
+    loses the exemption.
+    """
+    row = PRECUT_BY_KEY.get(identity_key(entry))
+    if row is None:
+        return False
+    if toml_bytes is not None:
+        actual = hashlib.sha256(toml_bytes).hexdigest()
+        if actual != row["toml_sha256"]:
+            return False
+    return True
 
 
 def git_head(repo: str) -> str:
@@ -103,14 +152,11 @@ def materialize_trusted_oracle(spec_dir: str, pin: str) -> str:
     return str(dest)
 
 
-def oracle_cwd(spec_dir: str, entry: dict) -> str:
-    """Trusted SPEC_PIN checkout, unless this is an explicit first-party pre-cut tuple."""
-    src = entry.get("source") or {}
-    key = (src.get("repo"), src.get("rev"), entry.get("version"))
-    pin = PRECUT_ORACLE.get(key)
-    if pin is None:
-        return str(pathlib.Path(spec_dir))
-    return materialize_trusted_oracle(spec_dir, pin)
+def oracle_cwd(spec_dir: str, entry: dict, toml_bytes: bytes | None = None) -> str:
+    """Trusted SPEC_PIN checkout, unless this is an exact frozen 0.1.0 identity."""
+    if is_frozen_precut_entry(entry, toml_bytes):
+        return materialize_trusted_oracle(spec_dir, PRECUT_ORACLE_REV)
+    return str(pathlib.Path(spec_dir))
 LICENSES = {"Apache-2.0", "MIT", "BSD-2-Clause", "BSD-3-Clause", "ISC", "MPL-2.0", "AGPL-3.0-or-later", "CC0-1.0"}
 TYPES = {"workflow", "pack", "skill", "agent", "template", "policy", "bench"}
 # Closed field sets — an unknown key is refused (the local manifest-confusion
@@ -147,12 +193,25 @@ def is_canonical_workflow_source(path_: str) -> bool:
     return name.endswith(".nika")
 
 
-def workflow_source_path_ok(path_: str, repo: str, rev: str) -> bool:
+def workflow_source_ok(entry: dict, toml_bytes: bytes | None = None) -> bool:
+    """Canonical `.nika`, or an exact frozen 0.1.0 identity with a retired suffix."""
+    path_ = (entry.get("source") or {}).get("path", "")
     if is_canonical_workflow_source(path_):
         return True
-    return (
-        path_.endswith(".nika.yaml") or path_.endswith(".nika.yml")
-    ) and (repo, rev) == PRECUT_FIRST_PARTY
+    if path_.endswith(".nika.yaml") or path_.endswith(".nika.yml"):
+        return is_frozen_precut_entry(entry, toml_bytes)
+    return False
+
+
+def workflow_source_path_ok(path_: str, repo: str = "", rev: str = "", *,
+                            entry: dict | None = None,
+                            toml_bytes: bytes | None = None) -> bool:
+    """Back-compat wrapper. Retired suffix needs a full frozen identity."""
+    if is_canonical_workflow_source(path_):
+        return True
+    if entry is not None:
+        return workflow_source_ok(entry, toml_bytes)
+    return False
 
 
 def repo_traversal_free(repo: str) -> bool:
@@ -242,12 +301,13 @@ def verify(entry_path: pathlib.Path) -> None:
     path_ = src.get("path", "")
     if path_.startswith("/") or ".." in path_.split("/") or "\\" in path_:
         return fail(rel, "R2-pin", "source.path must be repo-relative with no traversal")
-    if e["type"] == "workflow" and not workflow_source_path_ok(path_, src.get("repo", ""), src.get("rev", "")):
+    raw_toml = entry_path.read_bytes()
+    if e["type"] == "workflow" and not workflow_source_ok(e, raw_toml):
         return fail(
             rel,
             "schema",
             "a workflow source must be a .nika file "
-            "(legacy .nika.yaml is only valid for immutable pre-cut spec revisions)",
+            "(legacy .nika.yaml is only valid for the frozen 0.1.0 first-party identities)",
         )
 
     # R2 · digest pinning — full commit + full sha256, nothing mutable.
@@ -297,7 +357,7 @@ def verify(entry_path: pathlib.Path) -> None:
         wf = tmp / pathlib.Path(src["path"]).name
         wf.write_bytes(body)
         try:
-            cwd = oracle_cwd(spec_dir, e)
+            cwd = oracle_cwd(spec_dir, e, raw_toml)
         except RuntimeError as exc:
             return fail(rel, "R4-oracle", str(exc)[-160:])
         out = subprocess.run(

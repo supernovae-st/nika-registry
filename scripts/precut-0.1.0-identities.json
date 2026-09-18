@@ -1,0 +1,292 @@
+{
+  "comment": "Exact frozen 0.1.0 first-party identities. Retired suffix and old-oracle routing are allowed ONLY for these records (publisher+name+version+source.repo/rev/path + toml sha256). A new version or a copied rev on another repo is not a permit.",
+  "oracle_spec_rev": "699ebb08585da2b4b908e8dac6ca584332fe0783",
+  "entries": [
+    {
+      "publisher": "supernovae-st",
+      "name": "bookmark-triage",
+      "version": "0.1.0",
+      "repo": "supernovae-st/nika-spec",
+      "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783",
+      "path": "examples/bookmark-triage.nika.yaml",
+      "toml_sha256": "b760adbc2f33c58c8b49f146a456acc3f3baf3c371c8c4b90a5e3c3ac42e0751",
+      "artifact_sha256": "d998d3b69160f27ce9ea2597a80171eac1c2ab39759b87e3439b81faafa128a3",
+      "entry": "registry/workflows/supernovae-st/bookmark-triage/0.1.0.toml"
+    },
+    {
+      "publisher": "supernovae-st",
+      "name": "ceo-monday-brief",
+      "version": "0.1.0",
+      "repo": "supernovae-st/nika-spec",
+      "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783",
+      "path": "examples/ceo-monday-brief.nika.yaml",
+      "toml_sha256": "8b1e2fbe998e7cd883a72aabe2b122ee9d2535c05079090424b6b9f45b14ac31",
+      "artifact_sha256": "26d2418fbab409998367cf507f7c5c3c62dca0aa3f0635658d5556bc9ce1d102",
+      "entry": "registry/workflows/supernovae-st/ceo-monday-brief/0.1.0.toml"
+    },
+    {
+      "publisher": "supernovae-st",
+      "name": "competitor-radar",
+      "version": "0.1.0",
+      "repo": "supernovae-st/nika-spec",
+      "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783",
+      "path": "examples/competitor-radar.nika.yaml",
+      "toml_sha256": "2cb76e757c8b2dc99b124d7f2bf64ef6341f8648179735655c25bf038077d9b0",
+      "artifact_sha256": "02f466ff0a0ab1c150ed7b9d023cf818bcf97768fc40eb35315d35d37e8eef5f",
+      "entry": "registry/workflows/supernovae-st/competitor-radar/0.1.0.toml"
+    },
+    {
+      "publisher": "supernovae-st",
+      "name": "config-drift-sentinel",
+      "version": "0.1.0",
+      "repo": "supernovae-st/nika-spec",
+      "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783",
+      "path": "examples/config-drift-sentinel.nika.yaml",
+      "toml_sha256": "9ab5f4261d115cbe8ce717e12eacfba4a94c3e0d7b32533f709a62dfbbe00cd6",
+      "artifact_sha256": "99e6e9bfe4292159a91bf2a921135d95d33f64b5daa68ddc35172d346fcf3d43",
+      "entry": "registry/workflows/supernovae-st/config-drift-sentinel/0.1.0.toml"
+    },
+    {
+      "publisher": "supernovae-st",
+      "name": "contract-guard",
+      "version": "0.1.0",
+      "repo": "supernovae-st/nika-spec",
+      "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783",
+      "path": "examples/contract-guard.nika.yaml",
+      "toml_sha256": "c54ec0e6e0dcd4eba27725627cce03e3036f2228bea9ca58b67bf26efa25a163",
+      "artifact_sha256": "fa4db518feb6fcd455fc0c41dc262fcc9b6fa1cfca62acb2425fbc898a357167",
+      "entry": "registry/workflows/supernovae-st/contract-guard/0.1.0.toml"
+    },
+    {
+      "publisher": "supernovae-st",
+      "name": "csv-chart-report",
+      "version": "0.1.0",
+      "repo": "supernovae-st/nika-spec",
+      "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783",
+      "path": "examples/csv-chart-report.nika.yaml",
+      "toml_sha256": "2fb493d8ed2e21933debd8c48f3eed1418f2089171e8b10f2bb824cbc99d61e3",
+      "artifact_sha256": "3038fd9cc23a27afad167959a26c36789746c597345149e795540419f596a051",
+      "entry": "registry/workflows/supernovae-st/csv-chart-report/0.1.0.toml"
+    },
+    {
+      "publisher": "supernovae-st",
+      "name": "deep-research-brief",
+      "version": "0.1.0",
+      "repo": "supernovae-st/nika-spec",
+      "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783",
+      "path": "examples/deep-research-brief.nika.yaml",
+      "toml_sha256": "13c1f36e45cedbe0f48575d3633a9621427cd2e4b28f8f2f9c3d8ebdf0e73351",
+      "artifact_sha256": "09fce349706698173cc6e336d06d3eb43ee4d4e30cf1c0bdd525174b8b1eca48",
+      "entry": "registry/workflows/supernovae-st/deep-research-brief/0.1.0.toml"
+    },
+    {
+      "publisher": "supernovae-st",
+      "name": "etl-quarantine",
+      "version": "0.1.0",
+      "repo": "supernovae-st/nika-spec",
+      "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783",
+      "path": "examples/etl-quarantine.nika.yaml",
+      "toml_sha256": "c5ab313362b24903cae2130a4d7cbc6f390b238aed64b97dc6b3dc1a8e060ce5",
+      "artifact_sha256": "04377cd7762d676609275c20dc7c6cbcee4582544b74cb8616f6282f1b48cdbb",
+      "entry": "registry/workflows/supernovae-st/etl-quarantine/0.1.0.toml"
+    },
+    {
+      "publisher": "supernovae-st",
+      "name": "image-fx-batch",
+      "version": "0.1.0",
+      "repo": "supernovae-st/nika-spec",
+      "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783",
+      "path": "examples/image-fx-batch.nika.yaml",
+      "toml_sha256": "4af6453b7c6dead358fb5f40fe734ac9fd1c3d4f31ad3bb530d0eba1aa162b9e",
+      "artifact_sha256": "85740a11ed1862145d81c7d9ea81caf74717153a2a941d0d4eaa7263aaeef339",
+      "entry": "registry/workflows/supernovae-st/image-fx-batch/0.1.0.toml"
+    },
+    {
+      "publisher": "supernovae-st",
+      "name": "incident-war-room",
+      "version": "0.1.0",
+      "repo": "supernovae-st/nika-spec",
+      "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783",
+      "path": "examples/incident-war-room.nika.yaml",
+      "toml_sha256": "8808b73473635435b8a6edeb597683ce3299dc52f27f13c420e17e1cac3d7511",
+      "artifact_sha256": "82fe531493528ea15fa636e5417e6e95e5b6281239fcb3000bf8af87814ff9cc",
+      "entry": "registry/workflows/supernovae-st/incident-war-room/0.1.0.toml"
+    },
+    {
+      "publisher": "supernovae-st",
+      "name": "invoice-chaser",
+      "version": "0.1.0",
+      "repo": "supernovae-st/nika-spec",
+      "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783",
+      "path": "examples/invoice-chaser.nika.yaml",
+      "toml_sha256": "53eca76b1ec7087f7b638ffcdeb4b72112aaa2167001b2b97dfa18dcb8441624",
+      "artifact_sha256": "f0505a10a643a81059f4b13c6441dc6c27a668ad4950087ba78e7a357ef757bd",
+      "entry": "registry/workflows/supernovae-st/invoice-chaser/0.1.0.toml"
+    },
+    {
+      "publisher": "supernovae-st",
+      "name": "localization-factory",
+      "version": "0.1.0",
+      "repo": "supernovae-st/nika-spec",
+      "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783",
+      "path": "examples/localization-factory.nika.yaml",
+      "toml_sha256": "8ed712a0514f79a3d3f47df4c59bbb61cc9cda6f830593c6b260cf6b3e447ef1",
+      "artifact_sha256": "c91612762809bee3f59557a7d3a282a075b35b9773a6e1357366daa0582239db",
+      "entry": "registry/workflows/supernovae-st/localization-factory/0.1.0.toml"
+    },
+    {
+      "publisher": "supernovae-st",
+      "name": "meeting-actions",
+      "version": "0.1.0",
+      "repo": "supernovae-st/nika-spec",
+      "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783",
+      "path": "examples/meeting-actions.nika.yaml",
+      "toml_sha256": "efa6e2e2137dbc4e32f7dd84a002dca36f60eebb288b9c22db81cf7763bfa3a8",
+      "artifact_sha256": "31b0aeef8f79f2452c3f79c169f1e500c91c5bc1cca50e3f68dde571f2e3c073",
+      "entry": "registry/workflows/supernovae-st/meeting-actions/0.1.0.toml"
+    },
+    {
+      "publisher": "supernovae-st",
+      "name": "model-bench",
+      "version": "0.1.0",
+      "repo": "supernovae-st/nika-spec",
+      "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783",
+      "path": "examples/model-bench.nika.yaml",
+      "toml_sha256": "2ff244dd738ec7405b8f28a8bfb092358ecae720f5862099ea1db87806bc31a4",
+      "artifact_sha256": "beb1a3e86976636453211dd95f520a89ceed5d3087633a7b7ec21dc99582d298",
+      "entry": "registry/workflows/supernovae-st/model-bench/0.1.0.toml"
+    },
+    {
+      "publisher": "supernovae-st",
+      "name": "og-images",
+      "version": "0.1.0",
+      "repo": "supernovae-st/nika-spec",
+      "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783",
+      "path": "examples/og-images.nika.yaml",
+      "toml_sha256": "48b18c94e84f9a919c4921f53341b32816b4fc73823af65cb92e9a032bd39e05",
+      "artifact_sha256": "4861331dad6c0d8fd4d20445999556a4046d3e69fdd10dcfcb8ff586ba489306",
+      "entry": "registry/workflows/supernovae-st/og-images/0.1.0.toml"
+    },
+    {
+      "publisher": "supernovae-st",
+      "name": "pr-review-fanout",
+      "version": "0.1.0",
+      "repo": "supernovae-st/nika-spec",
+      "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783",
+      "path": "examples/pr-review-fanout.nika.yaml",
+      "toml_sha256": "4fa460e47e170c6b775f99414dee64b8be1be0b18cc1cc550591f5a619363937",
+      "artifact_sha256": "a4ed71b5d8637907a855c0e5c59eb89d4dca0bc61a55a3a6604d400d6458fba9",
+      "entry": "registry/workflows/supernovae-st/pr-review-fanout/0.1.0.toml"
+    },
+    {
+      "publisher": "supernovae-st",
+      "name": "price-watch",
+      "version": "0.1.0",
+      "repo": "supernovae-st/nika-spec",
+      "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783",
+      "path": "examples/price-watch.nika.yaml",
+      "toml_sha256": "67cabca63c7c949bd19f5475f74f0d0ce152cd8be3689a0eef7edb1cac08f571",
+      "artifact_sha256": "90ef5df4ab134161ba4ad3fd2726ab7ab07c96612a770c08b954a8d6dadaa18c",
+      "entry": "registry/workflows/supernovae-st/price-watch/0.1.0.toml"
+    },
+    {
+      "publisher": "supernovae-st",
+      "name": "release-notes",
+      "version": "0.1.0",
+      "repo": "supernovae-st/nika-spec",
+      "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783",
+      "path": "examples/release-notes.nika.yaml",
+      "toml_sha256": "1e73a67394aee5888a79748298c56db0098ffd4594d07f004e2d8e262fb39011",
+      "artifact_sha256": "2594c637d3826df6367350ec8e7ca514c14216f5f72f6013f27291f8f9ec66b3",
+      "entry": "registry/workflows/supernovae-st/release-notes/0.1.0.toml"
+    },
+    {
+      "publisher": "supernovae-st",
+      "name": "release-radar",
+      "version": "0.1.0",
+      "repo": "supernovae-st/nika-spec",
+      "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783",
+      "path": "examples/release-radar.nika.yaml",
+      "toml_sha256": "ba1b3a59b699d2bdcb06341c0c740d4b0d0d7cb966e3ca1e089647442c4f728d",
+      "artifact_sha256": "8116b035a22dbcac19860e5ce7e6b464224b201aa61bd22b3e5a08eb8f400f10",
+      "entry": "registry/workflows/supernovae-st/release-radar/0.1.0.toml"
+    },
+    {
+      "publisher": "supernovae-st",
+      "name": "release-train",
+      "version": "0.1.0",
+      "repo": "supernovae-st/nika-spec",
+      "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783",
+      "path": "examples/release-train.nika.yaml",
+      "toml_sha256": "93430dd29f0c7fa37062591aadae9fdc24fb9086945188184af04334bf6d225b",
+      "artifact_sha256": "b90e4cd8c3ffbb2b9a7d2e9a7e37b736d8587c9bc46bbeb3d6dca42f048cbd01",
+      "entry": "registry/workflows/supernovae-st/release-train/0.1.0.toml"
+    },
+    {
+      "publisher": "supernovae-st",
+      "name": "resume-screener",
+      "version": "0.1.0",
+      "repo": "supernovae-st/nika-spec",
+      "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783",
+      "path": "examples/resume-screener.nika.yaml",
+      "toml_sha256": "ddfebfa3df9936f4d3d2cd92f74ad5f7bcd20b35d36e1908191e97318de27a42",
+      "artifact_sha256": "b8eba221a8acc560dcb2a7c64d977bc4a7e53d1c0ee8165330ac230d520bc050",
+      "entry": "registry/workflows/supernovae-st/resume-screener/0.1.0.toml"
+    },
+    {
+      "publisher": "supernovae-st",
+      "name": "seo-content-brief",
+      "version": "0.1.0",
+      "repo": "supernovae-st/nika-spec",
+      "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783",
+      "path": "examples/seo-content-brief.nika.yaml",
+      "toml_sha256": "48c00f9ebe9177e725048d02c25e379f496a46d46f410161f2a82cfb50382d4c",
+      "artifact_sha256": "4781f1b10edd46a5c8f9c9d8be4cde8b76c23b2b9d5662ef70ac2838fc812230",
+      "entry": "registry/workflows/supernovae-st/seo-content-brief/0.1.0.toml"
+    },
+    {
+      "publisher": "supernovae-st",
+      "name": "social-repurpose",
+      "version": "0.1.0",
+      "repo": "supernovae-st/nika-spec",
+      "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783",
+      "path": "examples/social-repurpose.nika.yaml",
+      "toml_sha256": "fa69755331d687c1bf639eb02d8af4592e2e41372a5a0998ffb174a3fd6f45a6",
+      "artifact_sha256": "028c6e1fa5726bd3ba3757f1d48518f58ce70329b29fe2a206ee0596f9824e7d",
+      "entry": "registry/workflows/supernovae-st/social-repurpose/0.1.0.toml"
+    },
+    {
+      "publisher": "supernovae-st",
+      "name": "standup-digest",
+      "version": "0.1.0",
+      "repo": "supernovae-st/nika-spec",
+      "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783",
+      "path": "examples/standup-digest.nika.yaml",
+      "toml_sha256": "50a4d19c82f6ac6218d9480783216f555e9b8e4da12d46bf91283990fd2ce06b",
+      "artifact_sha256": "c8146a99c11ddbd98f2500ce01339bffe2d43d43da8e8c4f4ce1008a9989ba7e",
+      "entry": "registry/workflows/supernovae-st/standup-digest/0.1.0.toml"
+    },
+    {
+      "publisher": "supernovae-st",
+      "name": "support-triage",
+      "version": "0.1.0",
+      "repo": "supernovae-st/nika-spec",
+      "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783",
+      "path": "examples/support-triage.nika.yaml",
+      "toml_sha256": "5798f409a2936f41ed2ff356eba0f33c40c2884d3aa047ef905f6772b1f76795",
+      "artifact_sha256": "c1e31fc5125d693539ec20cca14e34f64786146e8c31a34266bdef17cd785544",
+      "entry": "registry/workflows/supernovae-st/support-triage/0.1.0.toml"
+    },
+    {
+      "publisher": "supernovae-st",
+      "name": "transcript-shownotes",
+      "version": "0.1.0",
+      "repo": "supernovae-st/nika-spec",
+      "rev": "699ebb08585da2b4b908e8dac6ca584332fe0783",
+      "path": "examples/transcript-shownotes.nika.yaml",
+      "toml_sha256": "da06bc877d61c37905297d4f88bcfa09af7172fa6f26d43d3dc515a9488f24b1",
+      "artifact_sha256": "4d52e683bf384c82918ede32008f40b451ffec9ca819e05664c7a527fb7a3e01",
+      "entry": "registry/workflows/supernovae-st/transcript-shownotes/0.1.0.toml"
+    }
+  ]
+}

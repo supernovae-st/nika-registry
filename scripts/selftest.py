@@ -13,6 +13,7 @@ import sys
 import tempfile
 import json
 import subprocess
+import tomllib
 from unittest.mock import patch
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
@@ -106,57 +107,84 @@ _badge = catalog_index.badge({"cert_summary": {"analysis_status": "parse_refused
 check("badge names parse refusal", _badge["message"] == "parse_refused" and _badge["color"] == "orange")
 check("refused artifact has no run hand-off", not any(line.startswith("nika run") for line in get.handoff_lines("refused.nika", _refused)))
 
-# Issue #1684 · live workflow sources are `.nika`. Pre-cut immutable
-# first-party entries may still pin a `.nika.yaml` path at one vetted
-# (repo, rev) tuple. A matching hex on any other repo is not a permit.
+# Issue #1684 · live workflow sources are `.nika`. Retired suffix is
+# allowed only for the exact frozen 0.1.0 first-party identities in
+# scripts/precut-0.1.0-identities.json — not a repo+rev blanket.
 PRECUT_REPO, PRECUT_REV = verify.PRECUT_FIRST_PARTY
 check("canonical .nika source is accepted", verify.is_canonical_workflow_source("examples/meeting-actions.nika"))
 check("project nika.yaml is not a workflow source", not verify.is_canonical_workflow_source("nika.yaml"))
 check("empty-stem .nika is not a workflow source", not verify.is_canonical_workflow_source(".nika"))
 check("legacy suffix is not canonical", not verify.is_canonical_workflow_source("examples/meeting-actions.nika.yaml"))
 check(
-    "legacy suffix at first-party pre-cut identity is allowed",
-    verify.workflow_source_path_ok("examples/meeting-actions.nika.yaml", PRECUT_REPO, PRECUT_REV),
+    "path-only legacy call without a frozen identity is refused",
+    not verify.workflow_source_path_ok("examples/meeting-actions.nika.yaml", PRECUT_REPO, PRECUT_REV),
+)
+
+_frozen_paths = sorted(verify.ROOT.glob("registry/workflows/supernovae-st/*/0.1.0.toml"))
+check("frozen identity manifest covers 26 first-party 0.1.0 entries", len(verify.PRECUT_BY_KEY) == 26)
+_all_frozen_ok = True
+for _p in _frozen_paths:
+    _raw = _p.read_bytes()
+    _e = tomllib.loads(_raw.decode())
+    if not verify.workflow_source_ok(_e, _raw):
+        _all_frozen_ok = False
+        break
+check("unchanged 26 frozen 0.1.0 entries keep the retired-suffix exemption", _all_frozen_ok and len(_frozen_paths) == 26)
+
+_new_yaml = {
+    "publisher": "supernovae-st",
+    "name": "meeting-actions",
+    "version": "0.2.0",
+    "source": {
+        "repo": PRECUT_REPO,
+        "rev": PRECUT_REV,
+        "path": "examples/meeting-actions.nika.yaml",
+    },
+}
+check(
+    "new 0.2.0 entry pointing at the pre-cut repo/rev yaml path is refused",
+    not verify.workflow_source_ok(_new_yaml),
+)
+_third = {
+    "publisher": "alice",
+    "name": "meeting-actions",
+    "version": "0.1.0",
+    "source": {
+        "repo": "alice/unrelated",
+        "rev": PRECUT_REV,
+        "path": "examples/meeting-actions.nika.yaml",
+    },
+}
+check(
+    "third-party entry copying the pre-cut rev is refused",
+    not verify.workflow_source_ok(_third),
+)
+_mutated = tomllib.loads(
+    (verify.ROOT / "registry/workflows/supernovae-st/meeting-actions/0.1.0.toml").read_text()
 )
 check(
-    "legacy suffix at any other rev is refused",
-    not verify.workflow_source_path_ok("examples/meeting-actions.nika.yaml", PRECUT_REPO, "0" * 40),
+    "mutated 0.1.0 toml bytes lose the exemption",
+    not verify.workflow_source_ok(_mutated, b"not-the-frozen-bytes\n"),
 )
-check(
-    "legacy suffix at a matching rev on another repo is refused",
-    not verify.workflow_source_path_ok("examples/meeting-actions.nika.yaml", "alice/unrelated", PRECUT_REV),
-)
-check("plain yaml is refused", not verify.workflow_source_path_ok("examples/meeting-actions.yaml", PRECUT_REPO, PRECUT_REV))
 
 _spec = os.environ.get("NIKA_SPEC_DIR")
 if _spec:
-    _head = verify.git_head(_spec)
-    _fp = {
-        "source": {"repo": PRECUT_REPO, "rev": PRECUT_REV},
-        "version": "0.1.0",
-    }
-    _community = {
-        "source": {"repo": "alice/unrelated", "rev": PRECUT_REV},
-        "version": "0.1.0",
-    }
-    _new = {
-        "source": {"repo": PRECUT_REPO, "rev": "c119bb42fbacde440f66fcdc745f7bc5b966b627"},
-        "version": "0.2.0",
-    }
+    _ma_path = verify.ROOT / "registry/workflows/supernovae-st/meeting-actions/0.1.0.toml"
+    _ma_raw = _ma_path.read_bytes()
+    _ma = tomllib.loads(_ma_raw.decode())
     check(
         "community source.rev does not select the checker",
-        verify.oracle_cwd(_spec, _community) == str(pathlib.Path(_spec)),
+        verify.oracle_cwd(_spec, _third) == str(pathlib.Path(_spec)),
     )
     check(
-        "current first-party 0.2.0 uses the trusted SPEC_PIN checkout",
-        verify.oracle_cwd(_spec, _new) == str(pathlib.Path(_spec)),
+        "0.2.0 with copied pre-cut yaml source uses the trusted SPEC_PIN checkout",
+        verify.oracle_cwd(_spec, _new_yaml) == str(pathlib.Path(_spec)),
     )
-    _precut_cwd = verify.oracle_cwd(_spec, _fp)
+    _precut_cwd = verify.oracle_cwd(_spec, _ma, _ma_raw)
     check(
-        "pre-cut first-party tuple uses a vetted oracle whose HEAD is the pin",
+        "frozen 0.1.0 identity uses a vetted oracle whose HEAD is the pin",
         verify.git_head(_precut_cwd) == PRECUT_REV,
     )
-    # A poisoned cache with the wrong HEAD must refuse, not run.
     _poison = verify.ROOT / ".verify-oracle" / ("deadbeef" * 5)
     _poison.mkdir(parents=True, exist_ok=True)
     verify._ORACLE_WT["deadbeef" * 5] = str(_poison)

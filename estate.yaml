@@ -18,17 +18,17 @@ classes:
   testimonial: "captured evidence — fixtures, corpora, traces, receipts: proves behavior; neither shipped source nor regenerable output"
   foreign: "pointer to a third-party sovereign source"
 summary:
-  classified_files: 172
+  classified_files: 173
   file_rows: 165
   pattern_rows: 2
   by_class:
-    authored: 27
+    authored: 28
     authored-pin: 2
     generated: 140
     pinned-copy: 3
     testimonial: 0
     foreign: 0
-  unverified-default: 6
+  unverified-default: 7
 files:
 - path: ".github/CODEOWNERS"
   class: authored
@@ -1680,11 +1680,11 @@ files:
   evidence: "hand-written projector · SPDX header + design prose"
 - path: "scripts/selftest.py"
   class: authored
-  sha256: 07eb2a7034926d05a75bbc761a3891f96e9a47ae95dbf99b194ca2a9a8f7eec0
+  sha256: 1dd46ac9eedce0997f5aa135b898e631a1d1fa76e266e18f425af7cd11fa0cd9
   evidence: "hand-written guard assertions · SPDX header + design prose"
 - path: "scripts/verify.py"
   class: authored
-  sha256: 3775eab7499ee40e3da6443a03e5b611ae909c1e0736deae6df4c466a6a6e741
+  sha256: a506e21c8d50e77b49f93f82b50f1d11f2811d48546d9537c791ed34219e4a92
   evidence: "hand-written gate · SPDX header + design prose · R1-R7 rules"
 patterns:
 - glob: "advisories/**.toml"
@@ -1694,8 +1694,8 @@ patterns:
   evidence: "an advisory is authored per incident (advisories/README.md · OSV-inspired TOML), never derived"
 - glob: "**"
   class: authored
-  match_count: 6
-  aggregate_sha256: 76d611b0473cc36d0ed45e0d15a99a87e1056195b00464e1520a5913f72aae03
+  match_count: 7
+  aggregate_sha256: 055cab86f42792f2db41e3f628f1c960e9bf622e0c048cda3d263085167ac120
   evidence: "no generation marker or known role found"
   note: "unverified-default"
 unverified:
@@ -1703,5 +1703,6 @@ unverified:
 - "scripts/media/audited-artifact.tape"
 - "scripts/media/render.sh"
 - "scripts/old-suffix-exceptions.json"
+- "scripts/precut-0.1.0-identities.json"
 - "scripts/suffix_ratchet.py"
 - "scripts/test_suffix_ratchet.py"
