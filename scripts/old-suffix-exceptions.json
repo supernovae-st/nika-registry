@@ -19,7 +19,7 @@
       "reason": "estate records immutable 0.1.0 pre-cut source.path at spec 699ebb08; 0.2.0 inputs use the canonical suffix",
       "owner": "nika-registry",
       "count": 26,
-      "lines_sha256": "sha256:4c6d2d50d4ba1839ab615bdeddf924e96475c18134fd71f63330e973c72e6a7d"
+      "lines_sha256": "sha256:bef20da676e141867a0e7c36f5470aef3253cca8d4962e1ce81baf91418b3e64"
     },
     {
       "path": "index.json",

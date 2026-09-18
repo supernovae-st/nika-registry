@@ -52,7 +52,7 @@
       "source": {
         "path": "examples/bookmark-triage.nika",
         "repo": "supernovae-st/nika-spec",
-        "rev": "c119bb42fbacde440f66fcdc745f7bc5b966b627"
+        "rev": "e255dbf72336bcb98c8163cd8c087e023051a5ab"
       },
       "spec": "nika/v1",
       "type": "workflow",
@@ -110,7 +110,7 @@
       "source": {
         "path": "examples/ceo-monday-brief.nika",
         "repo": "supernovae-st/nika-spec",
-        "rev": "c119bb42fbacde440f66fcdc745f7bc5b966b627"
+        "rev": "e255dbf72336bcb98c8163cd8c087e023051a5ab"
       },
       "spec": "nika/v1",
       "type": "workflow",
@@ -168,7 +168,7 @@
       "source": {
         "path": "examples/competitor-radar.nika",
         "repo": "supernovae-st/nika-spec",
-        "rev": "c119bb42fbacde440f66fcdc745f7bc5b966b627"
+        "rev": "e255dbf72336bcb98c8163cd8c087e023051a5ab"
       },
       "spec": "nika/v1",
       "type": "workflow",
@@ -226,7 +226,7 @@
       "source": {
         "path": "examples/config-drift-sentinel.nika",
         "repo": "supernovae-st/nika-spec",
-        "rev": "c119bb42fbacde440f66fcdc745f7bc5b966b627"
+        "rev": "e255dbf72336bcb98c8163cd8c087e023051a5ab"
       },
       "spec": "nika/v1",
       "type": "workflow",
@@ -284,7 +284,7 @@
       "source": {
         "path": "examples/contract-guard.nika",
         "repo": "supernovae-st/nika-spec",
-        "rev": "c119bb42fbacde440f66fcdc745f7bc5b966b627"
+        "rev": "e255dbf72336bcb98c8163cd8c087e023051a5ab"
       },
       "spec": "nika/v1",
       "type": "workflow",
@@ -312,7 +312,7 @@
       "source": {
         "path": "examples/corpus-digest.nika",
         "repo": "supernovae-st/nika-spec",
-        "rev": "c119bb42fbacde440f66fcdc745f7bc5b966b627"
+        "rev": "e255dbf72336bcb98c8163cd8c087e023051a5ab"
       },
       "spec": "nika/v1",
       "type": "workflow",
@@ -370,7 +370,7 @@
       "source": {
         "path": "examples/csv-chart-report.nika",
         "repo": "supernovae-st/nika-spec",
-        "rev": "c119bb42fbacde440f66fcdc745f7bc5b966b627"
+        "rev": "e255dbf72336bcb98c8163cd8c087e023051a5ab"
       },
       "spec": "nika/v1",
       "type": "workflow",
@@ -428,7 +428,7 @@
       "source": {
         "path": "examples/deep-research-brief.nika",
         "repo": "supernovae-st/nika-spec",
-        "rev": "c119bb42fbacde440f66fcdc745f7bc5b966b627"
+        "rev": "e255dbf72336bcb98c8163cd8c087e023051a5ab"
       },
       "spec": "nika/v1",
       "type": "workflow",
@@ -486,7 +486,7 @@
       "source": {
         "path": "examples/etl-quarantine.nika",
         "repo": "supernovae-st/nika-spec",
-        "rev": "c119bb42fbacde440f66fcdc745f7bc5b966b627"
+        "rev": "e255dbf72336bcb98c8163cd8c087e023051a5ab"
       },
       "spec": "nika/v1",
       "type": "workflow",
@@ -544,7 +544,7 @@
       "source": {
         "path": "examples/image-fx-batch.nika",
         "repo": "supernovae-st/nika-spec",
-        "rev": "c119bb42fbacde440f66fcdc745f7bc5b966b627"
+        "rev": "e255dbf72336bcb98c8163cd8c087e023051a5ab"
       },
       "spec": "nika/v1",
       "type": "workflow",
@@ -602,7 +602,7 @@
       "source": {
         "path": "examples/incident-war-room.nika",
         "repo": "supernovae-st/nika-spec",
-        "rev": "c119bb42fbacde440f66fcdc745f7bc5b966b627"
+        "rev": "e255dbf72336bcb98c8163cd8c087e023051a5ab"
       },
       "spec": "nika/v1",
       "type": "workflow",
@@ -660,7 +660,7 @@
       "source": {
         "path": "examples/invoice-chaser.nika",
         "repo": "supernovae-st/nika-spec",
-        "rev": "c119bb42fbacde440f66fcdc745f7bc5b966b627"
+        "rev": "e255dbf72336bcb98c8163cd8c087e023051a5ab"
       },
       "spec": "nika/v1",
       "type": "workflow",
@@ -718,7 +718,7 @@
       "source": {
         "path": "examples/localization-factory.nika",
         "repo": "supernovae-st/nika-spec",
-        "rev": "c119bb42fbacde440f66fcdc745f7bc5b966b627"
+        "rev": "e255dbf72336bcb98c8163cd8c087e023051a5ab"
       },
       "spec": "nika/v1",
       "type": "workflow",
@@ -776,7 +776,7 @@
       "source": {
         "path": "examples/meeting-actions.nika",
         "repo": "supernovae-st/nika-spec",
-        "rev": "c119bb42fbacde440f66fcdc745f7bc5b966b627"
+        "rev": "e255dbf72336bcb98c8163cd8c087e023051a5ab"
       },
       "spec": "nika/v1",
       "type": "workflow",
@@ -834,7 +834,7 @@
       "source": {
         "path": "examples/model-bench.nika",
         "repo": "supernovae-st/nika-spec",
-        "rev": "c119bb42fbacde440f66fcdc745f7bc5b966b627"
+        "rev": "e255dbf72336bcb98c8163cd8c087e023051a5ab"
       },
       "spec": "nika/v1",
       "type": "workflow",
@@ -892,7 +892,7 @@
       "source": {
         "path": "examples/og-images.nika",
         "repo": "supernovae-st/nika-spec",
-        "rev": "c119bb42fbacde440f66fcdc745f7bc5b966b627"
+        "rev": "e255dbf72336bcb98c8163cd8c087e023051a5ab"
       },
       "spec": "nika/v1",
       "type": "workflow",
@@ -950,7 +950,7 @@
       "source": {
         "path": "examples/pr-review-fanout.nika",
         "repo": "supernovae-st/nika-spec",
-        "rev": "c119bb42fbacde440f66fcdc745f7bc5b966b627"
+        "rev": "e255dbf72336bcb98c8163cd8c087e023051a5ab"
       },
       "spec": "nika/v1",
       "type": "workflow",
@@ -1008,7 +1008,7 @@
       "source": {
         "path": "examples/price-watch.nika",
         "repo": "supernovae-st/nika-spec",
-        "rev": "c119bb42fbacde440f66fcdc745f7bc5b966b627"
+        "rev": "e255dbf72336bcb98c8163cd8c087e023051a5ab"
       },
       "spec": "nika/v1",
       "type": "workflow",
@@ -1066,7 +1066,7 @@
       "source": {
         "path": "examples/release-notes.nika",
         "repo": "supernovae-st/nika-spec",
-        "rev": "c119bb42fbacde440f66fcdc745f7bc5b966b627"
+        "rev": "e255dbf72336bcb98c8163cd8c087e023051a5ab"
       },
       "spec": "nika/v1",
       "type": "workflow",
@@ -1124,7 +1124,7 @@
       "source": {
         "path": "examples/release-radar.nika",
         "repo": "supernovae-st/nika-spec",
-        "rev": "c119bb42fbacde440f66fcdc745f7bc5b966b627"
+        "rev": "e255dbf72336bcb98c8163cd8c087e023051a5ab"
       },
       "spec": "nika/v1",
       "type": "workflow",
@@ -1182,7 +1182,7 @@
       "source": {
         "path": "examples/release-train.nika",
         "repo": "supernovae-st/nika-spec",
-        "rev": "c119bb42fbacde440f66fcdc745f7bc5b966b627"
+        "rev": "e255dbf72336bcb98c8163cd8c087e023051a5ab"
       },
       "spec": "nika/v1",
       "type": "workflow",
@@ -1240,7 +1240,7 @@
       "source": {
         "path": "examples/resume-screener.nika",
         "repo": "supernovae-st/nika-spec",
-        "rev": "c119bb42fbacde440f66fcdc745f7bc5b966b627"
+        "rev": "e255dbf72336bcb98c8163cd8c087e023051a5ab"
       },
       "spec": "nika/v1",
       "type": "workflow",
@@ -1298,7 +1298,7 @@
       "source": {
         "path": "examples/seo-content-brief.nika",
         "repo": "supernovae-st/nika-spec",
-        "rev": "c119bb42fbacde440f66fcdc745f7bc5b966b627"
+        "rev": "e255dbf72336bcb98c8163cd8c087e023051a5ab"
       },
       "spec": "nika/v1",
       "type": "workflow",
@@ -1356,7 +1356,7 @@
       "source": {
         "path": "examples/social-repurpose.nika",
         "repo": "supernovae-st/nika-spec",
-        "rev": "c119bb42fbacde440f66fcdc745f7bc5b966b627"
+        "rev": "e255dbf72336bcb98c8163cd8c087e023051a5ab"
       },
       "spec": "nika/v1",
       "type": "workflow",
@@ -1414,7 +1414,7 @@
       "source": {
         "path": "examples/standup-digest.nika",
         "repo": "supernovae-st/nika-spec",
-        "rev": "c119bb42fbacde440f66fcdc745f7bc5b966b627"
+        "rev": "e255dbf72336bcb98c8163cd8c087e023051a5ab"
       },
       "spec": "nika/v1",
       "type": "workflow",
@@ -1472,7 +1472,7 @@
       "source": {
         "path": "examples/support-triage.nika",
         "repo": "supernovae-st/nika-spec",
-        "rev": "c119bb42fbacde440f66fcdc745f7bc5b966b627"
+        "rev": "e255dbf72336bcb98c8163cd8c087e023051a5ab"
       },
       "spec": "nika/v1",
       "type": "workflow",
@@ -1530,7 +1530,7 @@
       "source": {
         "path": "examples/transcript-shownotes.nika",
         "repo": "supernovae-st/nika-spec",
-        "rev": "c119bb42fbacde440f66fcdc745f7bc5b966b627"
+        "rev": "e255dbf72336bcb98c8163cd8c087e023051a5ab"
       },
       "spec": "nika/v1",
       "type": "workflow",
