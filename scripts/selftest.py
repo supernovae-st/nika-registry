@@ -7,6 +7,7 @@
 # before `verify.py --all`. Not a replacement for --all (which re-proves the
 # real entries) — this pins the invariants those entries rely on.
 
+import copy
 import os
 import pathlib
 import sys
@@ -166,6 +167,25 @@ check(
     "mutated 0.1.0 toml bytes lose the exemption",
     not verify.workflow_source_ok(_mutated, b"not-the-frozen-bytes\n"),
 )
+_changed_path = copy.deepcopy(_mutated)
+_changed_path["source"]["path"] = "examples/ceo-monday-brief.nika.yaml"
+check(
+    "changed source.path under 0.1.0 is refused",
+    not verify.workflow_source_ok(_changed_path),
+)
+_changed_name = copy.deepcopy(_mutated)
+_changed_name["name"] = "ceo-monday-brief"
+check(
+    "changed name under 0.1.0 is refused",
+    not verify.workflow_source_ok(_changed_name),
+)
+_v2_paths = sorted(verify.ROOT.glob("registry/workflows/supernovae-st/*/0.2.0.toml"))
+_v2_ok = True
+for _p in _v2_paths:
+    if not verify.workflow_source_ok(tomllib.loads(_p.read_text())):
+        _v2_ok = False
+        break
+check("canonical 27 current 0.2.0 entries pass", _v2_ok and len(_v2_paths) == 27)
 
 _spec = os.environ.get("NIKA_SPEC_DIR")
 if _spec:

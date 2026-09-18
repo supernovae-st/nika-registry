@@ -1680,7 +1680,7 @@ files:
   evidence: "hand-written projector · SPDX header + design prose"
 - path: "scripts/selftest.py"
   class: authored
-  sha256: 1dd46ac9eedce0997f5aa135b898e631a1d1fa76e266e18f425af7cd11fa0cd9
+  sha256: 83b0a0b48237c344c5c1ccc31cf3dd9f4671115e4ee9433d42b7d8d4fb4c09b7
   evidence: "hand-written guard assertions · SPDX header + design prose"
 - path: "scripts/verify.py"
   class: authored
@@ -1695,7 +1695,7 @@ patterns:
 - glob: "**"
   class: authored
   match_count: 7
-  aggregate_sha256: 055cab86f42792f2db41e3f628f1c960e9bf622e0c048cda3d263085167ac120
+  aggregate_sha256: a8a0b4b4d945e0fedb92c43b4e544e0d7f2570eccf8c4dd83abf5764a1ed0c51
   evidence: "no generation marker or known role found"
   note: "unverified-default"
 unverified:
