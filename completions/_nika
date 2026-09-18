@@ -716,21 +716,27 @@ auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
 '::slug -- Example slug (bare `nika try` shows the storefront):_default' \
 && ret=0
 ;;
-(new)
+(compile)
 _arguments "${_arguments_options[@]}" : \
+'()--output=[Explicit destination for edit mode (or create without a positional destination)]:OUTPUT:_default' \
+'()--base=[Explicit accepted source for a conservative edit]:BASE:_default' \
+'--change=[Supported edit\: \`Set const.NAME to JSON_LITERAL\`]:CHANGE:_default' \
+'*--answer=[Answer a stable question\: \`KEY=JSON_LITERAL\` (repeatable)]:ANSWERS:_default' \
 '--color=[When to colour the output (auto = TTY + \`TERM != dumb\` · honours \`CLICOLOR_FORCE\` · \`NO_COLOR\` · \`CLICOLOR=0\` in that order)]:COLOR:((always\:"Force colour on (pagers accepting escapes · captured demos)"
 never\:"Force colour off (the \`--no-color\` flags fold here)"
 auto\:"Resolve from the environment chain + TTY (the default)"))' \
 '--hyperlink=[When to emit OSC-8 hyperlinks on printed paths (auto = TTY + \`TERM != dumb\` · never to pipes; always = force them, for pagers that pass escapes — tmux/screen may render them as plain text)]:HYPERLINK:((always\:"Force hyperlinks on (escape-passing pagers · captured demos)"
 never\:"Force hyperlinks off"
 auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
-'--force[Overwrite an existing destination]' \
+'--force[Replace the explicitly named destination]' \
+'--json[Print the versioned structured result, including incomplete questions]' \
+'(--output --base --answer)--list[List exact skeleton names without authoring or writing]' \
 '--ascii[Force the ASCII glyph twins everywhere (CI logs · legacy terminals) — colour stays; \`--plain\` is the full sober umbrella]' \
 '--plain[The sober umbrella — one flag for scripts, CI and transcripts\: colour off · ASCII glyphs · hyperlinks off · no animation (\`run\` renders its plain storyboard). The same result as \`--color never --hyperlink never\` plus every verb'\''s \`--ascii\`/\`--no-progress\`]' \
 '-h[Print help (see more with '\''--help'\'')]' \
 '--help[Print help (see more with '\''--help'\'')]' \
-'::intent -- Plain-words intent, an example slug, or a skeleton name (`'\''?'\''` lists the set). Omitted on a terminal → the guided three-question flow; omitted in a pipe → fail fast:_default' \
-'::dest -- Destination path (`*.nika`) — defaults to `<slug>.nika` beside you:_default' \
+'::intent -- Exact skeleton name or hello; unsupported words remain incomplete:_default' \
+'::dest -- Write a Ready candidate here; omitted means preview only:_default' \
 && ret=0
 ;;
 (completions)
@@ -1435,7 +1441,7 @@ _arguments "${_arguments_options[@]}" : \
 _arguments "${_arguments_options[@]}" : \
 && ret=0
 ;;
-(new)
+(compile)
 _arguments "${_arguments_options[@]}" : \
 && ret=0
 ;;
@@ -1597,7 +1603,7 @@ _nika_commands() {
 'spec:The embedded spec identity (\`--canon\` prints the SSOT)' \
 'catalog:The embedded provider/model catalog (models · capabilities · env vars)' \
 'try:See a canonical workflow WORK — offline by default (the mock rehearsal · zero keys · zero flags), nothing written, nothing owned. Bare \`nika try\` lists what there is to see' \
-'new:The ONE creation door\: describe the job in plain words (routes), or name a slug/skeleton (takes it, ingredients included) — the destination derives from the slug. Plain words route across jobs, lessons and skeletons. Bare \`nika new\` on a terminal is the guided flow; \`nika new '\''?'\''\` lists the skeleton set' \
+'compile:Compile an exact skeleton or conservative edit into a reviewable workflow. No destination\: preview only; unknown intent stays incomplete' \
 'completions:Generate shell completions (bash · zsh · fish · elvish · powershell)' \
 'trace:Read the flight recorder (replay or summarize a run)' \
 'guard:The hook'\''s judge (hidden — the wired \`guard-run.sh\` shim calls it, agents never type it)\: read a host hook payload (\`--stdin\`) or one command line (\`--command\`), find every effective \`nika run\`, audit the EXACT file in-process, and answer the hook protocol. P0-7 + P0-15\: a red file or a priced model without \`--max-cost-usd\` is denied; an unjudgeable run is a VISIBLE \`guard_unavailable\`, never a silent allow. The run belongs to the human — guard JUDGES, it never executes' \
@@ -1673,6 +1679,11 @@ _nika__subcmd__check_commands() {
     local commands; commands=()
     _describe -t commands 'nika check commands' commands "$@"
 }
+(( $+functions[_nika__subcmd__compile_commands] )) ||
+_nika__subcmd__compile_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika compile commands' commands "$@"
+}
 (( $+functions[_nika__subcmd__completions_commands] )) ||
 _nika__subcmd__completions_commands() {
     local commands; commands=()
@@ -1719,7 +1730,7 @@ _nika__subcmd__help_commands() {
 'spec:The embedded spec identity (\`--canon\` prints the SSOT)' \
 'catalog:The embedded provider/model catalog (models · capabilities · env vars)' \
 'try:See a canonical workflow WORK — offline by default (the mock rehearsal · zero keys · zero flags), nothing written, nothing owned. Bare \`nika try\` lists what there is to see' \
-'new:The ONE creation door\: describe the job in plain words (routes), or name a slug/skeleton (takes it, ingredients included) — the destination derives from the slug. Plain words route across jobs, lessons and skeletons. Bare \`nika new\` on a terminal is the guided flow; \`nika new '\''?'\''\` lists the skeleton set' \
+'compile:Compile an exact skeleton or conservative edit into a reviewable workflow. No destination\: preview only; unknown intent stays incomplete' \
 'completions:Generate shell completions (bash · zsh · fish · elvish · powershell)' \
 'trace:Read the flight recorder (replay or summarize a run)' \
 'guard:The hook'\''s judge (hidden — the wired \`guard-run.sh\` shim calls it, agents never type it)\: read a host hook payload (\`--stdin\`) or one command line (\`--command\`), find every effective \`nika run\`, audit the EXACT file in-process, and answer the hook protocol. P0-7 + P0-15\: a red file or a priced model without \`--max-cost-usd\` is denied; an unjudgeable run is a VISIBLE \`guard_unavailable\`, never a silent allow. The run belongs to the human — guard JUDGES, it never executes' \
@@ -1763,6 +1774,11 @@ _nika__subcmd__help__subcmd__catalog_commands() {
 _nika__subcmd__help__subcmd__check_commands() {
     local commands; commands=()
     _describe -t commands 'nika help check commands' commands "$@"
+}
+(( $+functions[_nika__subcmd__help__subcmd__compile_commands] )) ||
+_nika__subcmd__help__subcmd__compile_commands() {
+    local commands; commands=()
+    _describe -t commands 'nika help compile commands' commands "$@"
 }
 (( $+functions[_nika__subcmd__help__subcmd__completions_commands] )) ||
 _nika__subcmd__help__subcmd__completions_commands() {
@@ -1879,11 +1895,6 @@ _nika__subcmd__help__subcmd__model__subcmd__rm_commands() {
 _nika__subcmd__help__subcmd__model__subcmd__serve_commands() {
     local commands; commands=()
     _describe -t commands 'nika help model serve commands' commands "$@"
-}
-(( $+functions[_nika__subcmd__help__subcmd__new_commands] )) ||
-_nika__subcmd__help__subcmd__new_commands() {
-    local commands; commands=()
-    _describe -t commands 'nika help new commands' commands "$@"
 }
 (( $+functions[_nika__subcmd__help__subcmd__run_commands] )) ||
 _nika__subcmd__help__subcmd__run_commands() {
@@ -2194,11 +2205,6 @@ _nika__subcmd__model__subcmd__rm_commands() {
 _nika__subcmd__model__subcmd__serve_commands() {
     local commands; commands=()
     _describe -t commands 'nika model serve commands' commands "$@"
-}
-(( $+functions[_nika__subcmd__new_commands] )) ||
-_nika__subcmd__new_commands() {
-    local commands; commands=()
-    _describe -t commands 'nika new commands' commands "$@"
 }
 (( $+functions[_nika__subcmd__run_commands] )) ||
 _nika__subcmd__run_commands() {

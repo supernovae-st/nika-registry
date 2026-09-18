@@ -1010,7 +1010,7 @@ files:
     - "nika 0.119.0 static analysis"
 - path: "completions/_nika"
   class: generated
-  sha256: b81bdcc1f0b4f818729caaddfb466f0a4625752107770fd98b968dd604c63052
+  sha256: 261ad864d526d38fe38e685839eb8e58eeff3e60deb10e13d0ac308aa137e63a
   evidence: "zsh completion emitted by clap_complete (its own first line is '#compdef nika', followed by clap's 'autoload -U is-at-least' preamble)"
   derivation:
     tool: "nika completions <shell> (the engine's clap_complete surface — the tool does NOT live in this repo)"
@@ -1020,7 +1020,7 @@ files:
   note: "the engine version behind these bytes is undeclared · a new verb or flag on the engine leaves them stale with nothing to say so"
 - path: "completions/nika.bash"
   class: generated
-  sha256: 474c2f648e7f303b35ef5254305d72c238c569dd4abbab465b609033f7583d3f
+  sha256: d0e3a630621ba6b7c9096bbc77cc6332124ab9c5fc1294f5505d595dff4056be
   evidence: "bash completion emitted by clap_complete (the generated _nika() function with COMPREPLY and clap's BASH_VERSINFO guard)"
   derivation:
     tool: "nika completions <shell> (the engine's clap_complete surface — the tool does NOT live in this repo)"
@@ -1030,7 +1030,7 @@ files:
   note: "the engine version behind these bytes is undeclared · a new verb or flag on the engine leaves them stale with nothing to say so"
 - path: "completions/nika.fish"
   class: generated
-  sha256: 6de49749a74c98bcda3c48602c1e59f9ac4351d9689d62f89f426022efc8679d
+  sha256: 80307075fc07069b300feb0e78ea200207fbf62388f9a831cc64ef1acfe59a4c
   evidence: "fish completion emitted by clap_complete (its generated __fish_nika_global_optspecs helper)"
   derivation:
     tool: "nika completions <shell> (the engine's clap_complete surface — the tool does NOT live in this repo)"
