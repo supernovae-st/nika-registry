@@ -195,18 +195,7 @@ def main() -> int:
     tmp = ROOT / ".cert-tmp"
     tmp.mkdir(exist_ok=True)
     rows, drift = [], False
-    pending = []
     for rel, e in load_entries():
-        out = ROOT / "certs" / e["publisher"] / e["name"] / f"{e['version']}.json"
-        if not out.is_file():
-            pending.append(f"{e['name']}@{e['version']}")
-            print(
-                f"○ cert pending-release · {e['name']}@{e['version']} — "
-                f"no nika {ENGINE_VERSION} certificate; not synthesizing one "
-                f"from a dev binary or overwriting older evidence",
-                file=sys.stderr,
-            )
-            continue
         body = fetch_source(e["source"]["repo"], e["source"]["rev"], e["source"]["path"])
         if hashlib.sha256(body).hexdigest() != e["integrity"]["sha256"]:
             print(f"cert.py: {rel} bytes do not match the pinned sha256 — run verify.py", file=sys.stderr)

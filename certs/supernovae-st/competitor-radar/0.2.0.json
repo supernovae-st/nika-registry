@@ -1,0 +1,23 @@
+{
+  "certificate": {
+    "analysis_status": "checked",
+    "broad": false,
+    "capability_escapes": [],
+    "clean": true,
+    "cost_usd": {
+      "bounded_total": 0.0,
+      "has_unbounded": true
+    },
+    "effect_calls": 8,
+    "findings": [],
+    "llm_calls": 1,
+    "permits_boundary": "permits:\n  fs:\n    write: [\"./radar/competitor-brief.md\"]\n  exec: false\n  tools: [\"nika:date\", \"nika:emit\", \"nika:fetch\", \"nika:jq\", \"nika:write\"]\n\n# review \u2014 effects too dynamic to pin statically:\n#   \u00b7 task `map` reaches a dynamic URL \u2014 `net.http` cannot express 'any host'; add the resolved host(s) before running\n#   \u00b7 task `pages` reaches a dynamic URL \u2014 `net.http` cannot express 'any host'; add the resolved host(s) before running",
+    "secret_egresses": [],
+    "secret_leaks": [],
+    "vars_required": []
+  },
+  "engine": "0.119.0",
+  "entry": "registry/workflows/supernovae-st/competitor-radar/0.2.0.toml",
+  "schema": 2,
+  "sha256": "ed7cf0ba839761f9025e35b0cd8e940e04c7b88ce367a3e39966a401ecd6f395"
+}

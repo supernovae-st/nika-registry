@@ -1,0 +1,23 @@
+{
+  "certificate": {
+    "analysis_status": "checked",
+    "broad": false,
+    "capability_escapes": [],
+    "clean": true,
+    "cost_usd": {
+      "bounded_total": 0.0,
+      "has_unbounded": true
+    },
+    "effect_calls": 7,
+    "findings": [],
+    "llm_calls": 1,
+    "permits_boundary": "permits:\n  fs:\n    read: [\"out/release-radar.json\"]\n    write: [\"out/release-radar.json\"]\n  net: { http: [\"github.com\"] }\n  exec: false\n  tools: [\"nika:fetch\", \"nika:jq\", \"nika:json_diff\", \"nika:prompt\", \"nika:read\", \"nika:write\"]",
+    "secret_egresses": [],
+    "secret_leaks": [],
+    "vars_required": []
+  },
+  "engine": "0.119.0",
+  "entry": "registry/workflows/supernovae-st/release-radar/0.2.0.toml",
+  "schema": 2,
+  "sha256": "365f69b82e5f909d2992a8929afaa1b786cbfdb31326e2373c16e62d6bbf81e4"
+}

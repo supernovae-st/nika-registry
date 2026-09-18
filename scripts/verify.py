@@ -49,37 +49,68 @@ import urllib.request
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 _ORACLE_WT: dict[str, str] = {}
 
+# First-party identity tuples whose *bytes* still speak a retired suffix.
+# The trusted checker for those tuples is a vetted nika-spec revision,
+# never an arbitrary source.rev (community repos share no history with
+# nika-spec; a matching hex is not an oracle pin).
+PRECUT_FIRST_PARTY = ("supernovae-st/nika-spec", "699ebb08585da2b4b908e8dac6ca584332fe0783")
+PRECUT_ORACLE = {
+    (*PRECUT_FIRST_PARTY, "0.1.0"): PRECUT_FIRST_PARTY[1],
+}
 
-def oracle_cwd(spec_dir: str, rev: str) -> str:
-    """Conformance runner at the entry's source.rev, not a floating HEAD."""
-    spec = pathlib.Path(spec_dir)
-    head = subprocess.run(
-        ["git", "-C", str(spec), "rev-parse", "HEAD"],
+
+def git_head(repo: str) -> str:
+    return subprocess.run(
+        ["git", "-C", repo, "rev-parse", "HEAD"],
         capture_output=True, text=True, check=True,
     ).stdout.strip()
-    if rev == head:
+
+
+def materialize_trusted_oracle(spec_dir: str, pin: str) -> str:
+    """Check out a vetted spec pin and refuse to run if HEAD is not that pin."""
+    spec = pathlib.Path(spec_dir)
+    if git_head(str(spec)) == pin:
         return str(spec)
-    cached = _ORACLE_WT.get(rev)
+    cached = _ORACLE_WT.get(pin)
     if cached:
+        got = git_head(cached)
+        if got != pin:
+            raise RuntimeError(f"cached oracle {cached} HEAD {got} != trusted pin {pin}")
         return cached
-    dest = ROOT / ".verify-oracle" / rev
-    runner = dest / "conformance" / "runner.py"
-    if runner.is_file():
-        _ORACLE_WT[rev] = str(dest)
-        return str(dest)
+    dest = ROOT / ".verify-oracle" / pin
     dest.parent.mkdir(parents=True, exist_ok=True)
+    subprocess.run(["git", "-C", str(spec), "worktree", "prune"], capture_output=True)
     if dest.exists():
+        try:
+            got = git_head(str(dest))
+            if got == pin:
+                _ORACLE_WT[pin] = str(dest)
+                return str(dest)
+        except (RuntimeError, subprocess.CalledProcessError):
+            pass
         shutil.rmtree(dest)
+    subprocess.run(["git", "-C", str(spec), "worktree", "prune"], capture_output=True)
     added = subprocess.run(
-        ["git", "-C", str(spec), "worktree", "add", "--detach", str(dest), rev],
+        ["git", "-C", str(spec), "worktree", "add", "--detach", str(dest), pin],
         capture_output=True, text=True,
     )
     if added.returncode != 0:
-        raise RuntimeError(
-            f"cannot materialize oracle at {rev}: {added.stderr.strip()[-200:]}"
-        )
-    _ORACLE_WT[rev] = str(dest)
+        raise RuntimeError(f"cannot materialize trusted oracle {pin}: {added.stderr.strip()[-200:]}")
+    got = git_head(str(dest))
+    if got != pin:
+        raise RuntimeError(f"oracle checkout HEAD {got} != trusted pin {pin}")
+    _ORACLE_WT[pin] = str(dest)
     return str(dest)
+
+
+def oracle_cwd(spec_dir: str, entry: dict) -> str:
+    """Trusted SPEC_PIN checkout, unless this is an explicit first-party pre-cut tuple."""
+    src = entry.get("source") or {}
+    key = (src.get("repo"), src.get("rev"), entry.get("version"))
+    pin = PRECUT_ORACLE.get(key)
+    if pin is None:
+        return str(pathlib.Path(spec_dir))
+    return materialize_trusted_oracle(spec_dir, pin)
 LICENSES = {"Apache-2.0", "MIT", "BSD-2-Clause", "BSD-3-Clause", "ISC", "MPL-2.0", "AGPL-3.0-or-later", "CC0-1.0"}
 TYPES = {"workflow", "pack", "skill", "agent", "template", "policy", "bench"}
 # Closed field sets — an unknown key is refused (the local manifest-confusion
@@ -106,12 +137,7 @@ SECRET_PATTERNS = [
 ]
 FAILS = []
 
-# Spec revisions whose published first-party artifacts still live at
-# `<name>.nika.yaml`. New entries (any other rev) must use `.nika`.
-# Do not rewrite those immutable TOMLs; mint a new version after SPEC_PIN moves.
-PRECUT_WORKFLOW_SOURCE_REVS = {
-    "699ebb08585da2b4b908e8dac6ca584332fe0783",
-}
+
 
 
 def is_canonical_workflow_source(path_: str) -> bool:
@@ -121,12 +147,12 @@ def is_canonical_workflow_source(path_: str) -> bool:
     return name.endswith(".nika")
 
 
-def workflow_source_path_ok(path_: str, rev: str) -> bool:
+def workflow_source_path_ok(path_: str, repo: str, rev: str) -> bool:
     if is_canonical_workflow_source(path_):
         return True
     return (
         path_.endswith(".nika.yaml") or path_.endswith(".nika.yml")
-    ) and rev in PRECUT_WORKFLOW_SOURCE_REVS
+    ) and (repo, rev) == PRECUT_FIRST_PARTY
 
 
 def repo_traversal_free(repo: str) -> bool:
@@ -216,7 +242,7 @@ def verify(entry_path: pathlib.Path) -> None:
     path_ = src.get("path", "")
     if path_.startswith("/") or ".." in path_.split("/") or "\\" in path_:
         return fail(rel, "R2-pin", "source.path must be repo-relative with no traversal")
-    if e["type"] == "workflow" and not workflow_source_path_ok(path_, src.get("rev", "")):
+    if e["type"] == "workflow" and not workflow_source_path_ok(path_, src.get("repo", ""), src.get("rev", "")):
         return fail(
             rel,
             "schema",
@@ -271,7 +297,7 @@ def verify(entry_path: pathlib.Path) -> None:
         wf = tmp / pathlib.Path(src["path"]).name
         wf.write_bytes(body)
         try:
-            cwd = oracle_cwd(spec_dir, src["rev"])
+            cwd = oracle_cwd(spec_dir, e)
         except RuntimeError as exc:
             return fail(rel, "R4-oracle", str(exc)[-160:])
         out = subprocess.run(

@@ -1,0 +1,23 @@
+{
+  "certificate": {
+    "analysis_status": "checked",
+    "broad": false,
+    "capability_escapes": [],
+    "clean": true,
+    "cost_usd": {
+      "bounded_total": 0.0,
+      "has_unbounded": true
+    },
+    "effect_calls": 11,
+    "findings": [],
+    "llm_calls": 1,
+    "permits_boundary": "permits:\n  fs:\n    read: [\"./examples/fixtures/config-baseline.json\"]\n  exec: false\n  tools: [\"nika:emit\", \"nika:fetch\", \"nika:hash\", \"nika:jq\", \"nika:json_diff\", \"nika:json_merge_patch\", \"nika:notify\", \"nika:read\"]\n\n# review \u2014 effects too dynamic to pin statically:\n#   \u00b7 task `live_raw` reaches a dynamic URL \u2014 `net.http` cannot express 'any host'; add the resolved host(s) before running\n#   \u00b7 task `alert` reaches a dynamic URL \u2014 `net.http` cannot express 'any host'; add the resolved host(s) before running",
+    "secret_egresses": [],
+    "secret_leaks": [],
+    "vars_required": []
+  },
+  "engine": "0.119.0",
+  "entry": "registry/workflows/supernovae-st/config-drift-sentinel/0.2.0.toml",
+  "schema": 2,
+  "sha256": "0269915ab3cd9798b6ebec93342834d7ed85b1bb22a2892848d77fb8412c2d0a"
+}

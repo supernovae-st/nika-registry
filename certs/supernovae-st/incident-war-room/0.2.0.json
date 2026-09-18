@@ -1,0 +1,23 @@
+{
+  "certificate": {
+    "analysis_status": "checked",
+    "broad": false,
+    "capability_escapes": [],
+    "clean": true,
+    "cost_usd": {
+      "bounded_total": 0.0,
+      "has_unbounded": true
+    },
+    "effect_calls": 11,
+    "findings": [],
+    "llm_calls": 2,
+    "permits_boundary": "permits:\n  fs:\n    read: [\"./examples/fixtures/checkout-api-runbook.md\"]\n  exec: [\"git\"]\n  tools: [\"nika:assert\", \"nika:fetch\", \"nika:notify\", \"nika:prompt\", \"nika:read\", \"nika:wait\", \"nika:write\"]\n\n# review \u2014 effects too dynamic to pin statically:\n#   \u00b7 task `status_history` reaches a dynamic URL \u2014 `net.http` cannot express 'any host'; add the resolved host(s) before running\n#   \u00b7 task `recheck` reaches a dynamic URL \u2014 `net.http` cannot express 'any host'; add the resolved host(s) before running\n#   \u00b7 task `save` uses a dynamic path \u2014 `fs` cannot express 'any path'; add the resolved path(s) before running\n#   \u00b7 task `alert` reaches a dynamic URL \u2014 `net.http` cannot express 'any host'; add the resolved host(s) before running",
+    "secret_egresses": [],
+    "secret_leaks": [],
+    "vars_required": []
+  },
+  "engine": "0.119.0",
+  "entry": "registry/workflows/supernovae-st/incident-war-room/0.2.0.toml",
+  "schema": 2,
+  "sha256": "63b65a514bd1117f384ab252cfe212533e0887184d19644d6e9aa09b719fc993"
+}

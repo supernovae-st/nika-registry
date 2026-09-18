@@ -216,8 +216,8 @@
       "category": "negative",
       "reason": "Mutation fixture that must keep the retired spelling to prove detection.",
       "owner": "nika-registry",
-      "count": 4,
-      "lines_sha256": "sha256:727ff080a32203c189a2ae93c23680e7385345599952a7230b8df3c0fb81eeac"
+      "count": 5,
+      "lines_sha256": "sha256:a32ba3434bfdaf8376f7803bbc76ef00e5c225235ea2c23d86c5094ecc33ca74"
     },
     {
       "path": "scripts/suffix_ratchet.py",
@@ -240,8 +240,8 @@
       "category": "negative",
       "reason": "Mutation fixture that must keep the retired spelling to prove detection.",
       "owner": "nika-registry",
-      "count": 4,
-      "lines_sha256": "sha256:646534ac1023465ba15cc1b3f78748e38500e9c5230615857ac4a0711601a9f2"
+      "count": 3,
+      "lines_sha256": "sha256:37b64153c3b375b8813749607e383a1f3780e8e98c81493002678a6c29b172cf"
     }
   ]
 }

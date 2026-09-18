@@ -107,15 +107,67 @@ check("badge names parse refusal", _badge["message"] == "parse_refused" and _bad
 check("refused artifact has no run hand-off", not any(line.startswith("nika run") for line in get.handoff_lines("refused.nika", _refused)))
 
 # Issue #1684 · live workflow sources are `.nika`. Pre-cut immutable
-# entries may still pin a `.nika.yaml` path at the frozen spec revision.
-PRECUT = next(iter(verify.PRECUT_WORKFLOW_SOURCE_REVS))
+# first-party entries may still pin a `.nika.yaml` path at one vetted
+# (repo, rev) tuple. A matching hex on any other repo is not a permit.
+PRECUT_REPO, PRECUT_REV = verify.PRECUT_FIRST_PARTY
 check("canonical .nika source is accepted", verify.is_canonical_workflow_source("examples/meeting-actions.nika"))
 check("project nika.yaml is not a workflow source", not verify.is_canonical_workflow_source("nika.yaml"))
 check("empty-stem .nika is not a workflow source", not verify.is_canonical_workflow_source(".nika"))
 check("legacy suffix is not canonical", not verify.is_canonical_workflow_source("examples/meeting-actions.nika.yaml"))
-check("legacy suffix at pre-cut rev is allowed", verify.workflow_source_path_ok("examples/meeting-actions.nika.yaml", PRECUT))
-check("legacy suffix at any other rev is refused", not verify.workflow_source_path_ok("examples/meeting-actions.nika.yaml", "0" * 40))
-check("plain yaml is refused", not verify.workflow_source_path_ok("examples/meeting-actions.yaml", PRECUT))
+check(
+    "legacy suffix at first-party pre-cut identity is allowed",
+    verify.workflow_source_path_ok("examples/meeting-actions.nika.yaml", PRECUT_REPO, PRECUT_REV),
+)
+check(
+    "legacy suffix at any other rev is refused",
+    not verify.workflow_source_path_ok("examples/meeting-actions.nika.yaml", PRECUT_REPO, "0" * 40),
+)
+check(
+    "legacy suffix at a matching rev on another repo is refused",
+    not verify.workflow_source_path_ok("examples/meeting-actions.nika.yaml", "alice/unrelated", PRECUT_REV),
+)
+check("plain yaml is refused", not verify.workflow_source_path_ok("examples/meeting-actions.yaml", PRECUT_REPO, PRECUT_REV))
+
+_spec = os.environ.get("NIKA_SPEC_DIR")
+if _spec:
+    _head = verify.git_head(_spec)
+    _fp = {
+        "source": {"repo": PRECUT_REPO, "rev": PRECUT_REV},
+        "version": "0.1.0",
+    }
+    _community = {
+        "source": {"repo": "alice/unrelated", "rev": PRECUT_REV},
+        "version": "0.1.0",
+    }
+    _new = {
+        "source": {"repo": PRECUT_REPO, "rev": "c119bb42fbacde440f66fcdc745f7bc5b966b627"},
+        "version": "0.2.0",
+    }
+    check(
+        "community source.rev does not select the checker",
+        verify.oracle_cwd(_spec, _community) == str(pathlib.Path(_spec)),
+    )
+    check(
+        "current first-party 0.2.0 uses the trusted SPEC_PIN checkout",
+        verify.oracle_cwd(_spec, _new) == str(pathlib.Path(_spec)),
+    )
+    _precut_cwd = verify.oracle_cwd(_spec, _fp)
+    check(
+        "pre-cut first-party tuple uses a vetted oracle whose HEAD is the pin",
+        verify.git_head(_precut_cwd) == PRECUT_REV,
+    )
+    # A poisoned cache with the wrong HEAD must refuse, not run.
+    _poison = verify.ROOT / ".verify-oracle" / ("deadbeef" * 5)
+    _poison.mkdir(parents=True, exist_ok=True)
+    verify._ORACLE_WT["deadbeef" * 5] = str(_poison)
+    _raised = False
+    try:
+        verify.materialize_trusted_oracle(_spec, "deadbeef" * 5)
+    except (RuntimeError, subprocess.CalledProcessError):
+        _raised = True
+    check("oracle cache with wrong HEAD is refused", _raised)
+else:
+    check("oracle identity tests skipped without NIKA_SPEC_DIR", True)
 
 if FAILED:
     print(f"\nselftest FAILED: {len(FAILED)} check(s)", file=sys.stderr)
