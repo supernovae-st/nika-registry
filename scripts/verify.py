@@ -17,8 +17,11 @@
 #                       64-hex · no tags, no branches (tj-actions class)
 #   R3 hash match       fetched bytes MUST hash to integrity.sha256
 #                       (manifest-confusion class · the entry cannot lie)
-#   R4 oracle pass      the artifact re-passes conformance at verify time
-#                       (conformance-as-trust · the Nika-only moat)
+#   R4 oracle pass      the artifact re-passes conformance at its own
+#                       source.rev (conformance-as-trust · the Nika-only
+#                       moat). SPEC_PIN is the projector pin for NEW
+#                       first-party entries; it is not a floating judge
+#                       over immutable older versions.
 #   R5 no secrets       key-shaped strings refuse the gate (n8n template
 #                       class — the dominant shared-workflow leak)
 #   R6 namespace = dir  registry/<type>s/<publisher>/ MUST equal the
@@ -37,12 +40,46 @@ import hashlib
 import os
 import pathlib
 import re
+import shutil
 import subprocess
 import sys
 import tomllib
 import urllib.request
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
+_ORACLE_WT: dict[str, str] = {}
+
+
+def oracle_cwd(spec_dir: str, rev: str) -> str:
+    """Conformance runner at the entry's source.rev, not a floating HEAD."""
+    spec = pathlib.Path(spec_dir)
+    head = subprocess.run(
+        ["git", "-C", str(spec), "rev-parse", "HEAD"],
+        capture_output=True, text=True, check=True,
+    ).stdout.strip()
+    if rev == head:
+        return str(spec)
+    cached = _ORACLE_WT.get(rev)
+    if cached:
+        return cached
+    dest = ROOT / ".verify-oracle" / rev
+    runner = dest / "conformance" / "runner.py"
+    if runner.is_file():
+        _ORACLE_WT[rev] = str(dest)
+        return str(dest)
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    if dest.exists():
+        shutil.rmtree(dest)
+    added = subprocess.run(
+        ["git", "-C", str(spec), "worktree", "add", "--detach", str(dest), rev],
+        capture_output=True, text=True,
+    )
+    if added.returncode != 0:
+        raise RuntimeError(
+            f"cannot materialize oracle at {rev}: {added.stderr.strip()[-200:]}"
+        )
+    _ORACLE_WT[rev] = str(dest)
+    return str(dest)
 LICENSES = {"Apache-2.0", "MIT", "BSD-2-Clause", "BSD-3-Clause", "ISC", "MPL-2.0", "AGPL-3.0-or-later", "CC0-1.0"}
 TYPES = {"workflow", "pack", "skill", "agent", "template", "policy", "bench"}
 # Closed field sets — an unknown key is refused (the local manifest-confusion
@@ -233,9 +270,13 @@ def verify(entry_path: pathlib.Path) -> None:
         tmp.mkdir(parents=True, exist_ok=True)
         wf = tmp / pathlib.Path(src["path"]).name
         wf.write_bytes(body)
+        try:
+            cwd = oracle_cwd(spec_dir, src["rev"])
+        except RuntimeError as exc:
+            return fail(rel, "R4-oracle", str(exc)[-160:])
         out = subprocess.run(
             [sys.executable, "conformance/runner.py", "validate", str(wf)],
-            cwd=spec_dir, capture_output=True, text=True)
+            cwd=cwd, capture_output=True, text=True)
         if out.returncode != 0:
             return fail(rel, "R4-oracle", (out.stdout + out.stderr).strip()[-160:])
 

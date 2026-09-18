@@ -18,13 +18,13 @@ classes:
   testimonial: "captured evidence — fixtures, corpora, traces, receipts: proves behavior; neither shipped source nor regenerable output"
   foreign: "pointer to a third-party sovereign source"
 summary:
-  classified_files: 117
-  file_rows: 110
+  classified_files: 145
+  file_rows: 138
   pattern_rows: 2
   by_class:
     authored: 27
     authored-pin: 2
-    generated: 85
+    generated: 113
     pinned-copy: 3
     testimonial: 0
     foreign: 0
@@ -62,7 +62,7 @@ files:
   note: "release-heal.yml rewrites the engine download URL + sha256 digest lines — bot-maintained fields inside an authored file"
 - path: ".gitignore"
   class: authored
-  sha256: 423d2fff9d5ce961815eb7934c64a8e879c6239e71b0230c73963a4bf4317571
+  sha256: 9dd2345b5a02b63156d2e6d43f01ccf32bff9531e281455db25b7896b06341b3
   evidence: "hand-kept ignore list for the scripts' temp dirs (.verify-tmp · .cert-tmp)"
 - path: "AGENTS.md"
   class: authored
@@ -110,16 +110,16 @@ files:
   evidence: "prose entry surface · no generation marker · it names the generated projections (CATALOG.md · certs/ · index.json · llms.txt · badges/) without being one"
 - path: "SPEC_PIN"
   class: authored-pin
-  sha256: 5689a83607138636ebea5da1e93bcb4cbea66a93c6ad72e56fce6be6c970f351
+  sha256: 3b59e5fc5eb6b14f79a3d1193a71e22857bbe29423e82f9656bb416c9661bffa
   evidence: "its own header: 'Bump deliberately: edit this' — a hand-bumped pin, the projector's INPUT"
-  note: "currently pinned at 699ebb08585da2b4b908e8dac6ca584332fe0783"
+  note: "currently pinned at c119bb42fbacde440f66fcdc745f7bc5b966b627"
 - path: "advisories/README.md"
   class: authored
   sha256: 5e58bda4b29f49335e717e3c20e8379f33589637e4f1ae9211611dde871cc0ad
   evidence: "prose advisory format doc · advisories are authored per incident, never derived"
 - path: "badges/catalog.json"
   class: generated
-  sha256: e88ec94dd19d609e5c9471ca32dd4c40a3c1141030a08c8f32cada324fae4e83
+  sha256: e3d833c7d77d8c00464b85b8be02384cabd48ad2c3cb88ee1ff24b6edf909753
   evidence: "shields.io endpoint shape (schemaVersion=1 · label='artifacts') = exactly what scripts/index.py badge()/main() emit"
   derivation:
     tool: "python3 scripts/index.py --write"
@@ -130,7 +130,7 @@ files:
     - "advisories/*.toml"
 - path: "badges/supernovae-st--bookmark-triage.json"
   class: generated
-  sha256: 258b143ec224b8a7cebbbea1865258e831adc249e96d453c6f47e333c4c09a84
+  sha256: bf52ee35916301297a347edf900d5eab7934e2cf071e0120a21a9c72668aa5cc
   evidence: "shields.io endpoint shape (schemaVersion=1 · label='nika cert') = exactly what scripts/index.py badge()/main() emit"
   derivation:
     tool: "python3 scripts/index.py --write"
@@ -141,7 +141,7 @@ files:
     - "advisories/*.toml"
 - path: "badges/supernovae-st--ceo-monday-brief.json"
   class: generated
-  sha256: 258b143ec224b8a7cebbbea1865258e831adc249e96d453c6f47e333c4c09a84
+  sha256: bf52ee35916301297a347edf900d5eab7934e2cf071e0120a21a9c72668aa5cc
   evidence: "shields.io endpoint shape (schemaVersion=1 · label='nika cert') = exactly what scripts/index.py badge()/main() emit"
   derivation:
     tool: "python3 scripts/index.py --write"
@@ -152,7 +152,7 @@ files:
     - "advisories/*.toml"
 - path: "badges/supernovae-st--competitor-radar.json"
   class: generated
-  sha256: 258b143ec224b8a7cebbbea1865258e831adc249e96d453c6f47e333c4c09a84
+  sha256: bf52ee35916301297a347edf900d5eab7934e2cf071e0120a21a9c72668aa5cc
   evidence: "shields.io endpoint shape (schemaVersion=1 · label='nika cert') = exactly what scripts/index.py badge()/main() emit"
   derivation:
     tool: "python3 scripts/index.py --write"
@@ -163,7 +163,7 @@ files:
     - "advisories/*.toml"
 - path: "badges/supernovae-st--config-drift-sentinel.json"
   class: generated
-  sha256: 258b143ec224b8a7cebbbea1865258e831adc249e96d453c6f47e333c4c09a84
+  sha256: bf52ee35916301297a347edf900d5eab7934e2cf071e0120a21a9c72668aa5cc
   evidence: "shields.io endpoint shape (schemaVersion=1 · label='nika cert') = exactly what scripts/index.py badge()/main() emit"
   derivation:
     tool: "python3 scripts/index.py --write"
@@ -174,7 +174,18 @@ files:
     - "advisories/*.toml"
 - path: "badges/supernovae-st--contract-guard.json"
   class: generated
-  sha256: 258b143ec224b8a7cebbbea1865258e831adc249e96d453c6f47e333c4c09a84
+  sha256: bf52ee35916301297a347edf900d5eab7934e2cf071e0120a21a9c72668aa5cc
+  evidence: "shields.io endpoint shape (schemaVersion=1 · label='nika cert') = exactly what scripts/index.py badge()/main() emit"
+  derivation:
+    tool: "python3 scripts/index.py --write"
+    gate: ".github/workflows/verify.yml step 'Index + llms.txt + badges in sync' → python3 scripts/index.py --check"
+    inputs:
+    - "registry/**/*.toml"
+    - "certs/**/*.json"
+    - "advisories/*.toml"
+- path: "badges/supernovae-st--corpus-digest.json"
+  class: generated
+  sha256: bf52ee35916301297a347edf900d5eab7934e2cf071e0120a21a9c72668aa5cc
   evidence: "shields.io endpoint shape (schemaVersion=1 · label='nika cert') = exactly what scripts/index.py badge()/main() emit"
   derivation:
     tool: "python3 scripts/index.py --write"
@@ -185,7 +196,7 @@ files:
     - "advisories/*.toml"
 - path: "badges/supernovae-st--csv-chart-report.json"
   class: generated
-  sha256: 258b143ec224b8a7cebbbea1865258e831adc249e96d453c6f47e333c4c09a84
+  sha256: bf52ee35916301297a347edf900d5eab7934e2cf071e0120a21a9c72668aa5cc
   evidence: "shields.io endpoint shape (schemaVersion=1 · label='nika cert') = exactly what scripts/index.py badge()/main() emit"
   derivation:
     tool: "python3 scripts/index.py --write"
@@ -196,7 +207,7 @@ files:
     - "advisories/*.toml"
 - path: "badges/supernovae-st--deep-research-brief.json"
   class: generated
-  sha256: 258b143ec224b8a7cebbbea1865258e831adc249e96d453c6f47e333c4c09a84
+  sha256: bf52ee35916301297a347edf900d5eab7934e2cf071e0120a21a9c72668aa5cc
   evidence: "shields.io endpoint shape (schemaVersion=1 · label='nika cert') = exactly what scripts/index.py badge()/main() emit"
   derivation:
     tool: "python3 scripts/index.py --write"
@@ -207,7 +218,7 @@ files:
     - "advisories/*.toml"
 - path: "badges/supernovae-st--etl-quarantine.json"
   class: generated
-  sha256: 258b143ec224b8a7cebbbea1865258e831adc249e96d453c6f47e333c4c09a84
+  sha256: bf52ee35916301297a347edf900d5eab7934e2cf071e0120a21a9c72668aa5cc
   evidence: "shields.io endpoint shape (schemaVersion=1 · label='nika cert') = exactly what scripts/index.py badge()/main() emit"
   derivation:
     tool: "python3 scripts/index.py --write"
@@ -218,7 +229,7 @@ files:
     - "advisories/*.toml"
 - path: "badges/supernovae-st--image-fx-batch.json"
   class: generated
-  sha256: 258b143ec224b8a7cebbbea1865258e831adc249e96d453c6f47e333c4c09a84
+  sha256: bf52ee35916301297a347edf900d5eab7934e2cf071e0120a21a9c72668aa5cc
   evidence: "shields.io endpoint shape (schemaVersion=1 · label='nika cert') = exactly what scripts/index.py badge()/main() emit"
   derivation:
     tool: "python3 scripts/index.py --write"
@@ -229,7 +240,7 @@ files:
     - "advisories/*.toml"
 - path: "badges/supernovae-st--incident-war-room.json"
   class: generated
-  sha256: 258b143ec224b8a7cebbbea1865258e831adc249e96d453c6f47e333c4c09a84
+  sha256: bf52ee35916301297a347edf900d5eab7934e2cf071e0120a21a9c72668aa5cc
   evidence: "shields.io endpoint shape (schemaVersion=1 · label='nika cert') = exactly what scripts/index.py badge()/main() emit"
   derivation:
     tool: "python3 scripts/index.py --write"
@@ -240,7 +251,7 @@ files:
     - "advisories/*.toml"
 - path: "badges/supernovae-st--invoice-chaser.json"
   class: generated
-  sha256: 258b143ec224b8a7cebbbea1865258e831adc249e96d453c6f47e333c4c09a84
+  sha256: bf52ee35916301297a347edf900d5eab7934e2cf071e0120a21a9c72668aa5cc
   evidence: "shields.io endpoint shape (schemaVersion=1 · label='nika cert') = exactly what scripts/index.py badge()/main() emit"
   derivation:
     tool: "python3 scripts/index.py --write"
@@ -251,7 +262,7 @@ files:
     - "advisories/*.toml"
 - path: "badges/supernovae-st--localization-factory.json"
   class: generated
-  sha256: 258b143ec224b8a7cebbbea1865258e831adc249e96d453c6f47e333c4c09a84
+  sha256: bf52ee35916301297a347edf900d5eab7934e2cf071e0120a21a9c72668aa5cc
   evidence: "shields.io endpoint shape (schemaVersion=1 · label='nika cert') = exactly what scripts/index.py badge()/main() emit"
   derivation:
     tool: "python3 scripts/index.py --write"
@@ -262,7 +273,7 @@ files:
     - "advisories/*.toml"
 - path: "badges/supernovae-st--meeting-actions.json"
   class: generated
-  sha256: 258b143ec224b8a7cebbbea1865258e831adc249e96d453c6f47e333c4c09a84
+  sha256: bf52ee35916301297a347edf900d5eab7934e2cf071e0120a21a9c72668aa5cc
   evidence: "shields.io endpoint shape (schemaVersion=1 · label='nika cert') = exactly what scripts/index.py badge()/main() emit"
   derivation:
     tool: "python3 scripts/index.py --write"
@@ -273,7 +284,7 @@ files:
     - "advisories/*.toml"
 - path: "badges/supernovae-st--model-bench.json"
   class: generated
-  sha256: 258b143ec224b8a7cebbbea1865258e831adc249e96d453c6f47e333c4c09a84
+  sha256: bf52ee35916301297a347edf900d5eab7934e2cf071e0120a21a9c72668aa5cc
   evidence: "shields.io endpoint shape (schemaVersion=1 · label='nika cert') = exactly what scripts/index.py badge()/main() emit"
   derivation:
     tool: "python3 scripts/index.py --write"
@@ -284,7 +295,7 @@ files:
     - "advisories/*.toml"
 - path: "badges/supernovae-st--og-images.json"
   class: generated
-  sha256: 258b143ec224b8a7cebbbea1865258e831adc249e96d453c6f47e333c4c09a84
+  sha256: bf52ee35916301297a347edf900d5eab7934e2cf071e0120a21a9c72668aa5cc
   evidence: "shields.io endpoint shape (schemaVersion=1 · label='nika cert') = exactly what scripts/index.py badge()/main() emit"
   derivation:
     tool: "python3 scripts/index.py --write"
@@ -295,7 +306,7 @@ files:
     - "advisories/*.toml"
 - path: "badges/supernovae-st--pr-review-fanout.json"
   class: generated
-  sha256: 258b143ec224b8a7cebbbea1865258e831adc249e96d453c6f47e333c4c09a84
+  sha256: bf52ee35916301297a347edf900d5eab7934e2cf071e0120a21a9c72668aa5cc
   evidence: "shields.io endpoint shape (schemaVersion=1 · label='nika cert') = exactly what scripts/index.py badge()/main() emit"
   derivation:
     tool: "python3 scripts/index.py --write"
@@ -306,7 +317,7 @@ files:
     - "advisories/*.toml"
 - path: "badges/supernovae-st--price-watch.json"
   class: generated
-  sha256: 258b143ec224b8a7cebbbea1865258e831adc249e96d453c6f47e333c4c09a84
+  sha256: bf52ee35916301297a347edf900d5eab7934e2cf071e0120a21a9c72668aa5cc
   evidence: "shields.io endpoint shape (schemaVersion=1 · label='nika cert') = exactly what scripts/index.py badge()/main() emit"
   derivation:
     tool: "python3 scripts/index.py --write"
@@ -317,7 +328,7 @@ files:
     - "advisories/*.toml"
 - path: "badges/supernovae-st--release-notes.json"
   class: generated
-  sha256: 258b143ec224b8a7cebbbea1865258e831adc249e96d453c6f47e333c4c09a84
+  sha256: bf52ee35916301297a347edf900d5eab7934e2cf071e0120a21a9c72668aa5cc
   evidence: "shields.io endpoint shape (schemaVersion=1 · label='nika cert') = exactly what scripts/index.py badge()/main() emit"
   derivation:
     tool: "python3 scripts/index.py --write"
@@ -328,7 +339,7 @@ files:
     - "advisories/*.toml"
 - path: "badges/supernovae-st--release-radar.json"
   class: generated
-  sha256: 258b143ec224b8a7cebbbea1865258e831adc249e96d453c6f47e333c4c09a84
+  sha256: bf52ee35916301297a347edf900d5eab7934e2cf071e0120a21a9c72668aa5cc
   evidence: "shields.io endpoint shape (schemaVersion=1 · label='nika cert') = exactly what scripts/index.py badge()/main() emit"
   derivation:
     tool: "python3 scripts/index.py --write"
@@ -339,7 +350,7 @@ files:
     - "advisories/*.toml"
 - path: "badges/supernovae-st--release-train.json"
   class: generated
-  sha256: 258b143ec224b8a7cebbbea1865258e831adc249e96d453c6f47e333c4c09a84
+  sha256: bf52ee35916301297a347edf900d5eab7934e2cf071e0120a21a9c72668aa5cc
   evidence: "shields.io endpoint shape (schemaVersion=1 · label='nika cert') = exactly what scripts/index.py badge()/main() emit"
   derivation:
     tool: "python3 scripts/index.py --write"
@@ -350,7 +361,7 @@ files:
     - "advisories/*.toml"
 - path: "badges/supernovae-st--resume-screener.json"
   class: generated
-  sha256: 258b143ec224b8a7cebbbea1865258e831adc249e96d453c6f47e333c4c09a84
+  sha256: bf52ee35916301297a347edf900d5eab7934e2cf071e0120a21a9c72668aa5cc
   evidence: "shields.io endpoint shape (schemaVersion=1 · label='nika cert') = exactly what scripts/index.py badge()/main() emit"
   derivation:
     tool: "python3 scripts/index.py --write"
@@ -361,7 +372,7 @@ files:
     - "advisories/*.toml"
 - path: "badges/supernovae-st--seo-content-brief.json"
   class: generated
-  sha256: 258b143ec224b8a7cebbbea1865258e831adc249e96d453c6f47e333c4c09a84
+  sha256: bf52ee35916301297a347edf900d5eab7934e2cf071e0120a21a9c72668aa5cc
   evidence: "shields.io endpoint shape (schemaVersion=1 · label='nika cert') = exactly what scripts/index.py badge()/main() emit"
   derivation:
     tool: "python3 scripts/index.py --write"
@@ -372,7 +383,7 @@ files:
     - "advisories/*.toml"
 - path: "badges/supernovae-st--social-repurpose.json"
   class: generated
-  sha256: 258b143ec224b8a7cebbbea1865258e831adc249e96d453c6f47e333c4c09a84
+  sha256: bf52ee35916301297a347edf900d5eab7934e2cf071e0120a21a9c72668aa5cc
   evidence: "shields.io endpoint shape (schemaVersion=1 · label='nika cert') = exactly what scripts/index.py badge()/main() emit"
   derivation:
     tool: "python3 scripts/index.py --write"
@@ -383,7 +394,7 @@ files:
     - "advisories/*.toml"
 - path: "badges/supernovae-st--standup-digest.json"
   class: generated
-  sha256: 258b143ec224b8a7cebbbea1865258e831adc249e96d453c6f47e333c4c09a84
+  sha256: bf52ee35916301297a347edf900d5eab7934e2cf071e0120a21a9c72668aa5cc
   evidence: "shields.io endpoint shape (schemaVersion=1 · label='nika cert') = exactly what scripts/index.py badge()/main() emit"
   derivation:
     tool: "python3 scripts/index.py --write"
@@ -394,7 +405,7 @@ files:
     - "advisories/*.toml"
 - path: "badges/supernovae-st--support-triage.json"
   class: generated
-  sha256: 258b143ec224b8a7cebbbea1865258e831adc249e96d453c6f47e333c4c09a84
+  sha256: bf52ee35916301297a347edf900d5eab7934e2cf071e0120a21a9c72668aa5cc
   evidence: "shields.io endpoint shape (schemaVersion=1 · label='nika cert') = exactly what scripts/index.py badge()/main() emit"
   derivation:
     tool: "python3 scripts/index.py --write"
@@ -405,7 +416,7 @@ files:
     - "advisories/*.toml"
 - path: "badges/supernovae-st--transcript-shownotes.json"
   class: generated
-  sha256: 258b143ec224b8a7cebbbea1865258e831adc249e96d453c6f47e333c4c09a84
+  sha256: bf52ee35916301297a347edf900d5eab7934e2cf071e0120a21a9c72668aa5cc
   evidence: "shields.io endpoint shape (schemaVersion=1 · label='nika cert') = exactly what scripts/index.py badge()/main() emit"
   derivation:
     tool: "python3 scripts/index.py --write"
@@ -732,7 +743,7 @@ files:
   note: "the engine version behind these bytes is undeclared · a new verb or flag on the engine leaves them stale with nothing to say so"
 - path: "index.json"
   class: generated
-  sha256: 70e1291f5a5550aa9d0aa4259347b19ae5ca9a7a1922cc27102e7cc8e0313417
+  sha256: 1b9db9f91d20ac025f232e209b0a15b2b7dd2f8647889d85bf04934ad1de83ba
   evidence: "top-level `index_schema` key = the scripts/index.py build() shape; index.py writes exactly this path in --write"
   derivation:
     tool: "python3 scripts/index.py --write"
@@ -743,7 +754,7 @@ files:
     - "advisories/*.toml"
 - path: "llms.txt"
   class: generated
-  sha256: 67f7c911365ecebaa62f30eda93ca3bb2e3aac61a4f5a743bb1bb189560c9780
+  sha256: b46ac32ddf37c853f85710710979eec538a32531207465d56d01bf707268271e
   evidence: "byte-target of scripts/index.py render_llms() (index.py writes this path in --write; first line matches its template)"
   derivation:
     tool: "python3 scripts/index.py --write"
@@ -761,8 +772,19 @@ files:
     gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
     inputs:
     - "SPEC_PIN"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/manifest.yaml"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/bookmark-triage.nika.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/bookmark-triage.nika.yaml"
+- path: "registry/workflows/supernovae-st/bookmark-triage/0.2.0.toml"
+  class: generated
+  sha256: f020360284b33780ff165f41d9cd16bda60d7b8b77210b3d1531649cd583265a
+  evidence: "file header: '# GENERATED by scripts/project_pack.py from the nika-spec pack — do not hand-edit'"
+  derivation:
+    tool: "python3 scripts/project_pack.py --write (NIKA_SPEC_DIR=<nika-spec checkout>)"
+    gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
+    inputs:
+    - "SPEC_PIN"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/bookmark-triage.nika"
 - path: "registry/workflows/supernovae-st/ceo-monday-brief/0.1.0.toml"
   class: generated
   sha256: 8b1e2fbe998e7cd883a72aabe2b122ee9d2535c05079090424b6b9f45b14ac31
@@ -772,8 +794,19 @@ files:
     gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
     inputs:
     - "SPEC_PIN"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/manifest.yaml"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/ceo-monday-brief.nika.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/ceo-monday-brief.nika.yaml"
+- path: "registry/workflows/supernovae-st/ceo-monday-brief/0.2.0.toml"
+  class: generated
+  sha256: 07e7179a5101a74ce04ab033c9f5b37551b05fec0f84e8b80984d9c224ea64f3
+  evidence: "file header: '# GENERATED by scripts/project_pack.py from the nika-spec pack — do not hand-edit'"
+  derivation:
+    tool: "python3 scripts/project_pack.py --write (NIKA_SPEC_DIR=<nika-spec checkout>)"
+    gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
+    inputs:
+    - "SPEC_PIN"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/ceo-monday-brief.nika"
 - path: "registry/workflows/supernovae-st/competitor-radar/0.1.0.toml"
   class: generated
   sha256: 2cb76e757c8b2dc99b124d7f2bf64ef6341f8648179735655c25bf038077d9b0
@@ -783,8 +816,19 @@ files:
     gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
     inputs:
     - "SPEC_PIN"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/manifest.yaml"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/competitor-radar.nika.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/competitor-radar.nika.yaml"
+- path: "registry/workflows/supernovae-st/competitor-radar/0.2.0.toml"
+  class: generated
+  sha256: 1185c9393588be40be38c6290ac7b397c6a1362451bebc6f7886077a7153761a
+  evidence: "file header: '# GENERATED by scripts/project_pack.py from the nika-spec pack — do not hand-edit'"
+  derivation:
+    tool: "python3 scripts/project_pack.py --write (NIKA_SPEC_DIR=<nika-spec checkout>)"
+    gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
+    inputs:
+    - "SPEC_PIN"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/competitor-radar.nika"
 - path: "registry/workflows/supernovae-st/config-drift-sentinel/0.1.0.toml"
   class: generated
   sha256: 9ab5f4261d115cbe8ce717e12eacfba4a94c3e0d7b32533f709a62dfbbe00cd6
@@ -794,8 +838,19 @@ files:
     gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
     inputs:
     - "SPEC_PIN"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/manifest.yaml"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/config-drift-sentinel.nika.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/config-drift-sentinel.nika.yaml"
+- path: "registry/workflows/supernovae-st/config-drift-sentinel/0.2.0.toml"
+  class: generated
+  sha256: 456288e2f377447d674839ac42c89833e013210000b086b1a711194e9482de56
+  evidence: "file header: '# GENERATED by scripts/project_pack.py from the nika-spec pack — do not hand-edit'"
+  derivation:
+    tool: "python3 scripts/project_pack.py --write (NIKA_SPEC_DIR=<nika-spec checkout>)"
+    gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
+    inputs:
+    - "SPEC_PIN"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/config-drift-sentinel.nika"
 - path: "registry/workflows/supernovae-st/contract-guard/0.1.0.toml"
   class: generated
   sha256: c54ec0e6e0dcd4eba27725627cce03e3036f2228bea9ca58b67bf26efa25a163
@@ -805,8 +860,30 @@ files:
     gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
     inputs:
     - "SPEC_PIN"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/manifest.yaml"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/contract-guard.nika.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/contract-guard.nika.yaml"
+- path: "registry/workflows/supernovae-st/contract-guard/0.2.0.toml"
+  class: generated
+  sha256: d3a475f1fad9f703bc081e87e286f2d716e05e8eabcc92fa257322efc8662770
+  evidence: "file header: '# GENERATED by scripts/project_pack.py from the nika-spec pack — do not hand-edit'"
+  derivation:
+    tool: "python3 scripts/project_pack.py --write (NIKA_SPEC_DIR=<nika-spec checkout>)"
+    gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
+    inputs:
+    - "SPEC_PIN"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/contract-guard.nika"
+- path: "registry/workflows/supernovae-st/corpus-digest/0.2.0.toml"
+  class: generated
+  sha256: 32b0840f163ae30882f47929f2ac4902039ea2c41c757593085fb61a8b5e3def
+  evidence: "file header: '# GENERATED by scripts/project_pack.py from the nika-spec pack — do not hand-edit'"
+  derivation:
+    tool: "python3 scripts/project_pack.py --write (NIKA_SPEC_DIR=<nika-spec checkout>)"
+    gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
+    inputs:
+    - "SPEC_PIN"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/corpus-digest.nika"
 - path: "registry/workflows/supernovae-st/csv-chart-report/0.1.0.toml"
   class: generated
   sha256: 2fb493d8ed2e21933debd8c48f3eed1418f2089171e8b10f2bb824cbc99d61e3
@@ -816,8 +893,19 @@ files:
     gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
     inputs:
     - "SPEC_PIN"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/manifest.yaml"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/csv-chart-report.nika.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/csv-chart-report.nika.yaml"
+- path: "registry/workflows/supernovae-st/csv-chart-report/0.2.0.toml"
+  class: generated
+  sha256: 2d025887502103faa8ff3dbbc10032c1e3cb6012b2c8de8093d17fe132e73ab6
+  evidence: "file header: '# GENERATED by scripts/project_pack.py from the nika-spec pack — do not hand-edit'"
+  derivation:
+    tool: "python3 scripts/project_pack.py --write (NIKA_SPEC_DIR=<nika-spec checkout>)"
+    gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
+    inputs:
+    - "SPEC_PIN"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/csv-chart-report.nika"
 - path: "registry/workflows/supernovae-st/deep-research-brief/0.1.0.toml"
   class: generated
   sha256: 13c1f36e45cedbe0f48575d3633a9621427cd2e4b28f8f2f9c3d8ebdf0e73351
@@ -827,8 +915,19 @@ files:
     gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
     inputs:
     - "SPEC_PIN"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/manifest.yaml"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/deep-research-brief.nika.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/deep-research-brief.nika.yaml"
+- path: "registry/workflows/supernovae-st/deep-research-brief/0.2.0.toml"
+  class: generated
+  sha256: 6561c9cd98ebf751c999d57754d497a2f25e4684adb7a1f8f4723b8fa49c6107
+  evidence: "file header: '# GENERATED by scripts/project_pack.py from the nika-spec pack — do not hand-edit'"
+  derivation:
+    tool: "python3 scripts/project_pack.py --write (NIKA_SPEC_DIR=<nika-spec checkout>)"
+    gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
+    inputs:
+    - "SPEC_PIN"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/deep-research-brief.nika"
 - path: "registry/workflows/supernovae-st/etl-quarantine/0.1.0.toml"
   class: generated
   sha256: c5ab313362b24903cae2130a4d7cbc6f390b238aed64b97dc6b3dc1a8e060ce5
@@ -838,8 +937,19 @@ files:
     gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
     inputs:
     - "SPEC_PIN"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/manifest.yaml"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/etl-quarantine.nika.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/etl-quarantine.nika.yaml"
+- path: "registry/workflows/supernovae-st/etl-quarantine/0.2.0.toml"
+  class: generated
+  sha256: c7afa4f537f7852fddb2bdfd8126f1fea375f8cb95a8e86da5819258333fc6f1
+  evidence: "file header: '# GENERATED by scripts/project_pack.py from the nika-spec pack — do not hand-edit'"
+  derivation:
+    tool: "python3 scripts/project_pack.py --write (NIKA_SPEC_DIR=<nika-spec checkout>)"
+    gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
+    inputs:
+    - "SPEC_PIN"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/etl-quarantine.nika"
 - path: "registry/workflows/supernovae-st/image-fx-batch/0.1.0.toml"
   class: generated
   sha256: 4af6453b7c6dead358fb5f40fe734ac9fd1c3d4f31ad3bb530d0eba1aa162b9e
@@ -849,8 +959,19 @@ files:
     gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
     inputs:
     - "SPEC_PIN"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/manifest.yaml"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/image-fx-batch.nika.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/image-fx-batch.nika.yaml"
+- path: "registry/workflows/supernovae-st/image-fx-batch/0.2.0.toml"
+  class: generated
+  sha256: af11b8b4a13c31cb40ca0114454877955587bb778db52b6387c2343a808ad929
+  evidence: "file header: '# GENERATED by scripts/project_pack.py from the nika-spec pack — do not hand-edit'"
+  derivation:
+    tool: "python3 scripts/project_pack.py --write (NIKA_SPEC_DIR=<nika-spec checkout>)"
+    gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
+    inputs:
+    - "SPEC_PIN"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/image-fx-batch.nika"
 - path: "registry/workflows/supernovae-st/incident-war-room/0.1.0.toml"
   class: generated
   sha256: 8808b73473635435b8a6edeb597683ce3299dc52f27f13c420e17e1cac3d7511
@@ -860,8 +981,19 @@ files:
     gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
     inputs:
     - "SPEC_PIN"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/manifest.yaml"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/incident-war-room.nika.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/incident-war-room.nika.yaml"
+- path: "registry/workflows/supernovae-st/incident-war-room/0.2.0.toml"
+  class: generated
+  sha256: 9ddcae60f5345e280fb9bf684700bae6f601080a8ecae6dfd87699969870ed29
+  evidence: "file header: '# GENERATED by scripts/project_pack.py from the nika-spec pack — do not hand-edit'"
+  derivation:
+    tool: "python3 scripts/project_pack.py --write (NIKA_SPEC_DIR=<nika-spec checkout>)"
+    gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
+    inputs:
+    - "SPEC_PIN"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/incident-war-room.nika"
 - path: "registry/workflows/supernovae-st/invoice-chaser/0.1.0.toml"
   class: generated
   sha256: 53eca76b1ec7087f7b638ffcdeb4b72112aaa2167001b2b97dfa18dcb8441624
@@ -871,8 +1003,19 @@ files:
     gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
     inputs:
     - "SPEC_PIN"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/manifest.yaml"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/invoice-chaser.nika.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/invoice-chaser.nika.yaml"
+- path: "registry/workflows/supernovae-st/invoice-chaser/0.2.0.toml"
+  class: generated
+  sha256: 7333311a7f8193c9b30363c2a593d309310de872d07491a4f22614837bbef978
+  evidence: "file header: '# GENERATED by scripts/project_pack.py from the nika-spec pack — do not hand-edit'"
+  derivation:
+    tool: "python3 scripts/project_pack.py --write (NIKA_SPEC_DIR=<nika-spec checkout>)"
+    gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
+    inputs:
+    - "SPEC_PIN"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/invoice-chaser.nika"
 - path: "registry/workflows/supernovae-st/localization-factory/0.1.0.toml"
   class: generated
   sha256: 8ed712a0514f79a3d3f47df4c59bbb61cc9cda6f830593c6b260cf6b3e447ef1
@@ -882,8 +1025,19 @@ files:
     gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
     inputs:
     - "SPEC_PIN"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/manifest.yaml"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/localization-factory.nika.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/localization-factory.nika.yaml"
+- path: "registry/workflows/supernovae-st/localization-factory/0.2.0.toml"
+  class: generated
+  sha256: 4d32068b92c38ceb3d5814f410588fe8abab77549ce80beb20ed359e32feef04
+  evidence: "file header: '# GENERATED by scripts/project_pack.py from the nika-spec pack — do not hand-edit'"
+  derivation:
+    tool: "python3 scripts/project_pack.py --write (NIKA_SPEC_DIR=<nika-spec checkout>)"
+    gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
+    inputs:
+    - "SPEC_PIN"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/localization-factory.nika"
 - path: "registry/workflows/supernovae-st/meeting-actions/0.1.0.toml"
   class: generated
   sha256: efa6e2e2137dbc4e32f7dd84a002dca36f60eebb288b9c22db81cf7763bfa3a8
@@ -893,8 +1047,19 @@ files:
     gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
     inputs:
     - "SPEC_PIN"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/manifest.yaml"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/meeting-actions.nika.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/meeting-actions.nika.yaml"
+- path: "registry/workflows/supernovae-st/meeting-actions/0.2.0.toml"
+  class: generated
+  sha256: 728d96ac19db02dd284520ba75fd84e91d87b93183bc2c8c3e1dea1a2e2cd7eb
+  evidence: "file header: '# GENERATED by scripts/project_pack.py from the nika-spec pack — do not hand-edit'"
+  derivation:
+    tool: "python3 scripts/project_pack.py --write (NIKA_SPEC_DIR=<nika-spec checkout>)"
+    gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
+    inputs:
+    - "SPEC_PIN"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/meeting-actions.nika"
 - path: "registry/workflows/supernovae-st/model-bench/0.1.0.toml"
   class: generated
   sha256: 2ff244dd738ec7405b8f28a8bfb092358ecae720f5862099ea1db87806bc31a4
@@ -904,8 +1069,19 @@ files:
     gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
     inputs:
     - "SPEC_PIN"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/manifest.yaml"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/model-bench.nika.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/model-bench.nika.yaml"
+- path: "registry/workflows/supernovae-st/model-bench/0.2.0.toml"
+  class: generated
+  sha256: 51108726471036d4d0d921ab458964b54e3145bc278006f3a81bdfea787d29dd
+  evidence: "file header: '# GENERATED by scripts/project_pack.py from the nika-spec pack — do not hand-edit'"
+  derivation:
+    tool: "python3 scripts/project_pack.py --write (NIKA_SPEC_DIR=<nika-spec checkout>)"
+    gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
+    inputs:
+    - "SPEC_PIN"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/model-bench.nika"
 - path: "registry/workflows/supernovae-st/og-images/0.1.0.toml"
   class: generated
   sha256: 48b18c94e84f9a919c4921f53341b32816b4fc73823af65cb92e9a032bd39e05
@@ -915,8 +1091,19 @@ files:
     gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
     inputs:
     - "SPEC_PIN"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/manifest.yaml"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/og-images.nika.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/og-images.nika.yaml"
+- path: "registry/workflows/supernovae-st/og-images/0.2.0.toml"
+  class: generated
+  sha256: e8c91c795cafd408993e2298b620d2a4aca94e3ec3d8f9de4edd3a2e30c9f2fc
+  evidence: "file header: '# GENERATED by scripts/project_pack.py from the nika-spec pack — do not hand-edit'"
+  derivation:
+    tool: "python3 scripts/project_pack.py --write (NIKA_SPEC_DIR=<nika-spec checkout>)"
+    gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
+    inputs:
+    - "SPEC_PIN"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/og-images.nika"
 - path: "registry/workflows/supernovae-st/pr-review-fanout/0.1.0.toml"
   class: generated
   sha256: 4fa460e47e170c6b775f99414dee64b8be1be0b18cc1cc550591f5a619363937
@@ -926,8 +1113,19 @@ files:
     gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
     inputs:
     - "SPEC_PIN"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/manifest.yaml"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/pr-review-fanout.nika.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/pr-review-fanout.nika.yaml"
+- path: "registry/workflows/supernovae-st/pr-review-fanout/0.2.0.toml"
+  class: generated
+  sha256: fe72bbcda789052686157f7aa7ce32810ea51ba86dc760643d1c6f86f6909768
+  evidence: "file header: '# GENERATED by scripts/project_pack.py from the nika-spec pack — do not hand-edit'"
+  derivation:
+    tool: "python3 scripts/project_pack.py --write (NIKA_SPEC_DIR=<nika-spec checkout>)"
+    gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
+    inputs:
+    - "SPEC_PIN"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/pr-review-fanout.nika"
 - path: "registry/workflows/supernovae-st/price-watch/0.1.0.toml"
   class: generated
   sha256: 67cabca63c7c949bd19f5475f74f0d0ce152cd8be3689a0eef7edb1cac08f571
@@ -937,8 +1135,19 @@ files:
     gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
     inputs:
     - "SPEC_PIN"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/manifest.yaml"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/price-watch.nika.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/price-watch.nika.yaml"
+- path: "registry/workflows/supernovae-st/price-watch/0.2.0.toml"
+  class: generated
+  sha256: 0da538031f1010ffb4c3bfc809e5d487fd10a4bd5ea57864d276af5c1c010650
+  evidence: "file header: '# GENERATED by scripts/project_pack.py from the nika-spec pack — do not hand-edit'"
+  derivation:
+    tool: "python3 scripts/project_pack.py --write (NIKA_SPEC_DIR=<nika-spec checkout>)"
+    gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
+    inputs:
+    - "SPEC_PIN"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/price-watch.nika"
 - path: "registry/workflows/supernovae-st/release-notes/0.1.0.toml"
   class: generated
   sha256: 1e73a67394aee5888a79748298c56db0098ffd4594d07f004e2d8e262fb39011
@@ -948,8 +1157,19 @@ files:
     gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
     inputs:
     - "SPEC_PIN"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/manifest.yaml"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/release-notes.nika.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/release-notes.nika.yaml"
+- path: "registry/workflows/supernovae-st/release-notes/0.2.0.toml"
+  class: generated
+  sha256: 0a64356d5e89ccadd353d968b4ae54b857801a9ffa0de61e2c5c00b7ff1b183d
+  evidence: "file header: '# GENERATED by scripts/project_pack.py from the nika-spec pack — do not hand-edit'"
+  derivation:
+    tool: "python3 scripts/project_pack.py --write (NIKA_SPEC_DIR=<nika-spec checkout>)"
+    gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
+    inputs:
+    - "SPEC_PIN"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/release-notes.nika"
 - path: "registry/workflows/supernovae-st/release-radar/0.1.0.toml"
   class: generated
   sha256: ba1b3a59b699d2bdcb06341c0c740d4b0d0d7cb966e3ca1e089647442c4f728d
@@ -959,8 +1179,19 @@ files:
     gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
     inputs:
     - "SPEC_PIN"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/manifest.yaml"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/release-radar.nika.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/release-radar.nika.yaml"
+- path: "registry/workflows/supernovae-st/release-radar/0.2.0.toml"
+  class: generated
+  sha256: 1305699df1295833cf0e7f95b78a91e5449cff9a5d38cc7e873214cd410f2e55
+  evidence: "file header: '# GENERATED by scripts/project_pack.py from the nika-spec pack — do not hand-edit'"
+  derivation:
+    tool: "python3 scripts/project_pack.py --write (NIKA_SPEC_DIR=<nika-spec checkout>)"
+    gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
+    inputs:
+    - "SPEC_PIN"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/release-radar.nika"
 - path: "registry/workflows/supernovae-st/release-train/0.1.0.toml"
   class: generated
   sha256: 93430dd29f0c7fa37062591aadae9fdc24fb9086945188184af04334bf6d225b
@@ -970,8 +1201,19 @@ files:
     gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
     inputs:
     - "SPEC_PIN"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/manifest.yaml"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/release-train.nika.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/release-train.nika.yaml"
+- path: "registry/workflows/supernovae-st/release-train/0.2.0.toml"
+  class: generated
+  sha256: 590cdf2c9028fb4fb0a2e62f37561a90b0d3512c55eeca2f3f417b2b17ba25f3
+  evidence: "file header: '# GENERATED by scripts/project_pack.py from the nika-spec pack — do not hand-edit'"
+  derivation:
+    tool: "python3 scripts/project_pack.py --write (NIKA_SPEC_DIR=<nika-spec checkout>)"
+    gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
+    inputs:
+    - "SPEC_PIN"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/release-train.nika"
 - path: "registry/workflows/supernovae-st/resume-screener/0.1.0.toml"
   class: generated
   sha256: ddfebfa3df9936f4d3d2cd92f74ad5f7bcd20b35d36e1908191e97318de27a42
@@ -981,8 +1223,19 @@ files:
     gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
     inputs:
     - "SPEC_PIN"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/manifest.yaml"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/resume-screener.nika.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/resume-screener.nika.yaml"
+- path: "registry/workflows/supernovae-st/resume-screener/0.2.0.toml"
+  class: generated
+  sha256: 257aefb2628833b4450a602cd87e3593480a1610ea85e5ef454d15db2c7ddeb4
+  evidence: "file header: '# GENERATED by scripts/project_pack.py from the nika-spec pack — do not hand-edit'"
+  derivation:
+    tool: "python3 scripts/project_pack.py --write (NIKA_SPEC_DIR=<nika-spec checkout>)"
+    gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
+    inputs:
+    - "SPEC_PIN"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/resume-screener.nika"
 - path: "registry/workflows/supernovae-st/seo-content-brief/0.1.0.toml"
   class: generated
   sha256: 48c00f9ebe9177e725048d02c25e379f496a46d46f410161f2a82cfb50382d4c
@@ -992,8 +1245,19 @@ files:
     gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
     inputs:
     - "SPEC_PIN"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/manifest.yaml"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/seo-content-brief.nika.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/seo-content-brief.nika.yaml"
+- path: "registry/workflows/supernovae-st/seo-content-brief/0.2.0.toml"
+  class: generated
+  sha256: e0e79e6c5844d9401be19e85e5fc7449be3243be2608bd99f15802d8b8bb5f51
+  evidence: "file header: '# GENERATED by scripts/project_pack.py from the nika-spec pack — do not hand-edit'"
+  derivation:
+    tool: "python3 scripts/project_pack.py --write (NIKA_SPEC_DIR=<nika-spec checkout>)"
+    gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
+    inputs:
+    - "SPEC_PIN"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/seo-content-brief.nika"
 - path: "registry/workflows/supernovae-st/social-repurpose/0.1.0.toml"
   class: generated
   sha256: fa69755331d687c1bf639eb02d8af4592e2e41372a5a0998ffb174a3fd6f45a6
@@ -1003,8 +1267,19 @@ files:
     gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
     inputs:
     - "SPEC_PIN"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/manifest.yaml"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/social-repurpose.nika.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/social-repurpose.nika.yaml"
+- path: "registry/workflows/supernovae-st/social-repurpose/0.2.0.toml"
+  class: generated
+  sha256: ccd79d4092addae8863ae5e8314af9713e000e5bb53a21b38b2fd8258bc06f84
+  evidence: "file header: '# GENERATED by scripts/project_pack.py from the nika-spec pack — do not hand-edit'"
+  derivation:
+    tool: "python3 scripts/project_pack.py --write (NIKA_SPEC_DIR=<nika-spec checkout>)"
+    gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
+    inputs:
+    - "SPEC_PIN"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/social-repurpose.nika"
 - path: "registry/workflows/supernovae-st/standup-digest/0.1.0.toml"
   class: generated
   sha256: 50a4d19c82f6ac6218d9480783216f555e9b8e4da12d46bf91283990fd2ce06b
@@ -1014,8 +1289,19 @@ files:
     gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
     inputs:
     - "SPEC_PIN"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/manifest.yaml"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/standup-digest.nika.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/standup-digest.nika.yaml"
+- path: "registry/workflows/supernovae-st/standup-digest/0.2.0.toml"
+  class: generated
+  sha256: b5b5bab1ac0ace7d5845f5f376e4805a0f2f4a0c9c2dd2b54e949e6876943397
+  evidence: "file header: '# GENERATED by scripts/project_pack.py from the nika-spec pack — do not hand-edit'"
+  derivation:
+    tool: "python3 scripts/project_pack.py --write (NIKA_SPEC_DIR=<nika-spec checkout>)"
+    gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
+    inputs:
+    - "SPEC_PIN"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/standup-digest.nika"
 - path: "registry/workflows/supernovae-st/support-triage/0.1.0.toml"
   class: generated
   sha256: 5798f409a2936f41ed2ff356eba0f33c40c2884d3aa047ef905f6772b1f76795
@@ -1025,8 +1311,19 @@ files:
     gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
     inputs:
     - "SPEC_PIN"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/manifest.yaml"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/support-triage.nika.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/support-triage.nika.yaml"
+- path: "registry/workflows/supernovae-st/support-triage/0.2.0.toml"
+  class: generated
+  sha256: cf92e5f089bb812916696fb6296b87b210b0a1e5275e03e0055f108f334615f4
+  evidence: "file header: '# GENERATED by scripts/project_pack.py from the nika-spec pack — do not hand-edit'"
+  derivation:
+    tool: "python3 scripts/project_pack.py --write (NIKA_SPEC_DIR=<nika-spec checkout>)"
+    gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
+    inputs:
+    - "SPEC_PIN"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/support-triage.nika"
 - path: "registry/workflows/supernovae-st/transcript-shownotes/0.1.0.toml"
   class: generated
   sha256: da06bc877d61c37905297d4f88bcfa09af7172fa6f26d43d3dc515a9488f24b1
@@ -1036,11 +1333,22 @@ files:
     gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
     inputs:
     - "SPEC_PIN"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/manifest.yaml"
-    - "supernovae-st/nika-spec@699ebb08585da2b4b908e8dac6ca584332fe0783:examples/transcript-shownotes.nika.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/transcript-shownotes.nika.yaml"
+- path: "registry/workflows/supernovae-st/transcript-shownotes/0.2.0.toml"
+  class: generated
+  sha256: 18ced01043e31655b5c2ece0067342b25b7eefaef02f6499652ba6f58123ff1a
+  evidence: "file header: '# GENERATED by scripts/project_pack.py from the nika-spec pack — do not hand-edit'"
+  derivation:
+    tool: "python3 scripts/project_pack.py --write (NIKA_SPEC_DIR=<nika-spec checkout>)"
+    gate: ".github/workflows/verify.yml step 'First-party entries match the spec pack (projection parity)' → python3 scripts/project_pack.py --check"
+    inputs:
+    - "SPEC_PIN"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/manifest.yaml"
+    - "supernovae-st/nika-spec@c119bb42fbacde440f66fcdc745f7bc5b966b627:examples/transcript-shownotes.nika"
 - path: "scripts/cert.py"
   class: authored
-  sha256: 6042a4f3c2f92258bb64cd0c5c9aed476b48426b7b1a6f28c41573c6bb272be7
+  sha256: 7ffaa700da33c8fef23ee69090620fa439b6b5e9e150f463ec5fc9e449ee0c0e
   evidence: "hand-written certifier · SPDX header + design prose"
   note: "release-heal.yml rewrites the ENGINE_VERSION pin line on engine releases — a bot-maintained field inside an authored file"
 - path: "scripts/estate.py"
@@ -1071,7 +1379,7 @@ files:
   evidence: "hand-written gate · SPDX header + design prose · POLICIES.md law 8 (check-only by design)"
 - path: "scripts/project_pack.py"
   class: authored
-  sha256: ca0ffc37228b620f14595de0b13489deb78d326cbeb6cca539cbbf21f884f708
+  sha256: 7c15b832c0393334d978c5b925373d30a8764dcf7e246bbe5670195792942af8
   evidence: "hand-written projector · SPDX header + design prose"
 - path: "scripts/selftest.py"
   class: authored
@@ -1079,7 +1387,7 @@ files:
   evidence: "hand-written guard assertions · SPDX header + design prose"
 - path: "scripts/verify.py"
   class: authored
-  sha256: f0cf517495afdb4655fce63ab0b5dbf1343716c0b5ece12686e23f554aa32cab
+  sha256: 78fbeb8c8e2b933af9499586c7470daa50a84a0c74bf9793fadf407463b0c12f
   evidence: "hand-written gate · SPDX header + design prose · R1-R7 rules"
 patterns:
 - glob: "advisories/**.toml"
@@ -1090,7 +1398,7 @@ patterns:
 - glob: "**"
   class: authored
   match_count: 6
-  aggregate_sha256: 7f16622b4aa9c1350cd61f1b94e2c8e7ab15eec85066f247f8022307f64be3cd
+  aggregate_sha256: 1c344c16cbac11cb1140b1f735cee93ceb4951f494f8cd7119249f2ce1f57130
   evidence: "no generation marker or known role found"
   note: "unverified-default"
 unverified:

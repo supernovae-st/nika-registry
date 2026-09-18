@@ -1,6 +1,6 @@
 {
-  "color": "orange",
+  "color": "lightgrey",
   "label": "nika cert",
-  "message": "parse_refused",
+  "message": "none",
   "schemaVersion": 1
 }

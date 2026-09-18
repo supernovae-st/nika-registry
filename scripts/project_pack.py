@@ -97,14 +97,47 @@ def main() -> int:
     manifest = yaml.safe_load(at_rev("examples/manifest.yaml").decode())
     version = semver(manifest["pack_version"])
 
+    def showcase_identity(sc: dict, body: bytes) -> tuple[str, str]:
+        # Three manifest eras, one projector. The pin decides which
+        # era is read — the projector accepts all, never guesses.
+        #   pre-0.106: workflow: <id> + top-level description
+        #   0.106–0.1.0: workflow: {id, description}
+        #   0.2.0:       name: + file: (description lives in the file banner)
+        if "workflow" in sc:
+            wf = sc["workflow"]
+            name = wf["id"] if isinstance(wf, dict) else wf
+            desc = ((wf.get("description") if isinstance(wf, dict) else None)
+                    or sc.get("description") or "")
+        else:
+            name = sc.get("name") or pathlib.Path(sc["file"]).stem
+            desc = sc.get("description") or ""
+            if not desc:
+                prev = ROOT / "registry/workflows" / PUBLISHER / name / "0.1.0.toml"
+                if prev.is_file():
+                    for line in prev.read_text().splitlines():
+                        if line.startswith("description"):
+                            desc = line.split("=", 1)[1].strip().strip('"')
+                            break
+            if not desc:
+                parts = []
+                for line in body.decode().splitlines():
+                    if not line.startswith("#"):
+                        if parts:
+                            break
+                        continue
+                    text = line[1:].strip()
+                    if (not text or text.startswith("SPDX")
+                            or text.startswith("yaml-language-server")
+                            or text.startswith("showcase")):
+                        continue
+                    parts.append(text)
+                    if len(" ".join(parts)) >= 80:
+                        break
+                desc = " ".join(parts)
+        return name, desc.replace('"', "'")[:200]
+
     generated = {}  # rel_path -> rendered
     for sc in manifest["showcase"]:
-        # Two manifest eras, one projector: the pre-0.106 pack wrote
-        # `workflow: <id>` + a top-level description; the current pack
-        # writes `workflow: {id, description}`. The pin decides which
-        # era is read — the projector accepts both, never guesses.
-        wf = sc["workflow"]
-        name = wf["id"] if isinstance(wf, dict) else wf
         path = sc["file"]
         body = at_rev(path)
         # The registry pins the REAL bytes a consumer downloads (banner
@@ -112,8 +145,7 @@ def main() -> int:
         # display text (comment banner stripped for the site/docs render).
         # Two legitimate contracts; the registry's is the install one.
         sha = hashlib.sha256(body).hexdigest()
-        desc = ((wf.get("description") if isinstance(wf, dict) else None)
-                or sc.get("description", "")).replace('"', "'")
+        name, desc = showcase_identity(sc, body)
         rel = pathlib.Path("registry/workflows") / PUBLISHER / name / f"{version}.toml"
         generated[rel] = ENTRY.format(name=name, publisher=PUBLISHER, version=version,
                                       desc=desc, repo=SPEC_REPO, rev=rev, path=path,
