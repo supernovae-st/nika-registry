@@ -16,7 +16,7 @@
     "secret_leaks": [],
     "vars_required": []
   },
-  "engine": "0.119.0",
+  "engine": "0.120.0",
   "entry": "registry/workflows/supernovae-st/corpus-digest/0.2.0.toml",
   "schema": 2,
   "sha256": "a28ea469884c5d805099c91e3bc7f0e7e0da9f0f43f1c85fb01fb27df945e774"

@@ -2188,7 +2188,7 @@ _nika() {
             return 0
             ;;
         nika__subcmd__run)
-            opts="-h --json --output --no-progress --quiet --dry-run --model --access --var --resume --resume-compat --resume-unverified --from --answer --task --no-trace-file --no-outputs --max-cost-usd --no-gc --require-signature --color --hyperlink --ascii --plain --help"
+            opts="-h --json --output --no-progress --quiet --dry-run --model --access --var --inputs-json --resume --resume-compat --resume-unverified --from --answer --task --no-trace-file --no-outputs --max-cost-usd --no-gc --require-signature --color --hyperlink --ascii --plain --help"
             if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
                 COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
                 return 0
@@ -2207,6 +2207,10 @@ _nika() {
                     return 0
                     ;;
                 --var)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --inputs-json)
                     COMPREPLY=($(compgen -f "${cur}"))
                     return 0
                     ;;

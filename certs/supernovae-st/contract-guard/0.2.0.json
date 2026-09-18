@@ -16,7 +16,7 @@
     "secret_leaks": [],
     "vars_required": []
   },
-  "engine": "0.119.0",
+  "engine": "0.120.0",
   "entry": "registry/workflows/supernovae-st/contract-guard/0.2.0.toml",
   "schema": 2,
   "sha256": "35edcd647ae5ade8339a99b3b89c15855b66ce325b6426084c01103df75cb6d8"

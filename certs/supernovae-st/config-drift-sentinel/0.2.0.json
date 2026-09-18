@@ -16,7 +16,7 @@
     "secret_leaks": [],
     "vars_required": []
   },
-  "engine": "0.119.0",
+  "engine": "0.120.0",
   "entry": "registry/workflows/supernovae-st/config-drift-sentinel/0.2.0.toml",
   "schema": 2,
   "sha256": "0269915ab3cd9798b6ebec93342834d7ed85b1bb22a2892848d77fb8412c2d0a"
