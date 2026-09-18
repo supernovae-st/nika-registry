@@ -1,4 +1,5 @@
 .verify-tmp/
+.verify-oracle/
 .cert-tmp/
 __pycache__/
 nika-spec

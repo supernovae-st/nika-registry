@@ -12,7 +12,7 @@ spec = "nika/v1"
 [source]
 repo = "your-gh-owner/your-repo"   # the artifact STAYS in your repo
 rev = ""                           # full 40-hex commit — never a tag/branch
-path = "workflows/my-workflow.nika.yaml"
+path = "workflows/my-workflow.nika"
 
 [integrity]
 sha256 = ""                        # shasum -a 256 of the exact pinned bytes

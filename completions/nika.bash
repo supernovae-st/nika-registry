@@ -25,6 +25,9 @@ _nika() {
             nika,check)
                 cmd="nika__subcmd__check"
                 ;;
+            nika,compile)
+                cmd="nika__subcmd__compile"
+                ;;
             nika,completions)
                 cmd="nika__subcmd__completions"
                 ;;
@@ -63,9 +66,6 @@ _nika() {
                 ;;
             nika,model)
                 cmd="nika__subcmd__model"
-                ;;
-            nika,new)
-                cmd="nika__subcmd__new"
                 ;;
             nika,run)
                 cmd="nika__subcmd__run"
@@ -127,6 +127,9 @@ _nika() {
             nika__subcmd__help,check)
                 cmd="nika__subcmd__help__subcmd__check"
                 ;;
+            nika__subcmd__help,compile)
+                cmd="nika__subcmd__help__subcmd__compile"
+                ;;
             nika__subcmd__help,completions)
                 cmd="nika__subcmd__help__subcmd__completions"
                 ;;
@@ -165,9 +168,6 @@ _nika() {
                 ;;
             nika__subcmd__help,model)
                 cmd="nika__subcmd__help__subcmd__model"
-                ;;
-            nika__subcmd__help,new)
-                cmd="nika__subcmd__help__subcmd__new"
                 ;;
             nika__subcmd__help,run)
                 cmd="nika__subcmd__help__subcmd__run"
@@ -452,7 +452,7 @@ _nika() {
 
     case "${cmd}" in
         nika)
-            opts="-h -V --color --hyperlink --ascii --plain --help --version list welcome check run test inspect explain key arm serve sign doctor init wire model spec catalog try new completions trace guard dap lsp mcp help"
+            opts="-h -V --color --hyperlink --ascii --plain --help --version list welcome check run test inspect explain key arm serve sign doctor init wire model spec catalog try compile completions trace guard dap lsp mcp help"
             if [[ ${cur} == -* || ${COMP_CWORD} -eq 1 ]] ; then
                 COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
                 return 0
@@ -711,6 +711,44 @@ _nika() {
             COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
             return 0
             ;;
+        nika__subcmd__compile)
+            opts="-h --output --base --change --answer --force --json --list --color --hyperlink --ascii --plain --help"
+            if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
+                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+                return 0
+            fi
+            case "${prev}" in
+                --output)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --base)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --change)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --answer)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --color)
+                    COMPREPLY=($(compgen -W "always never auto" -- "${cur}"))
+                    return 0
+                    ;;
+                --hyperlink)
+                    COMPREPLY=($(compgen -W "always never auto" -- "${cur}"))
+                    return 0
+                    ;;
+                *)
+                    COMPREPLY=()
+                    ;;
+            esac
+            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+            return 0
+            ;;
         nika__subcmd__completions)
             opts="-h --color --hyperlink --ascii --plain --help bash elvish fish powershell zsh"
             if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
@@ -830,7 +868,7 @@ _nika() {
             return 0
             ;;
         nika__subcmd__help)
-            opts="list welcome check run test inspect explain key arm serve sign doctor init wire model spec catalog try new completions trace guard dap lsp mcp help"
+            opts="list welcome check run test inspect explain key arm serve sign doctor init wire model spec catalog try compile completions trace guard dap lsp mcp help"
             if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
                 COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
                 return 0
@@ -914,6 +952,20 @@ _nika() {
             return 0
             ;;
         nika__subcmd__help__subcmd__check)
+            opts=""
+            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
+                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+                return 0
+            fi
+            case "${prev}" in
+                *)
+                    COMPREPLY=()
+                    ;;
+            esac
+            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+            return 0
+            ;;
+        nika__subcmd__help__subcmd__compile)
             opts=""
             if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
                 COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
@@ -1210,20 +1262,6 @@ _nika() {
         nika__subcmd__help__subcmd__model__subcmd__serve)
             opts=""
             if [[ ${cur} == -* || ${COMP_CWORD} -eq 4 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
-        nika__subcmd__help__subcmd__new)
-            opts=""
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
                 COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
                 return 0
             fi
@@ -2149,30 +2187,8 @@ _nika() {
             COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
             return 0
             ;;
-        nika__subcmd__new)
-            opts="-h --force --color --hyperlink --ascii --plain --help"
-            if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
-                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-                return 0
-            fi
-            case "${prev}" in
-                --color)
-                    COMPREPLY=($(compgen -W "always never auto" -- "${cur}"))
-                    return 0
-                    ;;
-                --hyperlink)
-                    COMPREPLY=($(compgen -W "always never auto" -- "${cur}"))
-                    return 0
-                    ;;
-                *)
-                    COMPREPLY=()
-                    ;;
-            esac
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-            return 0
-            ;;
         nika__subcmd__run)
-            opts="-h --json --output --no-progress --quiet --dry-run --model --access --var --resume --resume-compat --resume-unverified --from --answer --task --no-trace-file --no-outputs --max-cost-usd --no-gc --require-signature --color --hyperlink --ascii --plain --help"
+            opts="-h --json --output --no-progress --quiet --dry-run --model --access --var --inputs-json --resume --resume-compat --resume-unverified --from --answer --task --no-trace-file --no-outputs --max-cost-usd --no-gc --require-signature --color --hyperlink --ascii --plain --help"
             if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
                 COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
                 return 0
@@ -2191,6 +2207,10 @@ _nika() {
                     return 0
                     ;;
                 --var)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --inputs-json)
                     COMPREPLY=($(compgen -f "${cur}"))
                     return 0
                     ;;

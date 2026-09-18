@@ -1,0 +1,23 @@
+{
+  "certificate": {
+    "analysis_status": "checked",
+    "broad": false,
+    "capability_escapes": [],
+    "clean": true,
+    "cost_usd": {
+      "bounded_total": 0.0,
+      "has_unbounded": false
+    },
+    "effect_calls": 2,
+    "findings": [],
+    "llm_calls": 0,
+    "permits_boundary": "permits:\n  net: { http: [\"api.shop.example.com\"] }\n  exec: false\n  tools: [\"nika:fetch\", \"nika:notify\"]\n\n# review \u2014 effects too dynamic to pin statically:\n#   \u00b7 task `alert` reaches a dynamic URL \u2014 `net.http` cannot express 'any host'; add the resolved host(s) before running",
+    "secret_egresses": [],
+    "secret_leaks": [],
+    "vars_required": []
+  },
+  "engine": "0.120.0",
+  "entry": "registry/workflows/supernovae-st/price-watch/0.2.0.toml",
+  "schema": 2,
+  "sha256": "b7a723203475d7dd2dd46fb57eb8f0d26f65a27d5c98ddc52af024359b22b388"
+}

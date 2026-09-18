@@ -1,0 +1,23 @@
+{
+  "certificate": {
+    "analysis_status": "checked",
+    "broad": false,
+    "capability_escapes": [],
+    "clean": true,
+    "cost_usd": {
+      "bounded_total": 0.0,
+      "has_unbounded": false
+    },
+    "effect_calls": 2,
+    "findings": [],
+    "llm_calls": 0,
+    "permits_boundary": "permits:\n  exec: false\n  tools: [\"nika:glob\", \"nika:image_fx\", \"nika:jq\"]\n\n# review \u2014 effects too dynamic to pin statically:\n#   \u00b7 task `shots` uses a dynamic path \u2014 `fs` cannot express 'any path'; add the resolved path(s) before running\n#   \u00b7 task `stylize` uses a dynamic path \u2014 `fs` cannot express 'any path'; add the resolved path(s) before running",
+    "secret_egresses": [],
+    "secret_leaks": [],
+    "vars_required": []
+  },
+  "engine": "0.120.0",
+  "entry": "registry/workflows/supernovae-st/image-fx-batch/0.2.0.toml",
+  "schema": 2,
+  "sha256": "0c4fb4c35f3333651ab66dece4ecb7fa6443d30c22f738a4d2695bb0884402b5"
+}

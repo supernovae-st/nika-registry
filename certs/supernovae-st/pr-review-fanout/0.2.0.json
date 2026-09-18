@@ -1,0 +1,23 @@
+{
+  "certificate": {
+    "analysis_status": "checked",
+    "broad": false,
+    "capability_escapes": [],
+    "clean": true,
+    "cost_usd": {
+      "bounded_total": 0.0,
+      "has_unbounded": true
+    },
+    "effect_calls": 6,
+    "findings": [],
+    "llm_calls": 1,
+    "permits_boundary": "permits:\n  fs:\n    read: [\"./src/**\"]\n    write: [\"./REVIEW.md\"]\n  exec: [\"git\"]\n  tools: [\"nika:done\", \"nika:grep\", \"nika:jq\", \"nika:prompt\", \"nika:read\", \"nika:write\"]",
+    "secret_egresses": [],
+    "secret_leaks": [],
+    "vars_required": []
+  },
+  "engine": "0.120.0",
+  "entry": "registry/workflows/supernovae-st/pr-review-fanout/0.2.0.toml",
+  "schema": 2,
+  "sha256": "3fadfc3126ece7358abeea2a736f89a2a419df9b97798f4f501a203d77cf6798"
+}

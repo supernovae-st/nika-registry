@@ -1,0 +1,23 @@
+{
+  "certificate": {
+    "analysis_status": "checked",
+    "broad": false,
+    "capability_escapes": [],
+    "clean": true,
+    "cost_usd": {
+      "bounded_total": 0.0,
+      "has_unbounded": false
+    },
+    "effect_calls": 2,
+    "findings": [],
+    "llm_calls": 0,
+    "permits_boundary": "permits:\n  fs:\n    write: [\"out/bookmarks.md\"]\n  exec: false\n  tools: [\"nika:fetch\", \"nika:jq\", \"nika:write\"]\n\n# review \u2014 effects too dynamic to pin statically:\n#   \u00b7 task `pages` reaches a dynamic URL \u2014 `net.http` cannot express 'any host'; add the resolved host(s) before running",
+    "secret_egresses": [],
+    "secret_leaks": [],
+    "vars_required": []
+  },
+  "engine": "0.120.0",
+  "entry": "registry/workflows/supernovae-st/bookmark-triage/0.2.0.toml",
+  "schema": 2,
+  "sha256": "3566535e4cc994db7c4e3eb31faca0e482d01013f1c1359d8f3f97a90546ba81"
+}

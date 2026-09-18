@@ -1,0 +1,254 @@
+{
+  "selftest": {
+    "inject_path": "README.md",
+    "new_file": "scripts/_ratchet-injection.md",
+    "new_prefix_file": "registry/workflows/supernovae-st/_ratchet-injection.toml"
+  },
+  "exceptions": [
+    {
+      "path": "README.md",
+      "category": "historical",
+      "reason": "verbatim 0.1.0 get.py / cache-basename transcript against spec 699ebb08 artifacts",
+      "owner": "nika-registry",
+      "count": 5,
+      "lines_sha256": "sha256:650819670105f7ae9f00467f1bec53a939a1d327880141b263bb521258cc9e4b"
+    },
+    {
+      "path": "estate.yaml",
+      "category": "historical",
+      "reason": "estate records immutable 0.1.0 pre-cut source.path at spec 699ebb08; 0.2.0 inputs use the canonical suffix",
+      "owner": "nika-registry",
+      "count": 26,
+      "lines_sha256": "sha256:bef20da676e141867a0e7c36f5470aef3253cca8d4962e1ce81baf91418b3e64"
+    },
+    {
+      "path": "index.json",
+      "category": "historical",
+      "reason": "0.1.0 rows retain pre-cut source.path at spec 699ebb08; 0.2.0 rows use the canonical suffix",
+      "owner": "nika-registry",
+      "count": 26,
+      "lines_sha256": "sha256:abafe5edd2558d0edeea3ac69c4a71f46992b381b77db3e3d3537193c3bfc59e"
+    },
+    {
+      "path": "registry/workflows/supernovae-st/bookmark-triage/0.1.0.toml",
+      "category": "frozen",
+      "reason": "Immutable published 0.1.0 entry at spec 699ebb08; do not rewrite; 0.2.0 is the suffix cut.",
+      "owner": "nika-registry",
+      "digest": "sha256:b760adbc2f33c58c8b49f146a456acc3f3baf3c371c8c4b90a5e3c3ac42e0751"
+    },
+    {
+      "path": "registry/workflows/supernovae-st/ceo-monday-brief/0.1.0.toml",
+      "category": "frozen",
+      "reason": "Immutable published 0.1.0 entry at spec 699ebb08; do not rewrite; 0.2.0 is the suffix cut.",
+      "owner": "nika-registry",
+      "digest": "sha256:8b1e2fbe998e7cd883a72aabe2b122ee9d2535c05079090424b6b9f45b14ac31"
+    },
+    {
+      "path": "registry/workflows/supernovae-st/competitor-radar/0.1.0.toml",
+      "category": "frozen",
+      "reason": "Immutable published 0.1.0 entry at spec 699ebb08; do not rewrite; 0.2.0 is the suffix cut.",
+      "owner": "nika-registry",
+      "digest": "sha256:2cb76e757c8b2dc99b124d7f2bf64ef6341f8648179735655c25bf038077d9b0"
+    },
+    {
+      "path": "registry/workflows/supernovae-st/config-drift-sentinel/0.1.0.toml",
+      "category": "frozen",
+      "reason": "Immutable published 0.1.0 entry at spec 699ebb08; do not rewrite; 0.2.0 is the suffix cut.",
+      "owner": "nika-registry",
+      "digest": "sha256:9ab5f4261d115cbe8ce717e12eacfba4a94c3e0d7b32533f709a62dfbbe00cd6"
+    },
+    {
+      "path": "registry/workflows/supernovae-st/contract-guard/0.1.0.toml",
+      "category": "frozen",
+      "reason": "Immutable published 0.1.0 entry at spec 699ebb08; do not rewrite; 0.2.0 is the suffix cut.",
+      "owner": "nika-registry",
+      "digest": "sha256:c54ec0e6e0dcd4eba27725627cce03e3036f2228bea9ca58b67bf26efa25a163"
+    },
+    {
+      "path": "registry/workflows/supernovae-st/csv-chart-report/0.1.0.toml",
+      "category": "frozen",
+      "reason": "Immutable published 0.1.0 entry at spec 699ebb08; do not rewrite; 0.2.0 is the suffix cut.",
+      "owner": "nika-registry",
+      "digest": "sha256:2fb493d8ed2e21933debd8c48f3eed1418f2089171e8b10f2bb824cbc99d61e3"
+    },
+    {
+      "path": "registry/workflows/supernovae-st/deep-research-brief/0.1.0.toml",
+      "category": "frozen",
+      "reason": "Immutable published 0.1.0 entry at spec 699ebb08; do not rewrite; 0.2.0 is the suffix cut.",
+      "owner": "nika-registry",
+      "digest": "sha256:13c1f36e45cedbe0f48575d3633a9621427cd2e4b28f8f2f9c3d8ebdf0e73351"
+    },
+    {
+      "path": "registry/workflows/supernovae-st/etl-quarantine/0.1.0.toml",
+      "category": "frozen",
+      "reason": "Immutable published 0.1.0 entry at spec 699ebb08; do not rewrite; 0.2.0 is the suffix cut.",
+      "owner": "nika-registry",
+      "digest": "sha256:c5ab313362b24903cae2130a4d7cbc6f390b238aed64b97dc6b3dc1a8e060ce5"
+    },
+    {
+      "path": "registry/workflows/supernovae-st/image-fx-batch/0.1.0.toml",
+      "category": "frozen",
+      "reason": "Immutable published 0.1.0 entry at spec 699ebb08; do not rewrite; 0.2.0 is the suffix cut.",
+      "owner": "nika-registry",
+      "digest": "sha256:4af6453b7c6dead358fb5f40fe734ac9fd1c3d4f31ad3bb530d0eba1aa162b9e"
+    },
+    {
+      "path": "registry/workflows/supernovae-st/incident-war-room/0.1.0.toml",
+      "category": "frozen",
+      "reason": "Immutable published 0.1.0 entry at spec 699ebb08; do not rewrite; 0.2.0 is the suffix cut.",
+      "owner": "nika-registry",
+      "digest": "sha256:8808b73473635435b8a6edeb597683ce3299dc52f27f13c420e17e1cac3d7511"
+    },
+    {
+      "path": "registry/workflows/supernovae-st/invoice-chaser/0.1.0.toml",
+      "category": "frozen",
+      "reason": "Immutable published 0.1.0 entry at spec 699ebb08; do not rewrite; 0.2.0 is the suffix cut.",
+      "owner": "nika-registry",
+      "digest": "sha256:53eca76b1ec7087f7b638ffcdeb4b72112aaa2167001b2b97dfa18dcb8441624"
+    },
+    {
+      "path": "registry/workflows/supernovae-st/localization-factory/0.1.0.toml",
+      "category": "frozen",
+      "reason": "Immutable published 0.1.0 entry at spec 699ebb08; do not rewrite; 0.2.0 is the suffix cut.",
+      "owner": "nika-registry",
+      "digest": "sha256:8ed712a0514f79a3d3f47df4c59bbb61cc9cda6f830593c6b260cf6b3e447ef1"
+    },
+    {
+      "path": "registry/workflows/supernovae-st/meeting-actions/0.1.0.toml",
+      "category": "frozen",
+      "reason": "Immutable published 0.1.0 entry at spec 699ebb08; do not rewrite; 0.2.0 is the suffix cut.",
+      "owner": "nika-registry",
+      "digest": "sha256:efa6e2e2137dbc4e32f7dd84a002dca36f60eebb288b9c22db81cf7763bfa3a8"
+    },
+    {
+      "path": "registry/workflows/supernovae-st/model-bench/0.1.0.toml",
+      "category": "frozen",
+      "reason": "Immutable published 0.1.0 entry at spec 699ebb08; do not rewrite; 0.2.0 is the suffix cut.",
+      "owner": "nika-registry",
+      "digest": "sha256:2ff244dd738ec7405b8f28a8bfb092358ecae720f5862099ea1db87806bc31a4"
+    },
+    {
+      "path": "registry/workflows/supernovae-st/og-images/0.1.0.toml",
+      "category": "frozen",
+      "reason": "Immutable published 0.1.0 entry at spec 699ebb08; do not rewrite; 0.2.0 is the suffix cut.",
+      "owner": "nika-registry",
+      "digest": "sha256:48b18c94e84f9a919c4921f53341b32816b4fc73823af65cb92e9a032bd39e05"
+    },
+    {
+      "path": "registry/workflows/supernovae-st/pr-review-fanout/0.1.0.toml",
+      "category": "frozen",
+      "reason": "Immutable published 0.1.0 entry at spec 699ebb08; do not rewrite; 0.2.0 is the suffix cut.",
+      "owner": "nika-registry",
+      "digest": "sha256:4fa460e47e170c6b775f99414dee64b8be1be0b18cc1cc550591f5a619363937"
+    },
+    {
+      "path": "registry/workflows/supernovae-st/price-watch/0.1.0.toml",
+      "category": "frozen",
+      "reason": "Immutable published 0.1.0 entry at spec 699ebb08; do not rewrite; 0.2.0 is the suffix cut.",
+      "owner": "nika-registry",
+      "digest": "sha256:67cabca63c7c949bd19f5475f74f0d0ce152cd8be3689a0eef7edb1cac08f571"
+    },
+    {
+      "path": "registry/workflows/supernovae-st/release-notes/0.1.0.toml",
+      "category": "frozen",
+      "reason": "Immutable published 0.1.0 entry at spec 699ebb08; do not rewrite; 0.2.0 is the suffix cut.",
+      "owner": "nika-registry",
+      "digest": "sha256:1e73a67394aee5888a79748298c56db0098ffd4594d07f004e2d8e262fb39011"
+    },
+    {
+      "path": "registry/workflows/supernovae-st/release-radar/0.1.0.toml",
+      "category": "frozen",
+      "reason": "Immutable published 0.1.0 entry at spec 699ebb08; do not rewrite; 0.2.0 is the suffix cut.",
+      "owner": "nika-registry",
+      "digest": "sha256:ba1b3a59b699d2bdcb06341c0c740d4b0d0d7cb966e3ca1e089647442c4f728d"
+    },
+    {
+      "path": "registry/workflows/supernovae-st/release-train/0.1.0.toml",
+      "category": "frozen",
+      "reason": "Immutable published 0.1.0 entry at spec 699ebb08; do not rewrite; 0.2.0 is the suffix cut.",
+      "owner": "nika-registry",
+      "digest": "sha256:93430dd29f0c7fa37062591aadae9fdc24fb9086945188184af04334bf6d225b"
+    },
+    {
+      "path": "registry/workflows/supernovae-st/resume-screener/0.1.0.toml",
+      "category": "frozen",
+      "reason": "Immutable published 0.1.0 entry at spec 699ebb08; do not rewrite; 0.2.0 is the suffix cut.",
+      "owner": "nika-registry",
+      "digest": "sha256:ddfebfa3df9936f4d3d2cd92f74ad5f7bcd20b35d36e1908191e97318de27a42"
+    },
+    {
+      "path": "registry/workflows/supernovae-st/seo-content-brief/0.1.0.toml",
+      "category": "frozen",
+      "reason": "Immutable published 0.1.0 entry at spec 699ebb08; do not rewrite; 0.2.0 is the suffix cut.",
+      "owner": "nika-registry",
+      "digest": "sha256:48c00f9ebe9177e725048d02c25e379f496a46d46f410161f2a82cfb50382d4c"
+    },
+    {
+      "path": "registry/workflows/supernovae-st/social-repurpose/0.1.0.toml",
+      "category": "frozen",
+      "reason": "Immutable published 0.1.0 entry at spec 699ebb08; do not rewrite; 0.2.0 is the suffix cut.",
+      "owner": "nika-registry",
+      "digest": "sha256:fa69755331d687c1bf639eb02d8af4592e2e41372a5a0998ffb174a3fd6f45a6"
+    },
+    {
+      "path": "registry/workflows/supernovae-st/standup-digest/0.1.0.toml",
+      "category": "frozen",
+      "reason": "Immutable published 0.1.0 entry at spec 699ebb08; do not rewrite; 0.2.0 is the suffix cut.",
+      "owner": "nika-registry",
+      "digest": "sha256:50a4d19c82f6ac6218d9480783216f555e9b8e4da12d46bf91283990fd2ce06b"
+    },
+    {
+      "path": "registry/workflows/supernovae-st/support-triage/0.1.0.toml",
+      "category": "frozen",
+      "reason": "Immutable published 0.1.0 entry at spec 699ebb08; do not rewrite; 0.2.0 is the suffix cut.",
+      "owner": "nika-registry",
+      "digest": "sha256:5798f409a2936f41ed2ff356eba0f33c40c2884d3aa047ef905f6772b1f76795"
+    },
+    {
+      "path": "registry/workflows/supernovae-st/transcript-shownotes/0.1.0.toml",
+      "category": "frozen",
+      "reason": "Immutable published 0.1.0 entry at spec 699ebb08; do not rewrite; 0.2.0 is the suffix cut.",
+      "owner": "nika-registry",
+      "digest": "sha256:da06bc877d61c37905297d4f88bcfa09af7172fa6f26d43d3dc515a9488f24b1"
+    },
+    {
+      "path": "scripts/selftest.py",
+      "category": "negative",
+      "reason": "Mutation fixture that must keep the retired spelling to prove detection.",
+      "owner": "nika-registry",
+      "count": 5,
+      "lines_sha256": "sha256:b5f3268ada51f135804e476ccd87d646022134916e9b00ac0db4156a962b4624"
+    },
+    {
+      "path": "scripts/suffix_ratchet.py",
+      "category": "ratchet",
+      "reason": "The scanner's own forbidden-pattern data.",
+      "owner": "nika-registry",
+      "count": 37,
+      "lines_sha256": "sha256:3ca48a667b27c8faab36b4a24197520bc5fca6616c03740d5ef95fab15735452"
+    },
+    {
+      "path": "scripts/test_suffix_ratchet.py",
+      "category": "negative",
+      "reason": "Mutation fixture that must keep the retired spelling to prove detection.",
+      "owner": "nika-registry",
+      "count": 18,
+      "lines_sha256": "sha256:7d905b01eab2511f5a473f93750f523019fbaa175d1e602e09f41d73a059f6df"
+    },
+    {
+      "path": "scripts/verify.py",
+      "category": "negative",
+      "reason": "Mutation fixture that must keep the retired spelling to prove detection.",
+      "owner": "nika-registry",
+      "count": 3,
+      "lines_sha256": "sha256:3dd4220481d75eb64c93ebcea9fc8fec10aa979b1933e6ef0bdc3093c2caf743"
+    },
+    {
+      "path": "scripts/precut-0.1.0-identities.json",
+      "category": "frozen",
+      "digest": "sha256:036bd8d740c2814800c59e30e93361770521a5f3a61f5d09e778128dce10215e",
+      "reason": "Exact frozen 0.1.0 first-party identities; retired suffix and old-oracle routing bind only these records.",
+      "owner": "scripts/verify.py"
+    }
+  ]
+}

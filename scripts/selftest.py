@@ -7,12 +7,14 @@
 # before `verify.py --all`. Not a replacement for --all (which re-proves the
 # real entries) — this pins the invariants those entries rely on.
 
+import copy
 import os
 import pathlib
 import sys
 import tempfile
 import json
 import subprocess
+import tomllib
 from unittest.mock import patch
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
@@ -72,11 +74,11 @@ check("semver: 0.2.0-rc2 > 0.2.0-rc1", get.version_key("0.2.0-rc2") > get.versio
 # ── the consume hand-off must never suggest a command that cannot run ─────────
 # A required var makes even a mock preview fail NIKA-VAR-001; the suggestion
 # must carry the --var flag. A fetch-only workflow must not be sold as offline.
-_h_llm_var = " ".join(get.handoff_lines("w.nika.yaml", {"llm_calls": 1, "permits_boundary": "", "vars_required": ["transcript_path"]}))
+_h_llm_var = " ".join(get.handoff_lines("w.nika", {"llm_calls": 1, "permits_boundary": "", "vars_required": ["transcript_path"]}))
 check("hand-off surfaces a required var in the run command", "--var transcript_path=<value>" in _h_llm_var)
-_h_plain = " ".join(get.handoff_lines("w.nika.yaml", {"llm_calls": 1, "permits_boundary": "", "vars_required": []}))
+_h_plain = " ".join(get.handoff_lines("w.nika", {"llm_calls": 1, "permits_boundary": "", "vars_required": []}))
 check("hand-off omits --var when none required", "--var" not in _h_plain)
-_h_fetch = " ".join(get.handoff_lines("w.nika.yaml", {"llm_calls": 0, "permits_boundary": "tools: [\"nika:fetch\"]", "vars_required": []}))
+_h_fetch = " ".join(get.handoff_lines("w.nika", {"llm_calls": 0, "permits_boundary": "tools: [\"nika:fetch\"]", "vars_required": []}))
 check("hand-off never calls a fetch workflow offline", "no network" not in _h_fetch)
 
 # A parser refusal is a reproduced negative result, never an empty capability set.
@@ -88,7 +90,7 @@ _parse_report = {"clean": False, "parse_fatal": True, "findings": [
 ]}
 with patch.object(certificate.subprocess, "run", return_value=subprocess.CompletedProcess(
         [], 2, json.dumps(_parse_report), "")) as probe:
-    _refused = certificate.engine_cert("nika", pathlib.Path("refused.nika.yaml"))
+    _refused = certificate.engine_cert("nika", pathlib.Path("refused.nika"))
 check("parse refusal does not infer capabilities from error prose", probe.call_count == 1)
 check("parse refusal preserves its structured diagnostic", _refused["findings"][0]["code"] == "NIKA-PARSE-005")
 check("parse refusal has unknown permits, broad grants and secret leaks",
@@ -104,7 +106,116 @@ check("catalog names parse refusal and unknown exec", "| parse_refused | unknown
 check("catalog does not call a negative certificate clean", "0 clean · 1 unavailable" in _rendered)
 _badge = catalog_index.badge({"cert_summary": {"analysis_status": "parse_refused", "clean": False}, "advisories": []})
 check("badge names parse refusal", _badge["message"] == "parse_refused" and _badge["color"] == "orange")
-check("refused artifact has no run hand-off", not any(line.startswith("nika run") for line in get.handoff_lines("refused.nika.yaml", _refused)))
+check("refused artifact has no run hand-off", not any(line.startswith("nika run") for line in get.handoff_lines("refused.nika", _refused)))
+
+# Issue #1684 · live workflow sources are `.nika`. Retired suffix is
+# allowed only for the exact frozen 0.1.0 first-party identities in
+# scripts/precut-0.1.0-identities.json — not a repo+rev blanket.
+PRECUT_REPO, PRECUT_REV = verify.PRECUT_FIRST_PARTY
+check("canonical .nika source is accepted", verify.is_canonical_workflow_source("examples/meeting-actions.nika"))
+check("project nika.yaml is not a workflow source", not verify.is_canonical_workflow_source("nika.yaml"))
+check("empty-stem .nika is not a workflow source", not verify.is_canonical_workflow_source(".nika"))
+check("legacy suffix is not canonical", not verify.is_canonical_workflow_source("examples/meeting-actions.nika.yaml"))
+check(
+    "path-only legacy call without a frozen identity is refused",
+    not verify.workflow_source_path_ok("examples/meeting-actions.nika.yaml", PRECUT_REPO, PRECUT_REV),
+)
+
+_frozen_paths = sorted(verify.ROOT.glob("registry/workflows/supernovae-st/*/0.1.0.toml"))
+check("frozen identity manifest covers 26 first-party 0.1.0 entries", len(verify.PRECUT_BY_KEY) == 26)
+_all_frozen_ok = True
+for _p in _frozen_paths:
+    _raw = _p.read_bytes()
+    _e = tomllib.loads(_raw.decode())
+    if not verify.workflow_source_ok(_e, _raw):
+        _all_frozen_ok = False
+        break
+check("unchanged 26 frozen 0.1.0 entries keep the retired-suffix exemption", _all_frozen_ok and len(_frozen_paths) == 26)
+
+_new_yaml = {
+    "publisher": "supernovae-st",
+    "name": "meeting-actions",
+    "version": "0.2.0",
+    "source": {
+        "repo": PRECUT_REPO,
+        "rev": PRECUT_REV,
+        "path": "examples/meeting-actions.nika.yaml",
+    },
+}
+check(
+    "new 0.2.0 entry pointing at the pre-cut repo/rev yaml path is refused",
+    not verify.workflow_source_ok(_new_yaml),
+)
+_third = {
+    "publisher": "alice",
+    "name": "meeting-actions",
+    "version": "0.1.0",
+    "source": {
+        "repo": "alice/unrelated",
+        "rev": PRECUT_REV,
+        "path": "examples/meeting-actions.nika.yaml",
+    },
+}
+check(
+    "third-party entry copying the pre-cut rev is refused",
+    not verify.workflow_source_ok(_third),
+)
+_mutated = tomllib.loads(
+    (verify.ROOT / "registry/workflows/supernovae-st/meeting-actions/0.1.0.toml").read_text()
+)
+check(
+    "mutated 0.1.0 toml bytes lose the exemption",
+    not verify.workflow_source_ok(_mutated, b"not-the-frozen-bytes\n"),
+)
+_changed_path = copy.deepcopy(_mutated)
+_changed_path["source"]["path"] = "examples/ceo-monday-brief.nika.yaml"
+check(
+    "changed source.path under 0.1.0 is refused",
+    not verify.workflow_source_ok(_changed_path),
+)
+_changed_name = copy.deepcopy(_mutated)
+_changed_name["name"] = "ceo-monday-brief"
+check(
+    "changed name under 0.1.0 is refused",
+    not verify.workflow_source_ok(_changed_name),
+)
+_v2_paths = sorted(verify.ROOT.glob("registry/workflows/supernovae-st/*/0.2.0.toml"))
+_v2_ok = True
+for _p in _v2_paths:
+    if not verify.workflow_source_ok(tomllib.loads(_p.read_text())):
+        _v2_ok = False
+        break
+check("canonical 27 current 0.2.0 entries pass", _v2_ok and len(_v2_paths) == 27)
+
+_spec = os.environ.get("NIKA_SPEC_DIR")
+if _spec:
+    _ma_path = verify.ROOT / "registry/workflows/supernovae-st/meeting-actions/0.1.0.toml"
+    _ma_raw = _ma_path.read_bytes()
+    _ma = tomllib.loads(_ma_raw.decode())
+    check(
+        "community source.rev does not select the checker",
+        verify.oracle_cwd(_spec, _third) == str(pathlib.Path(_spec)),
+    )
+    check(
+        "0.2.0 with copied pre-cut yaml source uses the trusted SPEC_PIN checkout",
+        verify.oracle_cwd(_spec, _new_yaml) == str(pathlib.Path(_spec)),
+    )
+    _precut_cwd = verify.oracle_cwd(_spec, _ma, _ma_raw)
+    check(
+        "frozen 0.1.0 identity uses a vetted oracle whose HEAD is the pin",
+        verify.git_head(_precut_cwd) == PRECUT_REV,
+    )
+    _poison = verify.ROOT / ".verify-oracle" / ("deadbeef" * 5)
+    _poison.mkdir(parents=True, exist_ok=True)
+    verify._ORACLE_WT["deadbeef" * 5] = str(_poison)
+    _raised = False
+    try:
+        verify.materialize_trusted_oracle(_spec, "deadbeef" * 5)
+    except (RuntimeError, subprocess.CalledProcessError):
+        _raised = True
+    check("oracle cache with wrong HEAD is refused", _raised)
+else:
+    check("oracle identity tests skipped without NIKA_SPEC_DIR", True)
 
 if FAILED:
     print(f"\nselftest FAILED: {len(FAILED)} check(s)", file=sys.stderr)

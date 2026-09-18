@@ -1,0 +1,23 @@
+{
+  "certificate": {
+    "analysis_status": "checked",
+    "broad": false,
+    "capability_escapes": [],
+    "clean": true,
+    "cost_usd": {
+      "bounded_total": 0.0,
+      "has_unbounded": true
+    },
+    "effect_calls": 3,
+    "findings": [],
+    "llm_calls": 1,
+    "permits_boundary": "permits:\n  fs:\n    write: [\"out/standup-note.md\"]\n  exec: [\"git\"]\n  tools: [\"nika:date\", \"nika:write\"]",
+    "secret_egresses": [],
+    "secret_leaks": [],
+    "vars_required": []
+  },
+  "engine": "0.120.0",
+  "entry": "registry/workflows/supernovae-st/standup-digest/0.2.0.toml",
+  "schema": 2,
+  "sha256": "6c24c035946ace07c3f63d8e9257f0a7bd568af00827dd2cff91c3c1202ad264"
+}

@@ -20,6 +20,7 @@ is a red CI round, empirically proven 2026-07-09):
 ```sh
 export NIKA_SPEC_DIR=/path/to/nika-spec   # a clone containing SPEC_PIN's commit
 export NIKA_BIN=/path/to/nika             # the PINNED release asset — see below
+export NIKA_HISTORICAL_BIN=/path/to/nika-0.119.0 # frozen first-party entries only
 
 python3 scripts/project_pack.py --write   # 1 · the entry TOMLs
 python3 scripts/cert.py --write           # 2 · certs + CATALOG.md
@@ -37,6 +38,9 @@ python3 scripts/selftest.py
 - **`cert.py` pins its engine version** (`ENGINE_VERSION` in the
   script) and REFUSES any other binary — download the exact release
   asset (digest-verified, as CI does), never certify with a dev build.
+- Frozen first-party entry identities retain their historical engine through
+  `NIKA_HISTORICAL_BIN`. Both engines reproduce every certificate in CI;
+  `--write` refuses historical drift without rewriting those certificates.
 - The current draft version is a **rolling projection** (`--write`
   re-renders it); **older versions stay frozen** — the projector never
   touches them.

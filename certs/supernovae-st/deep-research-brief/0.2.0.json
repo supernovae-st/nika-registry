@@ -1,0 +1,23 @@
+{
+  "certificate": {
+    "analysis_status": "checked",
+    "broad": false,
+    "capability_escapes": [],
+    "clean": true,
+    "cost_usd": {
+      "bounded_total": 0.0,
+      "has_unbounded": true
+    },
+    "effect_calls": 2,
+    "findings": [],
+    "llm_calls": 27,
+    "permits_boundary": "permits:\n  exec: false\n  tools: [\"nika:done\", \"nika:fetch\", \"nika:jq\", \"nika:write\"]\n\n# review \u2014 effects too dynamic to pin statically:\n#   \u00b7 task `save` uses a dynamic path \u2014 `fs` cannot express 'any path'; add the resolved path(s) before running",
+    "secret_egresses": [],
+    "secret_leaks": [],
+    "vars_required": []
+  },
+  "engine": "0.120.0",
+  "entry": "registry/workflows/supernovae-st/deep-research-brief/0.2.0.toml",
+  "schema": 2,
+  "sha256": "b63d80b4694d08df29d4ab7fff8196c2e07347b974b5ebd3efe3cb2594d10333"
+}

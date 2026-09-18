@@ -99,7 +99,7 @@ outputs:
 ```
 
 ```sh
-./node_modules/.bin/nika check compose.nika.yaml
+./node_modules/.bin/nika check compose.nika
 ```
 
 ```
