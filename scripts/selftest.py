@@ -72,11 +72,11 @@ check("semver: 0.2.0-rc2 > 0.2.0-rc1", get.version_key("0.2.0-rc2") > get.versio
 # ── the consume hand-off must never suggest a command that cannot run ─────────
 # A required var makes even a mock preview fail NIKA-VAR-001; the suggestion
 # must carry the --var flag. A fetch-only workflow must not be sold as offline.
-_h_llm_var = " ".join(get.handoff_lines("w.nika.yaml", {"llm_calls": 1, "permits_boundary": "", "vars_required": ["transcript_path"]}))
+_h_llm_var = " ".join(get.handoff_lines("w.nika", {"llm_calls": 1, "permits_boundary": "", "vars_required": ["transcript_path"]}))
 check("hand-off surfaces a required var in the run command", "--var transcript_path=<value>" in _h_llm_var)
-_h_plain = " ".join(get.handoff_lines("w.nika.yaml", {"llm_calls": 1, "permits_boundary": "", "vars_required": []}))
+_h_plain = " ".join(get.handoff_lines("w.nika", {"llm_calls": 1, "permits_boundary": "", "vars_required": []}))
 check("hand-off omits --var when none required", "--var" not in _h_plain)
-_h_fetch = " ".join(get.handoff_lines("w.nika.yaml", {"llm_calls": 0, "permits_boundary": "tools: [\"nika:fetch\"]", "vars_required": []}))
+_h_fetch = " ".join(get.handoff_lines("w.nika", {"llm_calls": 0, "permits_boundary": "tools: [\"nika:fetch\"]", "vars_required": []}))
 check("hand-off never calls a fetch workflow offline", "no network" not in _h_fetch)
 
 # A parser refusal is a reproduced negative result, never an empty capability set.
@@ -88,7 +88,7 @@ _parse_report = {"clean": False, "parse_fatal": True, "findings": [
 ]}
 with patch.object(certificate.subprocess, "run", return_value=subprocess.CompletedProcess(
         [], 2, json.dumps(_parse_report), "")) as probe:
-    _refused = certificate.engine_cert("nika", pathlib.Path("refused.nika.yaml"))
+    _refused = certificate.engine_cert("nika", pathlib.Path("refused.nika"))
 check("parse refusal does not infer capabilities from error prose", probe.call_count == 1)
 check("parse refusal preserves its structured diagnostic", _refused["findings"][0]["code"] == "NIKA-PARSE-005")
 check("parse refusal has unknown permits, broad grants and secret leaks",
@@ -104,7 +104,18 @@ check("catalog names parse refusal and unknown exec", "| parse_refused | unknown
 check("catalog does not call a negative certificate clean", "0 clean · 1 unavailable" in _rendered)
 _badge = catalog_index.badge({"cert_summary": {"analysis_status": "parse_refused", "clean": False}, "advisories": []})
 check("badge names parse refusal", _badge["message"] == "parse_refused" and _badge["color"] == "orange")
-check("refused artifact has no run hand-off", not any(line.startswith("nika run") for line in get.handoff_lines("refused.nika.yaml", _refused)))
+check("refused artifact has no run hand-off", not any(line.startswith("nika run") for line in get.handoff_lines("refused.nika", _refused)))
+
+# Issue #1684 · live workflow sources are `.nika`. Pre-cut immutable
+# entries may still pin a `.nika.yaml` path at the frozen spec revision.
+PRECUT = next(iter(verify.PRECUT_WORKFLOW_SOURCE_REVS))
+check("canonical .nika source is accepted", verify.is_canonical_workflow_source("examples/meeting-actions.nika"))
+check("project nika.yaml is not a workflow source", not verify.is_canonical_workflow_source("nika.yaml"))
+check("empty-stem .nika is not a workflow source", not verify.is_canonical_workflow_source(".nika"))
+check("legacy suffix is not canonical", not verify.is_canonical_workflow_source("examples/meeting-actions.nika.yaml"))
+check("legacy suffix at pre-cut rev is allowed", verify.workflow_source_path_ok("examples/meeting-actions.nika.yaml", PRECUT))
+check("legacy suffix at any other rev is refused", not verify.workflow_source_path_ok("examples/meeting-actions.nika.yaml", "0" * 40))
+check("plain yaml is refused", not verify.workflow_source_path_ok("examples/meeting-actions.yaml", PRECUT))
 
 if FAILED:
     print(f"\nselftest FAILED: {len(FAILED)} check(s)", file=sys.stderr)

@@ -87,6 +87,10 @@ jobs:
 
       - name: Gate guards hold (security regressions)
         run: python3 scripts/selftest.py
+      - name: Retired program-suffix ratchet
+        run: |
+          python3 scripts/suffix_ratchet.py
+          python3 -m unittest scripts/test_suffix_ratchet.py -v
 
       - name: Re-prove every entry
         env:

@@ -69,6 +69,28 @@ SECRET_PATTERNS = [
 ]
 FAILS = []
 
+# Spec revisions whose published first-party artifacts still live at
+# `<name>.nika.yaml`. New entries (any other rev) must use `.nika`.
+# Do not rewrite those immutable TOMLs; mint a new version after SPEC_PIN moves.
+PRECUT_WORKFLOW_SOURCE_REVS = {
+    "699ebb08585da2b4b908e8dac6ca584332fe0783",
+}
+
+
+def is_canonical_workflow_source(path_: str) -> bool:
+    name = pathlib.Path(path_).name
+    if name in {".nika", "nika.yaml"} or name.endswith((".nika.yaml", ".nika.yml")):
+        return False
+    return name.endswith(".nika")
+
+
+def workflow_source_path_ok(path_: str, rev: str) -> bool:
+    if is_canonical_workflow_source(path_):
+        return True
+    return (
+        path_.endswith(".nika.yaml") or path_.endswith(".nika.yml")
+    ) and rev in PRECUT_WORKFLOW_SOURCE_REVS
+
 
 def repo_traversal_free(repo: str) -> bool:
     """True when no `owner/name` component is empty, `.` or `..`. REPO_RE
@@ -157,8 +179,13 @@ def verify(entry_path: pathlib.Path) -> None:
     path_ = src.get("path", "")
     if path_.startswith("/") or ".." in path_.split("/") or "\\" in path_:
         return fail(rel, "R2-pin", "source.path must be repo-relative with no traversal")
-    if e["type"] == "workflow" and not path_.endswith(".nika.yaml"):
-        return fail(rel, "schema", "a workflow source must be a .nika.yaml file")
+    if e["type"] == "workflow" and not workflow_source_path_ok(path_, src.get("rev", "")):
+        return fail(
+            rel,
+            "schema",
+            "a workflow source must be a .nika file "
+            "(legacy .nika.yaml is only valid for immutable pre-cut spec revisions)",
+        )
 
     # R2 · digest pinning — full commit + full sha256, nothing mutable.
     if not re.fullmatch(r"[0-9a-f]{40}", src.get("rev", "")):
