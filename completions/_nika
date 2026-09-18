@@ -93,14 +93,14 @@ auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
 (run)
 _arguments "${_arguments_options[@]}" : \
 '(--json)--output=[Print the typed \`outputs\:\` as ONE JSON object on stdout (progress → stderr) · the export contract · powers \`exec\: nika run sub.yaml --output json\` + \`capture\: stdout\`]:FORMAT:_default' \
-'--model=[Override the workflow'\''s envelope \`model\:\` only (\`<provider>/<name>\`). Per-task \`model\:\` pins stay live and metered — \`--model\` does not descend into them (B22). Resolved through the SAME path as an envelope model — a bad id fails loud when an infer/agent task resolves it. \`--model mock/echo\` rehearses the envelope seat offline (zero key · zero network)]:PROVIDER/NAME:_default' \
+'--model=[Override only this workflow'\''s default \`model\:\` (\`<provider>/<name>\`). Task \`model\:\` pins and invoked child workflows keep their own models. \`mock/echo\` does not make their calls or other effects offline. A bad id refuses when an infer/agent task resolves it]:PROVIDER/NAME:_default' \
 '--access=[Pin the ACCESS path (\`model\:\` picks the intelligence; access picks the path) — either a class (\`local\` · \`mock\` · \`harness\` · \`oauth\` · \`api\`) or a harness seat (\`claude-code\` · \`codex\` · \`gemini-cli\` · \`kimi-code\` · \`qwen-code\`). Retired ACP wrapper ids (\`claude-agent-acp\` · \`codex-acp\`) refuse with NIKA-1802. A pin is a pin\: unsatisfied refuses before the prologue with a witness, never substitutes another path or model (D-2026-08-04-N1). Example\: \`--model openai/gpt-5.2 --access codex\` requests that model through the user'\''s Codex subscription seat]:PATH:_default' \
 '*--var=[Set a workflow \`inputs\:\` value (repeatable). Overrides a declared \`default\:\` and satisfies a \`required\: true\` input. JSON when it parses (numbers · booleans · arrays), else a string. Unknown keys refused]:KEY=VALUE:_default' \
 '(--dry-run)--resume=[Resume from a prior run'\''s NDJSON trace (\`nika run … --json > trace.ndjson\`)\: every task whose identity matches a journaled success is skipped with a visible \`task_cache_hit\` — an edited task or a changed input always re-runs (ADR-099). A trace without resume keys runs everything live (a notice, never an error). The trace'\''s tamper-evidence chain is VERIFIED before any record is trusted\: a broken chain refuses (exit 2), naming \`nika trace verify\` and the \`--resume-unverified\` opt-out. The trace'\''s recorded engine version is JUDGED (F-P21)\: a resume under a different engine refuses, naming both versions. The trace'\''s recorded project is JUDGED first\: a trace written by another project refuses (exit 3 · a trace is not a bearer artifact — resume it from the project that wrote it). Under \`--resume-unverified\` that binding is unverified too, and every recorded human decision re-asks]:TRACE:_files' \
 '--resume-compat=[Declare a cross-version resume compatible (F-P21 · NEP-0014 law 4)\: attests the trace recorded under engine \`<VERSION>\` may resume under this one — the token must name the trace'\''s recorded version exactly (\`unrecorded\` for a pre-versioning journal). The declared compat is journaled on the run'\''s boot manifest]:VERSION:_default' \
 '--from=[Force this task AND its transitive downstream to re-run even on an identity match (the lever for changes the hashes cannot see — rotated secret · external state · an infer output to re-roll)]:TASK_ID:_default' \
 '*--answer=[Answer a \`nika\:prompt\` gate (repeatable · ADR-099 rider)\: binds as the named task'\''s answer — \`--answer ok=true\` for confirm, a string for input, one of the choices for choice. The value parses as JSON when it parses, else rides as a string. Without \`--resume\` the answer is PRE-SEEDED on the fresh run\: it waits in the gate map and is consumed when the task asks (the CI one-pass gate)]:TASK=VALUE:_default' \
-'(--resume)--task=[Run ONE task and its transitive upstream only (the regenerate-one- block move)\: the full workflow still audits (spans · findings stay whole-file faithful), then execution scopes to the ancestor sub-DAG and the plan/cost re-derive for exactly what will run. Workflow \`outputs\:\` are skipped (they may read unscoped tasks)]:TASK_ID:_default' \
+'(--resume)--task=[Run ONE task and its transitive upstream only (the regenerate-one- block move)\: the full workflow still audits (spans · findings stay whole-file faithful), then execution scopes to the ancestor sub-DAG and the plan/cost re-derive for exactly what will run. Workflow \`outputs\:\` give way to the scoped tasks'\'' own results, keyed by id]:TASK_ID:_default' \
 '--max-cost-usd=[Operator run budget over METERED spend (USD). Refuses to start (exit 2) when the static cost floor already exceeds it; during the run the crossing call completes and counts, nothing new starts, unstarted tasks cancel and the run fails NIKA-1704 (exit 1) with spent-vs-budget — workflow \`outputs\:\` are not resolved on a budget stop (per-task values live in the trace). Spending EXACTLY the budget does not trip it. Costs use LIST RATES from the vendored public catalog — private/proxy/negotiated pricing is not reflected; local · mock work is never blocked (the budget bounds what the catalog can meter — an unmeterable cloud seat under a cap refuses, the UNCATALOGED bullet below)]:USD:_default' \
 '--color=[When to colour the output (auto = TTY + \`TERM != dumb\` · honours \`CLICOLOR_FORCE\` · \`NO_COLOR\` · \`CLICOLOR=0\` in that order)]:COLOR:((always\:"Force colour on (pagers accepting escapes · captured demos)"
 never\:"Force colour off (the \`--no-color\` flags fold here)"
@@ -108,10 +108,10 @@ auto\:"Resolve from the environment chain + TTY (the default)"))' \
 '--hyperlink=[When to emit OSC-8 hyperlinks on printed paths (auto = TTY + \`TERM != dumb\` · never to pipes; always = force them, for pagers that pass escapes — tmux/screen may render them as plain text)]:HYPERLINK:((always\:"Force hyperlinks on (escape-passing pagers · captured demos)"
 never\:"Force hyperlinks off"
 auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
-'--json[Stream NDJSON events instead of the live render (CI · agents)]' \
+'--json[Machine NDJSON\: compact events or one pre-run refusal object, never pretty JSON]' \
 '(--json --output)--no-progress[Plain render\: one final storyboard frame, no animation (the CI-stable surface · also the default when stdout is piped). A human surface — meaningless with the \`--json\`/\`--output\` machine modes, so refused there (the machine surface owns its rendering)]' \
 '(--no-progress --json --output)--quiet[Quiet\: print only the final verdict card (errors always). A human surface · refused with \`--no-progress\` and the machine modes]' \
-'(--output)--dry-run[Plan only — show the static plan and execute ZERO effects (spec §10). With \`--json\`\: ONE versioned plan object (\`plan_version\: 1\` — waves · cost ceiling · permits · requirements) instead of the human preview. \`--output\` stays refused (an outputs export of a run that never executed would be a lie)]' \
+'(--output)--dry-run[Plan only — show the static plan and execute ZERO effects (spec §10). This preview does not judge --max-cost-usd; the real run judges the budget. With \`--json\`\: ONE versioned plan object (\`plan_version\: 1\` — waves · cost ceiling · permits · requirements) instead of the human preview. \`--output\` stays refused (an outputs export of a run that never executed would be a lie)]' \
 '--resume-unverified[Trust a \`--resume\` trace whose tamper-evidence chain FAILS the walk (ADR-099 trust amendment)\: the named opt-out, for a trace the operator edited or truncated by hand. The finding is journaled on the boot manifest (\`resume_unverified\: declared\`) — never a silent default; a verified trace journals no claim]' \
 '--no-trace-file[Skip the run journal (\`.nika/traces/<ts>-<id>.ndjson\` · spec §3.3). Every run writes one by default so \`nika trace show|replay\`, \`--resume\` and the editor'\''s runs view have a file to read. \`NIKA_NO_TRACE_FILE\` (any non-empty value) opts out globally]' \
 '--no-outputs[Hide the per-task output summaries (\`→ {…} · 312B\`) on the live storyboard. Interactive TTY only — pipes · CI · the machine modes never carry them anyway]' \
@@ -121,7 +121,7 @@ auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
 '--plain[The sober umbrella — one flag for scripts, CI and transcripts\: colour off · ASCII glyphs · hyperlinks off · no animation (\`run\` renders its plain storyboard). The same result as \`--color never --hyperlink never\` plus every verb'\''s \`--ascii\`/\`--no-progress\`]' \
 '-h[Print help (see more with '\''--help'\'')]' \
 '--help[Print help (see more with '\''--help'\'')]' \
-'::file -- Workflow file (`*.nika.yaml`) · or a `registry\:owner/name\[@version\]` verified pull (cached + offline; `permits\:` never govern the fetch). OMITTED with exactly one workflow in this workspace → that one runs (announced); zero or several → the honest routing:_default' \
+'::file -- Workflow file (`*.nika`) · or a `registry\:owner/name\[@version\]` verified pull (cached + offline; `permits\:` never govern the fetch). OMITTED with exactly one workflow in this workspace → that one runs (announced); zero or several → the honest routing:_default' \
 && ret=0
 ;;
 (test)
@@ -140,7 +140,7 @@ auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
 '--plain[The sober umbrella — one flag for scripts, CI and transcripts\: colour off · ASCII glyphs · hyperlinks off · no animation (\`run\` renders its plain storyboard). The same result as \`--color never --hyperlink never\` plus every verb'\''s \`--ascii\`/\`--no-progress\`]' \
 '-h[Print help (see more with '\''--help'\'')]' \
 '--help[Print help (see more with '\''--help'\'')]' \
-'::file -- Workflow file (`*.nika.yaml`):_default' \
+'::file -- Workflow file (`*.nika`):_default' \
 && ret=0
 ;;
 (inspect)
@@ -159,7 +159,7 @@ auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
 '--plain[The sober umbrella — one flag for scripts, CI and transcripts\: colour off · ASCII glyphs · hyperlinks off · no animation (\`run\` renders its plain storyboard). The same result as \`--color never --hyperlink never\` plus every verb'\''s \`--ascii\`/\`--no-progress\`]' \
 '-h[Print help (see more with '\''--help'\'')]' \
 '--help[Print help (see more with '\''--help'\'')]' \
-':file -- Workflow file (`*.nika.yaml`) · `-` reads stdin:_default' \
+':file -- Workflow file (`*.nika`) · `-` reads stdin:_default' \
 && ret=0
 ;;
 (explain)
@@ -176,7 +176,7 @@ auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
 '--plain[The sober umbrella — one flag for scripts, CI and transcripts\: colour off · ASCII glyphs · hyperlinks off · no animation (\`run\` renders its plain storyboard). The same result as \`--color never --hyperlink never\` plus every verb'\''s \`--ascii\`/\`--no-progress\`]' \
 '-h[Print help (see more with '\''--help'\'')]' \
 '--help[Print help (see more with '\''--help'\'')]' \
-':code -- An error code (`NIKA-440` · bare `440` · `DAG-003`), a hint identity (`jq-as-map` · `native-first/006`), or a workflow file path (`*.nika.yaml` · `-` reads stdin):_default' \
+':code -- An error code (`NIKA-440` · bare `440` · `DAG-003`), a hint identity (`jq-as-map` · `native-first/006`), or a workflow file path (`*.nika` · `-` reads stdin):_default' \
 && ret=0
 ;;
 (key)
@@ -323,7 +323,7 @@ auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
 '--plain[The sober umbrella — one flag for scripts, CI and transcripts\: colour off · ASCII glyphs · hyperlinks off · no animation (\`run\` renders its plain storyboard). The same result as \`--color never --hyperlink never\` plus every verb'\''s \`--ascii\`/\`--no-progress\`]' \
 '-h[Print help (see more with '\''--help'\'')]' \
 '--help[Print help (see more with '\''--help'\'')]' \
-':label -- The beat label — the workflow file radical (`workflows/doctor.nika.yaml` → `doctor`; a radical collision in file order takes `-2`, `-3`):_default' \
+':label -- The beat label — the workflow file radical (`workflows/doctor.nika` → `doctor`; a radical collision in file order takes `-2`, `-3`):_default' \
 && ret=0
 ;;
 (migrate)
@@ -397,7 +397,7 @@ _arguments "${_arguments_options[@]}" : \
 '--now=[Inject the clock (RFC 3339 · D5) — the harness]:RFC3339:_default' \
 '--until=[Stop the loop at this instant (RFC 3339) — the harness]:RFC3339:_default' \
 '--bind=[Bind an authenticated HTTP listener. Requires \`--workflows\` and \`--token-file\`]:ADDR:_default' \
-'--workflows=[The served registry\: the listener lists, schedules and ADMITS BY NAME (\`POST /v1/jobs {"workflow"\: "<name>"}\`) only the \`.nika.yaml\` workflows under this directory, named from the project root. A remote world rides the snapshot \`nika check <file> --json --sdk-snapshot\` prints. Requires \`--bind\`]:DIR:_files' \
+'--workflows=[The served registry\: the listener lists, schedules and ADMITS BY NAME (\`POST /v1/jobs {"workflow"\: "<name>"}\`) only the \`.nika\` workflows under this directory, named from the project root. A remote world rides the snapshot \`nika check <file> --json --sdk-snapshot\` prints. Requires \`--bind\`]:DIR:_files' \
 '--token-file=[Owner-only Bearer file (32–512 visible ASCII bytes, mode 0600). Never argv. Mint\: umask 077 && openssl rand -hex 24 > .nika/serve.token && chmod 600 .nika/serve.token]:FILE:_files' \
 '--state-root=[Durable job-state root. Defaults to \`<cwd>/.nika/serve\`]:DIR:_files' \
 '--color=[When to colour the output (auto = TTY + \`TERM != dumb\` · honours \`CLICOLOR_FORCE\` · \`NO_COLOR\` · \`CLICOLOR=0\` in that order)]:COLOR:((always\:"Force colour on (pagers accepting escapes · captured demos)"
@@ -428,7 +428,7 @@ auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
 '--plain[The sober umbrella — one flag for scripts, CI and transcripts\: colour off · ASCII glyphs · hyperlinks off · no animation (\`run\` renders its plain storyboard). The same result as \`--color never --hyperlink never\` plus every verb'\''s \`--ascii\`/\`--no-progress\`]' \
 '-h[Print help (see more with '\''--help'\'')]' \
 '--help[Print help (see more with '\''--help'\'')]' \
-':file -- Workflow file (`*.nika.yaml`) to sign — or to verify with `--check`:_default' \
+':file -- Workflow file (`*.nika`) to sign — or to verify with `--check`:_default' \
 && ret=0
 ;;
 (doctor)
@@ -452,10 +452,7 @@ auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
 _arguments "${_arguments_options[@]}" : \
 '--recipe=[Scaffold a workflow set — the wizard'\''s recipe step, scriptable (\`agentic\` = the 4-pattern curriculum)]:RECIPE:(agentic starter ship content minimal)' \
 '(--recipe)--example=[Found the project from ONE embedded example (verbatim — any slug from bare \`nika try\`). One founding source\: conflicts with \`--recipe\`]:SLUG:_default' \
-'--theme=[Stamp the VS Code DAG canvas skin (\`nika.dag.theme\`) into the created \`.vscode/settings.json\`]:THEME:((nika\:"The brand skin — engineered black · verb hues"
-editor\:"Adaptive — follows the editor'\''s colors"
-phosphor\:"Terminal green"
-auto\:"Let the extension decide"))' \
+'--theme=[Stamp the VS Code DAG canvas skin (\`nika.dag.theme\`) into the created \`.vscode/settings.json\` (\`nika\` the brand skin · \`editor\` adaptive · \`phosphor\` terminal green · \`auto\` lets the extension decide)]:THEME:(nika editor phosphor auto)' \
 '*--wire=[Wire agent clients to the MCP oracle after the scaffold (comma-separated · the same targets as \`nika wire\`)]:WIRE:((cursor\:""
 vscode\:""
 windsurf\:""
@@ -488,7 +485,7 @@ auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
 '--force[Overwrite existing files]' \
 '-y[Accept every default — never prompt (pipes and CI are implicitly \`--yes\`; prompts only ever appear on a terminal)]' \
 '--yes[Accept every default — never prompt (pipes and CI are implicitly \`--yes\`; prompts only ever appear on a terminal)]' \
-'--project-file[Lay a starter \`nika.yaml\` (the project file — ceiling + retention examples, commented so the starter governs nothing until you edit it). The ONLY scripted door; the wizard lane asks instead. An existing file is skipped, \`--force\` overrides]' \
+'--project-file[Lay the starter \`nika.yaml\` — every scripted init does since #1283 (existing skipped · \`--force\` overrides); kept so older scripts work]' \
 '--ascii[Force the ASCII glyph twins everywhere (CI logs · legacy terminals) — colour stays; \`--plain\` is the full sober umbrella]' \
 '--plain[The sober umbrella — one flag for scripts, CI and transcripts\: colour off · ASCII glyphs · hyperlinks off · no animation (\`run\` renders its plain storyboard). The same result as \`--color never --hyperlink never\` plus every verb'\''s \`--ascii\`/\`--no-progress\`]' \
 '-h[Print help (see more with '\''--help'\'')]' \
@@ -671,7 +668,7 @@ auto\:"Resolve from the environment chain + TTY (the default)"))' \
 never\:"Force hyperlinks off"
 auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
 '--canon[Print the canon.yaml single source of truth]' \
-'(--canon)--schema[Print the embedded JSON Schema for \`*.nika.yaml\` (the old \`schema\` verb, one roof)]' \
+'(--canon)--schema[Print the embedded JSON Schema for \`*.nika\` (the old \`schema\` verb, one roof)]' \
 '--project[With \`--schema\`\: the project file'\''s schema (\`nika.yaml\`) instead of the workflow'\''s]' \
 '--ascii[Force the ASCII glyph twins everywhere (CI logs · legacy terminals) — colour stays; \`--plain\` is the full sober umbrella]' \
 '--plain[The sober umbrella — one flag for scripts, CI and transcripts\: colour off · ASCII glyphs · hyperlinks off · no animation (\`run\` renders its plain storyboard). The same result as \`--color never --hyperlink never\` plus every verb'\''s \`--ascii\`/\`--no-progress\`]' \
@@ -733,7 +730,7 @@ auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
 '-h[Print help (see more with '\''--help'\'')]' \
 '--help[Print help (see more with '\''--help'\'')]' \
 '::intent -- Plain-words intent, an example slug, or a skeleton name (`'\''?'\''` lists the set). Omitted on a terminal → the guided three-question flow; omitted in a pipe → fail fast:_default' \
-'::dest -- Destination path (`*.nika.yaml`) — defaults to `<slug>.nika.yaml` beside you:_default' \
+'::dest -- Destination path (`*.nika`) — defaults to `<slug>.nika` beside you:_default' \
 && ret=0
 ;;
 (completions)
@@ -1046,7 +1043,7 @@ auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
 '-h[Print help (see more with '\''--help'\'')]' \
 '--help[Print help (see more with '\''--help'\'')]' \
 ':trace -- Trace NDJSON path (one `nika-event` Event per line):_files' \
-':workflow -- The workflow file the run executed (`*.nika.yaml`):_default' \
+':workflow -- The workflow file the run executed (`*.nika`):_default' \
 && ret=0
 ;;
 (flow)
@@ -1062,7 +1059,7 @@ auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
 '-h[Print help (see more with '\''--help'\'')]' \
 '--help[Print help (see more with '\''--help'\'')]' \
 '::trace -- Trace NDJSON path (default\: the workspace'\''s latest trace — `nika trace flow <workflow>` alone reads the last run):_files' \
-'::workflow -- The workflow file the run executed (`*.nika.yaml`) — the trace records values, the definition records the bindings:_default' \
+'::workflow -- The workflow file the run executed (`*.nika`) — the trace records values, the definition records the bindings:_default' \
 && ret=0
 ;;
 (help)

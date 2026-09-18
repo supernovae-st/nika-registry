@@ -90,6 +90,7 @@ jobs:
       - name: Retired program-suffix ratchet
         run: |
           python3 scripts/suffix_ratchet.py
+          python3 scripts/suffix_ratchet.py --selftest
           python3 -m unittest scripts/test_suffix_ratchet.py -v
 
       - name: Re-prove every entry
