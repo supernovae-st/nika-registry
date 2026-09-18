@@ -24,7 +24,7 @@
     "secret_leaks": null,
     "vars_required": null
   },
-  "engine": "0.118.7",
+  "engine": "0.119.0",
   "entry": "registry/workflows/supernovae-st/image-fx-batch/0.1.0.toml",
   "schema": 2,
   "sha256": "85740a11ed1862145d81c7d9ea81caf74717153a2a941d0d4eaa7263aaeef339"
