@@ -16,7 +16,7 @@
     "secret_leaks": [],
     "vars_required": []
   },
-  "engine": "0.120.0",
+  "engine": "0.120.3",
   "entry": "registry/workflows/supernovae-st/og-images/0.2.0.toml",
   "schema": 2,
   "sha256": "02567fa42b39b617d416efb5668a9db2d3eed5dec0d8b8db8f79a13869bcd1c3"
