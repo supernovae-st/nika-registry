@@ -16,7 +16,7 @@
     "secret_leaks": [],
     "vars_required": []
   },
-  "engine": "0.120.3",
+  "engine": "0.121.0",
   "entry": "registry/workflows/supernovae-st/deep-research-brief/0.2.0.toml",
   "schema": 2,
   "sha256": "b63d80b4694d08df29d4ab7fff8196c2e07347b974b5ebd3efe3cb2594d10333"

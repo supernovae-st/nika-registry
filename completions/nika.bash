@@ -712,13 +712,17 @@ _nika() {
             return 0
             ;;
         nika__subcmd__compile)
-            opts="-h --output --base --change --answer --force --json --list --color --hyperlink --ascii --plain --help"
+            opts="-o -h --output --base --change --answer --authoring-model --authoring-max-tokens --authoring-timeout --hot-policy --authoring-samples --authoring-strategy --authoring-repairs --knowledge --knowledge-exclude --knowledge-pack --decision-model --force --fresh --json --list --color --hyperlink --ascii --plain --help"
             if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
                 COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
                 return 0
             fi
             case "${prev}" in
                 --output)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                -o)
                     COMPREPLY=($(compgen -f "${cur}"))
                     return 0
                     ;;
@@ -731,6 +735,50 @@ _nika() {
                     return 0
                     ;;
                 --answer)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --authoring-model)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --authoring-max-tokens)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --authoring-timeout)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --hot-policy)
+                    COMPREPLY=($(compgen -W "strict legacy off" -- "${cur}"))
+                    return 0
+                    ;;
+                --authoring-samples)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --authoring-strategy)
+                    COMPREPLY=($(compgen -W "escalate only sketch off" -- "${cur}"))
+                    return 0
+                    ;;
+                --authoring-repairs)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --knowledge)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --knowledge-exclude)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --knowledge-pack)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --decision-model)
                     COMPREPLY=($(compgen -f "${cur}"))
                     return 0
                     ;;
@@ -2188,7 +2236,7 @@ _nika() {
             return 0
             ;;
         nika__subcmd__run)
-            opts="-h --json --output --no-progress --quiet --dry-run --model --access --var --inputs-json --resume --resume-compat --resume-unverified --from --answer --task --no-trace-file --no-outputs --max-cost-usd --no-gc --require-signature --color --hyperlink --ascii --plain --help"
+            opts="-h --json --cost-review-stdio --output --no-progress --quiet --dry-run --model --access --var --inputs-json --resume --resume-compat --resume-unverified --from --answer --task --no-trace-file --no-outputs --max-cost-usd --no-gc --require-signature --color --hyperlink --ascii --plain --help"
             if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
                 COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
                 return 0
@@ -2254,7 +2302,7 @@ _nika() {
             return 0
             ;;
         nika__subcmd__serve)
-            opts="-h --once --dry --now --until --bind --workflows --allow-remote --token-file --state-root --color --hyperlink --ascii --plain --help"
+            opts="-h --once --dry --now --until --bind --workflows --allow-remote --token-file --state-root --authoring-model --authoring-max-tokens --authoring-timeout --authoring-deadline --authoring-repairs --knowledge --knowledge-exclude --color --hyperlink --ascii --plain --help"
             if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
                 COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
                 return 0
@@ -2281,6 +2329,34 @@ _nika() {
                     return 0
                     ;;
                 --state-root)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --authoring-model)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --authoring-max-tokens)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --authoring-timeout)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --authoring-deadline)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --authoring-repairs)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --knowledge)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --knowledge-exclude)
                     COMPREPLY=($(compgen -f "${cur}"))
                     return 0
                     ;;

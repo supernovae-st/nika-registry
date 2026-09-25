@@ -16,7 +16,7 @@
     "secret_leaks": [],
     "vars_required": []
   },
-  "engine": "0.120.3",
+  "engine": "0.121.0",
   "entry": "registry/workflows/supernovae-st/meeting-actions/0.2.0.toml",
   "schema": 2,
   "sha256": "a2bde7b7c6a60f340bb71293e28a52a86bace20613bf09f2b63ae20f98551d68"
