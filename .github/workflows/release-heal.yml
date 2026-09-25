@@ -4,8 +4,11 @@ name: release-heal
 # (done twice today): on a new engine release, bump ENGINE_VERSION +
 # the verify.yml digest from the published SHA256SUMS, download the
 # pinned binary, re-derive certs -> index/llms/badges -> estate, and
-# open ONE idempotent PR — the verify gate re-proves everything, never
-# a direct push. SECURITY: no github.event data in the shell; tag validated.
+# open ONE PR per release on its own branch (bot/certifier-heal-<tag>),
+# pushed without force — the verify gate re-proves everything, never
+# a direct push. A retry reuses or recovers that branch's PR and never
+# rewrites it (scripts/heal_branch.py). SECURITY: no github.event data in
+# the shell; tag validated.
 
 on:
   schedule:
@@ -36,32 +39,57 @@ jobs:
           ver="${tag#v}"
           cur="$(sed -n 's/^ENGINE_VERSION = "\([0-9.]*\)"/\1/p' scripts/cert.py)"
           if [ "$cur" = "$ver" ]; then echo "certifier already $ver — nothing to heal"; exit 0; fi
+          # One branch per release, decided from what already exists BEFORE any
+          # work (scripts/test_heal_branch.py): create it, reuse its open PR,
+          # recover a PR that was never opened, or refuse a closed/merged one.
+          # An existing branch is never rewritten.
+          branch="$(python3 scripts/heal_branch.py branch "${tag}")"
+          title="chore(certs): the certifier follows ${tag}"
+          body="Automated 3-layer re-derivation (release-heal): certifier pin → certs → index/llms/badges. The verify gate re-proves; merge on green."
+          exists=0
+          if git ls-remote --exit-code --heads origin "refs/heads/${branch}" >/dev/null; then exists=1; fi
+          prs="$(gh pr list --head "${branch}" --state all --json number,state)"
+          action="$(python3 scripts/heal_branch.py decide --exists "${exists}" --prs "${prs}")"
+          case "${action}" in
+            create) ;;
+            recover) gh pr create --head "${branch}" --title "${title}" --body "${body}"; exit 0 ;;
+            reuse*) echo "PR #${action#reuse } already open for ${branch} — nothing pushed, nothing rewritten"; exit 0 ;;
+            *) echo "::error::unexpected heal action: ${action}"; exit 1 ;;
+          esac
           curl -fsSLo /tmp/SUMS "https://github.com/supernovae-st/nika/releases/download/${tag}/SHA256SUMS"
           sha="$(grep "nika-linux-x64-${ver}.tar.gz" /tmp/SUMS | awk '{print $1}')"
           [ -n "$sha" ] || { echo "::error::no linux-x64 sum in SHA256SUMS"; exit 1; }
-          perl -pi -e "s/^ENGINE_VERSION = \"[0-9.]*\"/ENGINE_VERSION = \"${ver}\"/" scripts/cert.py
-          perl -pi -e "s#download/v[0-9.]*/nika-linux-x64-[0-9.]*\.tar\.gz#download/${tag}/nika-linux-x64-${ver}.tar.gz#" .github/workflows/verify.yml
-          perl -pi -e "s/^(\s*echo \")[0-9a-f]{64}(  nika\.tar\.gz\")/\${1}${sha}\${2}/" .github/workflows/verify.yml
-          grep -qF "$sha" .github/workflows/verify.yml || { echo "::error::digest rewrite missed"; exit 1; }
+          # One tested move (scripts/test_engine_pin.py): the CURRENT engine's
+          # cert.py pin + verify.yml download/digest, each matched exactly
+          # once; the frozen historical engine is never touched.
+          python3 scripts/engine_pin.py --tag "${tag}" --sha256 "${sha}"
           curl -fsSLo nika.tar.gz "https://github.com/supernovae-st/nika/releases/download/${tag}/nika-linux-x64-${ver}.tar.gz"
           echo "${sha}  nika.tar.gz" | sha256sum -c -
           tar xzf nika.tar.gz && rm nika.tar.gz
+          # Frozen 0.1.0 entries keep their historical judge: cert.py refuses to
+          # run without it, so fetch the exact engine verify.yml pins for them.
+          hist="$(python3 scripts/engine_pin.py --print-historical)"
+          curl -fsSLo "$RUNNER_TEMP/historical.tar.gz" "${hist% *}"
+          echo "${hist#* }  $RUNNER_TEMP/historical.tar.gz" | sha256sum -c -
+          mkdir -p "$RUNNER_TEMP/historical"
+          tar xzf "$RUNNER_TEMP/historical.tar.gz" -C "$RUNNER_TEMP/historical"
           pip install pyyaml >/dev/null
-          NIKA_BIN="$PWD/nika" python3 scripts/cert.py --write
+          NIKA_BIN="$PWD/nika" NIKA_HISTORICAL_BIN="$RUNNER_TEMP/historical/nika" python3 scripts/cert.py --write
           python3 scripts/index.py --write
+          rm -f nika
           # The estate manifest rides the heal: certs/index/badges changed,
           # so their sha256 rows must too — otherwise every release lands
           # with a soft-red estate --check until someone hand-runs --write.
-          python3 scripts/estate.py --write
-          rm -f nika
+          # It describes the INDEX, so stage first, then write, then stage it.
           git add -A
+          python3 scripts/estate.py --write
+          git add estate.yaml
           if git diff --cached --quiet; then echo "layers current — nothing to heal"; exit 0; fi
           git config user.name "nika-release[bot]"
           git config user.email "nika@supernovae.studio"
-          git checkout -B bot/certifier-heal
+          git checkout -b "${branch}"
           git commit -m "chore(certs): the certifier follows ${tag} — all layers re-derive (release-heal)"
-          git push -f origin bot/certifier-heal
-          gh pr create --head bot/certifier-heal \
-            --title "chore(certs): the certifier follows ${tag}" \
-            --body "Automated 3-layer re-derivation (release-heal): certifier pin → certs → index/llms/badges. The verify gate re-proves; merge on green." \
-            2>/dev/null || echo "PR already open — refreshed"
+          # A normal push: a branch that appeared since the decision is refused
+          # by git, never overwritten; the next run then reuses or recovers it.
+          git push origin "HEAD:refs/heads/${branch}"
+          gh pr create --head "${branch}" --title "${title}" --body "${body}"
