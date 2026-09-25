@@ -18,17 +18,17 @@ classes:
   testimonial: "captured evidence — fixtures, corpora, traces, receipts: proves behavior; neither shipped source nor regenerable output"
   foreign: "pointer to a third-party sovereign source"
 summary:
-  classified_files: 174
+  classified_files: 178
   file_rows: 165
   pattern_rows: 2
   by_class:
-    authored: 29
+    authored: 33
     authored-pin: 2
     generated: 140
     pinned-copy: 3
     testimonial: 0
     foreign: 0
-  unverified-default: 8
+  unverified-default: 12
 files:
 - path: ".github/CODEOWNERS"
   class: authored
@@ -44,7 +44,7 @@ files:
   evidence: "hand-written PR checklist"
 - path: ".github/workflows/release-heal.yml"
   class: authored
-  sha256: d38031fab1a9913adc30850514374dc313eb4368c0321a7b319118947ebf3b4e
+  sha256: 309c0ed02d04f9d2e28347465acc5850e1612941fb4b001d1a9c5bdecb6bfa07
   evidence: "hand-written bot workflow (it edits OTHER files, nothing writes it)"
 - path: ".github/workflows/scorecard.yml"
   class: pinned-copy
@@ -57,7 +57,7 @@ files:
     - "supernovae-st/nika@b3e00c9201fe231f63e23745f2d4af56024da5b1:.github/workflows/scorecard.yml"
 - path: ".github/workflows/verify.yml"
   class: authored
-  sha256: 465deefa6634ae79f8ea839263b25613c3481c39e376b5596382dbdc4ccdb2ed
+  sha256: 103b505a9924fdb0e83fc052c20a29a70f2e6934e06b73ae22f4762fe653e05a
   evidence: "hand-written CI trust model (comments narrate design decisions)"
   note: "release-heal.yml rewrites the engine download URL + sha256 digest lines — bot-maintained fields inside an authored file"
 - path: ".gitignore"
@@ -1694,16 +1694,20 @@ patterns:
   evidence: "an advisory is authored per incident (advisories/README.md · OSV-inspired TOML), never derived"
 - glob: "**"
   class: authored
-  match_count: 8
-  aggregate_sha256: fbe3fa525991a9177d49686c181c40b3b94560f8f69c6dd1ab2111dbf7a27a5c
+  match_count: 12
+  aggregate_sha256: e1b1fdb1c919a27cb73eb15740cd6d92161fb19397197bd08108a283e885a0f5
   evidence: "no generation marker or known role found"
   note: "unverified-default"
 unverified:
 - "media/audited-artifact.gif"
+- "scripts/engine_pin.py"
+- "scripts/heal_branch.py"
 - "scripts/media/audited-artifact.tape"
 - "scripts/media/render.sh"
 - "scripts/old-suffix-exceptions.json"
 - "scripts/precut-0.1.0-identities.json"
 - "scripts/suffix_ratchet.py"
 - "scripts/test_cert_history.py"
+- "scripts/test_engine_pin.py"
+- "scripts/test_heal_branch.py"
 - "scripts/test_suffix_ratchet.py"
