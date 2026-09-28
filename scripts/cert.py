@@ -44,7 +44,7 @@ from verify import is_broad_permits, is_frozen_precut_entry  # noqa: E402 — on
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 # The cert is only comparable if every generator runs the SAME engine.
-ENGINE_VERSION = "0.120.3"
+ENGINE_VERSION = "0.121.0"
 HISTORICAL_ENGINE_VERSION = "0.119.0"
 
 def entry_engine(entry: dict, raw: bytes) -> tuple[str, str]:

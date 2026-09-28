@@ -108,8 +108,8 @@ jobs:
       - name: Fetch both pinned engines (digest-verified)
         run: |
           mkdir -p .engines/current .engines/historical
-          curl -fsSLo current.tar.gz https://github.com/supernovae-st/nika/releases/download/v0.120.3/nika-linux-x64-0.120.3.tar.gz
-          echo "3ffdee4e52c1c5a3eef0a90567af0a57bf387f64274175ecabce64c3924cd987  current.tar.gz" | sha256sum -c -
+          curl -fsSLo current.tar.gz https://github.com/supernovae-st/nika/releases/download/v0.121.0/nika-linux-x64-0.121.0.tar.gz
+          echo "e197eefef46ba5c1c2ec2abdc707dfbdfeef60994561267fe0c6ee9dc8573046  current.tar.gz" | sha256sum -c -
           tar xzf current.tar.gz -C .engines/current
           curl -fsSLo historical.tar.gz https://github.com/supernovae-st/nika/releases/download/v0.119.0/nika-linux-x64-0.119.0.tar.gz
           echo "34118b94159c07f0db3427eab7ff5699841518aea643990d8c0b2ebde27d21a3  historical.tar.gz" | sha256sum -c -

@@ -94,7 +94,7 @@ auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
 _arguments "${_arguments_options[@]}" : \
 '(--json)--output=[Print the typed \`outputs\:\` as ONE JSON object on stdout (progress → stderr) · the export contract · powers \`exec\: nika run sub.yaml --output json\` + \`capture\: stdout\`]:FORMAT:_default' \
 '--model=[Override only this workflow'\''s default \`model\:\` (\`<provider>/<name>\`). Task \`model\:\` pins and invoked child workflows keep their own models. \`mock/echo\` does not make their calls or other effects offline. A bad id refuses when an infer/agent task resolves it]:PROVIDER/NAME:_default' \
-'--access=[Pin the ACCESS path (\`model\:\` picks the intelligence; access picks the path) — either a class (\`local\` · \`mock\` · \`harness\` · \`oauth\` · \`api\`) or a harness seat (\`claude-code\` · \`codex\` · \`gemini-cli\` · \`kimi-code\` · \`qwen-code\`). Retired ACP wrapper ids (\`claude-agent-acp\` · \`codex-acp\`) refuse with NIKA-1802. A pin is a pin\: unsatisfied refuses before the prologue with a witness, never substitutes another path or model (D-2026-08-04-N1). Example\: \`--model openai/gpt-5.2 --access codex\` requests that model through the user'\''s Codex subscription seat]:PATH:_default' \
+'--access=[Pin the ACCESS path (\`model\:\` picks the intelligence; access picks the path) — either a class (\`local\` · \`mock\` · \`harness\` · \`oauth\` · \`api\`) or a harness seat (\`claude-code\` · \`codex\` · \`copilot\` · \`gemini-cli\` · \`grok-build\` · \`kimi-code\` · \`opencode\` · \`qwen-code\`). Retired ACP wrapper ids (\`claude-agent-acp\` · \`codex-acp\`) refuse with NIKA-1802. A pin is a pin\: unsatisfied refuses before the prologue with a witness, never substitutes another path or model (D-2026-08-04-N1). Example\: \`--model openai/gpt-5.2 --access codex\` requests that model through the user'\''s Codex subscription seat]:PATH:_default' \
 '*--var=[Set a workflow \`inputs\:\` value (repeatable). Overrides a declared \`default\:\` and satisfies a \`required\: true\` input. JSON when it parses (numbers · booleans · arrays), else a string. Unknown keys refused]:KEY=VALUE:_default' \
 '--inputs-json=[Bind literal JSON values from stdin\: \`--inputs-json -\` (object, at most 1 MiB). No coercion or @env lookup. Conflicts with --var and \`run -\`]:-:_default' \
 '(--dry-run)--resume=[Resume from a prior run'\''s NDJSON trace (\`nika run … --json > trace.ndjson\`)\: every task whose identity matches a journaled success is skipped with a visible \`task_cache_hit\` — an edited task or a changed input always re-runs (ADR-099). A trace without resume keys runs everything live (a notice, never an error). The trace'\''s tamper-evidence chain is VERIFIED before any record is trusted\: a broken chain refuses (exit 2), naming \`nika trace verify\` and the \`--resume-unverified\` opt-out. The trace'\''s recorded engine version is JUDGED (F-P21)\: a resume under a different engine refuses, naming both versions. The trace'\''s recorded project is JUDGED first\: a trace written by another project refuses (exit 3 · a trace is not a bearer artifact — resume it from the project that wrote it). Under \`--resume-unverified\` that binding is unverified too, and every recorded human decision re-asks]:TRACE:_files' \
@@ -110,6 +110,7 @@ auto\:"Resolve from the environment chain + TTY (the default)"))' \
 never\:"Force hyperlinks off"
 auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
 '--json[Machine NDJSON\: compact events or one pre-run refusal object, never pretty JSON]' \
+'(--inputs-json --resume --dry-run)--cost-review-stdio[Negotiate a fresh one-use local cost review over stdio; never approves a charge]' \
 '(--json --output)--no-progress[Plain render\: one final storyboard frame, no animation (the CI-stable surface · also the default when stdout is piped). A human surface — meaningless with the \`--json\`/\`--output\` machine modes, so refused there (the machine surface owns its rendering)]' \
 '(--no-progress --json --output)--quiet[Quiet\: print only the final verdict card (errors always). A human surface · refused with \`--no-progress\` and the machine modes]' \
 '(--output)--dry-run[Plan only — show the static plan and execute ZERO effects (spec §10). This preview does not judge --max-cost-usd; the real run judges the budget. With \`--json\`\: ONE versioned plan object (\`plan_version\: 1\` — waves · cost ceiling · permits · requirements) instead of the human preview. \`--output\` stays refused (an outputs export of a run that never executed would be a lie)]' \
@@ -401,6 +402,13 @@ _arguments "${_arguments_options[@]}" : \
 '--workflows=[The served registry\: the listener lists, schedules and ADMITS BY NAME (\`POST /v1/jobs {"workflow"\: "<name>"}\`) only the \`.nika\` workflows under this directory, named from the project root. A remote world rides the snapshot \`nika check <file> --json --sdk-snapshot\` prints. Requires \`--bind\`]:DIR:_files' \
 '--token-file=[Owner-only Bearer file (32–512 visible ASCII bytes, mode 0600). Never argv. Mint\: umask 077 && openssl rand -hex 24 > .nika/serve.token && chmod 600 .nika/serve.token]:FILE:_files' \
 '--state-root=[Durable job-state root. Defaults to \`<cwd>/.nika/serve\`]:DIR:_files' \
+'--authoring-model=[Seat native authoring on POST /v1/compile generation 2 with this direct provider model (\`provider/name\`); each caller still opts in (\`cognition\: "explicitProvider"\`). Its key and endpoint are read from the environment now, never per request. Requires \`--bind\`]:PROVIDER/NAME:_default' \
+'--authoring-max-tokens=[Output tokens per call (1..=32768, default 8192); a caller may only narrow it]:N:_default' \
+'--authoring-timeout=[Seconds per logical call (1..=600, default 120); the transport may resend one after a 429, 503 or 529 inside it, the compiler never repeats it]:SECONDS:_default' \
+'--authoring-deadline=[Seconds per request (1..=3600, default 300)\: the work stops and the request answers 408]:SECONDS:_default' \
+'--authoring-repairs=[Repair rounds per request (0..=5, default 3)\: at most 1 + N logical calls]:N:_default' \
+'--knowledge=[A Foundry knowledge snapshot directory, verified and pinned at start; the seat reads the pack composed for each request'\''s intent]:DIR:_files' \
+'--knowledge-exclude=[A corpus whose examples the knowledge door never recalls]:CORPUS:_default' \
 '--color=[When to colour the output (auto = TTY + \`TERM != dumb\` · honours \`CLICOLOR_FORCE\` · \`NO_COLOR\` · \`CLICOLOR=0\` in that order)]:COLOR:((always\:"Force colour on (pagers accepting escapes · captured demos)"
 never\:"Force colour off (the \`--no-color\` flags fold here)"
 auto\:"Resolve from the environment chain + TTY (the default)"))' \
@@ -719,10 +727,22 @@ auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
 ;;
 (compile)
 _arguments "${_arguments_options[@]}" : \
+'()-o+[Explicit destination for edit mode (or create without a positional destination)]:OUTPUT:_default' \
 '()--output=[Explicit destination for edit mode (or create without a positional destination)]:OUTPUT:_default' \
-'()--base=[Explicit accepted source for a conservative edit]:BASE:_default' \
+'--base=[Explicit accepted source for a conservative edit]:BASE:_default' \
 '--change=[Supported edit\: \`Set const.NAME to JSON_LITERAL\`]:CHANGE:_default' \
 '*--answer=[Answer a stable question\: \`KEY=JSON_LITERAL\` (repeatable)]:ANSWERS:_default' \
+'(--list)--authoring-model=[Explicitly permit one provider call to interpret free intent (wire generation 2)]:AUTHORING_MODEL:_default' \
+'--authoring-max-tokens=[Maximum authoring output tokens; requires explicit authoring model]:AUTHORING_MAX_TOKENS:_default' \
+'--authoring-timeout=[Timeout of each authoring call in seconds (the private plan'\''s and every native call alike)\: 120 by default, 300 for a harness seat, at most 600; a call is never retried]:AUTHORING_TIMEOUT:_default' \
+'--hot-policy=[HOT admission contract\: strict (default), legacy (pre-refactor, ablation) or off (never HOT for prose)]:HOT_POLICY:(strict legacy off)' \
+'--authoring-samples=[Independent COLD proposals to compare (1..=5); each is one call. Requires the authoring model]:AUTHORING_SAMPLES:_default' \
+'--authoring-strategy=[When the seat writes the candidate itself (a native \`.nika\` judged by the parser, the Check and the fidelity laws)\: \`escalate\` (default) after the private plan fails a human, \`only\` straight away, \`sketch\` (structure first\: the seat sketches tasks, edges and gates, then fills typed holes, the compiler emits the file and derives the permits), \`off\` never. Requires the authoring model]:AUTHORING_STRATEGY:(escalate only sketch off)' \
+'--authoring-repairs=[Repair rounds a native candidate may buy from the compiler'\''s diagnostics (0..=5, default 3)]:AUTHORING_REPAIRS:_default' \
+'--knowledge=[A knowledge snapshot directory (manifest.json · one JSONL per kind · relations.jsonl)\: the seat reads the pack composed for this intent beside the card; the provenance names the snapshot. \`NIKA_KNOWLEDGE\` in the environment names one when the flag is absent]:KNOWLEDGE:_files' \
+'--knowledge-exclude=[A corpus whose examples the knowledge door never recalls (a benchmark'\''s own), for the snapshot \`--knowledge\` or \`NIKA_KNOWLEDGE\` names; refused when neither names one. \`NIKA_KNOWLEDGE_EXCLUDE\` in the environment names one when the flag is absent]:KNOWLEDGE_EXCLUDE:_default' \
+'(--knowledge)--knowledge-pack=[A pack another builder composed for THIS intent (JSON\: \`identity\` · \`selection\` · \`references\: \[{kind, id, text}\]\` · \`repairs\: {code\: \[strategy\]}\`)\: it enters the door as composed, identity and selection recorded verbatim, and wins over \`--knowledge\`. \`NIKA_KNOWLEDGE_PACK\` in the environment names one when the flag is absent]:KNOWLEDGE_PACK:_files' \
+'(--base --list)--decision-model=[Explicitly seat one bounded-decision capability (\`typesafe/jev-1.13.0\` or \`provider/name\`) for finite ambiguities]:DECISION_MODEL:_default' \
 '--color=[When to colour the output (auto = TTY + \`TERM != dumb\` · honours \`CLICOLOR_FORCE\` · \`NO_COLOR\` · \`CLICOLOR=0\` in that order)]:COLOR:((always\:"Force colour on (pagers accepting escapes · captured demos)"
 never\:"Force colour off (the \`--no-color\` flags fold here)"
 auto\:"Resolve from the environment chain + TTY (the default)"))' \
@@ -730,13 +750,14 @@ auto\:"Resolve from the environment chain + TTY (the default)"))' \
 never\:"Force hyperlinks off"
 auto\:"TTY + \`TERM != dumb\` — never to pipes (the default)"))' \
 '--force[Replace the explicitly named destination]' \
+'(--base --list)--fresh[Ignore the plan recorded for this intent (\`.nika/compile/<sha256>.plan.json\`) and read or sample it again. An answer round otherwise replays that plan\: zero provider calls]' \
 '--json[Print the versioned structured result, including incomplete questions]' \
-'(--output --base --answer)--list[List exact skeleton names without authoring or writing]' \
+'(-o --output --base --answer)--list[List exact skeleton names without authoring or writing]' \
 '--ascii[Force the ASCII glyph twins everywhere (CI logs · legacy terminals) — colour stays; \`--plain\` is the full sober umbrella]' \
 '--plain[The sober umbrella — one flag for scripts, CI and transcripts\: colour off · ASCII glyphs · hyperlinks off · no animation (\`run\` renders its plain storyboard). The same result as \`--color never --hyperlink never\` plus every verb'\''s \`--ascii\`/\`--no-progress\`]' \
 '-h[Print help (see more with '\''--help'\'')]' \
 '--help[Print help (see more with '\''--help'\'')]' \
-'::intent -- Exact skeleton name or hello; unsupported words remain incomplete:_default' \
+'::intent -- Exact skeleton, hello, or bounded support intent; unknown work remains incomplete:_default' \
 '::dest -- Write a Ready candidate here; omitted means preview only:_default' \
 && ret=0
 ;;
@@ -1604,7 +1625,7 @@ _nika_commands() {
 'spec:The embedded spec identity (\`--canon\` prints the SSOT)' \
 'catalog:The embedded provider/model catalog (models · capabilities · env vars)' \
 'try:See a canonical workflow WORK — offline by default (the mock rehearsal · zero keys · zero flags), nothing written, nothing owned. Bare \`nika try\` lists what there is to see' \
-'compile:Compile an exact skeleton or conservative edit into a reviewable workflow. No destination\: preview only; unknown intent stays incomplete' \
+'compile:Compile a skeleton, bounded support intent or conservative edit into a reviewable workflow. No destination\: preview only; unknown intent stays incomplete' \
 'completions:Generate shell completions (bash · zsh · fish · elvish · powershell)' \
 'trace:Read the flight recorder (replay or summarize a run)' \
 'guard:The hook'\''s judge (hidden — the wired \`guard-run.sh\` shim calls it, agents never type it)\: read a host hook payload (\`--stdin\`) or one command line (\`--command\`), find every effective \`nika run\`, audit the EXACT file in-process, and answer the hook protocol. P0-7 + P0-15\: a red file or a priced model without \`--max-cost-usd\` is denied; an unjudgeable run is a VISIBLE \`guard_unavailable\`, never a silent allow. The run belongs to the human — guard JUDGES, it never executes' \
@@ -1731,7 +1752,7 @@ _nika__subcmd__help_commands() {
 'spec:The embedded spec identity (\`--canon\` prints the SSOT)' \
 'catalog:The embedded provider/model catalog (models · capabilities · env vars)' \
 'try:See a canonical workflow WORK — offline by default (the mock rehearsal · zero keys · zero flags), nothing written, nothing owned. Bare \`nika try\` lists what there is to see' \
-'compile:Compile an exact skeleton or conservative edit into a reviewable workflow. No destination\: preview only; unknown intent stays incomplete' \
+'compile:Compile a skeleton, bounded support intent or conservative edit into a reviewable workflow. No destination\: preview only; unknown intent stays incomplete' \
 'completions:Generate shell completions (bash · zsh · fish · elvish · powershell)' \
 'trace:Read the flight recorder (replay or summarize a run)' \
 'guard:The hook'\''s judge (hidden — the wired \`guard-run.sh\` shim calls it, agents never type it)\: read a host hook payload (\`--stdin\`) or one command line (\`--command\`), find every effective \`nika run\`, audit the EXACT file in-process, and answer the hook protocol. P0-7 + P0-15\: a red file or a priced model without \`--max-cost-usd\` is denied; an unjudgeable run is a VISIBLE \`guard_unavailable\`, never a silent allow. The run belongs to the human — guard JUDGES, it never executes' \
