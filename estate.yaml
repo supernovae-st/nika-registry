@@ -106,7 +106,7 @@ files:
   evidence: "prose policy pack (the 8 laws) · no generation marker · gates cite it, nothing writes it"
 - path: "README.md"
   class: authored
-  sha256: 909e855f7a3bb69ed38fc5108389d93b68587d8f2c3ac4f6a3a61c21a33a4061
+  sha256: 49f33ccdc60ce7ddd3475c610ca8a6f651c2073178d6d70c58250e8118bded7b
   evidence: "prose entry surface · no generation marker · it names the generated projections (CATALOG.md · certs/ · index.json · llms.txt · badges/) without being one"
 - path: "SPEC_PIN"
   class: authored-pin
@@ -1695,7 +1695,7 @@ patterns:
 - glob: "**"
   class: authored
   match_count: 12
-  aggregate_sha256: e1b1fdb1c919a27cb73eb15740cd6d92161fb19397197bd08108a283e885a0f5
+  aggregate_sha256: bf1694f9b5d8f96fba3680776f120630633eb4b55b91b9fcc2e8cd93b6d19e21
   evidence: "no generation marker or known role found"
   note: "unverified-default"
 unverified:

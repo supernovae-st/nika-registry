@@ -1,18 +1,10 @@
 {
   "selftest": {
-    "inject_path": "README.md",
+    "inject_path": "scripts/test_suffix_ratchet.py",
     "new_file": "scripts/_ratchet-injection.md",
     "new_prefix_file": "registry/workflows/supernovae-st/_ratchet-injection.toml"
   },
   "exceptions": [
-    {
-      "path": "README.md",
-      "category": "historical",
-      "reason": "verbatim 0.1.0 get.py / cache-basename transcript against spec 699ebb08 artifacts",
-      "owner": "nika-registry",
-      "count": 5,
-      "lines_sha256": "sha256:650819670105f7ae9f00467f1bec53a939a1d327880141b263bb521258cc9e4b"
-    },
     {
       "path": "estate.yaml",
       "category": "historical",
