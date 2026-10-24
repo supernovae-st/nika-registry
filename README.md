@@ -34,7 +34,7 @@
          alt="nika check audits a meeting-notes workflow before anything runs, then nika run executes it on a local model and writes the owners, tasks and due dates it found" width="960">
   </a>
 </p>
-<p align="center"><sub>Audit first, then run: what a workflow from this registry goes through on your machine. Notice the audit reaching <i>run ready</i> before the run starts, then the owners, tasks and due dates the run writes. The audit is the real <code>nika check</code> (nika 0.121.0); the run is a captured local-model run (<code>ollama/llama3.2:3b</code>).</sub></p>
+<p align="center"><sub>Audit first, then run: what a workflow from this registry goes through on your machine. Notice the audit reaching <i>run ready</i> before the run starts, then the owners, tasks and due dates the run writes. The audit is the real <code>nika check</code> and the run is a captured local-model run (<code>ollama/llama3.2:3b</code>); the clip's footer names the engine release each one was captured with.</sub></p>
 
 ## What is Nika?
 
@@ -158,7 +158,7 @@ then a rehearsal and its record.**
          alt="The nika try gallery: the showcase jobs built into the engine, from bookmark-triage to transcript-shownotes" width="860">
   </a>
 </p>
-<p align="center"><sub><b>Start from a job.</b> The same showcase jobs are built into the engine: <code>nika try</code> lists them. Notice each card's name, what the job does and the verbs it uses. The names, verbs and lines are the real <code>nika try</code> listing (nika 0.121.0).</sub></p>
+<p align="center"><sub><b>Start from a job.</b> The same showcase jobs are built into the engine: <code>nika try</code> lists them. Notice each card's name, what the job does and the verbs it uses. The names, verbs and lines are the real <code>nika try</code> listing, and the clip's footer names the engine release it comes from.</sub></p>
 
 **Watch the check refuse a task that reaches outside its permits.**
 
@@ -168,7 +168,7 @@ then a rehearsal and its record.**
          alt="A workflow's permits drawn as a map of what each task may reach, with the audit card beside it: the check catches the task that reaches outside them, and the widened boundary passes" width="860">
   </a>
 </p>
-<p align="center"><sub><b>See what it may touch.</b> A workflow's <code>permits:</code> drawn as a map, and the escape the check catches. Notice the one task that fetches from a host outside the declared boundary, refused before anything runs (<code>NIKA-SEC-004</code>), then the widened boundary passing. The check output is captured from the real CLI (nika 0.121.0); the map is drawn from the file.</sub></p>
+<p align="center"><sub><b>See what it may touch.</b> A workflow's <code>permits:</code> drawn as a map, and the escape the check catches. Notice the one task that fetches from a host outside the declared boundary, refused before anything runs (<code>NIKA-SEC-004</code>), then the widened boundary passing. The check output is captured from the real CLI, whose release the clip's footer names; the map is drawn from the file.</sub></p>
 
 ▶ [Caught before it runs: watch `nika check` find two defects, then pass the fixed file](https://raw.githubusercontent.com/supernovae-st/nika/main/media/gifs/static-check-fix.optimized.gif)
 
