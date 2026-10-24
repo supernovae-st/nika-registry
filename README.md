@@ -34,7 +34,7 @@
          alt="nika check audits a meeting-notes workflow before anything runs, then nika run executes it on a local model and writes the owners, tasks and due dates it found" width="960">
   </a>
 </p>
-<p align="center"><sub>Audit first, then run: what a workflow from this registry goes through on your machine. Notice the audit reaching <i>run ready</i> before the run starts, then the owners, tasks and due dates the run writes. The audit is the real <code>nika check</code> (nika 0.121.0); the run is a captured local-model run (<code>ollama/llama3.2:3b</code>).</sub></p>
+<p align="center"><sub>Audit first, then run: what a workflow from this registry goes through on your machine. Notice the audit reaching <i>run ready</i> before the run starts, then the owners, tasks and due dates the run writes. The audit is the real <code>nika check</code> and the run is a captured local-model run (<code>ollama/llama3.2:3b</code>); the clip's footer names the release the check was captured with.</sub></p>
 
 ## What is Nika?
 
@@ -81,7 +81,10 @@ brew install supernovae-st/tap/nika
 **2 · Get a shared workflow by name.** The helper script finds the entry,
 checks the advisories, fetches the pinned bytes from the author's repository,
 compares their sha256 with the entry, then audits the file with your `nika`.
-It never runs the workflow. It needs Python 3.11 or newer.
+It never runs the workflow. It needs Python 3.11 or newer with the PyYAML
+package, which reads the certificate. If `python3 -c 'import yaml'` fails,
+install PyYAML in a virtual environment first:
+`python3 -m venv .venv && . .venv/bin/activate && pip install pyyaml`.
 
 ```sh
 git clone https://github.com/supernovae-st/nika-registry
@@ -112,17 +115,25 @@ nika run meeting-actions.nika --model mock/echo
 The items land in `out/action-items.json`, and the run leaves a trace under
 `.nika/traces/` that `nika trace verify` checks.
 
-<!-- motion: a registry coordinate fetched, re-hashed, re-checked and run -->
+**Watch the three steps as they run: the helper takes a workflow by name,
+then a rehearsal and its record.**
+
+<p align="center">
+  <a href="media/helper-pull.gif">
+    <img src="media/helper-pull.gif"
+         alt="git clone of the registry, then get.py meeting-actions fetches the pinned file, matches its sha256 and audits it clean; the workflow then runs four tasks on mock/echo and nika trace verify reads back an intact chain" width="960">
+  </a>
+</p>
+<p align="center"><sub>Notice the <code>audit</code> line before anything runs, then the run's chain head, read back by <code>nika trace verify</code>. Recorded with the released nika 0.123.0 in a fresh home, against the live registry; every line is the helper's or the engine's own output (<a href="scripts/media/helper-pull.tape">helper-pull.tape</a>).</sub></p>
 
 > [!IMPORTANT]
-> **By coordinate, straight from the engine: blocked for now.** `nika check`
-> and `nika run` accept a coordinate such as
-> `registry:supernovae-st/meeting-actions@0.2.0` and do the fetch, the hash
-> check and the audit themselves. This registry's `index.json` now uses schema
-> 2, and engine releases up to v0.121.0 read schema 1 only, so a first fetch
-> stops with `NIKA-REG-005` and writes nothing. Until an engine release reads
-> schema 2, use the helper as above. A coordinate your engine had already
-> cached still works, offline.
+> **By coordinate, straight from the engine: refused by released engines.**
+> `nika check` and `nika run` accept a coordinate such as
+> `registry:supernovae-st/meeting-actions@0.2.0`. Every released engine,
+> including the 0.123.0 reference release, reads index schema 1 only, and this
+> registry's `index.json` uses schema 2, so a first fetch stops with
+> `NIKA-REG-005` and writes nothing. Use the helper as above, then pass the
+> file it wrote to `nika check` and `nika run`.
 
 ## What you get
 
@@ -147,7 +158,7 @@ The items land in `out/action-items.json`, and the run leaves a trace under
          alt="The nika try gallery: the showcase jobs built into the engine, from bookmark-triage to transcript-shownotes" width="860">
   </a>
 </p>
-<p align="center"><sub><b>Start from a job.</b> The same showcase jobs are built into the engine: <code>nika try</code> lists them. Notice each card's name, what the job does and the verbs it uses. The names, verbs and lines are the real <code>nika try</code> listing (nika 0.121.0).</sub></p>
+<p align="center"><sub><b>Start from a job.</b> The same showcase jobs are built into the engine: <code>nika try</code> lists them. Notice each card's name, what the job does and the verbs it uses. The names, verbs and lines are the real <code>nika try</code> listing, and the clip's footer names the engine release it comes from.</sub></p>
 
 **Watch the check refuse a task that reaches outside its permits.**
 
@@ -157,7 +168,7 @@ The items land in `out/action-items.json`, and the run leaves a trace under
          alt="A workflow's permits drawn as a map of what each task may reach, with the audit card beside it: the check catches the task that reaches outside them, and the widened boundary passes" width="860">
   </a>
 </p>
-<p align="center"><sub><b>See what it may touch.</b> A workflow's <code>permits:</code> drawn as a map, and the escape the check catches. Notice the one task that fetches from a host outside the declared boundary, refused before anything runs (<code>NIKA-SEC-004</code>), then the widened boundary passing. The check output is captured from the real CLI (nika 0.121.0); the map is drawn from the file.</sub></p>
+<p align="center"><sub><b>See what it may touch.</b> A workflow's <code>permits:</code> drawn as a map, and the escape the check catches. Notice the one task that fetches from a host outside the declared boundary, refused before anything runs (<code>NIKA-SEC-004</code>), then the widened boundary passing. The check output is captured from the real CLI, whose release the clip's footer names; the map is drawn from the file.</sub></p>
 
 ▶ [Caught before it runs: watch `nika check` find two defects, then pass the fixed file](https://raw.githubusercontent.com/supernovae-st/nika/main/media/gifs/static-check-fix.optimized.gif)
 
@@ -199,8 +210,8 @@ A few to start with, all published by `supernovae-st` at version `0.2.0`:
 | Way | What you type | Today |
 |---|---|---|
 | The helper script | `python3 scripts/get.py <name>` | Works: fetch, hash check and audit; it never runs the workflow |
-| The engine, by coordinate | `nika run registry:<owner>/<name>@<version>` | Blocked on a first fetch (see the note above) |
-| Inside your own workflow | `invoke: { workflow: "registry:<owner>/<name>@<version>" }` | `nika check` binds it; `nika run` refuses it for now |
+| The engine, by coordinate | `nika run registry:<owner>/<name>@<version>` | Refused by released engines: `NIKA-REG-005` on the first fetch (see the note above) |
+| Inside your own workflow | `invoke: { workflow: "registry:<owner>/<name>@<version>" }` | Refused by `nika check` (`NIKA-COMP-001`): fetch the file with the helper and invoke it by path |
 | Agents and tools | one fetch of [`index.json`](index.json) | Works |
 
 <details>
@@ -213,8 +224,9 @@ A few to start with, all published by `supernovae-st` at version `0.2.0`:
   advisory, on a sha256 mismatch, or when a file of the same name already
   exists where you run it.
 - It writes the file and stops. The `cert` line is what the registry's
-  certifier found with its pinned engine; the `audit` line is what your engine
-  says today. When they disagree, trust your audit.
+  certifier found with its pinned engine (named at the top of
+  [CATALOG.md](CATALOG.md)); the `audit` line is what your engine says. When
+  they disagree, trust your audit.
 - `NIKA_BIN` picks the engine used for the audit (default: the `nika` on your
   PATH). `OFFLINE_ROOT` reads sources from local checkouts
   (`<OFFLINE_ROOT>/<repository-name>`), for mirrors and machines without a
@@ -223,8 +235,13 @@ A few to start with, all published by `supernovae-st` at version `0.2.0`:
 </details>
 
 <details>
-<summary><b>The engine, by coordinate, in detail</b></summary>
+<summary><b>The engine, by coordinate: what the contract specifies</b></summary>
 
+- Released engines, the 0.123.0 reference release included, stop at the
+  index check (`NIKA-REG-005`) before any of the steps below. The steps
+  describe the
+  [registry-v0.1](https://github.com/supernovae-st/nika-spec/blob/main/registry/registry-v0.1.md)
+  contract and the engine's refusal codes, for mirrors and other clients.
 - `nika check` and `nika run` take `registry:<owner>/<name>`, with an
   optional `@<version>`. The owner is required.
 - Without a version, the newest one resolves on the first call and your
@@ -241,7 +258,7 @@ A few to start with, all published by `supernovae-st` at version `0.2.0`:
   later use re-hashes it first and works offline; a copy that changed refuses
   with `NIKA-REG-004` (delete it and run again).
 - A workflow's `permits:` govern what it does when it runs, not the fetch.
-- Entries carry no signature yet, so the engine reports them at the
+- Entries carry no signature, so the engine reports them at the
   `unprovenanced` tier: "unsigned entry (v0.1 digest floor)". An operator can
   require a higher tier in `~/.nika/registry/policy.toml`; below it, the
   engine refuses with `NIKA-REG-008`.
@@ -251,10 +268,14 @@ A few to start with, all published by `supernovae-st` at version `0.2.0`:
 <details>
 <summary><b>Inside your own workflow (composition)</b></summary>
 
-A task can invoke a registry entry as a child workflow. Declare in the parent
-the boundary the child needs: its certificate's `permits_boundary` (in
-`certs/<owner>/<name>/<version>.json`) is the starting point, plus any path it
-lists for review, here the transcript the child reads.
+A task can invoke another workflow as a child. Released engines refuse a
+registry coordinate in that place: `nika check` stops with `NIKA-COMP-001`
+(`registry child execution lands with the registry lane; run a filesystem
+child today`). So take the file with the helper, as in the quick start, and
+invoke it by path. Declare in the parent the boundary the child needs: its
+certificate's `permits_boundary` (in `certs/<owner>/<name>/<version>.json`)
+is the starting point, plus any path it lists for review, here the
+transcript the child reads.
 
 ```yaml
 nika: compose-meeting-actions
@@ -266,20 +287,18 @@ permits:
 tasks:
   actions:
     invoke:
-      workflow: "registry:supernovae-st/meeting-actions@0.2.0"
+      workflow: "meeting-actions.nika"
 outputs:
   actions: ${{ tasks.actions.output }}
 ```
 
-- `nika check` binds the coordinate without opening the child. It must carry
-  an `@version` (`NIKA-COMP-001` otherwise) and must not loop back. Because
-  the child stays closed, the check reports the boundary you declared for it
-  as unused (`NIKA-DRIFT-001` hints), and a `--model` given to the parent does
-  not reach the child, which keeps its own model.
-- `nika run` refuses such a parent for now, before anything executes:
-  `registry dependency … has no atomic owned-byte view`. To compose today,
-  take the file with the helper and invoke it by path
-  (`workflow: "meeting-actions.nika"`).
+- With `meeting-actions.nika` next to it, `nika check` opens the child and
+  ends with `run ready ✔`.
+- Keep the parent's grants even though the check lists them as unused
+  (`NIKA-DRIFT-001` hints): without them it refuses the child, because the
+  child's writes and tools must fit the parent's boundary (`NIKA-COMP-002`).
+- A `--model` given to the parent does not reach the child, which keeps its
+  own model.
 
 </details>
 
@@ -501,7 +520,7 @@ gate re-proves the heal like any other pull request.
 | 🦋 | [nika](https://github.com/supernovae-st/nika) | The engine and CLI: write, check, run and verify AI workflows |
 | 📖 | [nika-docs](https://github.com/supernovae-st/nika-docs) | The documentation, live at [docs.nika.sh](https://docs.nika.sh) |
 | 📜 | [nika-spec](https://github.com/supernovae-st/nika-spec) | The language specification and the suite that proves an engine follows it |
-| 🧩 | [nika-vscode](https://github.com/supernovae-st/nika-vscode) | The editor extension: your workflow as a live graph, errors as you type |
+| 🧩 | [nika-vscode](https://github.com/supernovae-st/nika-vscode) | The editor extension, frozen at 0.120 and not qualified with 0.123: use `nika lsp` and the JSON Schema |
 | 🟦 | [nika-client](https://github.com/supernovae-st/nika-client) | Run and verify workflows from TypeScript |
 | ✅ | [nika-action](https://github.com/supernovae-st/nika-action) | A GitHub Action that posts a `nika check` verdict on your pull requests |
 | 🚀 | [nika-actions-starter](https://github.com/supernovae-st/nika-actions-starter) | A ready template: workflows, editor setup and CI from the first push |

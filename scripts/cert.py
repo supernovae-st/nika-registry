@@ -188,7 +188,7 @@ def render_catalog(rows: list) -> str:
         "",
         "Install: read the entry under `registry/`, fetch the pinned bytes, verify",
         "the sha256, run `nika check` yourself — the cert is re-derivable, never",
-        "trusted. `nika add` (engine roadmap) automates exactly these steps.",
+        "trusted. `scripts/get.py <name>` automates exactly these steps.",
         "",
     ]
     return "\n".join(lines)
