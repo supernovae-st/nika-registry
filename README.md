@@ -115,7 +115,16 @@ nika run meeting-actions.nika --model mock/echo
 The items land in `out/action-items.json`, and the run leaves a trace under
 `.nika/traces/` that `nika trace verify` checks.
 
-<!-- motion: a registry coordinate fetched, re-hashed, re-checked and run -->
+**Watch the three steps as they run: the helper takes a workflow by name,
+then a rehearsal and its record.**
+
+<p align="center">
+  <a href="media/helper-pull.gif">
+    <img src="media/helper-pull.gif"
+         alt="git clone of the registry, then get.py meeting-actions fetches the pinned file, matches its sha256 and audits it clean; the workflow then runs four tasks on mock/echo and nika trace verify reads back an intact chain" width="960">
+  </a>
+</p>
+<p align="center"><sub>Notice the <code>audit</code> line before anything runs, then the run's chain head, read back by <code>nika trace verify</code>. Recorded with the released nika 0.123.0 in a fresh home, against the live registry; every line is the helper's or the engine's own output (<a href="scripts/media/helper-pull.tape">helper-pull.tape</a>).</sub></p>
 
 > [!IMPORTANT]
 > **By coordinate, straight from the engine: refused by released engines.**
