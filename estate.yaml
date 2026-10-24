@@ -106,7 +106,7 @@ files:
   evidence: "prose policy pack (the 8 laws) · no generation marker · gates cite it, nothing writes it"
 - path: "README.md"
   class: authored
-  sha256: d15877bde18957906bf0f51fcb02d71fbe06d08de1e4351a6a9ecb6d7cf84909
+  sha256: e97d645f1f5a4a982cd4a844b40353bad6ba2065f76593d59c44696b37f70303
   evidence: "prose entry surface · no generation marker · it names the generated projections (CATALOG.md · certs/ · index.json · llms.txt · badges/) without being one"
 - path: "SPEC_PIN"
   class: authored-pin
