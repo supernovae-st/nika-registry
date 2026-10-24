@@ -34,7 +34,7 @@
          alt="nika check audits a meeting-notes workflow before anything runs, then nika run executes it on a local model and writes the owners, tasks and due dates it found" width="960">
   </a>
 </p>
-<p align="center"><sub>Audit first, then run: what a workflow from this registry goes through on your machine. Notice the audit reaching <i>run ready</i> before the run starts, then the owners, tasks and due dates the run writes. The audit is the real <code>nika check</code> and the run is a captured local-model run (<code>ollama/llama3.2:3b</code>); the clip's footer names the engine release each one was captured with.</sub></p>
+<p align="center"><sub>Audit first, then run: what a workflow from this registry goes through on your machine. Notice the audit reaching <i>run ready</i> before the run starts, then the owners, tasks and due dates the run writes. The audit is the real <code>nika check</code> and the run is a captured local-model run (<code>ollama/llama3.2:3b</code>); the clip's footer names the release the check was captured with.</sub></p>
 
 ## What is Nika?
 
