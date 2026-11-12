@@ -2444,7 +2444,7 @@ _nika() {
             return 0
             ;;
         nika__subcmd__serve)
-            opts="-h --once --dry --now --until --bind --workflows --allow-remote --token-file --state-root --authoring-model --authoring-max-tokens --authoring-timeout --authoring-deadline --authoring-repairs --knowledge --knowledge-exclude --no-knowledge --authoring-reasoning --decision-model --authoring-max-calls --cost-review --run-cost-ceiling --sessions --color --hyperlink --ascii --plain --help"
+            opts="-h --once --dry --now --until --bind --workflows --allow-remote --token-file --state-root --authoring-model --authoring-max-tokens --authoring-timeout --authoring-deadline --authoring-repairs --knowledge --knowledge-exclude --no-knowledge --authoring-reasoning --decision-model --authoring-max-calls --cost-review --run-cost-ceiling --cost-policy --sessions --color --hyperlink --ascii --plain --help"
             if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
                 COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
                 return 0
@@ -2515,6 +2515,10 @@ _nika() {
                     return 0
                     ;;
                 --run-cost-ceiling)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --cost-policy)
                     COMPREPLY=($(compgen -f "${cur}"))
                     return 0
                     ;;
